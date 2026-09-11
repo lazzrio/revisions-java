@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>POO Java — Ing2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#f4efe8; --surface:#ffffff; --surface2:#faf5ed; --ink:#241a12; --muted:#6b5a49;
+  --accent:#b45a1e; --accent-soft:#f0dcc4; --accent2:#245b6e; --teal-soft:#d4e5eb;
+  --line:#e5dbcc; --line2:#efe6d8;
+  --good:#2f7c4f; --good-soft:#d7ecdd; --bad:#b8382a; --bad-soft:#f4dcd7; --warn:#a06616;
+  --ring:#b45a1e;
+  --shadow:0 1px 2px rgba(36,26,18,.05),0 6px 20px rgba(36,26,18,.07);
+  --f-disp:'Archivo',system-ui,sans-serif;
+  --f-body:'IBM Plex Sans',system-ui,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#161211; --surface:#1e1815; --surface2:#181311; --ink:#efe6d8; --muted:#a1917d;
+  --accent:#e0864a; --accent-soft:#3d2416; --accent2:#5aa2b8; --teal-soft:#1a2e35;
+  --line:#302620; --line2:#241d18;
+  --good:#5cbf82; --good-soft:#152a1e; --bad:#e77d70; --bad-soft:#301813; --warn:#e0a566;
+  --ring:#e0864a;
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 8px 24px rgba(0,0,0,.4);
+}}
+:root[data-theme="dark"]{
+  --bg:#161211; --surface:#1e1815; --surface2:#181311; --ink:#efe6d8; --muted:#a1917d;
+  --accent:#e0864a; --accent-soft:#3d2416; --accent2:#5aa2b8; --teal-soft:#1a2e35;
+  --line:#302620; --line2:#241d18;
+  --good:#5cbf82; --good-soft:#152a1e; --bad:#e77d70; --bad-soft:#301813; --warn:#e0a566;
+  --ring:#e0864a;
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 8px 24px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+h1,h2,h3,h4{font-family:var(--f-disp);font-weight:700;line-height:1.15;text-wrap:balance;margin:0}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+code{font-family:var(--f-mono);font-size:.92em;background:var(--surface2);padding:1px 6px;border-radius:4px}
+
+/* TOP BAR */
+.topbar{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--surface) 92%,transparent);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:11px 20px}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--f-disp);font-weight:800;letter-spacing:-.02em;
+  font-size:16px;white-space:nowrap;color:var(--ink);background:none;border:0;cursor:pointer;padding:0}
+.brand:hover{text-decoration:none}
+.mug{width:32px;height:32px;border-radius:8px;background:
+  linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 55%,#000));
+  display:grid;place-items:center;color:#fff;font-family:var(--f-disp);font-weight:800;font-size:15px;
+  box-shadow:inset 0 0 0 2px color-mix(in srgb,#fff 22%,transparent)}
+.nav{display:flex;gap:2px;margin-left:auto;flex-wrap:wrap}
+.nav button{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.02em;color:var(--muted);
+  background:none;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;transition:.15s;white-space:nowrap}
+.nav button:hover{color:var(--ink);background:var(--surface2)}
+.nav button.active{color:var(--accent);background:var(--accent-soft)}
+.theme-btn{border:1px solid var(--line);background:var(--surface);color:var(--muted);width:36px;height:36px;
+  border-radius:8px;cursor:pointer;display:grid;place-items:center;flex:none}
+.theme-btn:hover{color:var(--ink)}
+.theme-btn svg{width:16px;height:16px}
+
+/* LAYOUT */
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+main{min-height:70vh;padding-bottom:80px}
+.view{display:none;animation:fade .3s ease}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,var(--surface2),var(--bg))}
+.hero-grid{position:absolute;inset:0;opacity:.45;
+  background-image:linear-gradient(var(--line2) 1px,transparent 1px),linear-gradient(90deg,var(--line2) 1px,transparent 1px);
+  background-size:34px 34px;-webkit-mask-image:radial-gradient(ellipse 80% 70% at 75% 0%,#000,transparent);
+  mask-image:radial-gradient(ellipse 80% 70% at 75% 0%,#000,transparent)}
+.hero-in{position:relative;max-width:1240px;margin:0 auto;padding:56px 20px 48px;
+  display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(32px,5vw,56px);font-weight:800;letter-spacing:-.025em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lead{font-size:17px;color:var(--muted);max-width:56ch;margin:16px 0 24px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{font-family:var(--f-disp);font-weight:600;font-size:14px;padding:11px 18px;border-radius:9px;
+  border:1px solid transparent;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{filter:brightness(1.07);text-decoration:none}
+.btn-ghost{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.hero-meta{display:flex;gap:24px;margin-top:26px;flex-wrap:wrap}
+.hero-meta .n{font-size:24px;font-weight:600;color:var(--ink);font-family:var(--f-disp)}
+.hero-meta .l{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-family:var(--f-mono)}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:var(--shadow)}
+
+/* WEEKS OVERVIEW */
+.weeks{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:32px}
+.wk{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;text-align:left;cursor:pointer;font:inherit;color:inherit;transition:.15s;position:relative;overflow:hidden}
+.wk:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow)}
+.wk .num{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.wk .t{font-family:var(--f-disp);font-weight:700;font-size:17px;margin-top:6px;color:var(--ink)}
+.wk .d{font-size:13.5px;color:var(--muted);margin-top:6px;line-height:1.5}
+.wk.locked{opacity:.55;cursor:not-allowed}
+.wk.locked:hover{border-color:var(--line);transform:none;box-shadow:none}
+.wk .tag{position:absolute;top:12px;right:14px;font-family:var(--f-mono);font-size:10.5px;padding:2px 8px;border-radius:12px;background:var(--accent-soft);color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+.wk.locked .tag{background:var(--surface2);color:var(--muted)}
+
+/* SECTIONS */
+section{padding:48px 0;border-bottom:1px solid var(--line2)}
+section:last-child{border-bottom:0}
+.section-head{margin-bottom:24px}
+.section-head h2{font-size:28px;font-weight:700}
+.section-head p{color:var(--muted);margin:8px 0 0;max-width:70ch}
+
+/* NOTION CARDS */
+.notions{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.notion{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px}
+.notion h3{font-size:15.5px;color:var(--accent);margin-bottom:8px;font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.06em}
+.notion p{margin:0;font-size:14.5px;color:var(--ink);line-height:1.55}
+.notion .example{font-family:var(--f-mono);font-size:12.5px;background:var(--surface2);border-radius:6px;padding:8px 10px;margin-top:10px;color:var(--muted);overflow-x:auto}
+
+/* TABLES */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table.tbl{width:100%;border-collapse:collapse;font-size:14px}
+table.tbl th,table.tbl td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line2)}
+table.tbl th{background:var(--surface2);font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+table.tbl tr:last-child td{border-bottom:0}
+table.tbl code{font-size:12.5px}
+
+/* CODE */
+pre.code{font-family:var(--f-mono);font-size:13px;line-height:1.55;background:#241a12;color:#efe6d8;padding:18px 20px;border-radius:10px;overflow-x:auto;border:1px solid transparent;margin:16px 0}
+:root[data-theme="dark"] pre.code,:root:not([data-theme="light"]) pre.code{background:#0d0906;border-color:var(--line)}
+pre.code .kw{color:#e0864a;font-weight:500}
+pre.code .cmt{color:#8a7a6a;font-style:italic}
+pre.code .str{color:#8bc482}
+pre.code .cls{color:#5aa2b8}
+pre.code .fn{color:#efd0a0}
+pre.code .num{color:#e0864a}
+
+/* PIECES CARD */
+.trap-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:16px}
+.trap{background:var(--bad-soft);border-left:3px solid var(--bad);padding:12px 14px;border-radius:6px;font-size:14px}
+.trap b{color:var(--bad);display:block;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+
+/* Q&A ACCORDION — réponses aux exercices officiels */
+.qa-intro{color:var(--muted);font-size:14px;margin-bottom:18px;max-width:70ch}
+.qa-list{display:flex;flex-direction:column;gap:10px}
+.qa-item{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;transition:border-color .15s}
+.qa-item.open{border-color:var(--accent)}
+.qa-q{width:100%;display:flex;align-items:flex-start;gap:14px;padding:16px 18px;background:none;border:0;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.qa-q:hover{background:var(--surface2)}
+.qa-num{font-family:var(--f-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:3px 10px;border-radius:12px;flex:none;white-space:nowrap;margin-top:1px}
+.qa-text{flex:1;font-weight:500;font-size:14.5px;line-height:1.5}
+.qa-chevron{flex:none;color:var(--muted);transition:transform .25s;font-size:11px;margin-top:4px}
+.qa-item.open .qa-chevron{transform:rotate(180deg);color:var(--accent)}
+.qa-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.qa-item.open .qa-a{max-height:3000px}
+.qa-a-in{padding:0 18px 18px 62px;font-size:14.5px;line-height:1.65;color:var(--ink)}
+.qa-a-in p{margin:0 0 10px}
+.qa-a-in p:last-child{margin-bottom:0}
+.qa-a-in pre.code{margin:10px 0;font-size:12.5px;padding:14px 16px}
+.qa-a-in code{font-size:13px}
+.qa-source{font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-bottom:10px;display:inline-block;background:var(--surface2);padding:2px 9px;border-radius:10px}
+
+.tip{background:var(--good-soft);border-left:3px solid var(--good);padding:12px 14px;border-radius:6px;font-size:14px;margin:12px 0}
+.tip b{color:var(--good);display:block;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+
+/* QCM */
+.qcm-wrap{max-width:760px;margin:0 auto}
+.qcm-progress{margin-bottom:22px}
+.qcm-progress .meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-family:var(--f-mono);letter-spacing:.08em;text-transform:uppercase;font-weight:500;margin-bottom:8px}
+.qcm-progress .bar{height:4px;background:var(--line);border-radius:2px;overflow:hidden}
+.qcm-progress .fill{height:100%;background:var(--accent);width:0;transition:width .35s}
+.qcm-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:32px 36px;box-shadow:var(--shadow)}
+.qcm-topic{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:12px}
+.qcm-q{font-family:var(--f-disp);font-size:20px;font-weight:600;line-height:1.4;margin-bottom:8px;text-wrap:balance}
+.qcm-answers{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.qcm-ans{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;background:var(--surface);border:1px solid var(--line);border-radius:8px;cursor:pointer;font:inherit;color:inherit;text-align:left;transition:.15s;font-size:14.5px}
+.qcm-ans:hover:not(:disabled){background:var(--surface2);border-color:var(--muted)}
+.qcm-ans:disabled{cursor:default}
+.qcm-ans .letter{font-family:var(--f-mono);font-weight:700;color:var(--muted);font-size:13px;min-width:18px;padding-top:2px}
+.qcm-ans.correct{background:var(--good-soft);border-color:var(--good)}
+.qcm-ans.correct .letter{color:var(--good)}
+.qcm-ans.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.qcm-ans.wrong .letter{color:var(--bad)}
+.qcm-ans.dim{opacity:.55}
+.qcm-fb{margin-top:18px;padding:14px 16px;border-radius:8px;border-left:3px solid var(--line);background:var(--surface2);font-size:14px;line-height:1.55;animation:sl .25s ease}
+.qcm-fb.good{border-left-color:var(--good)}
+.qcm-fb.bad{border-left-color:var(--bad)}
+.qcm-fb .lbl{display:block;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:6px;font-family:var(--f-mono)}
+.qcm-fb.good .lbl{color:var(--good)}
+.qcm-fb.bad .lbl{color:var(--bad)}
+@keyframes sl{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.qcm-actions{display:flex;justify-content:space-between;gap:10px;margin-top:20px;flex-wrap:wrap}
+.qcm-filter{display:flex;gap:8px;justify-content:center;margin-bottom:20px;flex-wrap:wrap}
+.qcm-filter button{font-family:var(--f-mono);font-size:12px;padding:6px 12px;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:20px;cursor:pointer}
+.qcm-filter button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.qcm-results{text-align:center}
+.qcm-results .score{font-family:var(--f-mono);font-size:56px;font-weight:700;color:var(--accent);margin:16px 0 6px;font-variant-numeric:tabular-nums}
+.qcm-results .score .tot{color:var(--muted);font-weight:400;font-size:28px}
+.qcm-results .verdict{color:var(--muted);margin-bottom:22px}
+.qcm-breakdown{border-top:1px solid var(--line);padding-top:20px;text-align:left}
+.review-item{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--line2);font-size:14px}
+.review-item:last-child{border-bottom:0}
+.review-item .num{font-family:var(--f-mono);color:var(--muted);font-size:12.5px}
+.review-item .mark{font-family:var(--f-mono);font-weight:700;font-size:13px}
+.review-item .mark.good{color:var(--good)}
+.review-item .mark.bad{color:var(--bad)}
+
+/* CHECKLIST */
+.checklist{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.checklist li{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-size:14.5px;display:flex;align-items:center;gap:12px}
+.checklist li::before{content:"";width:16px;height:16px;border:1.5px solid var(--muted);border-radius:4px;flex:none}
+
+/* FOOTER */
+footer{border-top:1px solid var(--line);background:var(--surface2);padding:32px 20px;color:var(--muted);font-size:13.5px;text-align:center}
+
+@media(max-width:900px){
+  .hero-in{grid-template-columns:1fr;gap:24px}
+  .qcm-card{padding:24px 20px}
+  .qcm-q{font-size:17.5px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <button class="brand" onclick="showView('accueil')">
+      <span class="mug">☕</span>
+      <span>POO Java · Ing2</span>
+    </button>
+    <nav class="nav">
+      <button data-view="accueil" class="active" onclick="showView('accueil')">Accueil</button>
+      <button data-view="s1" onclick="showView('s1')">Semaine 1</button>
+      <button data-view="s2" onclick="showView('s2')">Semaine 2</button>
+      <button data-view="futur" onclick="showView('futur')">S3 → S7</button>
+      <button data-view="qcm" onclick="showView('qcm')">QCM</button>
+      <button data-view="livre" onclick="showView('livre')">Exo Livre</button>
+    </nav>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Thème">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</div>
+
+<main>
+
+<!-- ACCUEIL -->
+<div id="accueil" class="view active">
+  <div class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-in">
+      <div>
+        <div class="eyebrow">POO Java · S3 · Automne 2026</div>
+        <h1 style="margin-top:14px">Java, la <em>programmation orientée objet</em>, semaine par semaine.</h1>
+        <p class="lead">Fiches, exemples de code tirés de tes vrais exos, pièges à connaître et QCM d'entraînement. Un seul endroit pour tout ce qui compte avant le partiel du 14 décembre.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary" onclick="showView('s1')">Commencer semaine 1 →</button>
+          <button class="btn btn-ghost" onclick="showView('qcm')">Lancer un QCM</button>
+        </div>
+        <div class="hero-meta">
+          <div><div class="n" id="daysLeft">–</div><div class="l">Jours avant partiel</div></div>
+          <div><div class="n">7</div><div class="l">Semaines de cours</div></div>
+          <div><div class="n" id="qcmCount">–</div><div class="l">Questions QCM</div></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="eyebrow">Prochain jalon</div>
+        <div style="font-family:var(--f-disp);font-weight:700;font-size:22px;margin-top:8px" id="nextMilestone">Partiel Analyse 3 + Élec — 17 oct.</div>
+        <div style="color:var(--muted);font-size:14px;margin-top:8px" id="nextMilestoneDate"></div>
+        <div style="border-top:1px solid var(--line);margin:18px 0;padding-top:16px">
+          <div style="font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Ta progression</div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px">
+            <div style="height:8px;background:var(--accent);border-radius:2px" title="Semaine 1"></div>
+            <div style="height:8px;background:var(--accent);border-radius:2px;opacity:.7" title="Semaine 2"></div>
+            <div style="height:8px;background:var(--line);border-radius:2px" title="Semaine 3"></div>
+            <div style="height:8px;background:var(--line);border-radius:2px" title="Semaine 4"></div>
+            <div style="height:8px;background:var(--line);border-radius:2px" title="Semaine 5"></div>
+            <div style="height:8px;background:var(--line);border-radius:2px" title="Semaine 6"></div>
+            <div style="height:8px;background:var(--line);border-radius:2px" title="Semaine 7"></div>
+          </div>
+          <div style="font-size:13px;color:var(--muted);margin-top:8px">2 semaines couvertes / 7</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Programme</div>
+        <h2>Les 7 semaines</h2>
+        <p>Chaque semaine s'appuie sur les zips que tu as téléchargés. Clique pour ouvrir le contenu détaillé.</p>
+      </div>
+      <div class="weeks">
+        <button class="wk" onclick="showView('s1')">
+          <span class="tag">Fait</span>
+          <div class="num">Semaine 1</div>
+          <div class="t">Bases POO</div>
+          <div class="d">Classe, attributs, méthodes, Scanner, static, tableaux, String, instanciation.</div>
+        </button>
+        <button class="wk" onclick="showView('s2')">
+          <span class="tag">Fait</span>
+          <div class="num">Semaine 2</div>
+          <div class="t">Relations UML</div>
+          <div class="d">Héritage, agrégation, association, dépendance, protected, super, transtypage.</div>
+        </button>
+        <button class="wk locked">
+          <span class="tag">À venir</span>
+          <div class="num">Semaine 3</div>
+          <div class="t">Constructeurs & Points</div>
+          <div class="d">Constructeurs surchargés, initialisation d'objets, cas Point/Segment.</div>
+        </button>
+        <button class="wk locked">
+          <span class="tag">À venir</span>
+          <div class="num">Semaine 4</div>
+          <div class="t">Interfaces & Polymorphisme</div>
+          <div class="d">Interface, classes abstraites, polymorphisme, Comparator.</div>
+        </button>
+        <button class="wk locked">
+          <span class="tag">À venir</span>
+          <div class="num">Semaine 5</div>
+          <div class="t">Exceptions & Sérialisation</div>
+          <div class="d">try/catch/throw, exceptions perso, sauvegarde d'objets sur disque.</div>
+        </button>
+        <button class="wk locked">
+          <span class="tag">À venir</span>
+          <div class="num">Semaine 6</div>
+          <div class="t">Collections & Swing</div>
+          <div class="d">ArrayList, HashMap, GUI avec Swing, JFileChooser.</div>
+        </button>
+        <button class="wk locked">
+          <span class="tag">À venir</span>
+          <div class="num">Semaine 7</div>
+          <div class="t">Threads / JDBC</div>
+          <div class="d">À découvrir selon le planning.</div>
+        </button>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Raccourcis</div>
+        <h2>Aller droit à l'essentiel</h2>
+      </div>
+      <div class="notions">
+        <div class="notion">
+          <h3>🎯 Réviser vite</h3>
+          <p>Va sur la fiche mémo de la semaine et ne fais que la section "Les pièges". C'est là que le QCM va te piéger.</p>
+        </div>
+        <div class="notion">
+          <h3>💻 Coder pour comprendre</h3>
+          <p>Rien ne vaut de retaper un exo. Va dans <code>entrainement_livre/sujet/</code> et code la classe Livre de tête.</p>
+        </div>
+        <div class="notion">
+          <h3>📝 Tester ses acquis</h3>
+          <p>Lance le QCM 20 questions à froid. Si tu fais moins de 15/20, refais la fiche mémo et retente le lendemain.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- SEMAINE 1 -->
+<div id="s1" class="view">
+  <div class="wrap">
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Semaine 1</div>
+        <h2>Les bases de la POO</h2>
+        <p>Une classe, ses attributs, ses méthodes. Comment lire au clavier, manipuler des tableaux, distinguer <code>static</code> et instance.</p>
+      </div>
+
+      <h3 style="font-size:20px;margin-bottom:16px">📚 Notions clés</h3>
+      <div class="notions">
+        <div class="notion">
+          <h3>Classe & objet</h3>
+          <p>Une <b>classe</b> est un plan. Un <b>objet</b> est une réalisation concrète en mémoire, créée avec <code>new</code>.</p>
+          <div class="example">class Train { }<br>Train t = new Train();</div>
+        </div>
+        <div class="notion">
+          <h3>Attribut vs méthode</h3>
+          <p>Un <b>attribut</b> = variable dans la classe (donnée). Une <b>méthode</b> = action que l'objet sait faire.</p>
+          <div class="example">private int vitesse; // attribut<br>public void stopper() { } // méthode</div>
+        </div>
+        <div class="notion">
+          <h3>Encapsulation</h3>
+          <p>On rend les attributs <code>private</code> pour les protéger, et on expose des méthodes <code>public</code> pour y accéder.</p>
+          <div class="example">private String nom;<br>public String getNom() { return nom; }</div>
+        </div>
+        <div class="notion">
+          <h3>static vs instance</h3>
+          <p><code>static</code> = une seule copie partagée par toute la classe. Sans <code>static</code> = une copie par objet.</p>
+          <div class="example">public static int i = 10; // partagé<br>public int j = 20; // par objet</div>
+        </div>
+        <div class="notion">
+          <h3>Tableaux</h3>
+          <p>Il faut allouer avec <code>new</code> avant utilisation. Taille via <code>a.length</code> (sans parenthèses).</p>
+          <div class="example">int[] a = new int[5];<br>System.out.println(a.length);</div>
+        </div>
+        <div class="notion">
+          <h3>Saisie clavier</h3>
+          <p>Objet <code>Scanner</code> pour lire. Une méthode par type : <code>nextInt()</code>, <code>nextDouble()</code>, <code>nextLine()</code>.</p>
+          <div class="example">Scanner s = new Scanner(System.in);<br>int n = s.nextInt();</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Vocabulaire</div>
+        <h2>Fonctions & méthodes vues</h2>
+      </div>
+
+      <h3 style="font-size:16px;font-family:var(--f-mono);letter-spacing:.05em;color:var(--muted);text-transform:uppercase;margin-bottom:12px">Scanner</h3>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>Fonction</th><th>Retourne</th><th>Rôle</th></tr></thead>
+          <tbody>
+            <tr><td><code>new Scanner(System.in)</code></td><td>Scanner</td><td>Créer un scanner clavier</td></tr>
+            <tr><td><code>clavier.nextInt()</code></td><td>int</td><td>Lire un entier</td></tr>
+            <tr><td><code>clavier.nextDouble()</code></td><td>double</td><td>Lire un nombre à virgule</td></tr>
+            <tr><td><code>clavier.nextLine()</code></td><td>String</td><td>Lire une ligne complète</td></tr>
+            <tr><td><code>clavier.next()</code></td><td>String</td><td>Lire un mot (jusqu'à espace)</td></tr>
+            <tr><td><code>clavier.close()</code></td><td>void</td><td>Fermer le scanner</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-size:16px;font-family:var(--f-mono);letter-spacing:.05em;color:var(--muted);text-transform:uppercase;margin:24px 0 12px">Conversions</h3>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>Fonction</th><th>Direction</th><th>Exemple</th></tr></thead>
+          <tbody>
+            <tr><td><code>Integer.parseInt(s)</code></td><td>String → int</td><td><code>Integer.parseInt("42")</code> → 42</td></tr>
+            <tr><td><code>Float.parseFloat(s)</code></td><td>String → float</td><td><code>Float.parseFloat("3.14")</code></td></tr>
+            <tr><td><code>Double.parseDouble(s)</code></td><td>String → double</td><td><code>Double.parseDouble("2.5")</code></td></tr>
+            <tr><td><code>String.valueOf(n)</code></td><td>int → String</td><td><code>String.valueOf(42)</code> → "42"</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-size:16px;font-family:var(--f-mono);letter-spacing:.05em;color:var(--muted);text-transform:uppercase;margin:24px 0 12px">Attributs/méthodes de taille</h3>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>Sur quoi</th><th>Syntaxe</th><th>Type</th></tr></thead>
+          <tbody>
+            <tr><td>Tableau</td><td><code>a.length</code></td><td>attribut (sans parenthèses)</td></tr>
+            <tr><td>String</td><td><code>s.length()</code></td><td>méthode (avec parenthèses)</td></tr>
+            <tr><td>Tableau 2D — ligne i</td><td><code>tab[i].length</code></td><td>attribut</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Exemples</div>
+        <h2>Code annoté</h2>
+      </div>
+
+      <h3 style="font-size:17px;margin-bottom:8px">Une classe minimale complète</h3>
+<pre class="code"><span class="cmt">// Etudiant2026 — synthèse de la semaine</span>
+<span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">class</span> <span class="cls">Etudiant</span> {
+    <span class="cmt">// ATTRIBUTS privés (encapsulation)</span>
+    <span class="kw">private</span> String nom;
+    <span class="kw">private</span> <span class="kw">int</span> age;
+    <span class="kw">private</span> <span class="kw">double</span>[] notes;
+    <span class="kw">private</span> <span class="kw">int</span> nbnotes;
+
+    Scanner clavier = <span class="kw">new</span> Scanner(System.in);
+
+    <span class="cmt">// MÉTHODE de saisie avec validation while</span>
+    <span class="kw">public</span> <span class="kw">int</span> <span class="fn">getAge</span>() {
+        System.out.println(<span class="str">"Entrer l'age"</span>);
+        age = clavier.<span class="fn">nextInt</span>();
+        <span class="kw">while</span> (age &lt; <span class="num">18</span> || age &gt; <span class="num">25</span>) {
+            System.out.println(<span class="str">"invalide, réessayer"</span>);
+            age = clavier.<span class="fn">nextInt</span>();
+        }
+        <span class="kw">return</span> age;
+    }
+
+    <span class="cmt">// MÉTHODE qui saisit un tableau</span>
+    <span class="kw">public</span> <span class="kw">double</span>[] <span class="fn">getNotes</span>(<span class="kw">int</span> nb) {
+        notes = <span class="kw">new</span> <span class="kw">double</span>[nb];  <span class="cmt">// allocation obligatoire !</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; nb; i++) {
+            <span class="kw">do</span> {
+                System.out.println(<span class="str">"Note "</span> + (i+<span class="num">1</span>));
+                notes[i] = clavier.<span class="fn">nextDouble</span>();
+            } <span class="kw">while</span> (notes[i] &lt; <span class="num">0</span> || notes[i] &gt; <span class="num">20</span>);
+        }
+        <span class="kw">return</span> notes;
+    }
+}</pre>
+
+      <h3 style="font-size:17px;margin:24px 0 8px">static — l'exemple à comprendre</h3>
+<pre class="code"><span class="kw">public class</span> <span class="cls">StaticTest</span> {
+    <span class="kw">public static int</span> i = <span class="num">10</span>;  <span class="cmt">// UNE SEULE copie partagée</span>
+    <span class="kw">public int</span> j = <span class="num">20</span>;         <span class="cmt">// UNE copie par objet</span>
+    <span class="kw">final</span> String NOM = <span class="str">"Segado"</span>; <span class="cmt">// constante</span>
+
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        StaticTest s1 = <span class="kw">new</span> StaticTest();
+        StaticTest s2 = <span class="kw">new</span> StaticTest();
+
+        s2.i++;                        <span class="cmt">// modifie la copie partagée</span>
+        System.out.println(s1.i);      <span class="cmt">// affiche 11 (partagé !)</span>
+        System.out.println(s2.i);      <span class="cmt">// affiche 11</span>
+
+        s1.j++;                        <span class="cmt">// modifie SEULEMENT s1</span>
+        System.out.println(s1.j);      <span class="cmt">// affiche 21</span>
+        System.out.println(s2.j);      <span class="cmt">// affiche 20 (indépendant)</span>
+    }
+}</pre>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Corrigé officiel</div>
+        <h2>Réponses aux 10 exercices de la semaine</h2>
+        <p>Les vraies questions posées dans le PDF de cours (JP Segado), extraites section par section, avec réponse complète pour chacune.</p>
+      </div>
+      <div class="qa-list">
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 1</span>
+            <span class="qa-text">cours1_train.zip — Suivre les instructions en ligne de commande pour compiler et exécuter Train.java, puis ajouter des erreurs volontaires pour observer les messages de compilation.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">Exercice pratique — pas de code à lire, à faire toi-même</span>
+            <p><code>javac Train.java</code> compile le fichier source en <code>Train.class</code> dans le même dossier <code>src</code>, s'il n'y a aucune erreur. Ensuite <code>java Train</code> exécute le programme (sans l'extension <code>.class</code>, juste le nom de la classe).</p>
+            <p>Si tu introduis une erreur volontaire (ex : oublier un <code>;</code>, une accolade), <code>javac</code> refuse de produire le <code>.class</code> et affiche le numéro de ligne + la nature de l'erreur dans le terminal. C'est le comportement normal : <b>la compilation échoue avant même de pouvoir exécuter quoi que ce soit</b>.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 2</span>
+            <span class="qa-text">Expliquez le constructeur par défaut, l'utilité de ses méthodes, ce que fait le main, et vos conclusions sur les résultats affichés.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours1_train.zip — Train.java</span>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Train</span> {
+    <span class="kw">public int</span> vitesse, marche;
+    <span class="kw">public</span> <span class="fn">Train</span>() { vitesse=<span class="num">0</span>; marche=<span class="num">0</span>; } <span class="cmt">// constructeur SANS paramètre</span>
+    <span class="kw">public void</span> <span class="fn">stopper</span>() { }  <span class="cmt">// méthode vide, à compléter</span>
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] argv) {
+        Train trainsdi = <span class="kw">new</span> Train();
+        trainsdi.<span class="fn">stopper</span>();
+        System.out.println(<span class="str">"Vitesse = "</span>+trainsdi.vitesse);
+    }
+}</pre>
+            <p><b>Constructeur par défaut</b> = sans paramètre, appelé automatiquement par <code>new Train()</code>. Il initialise <code>vitesse</code> et <code>marche</code> à 0 pour garantir un état de départ cohérent, plutôt que de laisser des valeurs indéterminées.</p>
+            <p><b>Rôle de chaque bloc</b> : le constructeur initialise, <code>stopper()</code> est destinée à remettre vitesse/marche à 0 (vide ici, à compléter), et <code>main</code> orchestre tout : crée l'objet, appelle <code>stopper()</code>, affiche l'état.</p>
+            <p><b>Conclusion</b> : même si <code>stopper()</code> ne fait encore rien, l'affichage montre <code>vitesse=0</code> car c'est le <b>constructeur</b> qui l'a déjà initialisé à 0 — la preuve que le constructeur s'exécute systématiquement <b>avant</b> tout appel de méthode sur l'objet.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 3</span>
+            <span class="qa-text">cours1_string.zip — Expliquez le main, comment initialiser un String (y compris vide), l'opérateur de concaténation, comment copier, et les conversions String ↔ int/float.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours1_string.zip — Main.java</span>
+            <p><b>Initialiser un String</b> : <code>String s = "texte";</code> (littéral, le plus courant) ou <code>new String("texte")</code> (équivalent en contenu). Chaîne <b>vide</b> : <code>String vide = "";</code> (guillemets collés, sans espace) ou <code>new String()</code>.</p>
+            <p><b>Concaténer</b> : l'opérateur <code>+</code> — <code>"abc" + "def"</code> → <code>"abcdef"</code>.</p>
+            <p><b>Copier</b> : <code>String s2 = s1;</code> copie la <b>référence</b> (les deux noms pointent le même objet). Comme les String sont <b>immuables</b>, ça ne pose aucun problème pratique — contrairement aux tableaux vus plus loin.</p>
+            <p><b>String → int</b> : <code>int i = Integer.parseInt(chaine);</code> — intérêt : pouvoir faire des calculs sur une valeur saisie au clavier (qui arrive toujours en String).</p>
+            <p><b>int → String</b> : <code>String s = String.valueOf(n);</code> — intérêt : afficher/concaténer un nombre avec du texte proprement.</p>
+            <p><b>String → float</b> : <code>float f = Float.parseFloat(chaine);</code> — même logique que pour int, pour les valeurs décimales.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 4</span>
+            <span class="qa-text">cours1_arguments.zip — Expliquez les résultats des instructions des lignes 4 et 5 de la classe Main.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours1_arguments.zip — Main.java</span>
+<pre class="code">args = <span class="kw">new</span> String[]{<span class="str">"1"</span>, <span class="str">"2"</span>};
+System.out.println(<span class="str">"Nom : "</span>+args[<span class="num">0</span>]);                      <span class="cmt">// ligne 4</span>
+System.out.println(<span class="str">"Nom : "</span>+Integer.parseInt(args[<span class="num">1</span>]));    <span class="cmt">// ligne 5</span></pre>
+            <p><b>Ligne 4</b> : <code>args[0]</code> vaut <code>"1"</code> (une <b>String</b>). L'affichage <code>"Nom : 1"</code> vient d'une simple concaténation de texte.</p>
+            <p><b>Ligne 5</b> : <code>args[1]</code> vaut <code>"2"</code> (String aussi), mais <code>Integer.parseInt(args[1])</code> la <b>convertit</b> en <code>int</code> avant l'affichage. Le résultat affiché ("Nom : 2") ressemble à celui de la ligne 4, mais la <b>nature</b> de la valeur manipulée est différente : String pour la ligne 4, int pour la ligne 5.</p>
+            <p><b>À retenir</b> : les arguments de <code>main</code> sont <b>toujours reçus comme des String</b>, même s'ils "ressemblent" à des nombres — il faut explicitement les convertir avec <code>parseInt</code>/<code>parseFloat</code> pour faire des calculs dessus.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 5</span>
+            <span class="qa-text">cours1_statictest.zip — Pourquoi les lignes 11 et 22 sont-elles illégales ? Que faut-il modifier pour qu'elles soient légales ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours1_statictest.zip — StaticTest.java</span>
+<pre class="code"><span class="kw">public static int</span> i = <span class="num">10</span>;
+<span class="kw">public int</span> j = <span class="num">20</span>;
+<span class="kw">final</span> String NOM = <span class="str">"Segado"</span>;
+<span class="cmt">// ...</span>
+System.out.println(StaticTest.j);  <span class="cmt">// ligne 11 — ILLÉGAL</span>
+<span class="cmt">// ...</span>
+s1.NOM = <span class="str">"Java"</span>;                <span class="cmt">// ligne 22 — ILLÉGAL</span></pre>
+            <p><b>Ligne 11</b> — <code>StaticTest.j</code> : <code>j</code> n'est <b>pas</b> <code>static</code>, c'est un membre d'<b>instance</b>. On ne peut y accéder que via un objet (<code>s1.j</code>), jamais via le nom de la classe. <b>Correction</b> : écrire <code>s1.j</code> pour accéder via un objet, ou rendre <code>j</code> static si on veut vraiment y accéder via la classe.</p>
+            <p><b>Ligne 22</b> — <code>s1.NOM="Java"</code> : <code>NOM</code> est déclaré <code>final</code>, donc sa valeur est fixée <b>définitivement</b> à l'initialisation. Toute réaffectation est refusée par le compilateur. <b>Correction</b> : retirer <code>final</code> si on veut vraiment pouvoir réaffecter — mais ça casse l'intention (NOM n'est plus une constante).</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 6</span>
+            <span class="qa-text">cours1_train2.zip — Pourquoi utiliser static dans Conducteur ? Quelle relation entre Conducteur et Train ? Comment Conducteur instancie et appelle Train ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours1_train2.zip — Conducteur.java</span>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Conducteur</span> {
+    <span class="kw">public static</span> Train trainsdi = <span class="kw">new</span> Train();
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] argv) {
+        trainsdi.<span class="fn">stopper</span>();
+        System.out.println(<span class="str">"Vitesse = "</span>+trainsdi.vitesse);
+    }
+}</pre>
+            <p><b>Pourquoi static</b> : sur <code>trainsdi</code> et sur <code>main</code>, ça permet d'utiliser l'attribut et la méthode <b>sans créer d'objet Conducteur</b> au préalable — cohérent avec le fait que <code>main</code> est toujours static (point d'entrée exécuté directement par la JVM).</p>
+            <p><b>Relation Conducteur/Train</b> : Conducteur <b>possède</b> une référence vers un objet Train (attribut) — c'est une relation d'<b>agrégation</b> (Train existe "attaché" à Conducteur).</p>
+            <p><b>Instanciation et appel</b> : <code>public static Train trainsdi = new Train();</code> crée l'objet directement à la déclaration. <code>trainsdi.stopper();</code> envoie ensuite un message (appel de méthode) à cet objet — <i>"le conducteur n'a pas besoin de savoir comment le train s'arrête, c'est la responsabilité du train"</i>.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 7</span>
+            <span class="qa-text">cours1_saisieclavier.zip — Comment déclarer/instancier un objet clavier ? Comment saisir un String ou un int ? Comment fermer l'accès ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours1_saisieclavier.zip — SaisieClavier.java</span>
+<pre class="code">Scanner clavier = <span class="kw">new</span> Scanner(System.in);   <span class="cmt">// déclaration + instanciation</span>
+String nom = clavier.<span class="fn">nextLine</span>();               <span class="cmt">// saisir un String</span>
+<span class="kw">int</span> entier = clavier.<span class="fn">nextInt</span>();              <span class="cmt">// saisir un int</span>
+clavier.<span class="fn">close</span>();                              <span class="cmt">// fermer l'accès</span></pre>
+            <p><b>Déclarer/instancier</b> : <code>Scanner clavier = new Scanner(System.in);</code> — <code>System.in</code> désigne le flux d'entrée standard, c'est-à-dire le clavier.</p>
+            <p><b>Saisir un String</b> : <code>clavier.nextLine();</code> (lit toute la ligne tapée).</p>
+            <p><b>Saisir un int</b> : <code>clavier.nextInt();</code></p>
+            <p><b>Fermer</b> : <code>clavier.close();</code> — libère la ressource système associée au flux clavier.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 8</span>
+            <span class="qa-text">cours1_tableaux.zip — Que remarquez-vous sur la taille des tableaux ? Manières d'instancier ? Propriété qui calcule la taille ? Comment parcourir ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours1_tableaux.zip — Main.java</span>
+            <p><b>Remarque sur la taille</b> : elle n'est <b>pas</b> fixée à la déclaration (<code>int[] a;</code>) mais seulement à l'<b>instanciation</b> (<code>a = new int[5];</code>). Deux tableaux du même type déclaré peuvent avoir des tailles totalement différentes.</p>
+            <p><b>Manières d'instancier</b> : <code>new int[5]</code> (taille explicite, cases initialisées à 0) ou en donnant directement les valeurs : <code>int[] a = {1, 40, 3, 6, 3};</code> (taille déduite du nombre de valeurs).</p>
+            <p><b>Propriété de taille</b> : <code>a.length</code> — c'est un <b>attribut</b>, donc sans parenthèses (contrairement à <code>s.length()</code> sur une String).</p>
+            <p><b>Parcourir</b> : une boucle <code>for</code> classique, de <code>i=0</code> jusqu'à <code>i &lt; a.length</code>.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 9</span>
+            <span class="qa-text">cours1_tableau_muldimension.zip — Manières d'instancier un tableau 2D ? Comment le parcourir ? Comment générer un entier aléatoire dans une case ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours1_tableau_muldimension.zip — Main.java</span>
+            <p><b>Instanciation fixe</b> : <code>int[][] tab = {{11,12,13},{21,22,23}};</code> — dimensions et valeurs connues d'avance.</p>
+            <p><b>Instanciation "en escalier"</b> : <code>int[][] tab2 = new int[3][];</code> puis, ligne par ligne : <code>tab2[i] = new int[taille];</code> — chaque ligne peut avoir une longueur <b>différente</b> (le tableau n'est pas obligatoirement rectangulaire).</p>
+            <p><b>Parcours</b> : deux boucles <code>for</code> imbriquées — <code>i</code> pour les lignes (<code>i&lt;tab.length</code>), <code>j</code> pour les colonnes (<code>j&lt;tab[i].length</code>).</p>
+            <p><b>Nombre aléatoire</b> : <code>(int)(Math.random()*10)</code> — <code>Math.random()</code> renvoie un <code>double</code> entre 0.0 (inclus) et 1.0 (exclu), qu'on multiplie par 10 puis qu'on <b>caste</b> en <code>int</code> pour obtenir un entier entre 0 et 9.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 10</span>
+            <span class="qa-text">Dans le code précédent, copier l'adresse du tableau tab dans un tableau tab3, et afficher ses valeurs.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">Suite de cours1_tableau_muldimension.zip</span>
+<pre class="code"><span class="kw">int</span>[][] tab3 = tab;  <span class="cmt">// copie la RÉFÉRENCE, pas le contenu</span>
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; tab3.length; i++) {
+    <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j &lt; tab3[i].length; j++)
+        System.out.print(tab3[i][j] + <span class="str">" "</span>);
+    System.out.println();
+}</pre>
+            <p><code>int[][] tab3 = tab;</code> copie l'<b>adresse</b> du tableau, pas ses données. <code>tab</code> et <code>tab3</code> désignent alors le <b>même</b> tableau physique en mémoire.</p>
+            <p>Conséquence directe : modifier une case via <code>tab3</code> modifie la <b>même</b> case vue via <code>tab</code> — exactement le piège que tu as travaillé plus tôt dans cette conversation (question QCM sur <code>tab3[0][0]=99</code>).</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">TP1</span>
+            <span class="qa-text">Etudiant2026 — Pourquoi implémenter le main dans une AUTRE classe que Etudiant ? Pourquoi ne peut-on pas afficher directement les attributs de l'objet Etudiant ? Quelle solution est proposée ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">TP1 — questions de réflexion officielles du sujet</span>
+            <p><b>Pourquoi séparer Main et Etudiant</b> : ça respecte le principe d'<b>encapsulation / séparation des responsabilités</b>. <code>Etudiant</code> représente une entité métier (un étudiant et son comportement), <code>Main</code> représente le point d'entrée qui orchestre le programme. Mélanger les deux romprait la lisibilité et empêcherait de réutiliser <code>Etudiant</code> dans un autre programme.</p>
+            <p><b>Pourquoi on ne peut pas afficher directement</b> <code>eleve.nom</code> depuis Main : les attributs de <code>Etudiant</code> sont déclarés <code>private</code> — accessibles <b>uniquement à l'intérieur de la classe Etudiant elle-même</b>. Depuis l'extérieur (Main), ils sont invisibles.</p>
+            <p><b>Solution proposée</b> : exposer des <b>méthodes publiques</b> (ici <code>afficherInfos()</code>, et les getters comme <code>getNom()</code>) que Main peut appeler pour interagir avec l'objet, sans jamais toucher directement à ses attributs privés. C'est exactement le mécanisme d'encapsulation vu en semaine 1.</p>
+          </div></div>
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Attention</div>
+        <h2>Les 10 pièges du QCM</h2>
+      </div>
+      <div class="trap-list">
+        <div class="trap"><b>Piège 1</b>Un constructeur n'a <b>jamais</b> de type de retour, pas même <code>void</code>.</div>
+        <div class="trap"><b>Piège 2</b>Écrire un seul constructeur à paramètres <b>supprime</b> celui par défaut.</div>
+        <div class="trap"><b>Piège 3</b><code>clavier.nextInt</code> sans <code>()</code> = erreur de compilation.</div>
+        <div class="trap"><b>Piège 4</b><code>nextDouble()</code> pour un double, pas <code>nextInt()</code>.</div>
+        <div class="trap"><b>Piège 5</b>Tableau non alloué avec <code>new</code> = <code>NullPointerException</code>.</div>
+        <div class="trap"><b>Piège 6</b><code>i &lt;= a.length</code> → dépassement d'indice. Toujours <code>i &lt; a.length</code>.</div>
+        <div class="trap"><b>Piège 7</b><code>a.length</code> sur tableau vs <code>s.length()</code> sur String.</div>
+        <div class="trap"><b>Piège 8</b><code>==</code> sur des String compare les adresses. Utiliser <code>.equals()</code>.</div>
+        <div class="trap"><b>Piège 9</b>Modifier un champ <code>static</code> affecte <b>tous</b> les objets.</div>
+        <div class="trap"><b>Piège 10</b><code>int d[], e;</code> → d est un tableau, e est un int simple.</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Auto-évaluation</div>
+        <h2>Checklist — je maîtrise</h2>
+      </div>
+      <ul class="checklist">
+        <li>Je sais différencier un attribut d'une méthode</li>
+        <li>Je connais les 5 méthodes principales de Scanner</li>
+        <li>Je sais ce que fait <code>new</code> précisément</li>
+        <li>Je sais quand mettre <code>()</code> et quand ne pas les mettre</li>
+        <li>Je comprends la sortie de l'exemple <code>static</code></li>
+        <li>Je sais qu'un tableau doit être <code>new</code>é avant utilisation</li>
+        <li>J'utilise <code>.equals()</code> pour comparer des String</li>
+        <li>Je sais parcourir un tableau 2D avec boucles imbriquées</li>
+      </ul>
+      <div style="margin-top:20px;text-align:center">
+        <button class="btn btn-primary" onclick="startQCM('s1')">Lancer le QCM Semaine 1 →</button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- SEMAINE 2 -->
+<div id="s2" class="view">
+  <div class="wrap">
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Semaine 2</div>
+        <h2>Relations entre classes (UML)</h2>
+        <p>Comment les classes se parlent : héritage, agrégation, association, dépendance. Plus les mots-clés <code>extends</code>, <code>super</code>, <code>protected</code>.</p>
+      </div>
+
+      <h3 style="font-size:20px;margin-bottom:16px">🗺️ Les 4 relations UML</h3>
+      <div class="notions">
+        <div class="notion" style="border-left:3px solid var(--accent)">
+          <h3>Héritage — "est-un"</h3>
+          <p>Une classe fille récupère tout de la mère. Symbole UML : flèche à pointe triangulaire.</p>
+          <div class="example">class Mammifere extends Vertebres</div>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--accent2)">
+          <h3>Agrégation — "a-un"</h3>
+          <p>Un objet stocke un autre objet <b>en attribut</b>. Losange vide en UML.</p>
+          <div class="example">class Config { public Ecran e; }</div>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--good)">
+          <h3>Association</h3>
+          <p>Deux classes reliées, parfois via une <b>classe intermédiaire</b> qui a ses propres attributs.</p>
+          <div class="example">class Mariage { Homme h; Femme f; }</div>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--warn)">
+          <h3>Dépendance</h3>
+          <p>Objet reçu <b>uniquement en paramètre</b>, jamais stocké. Flèche pointillée en UML.</p>
+          <div class="example">public void manger(Os unOs) { }</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Vocabulaire</div>
+        <h2>Nouveaux mots-clés</h2>
+      </div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>Mot-clé</th><th>Rôle</th><th>Exemple</th></tr></thead>
+          <tbody>
+            <tr><td><code>extends</code></td><td>Déclare l'héritage</td><td><code>class Fille extends Mere</code></td></tr>
+            <tr><td><code>super(...)</code></td><td>Appelle le constructeur du parent</td><td><code>super(30);</code></td></tr>
+            <tr><td><code>super.methode()</code></td><td>Appelle une méthode du parent</td><td><code>super.afficher();</code></td></tr>
+            <tr><td><code>this(...)</code></td><td>Appelle un autre constructeur de la même classe</td><td><code>this();</code></td></tr>
+            <tr><td><code>protected</code></td><td>Visible dans la classe + ses sous-classes</td><td><code>protected int i;</code></td></tr>
+            <tr><td><code>@Override</code></td><td>Indique une redéfinition de méthode héritée</td><td><code>@Override public String toString()</code></td></tr>
+            <tr><td><code>(Type) obj</code></td><td>Downcasting : cast explicite vers un type plus précis</td><td><code>Homme h = (Homme) p;</code></td></tr>
+            <tr><td><code>throws</code></td><td>Signale qu'une méthode peut lancer une exception</td><td><code>void f() throws IOException</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-size:16px;font-family:var(--f-mono);letter-spacing:.05em;color:var(--muted);text-transform:uppercase;margin:28px 0 12px">Visibilité — les 4 niveaux</h3>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>Modificateur</th><th>Même classe</th><th>Sous-classe</th><th>Autre classe</th><th>Partout</th></tr></thead>
+          <tbody>
+            <tr><td><code>private</code></td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+            <tr><td><i>(rien)</i></td><td>✅</td><td>❌</td><td>✅ (même package)</td><td>❌</td></tr>
+            <tr><td><code>protected</code></td><td>✅</td><td>✅</td><td>✅</td><td>❌</td></tr>
+            <tr><td><code>public</code></td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Exemples</div>
+        <h2>Code annoté</h2>
+      </div>
+
+      <h3 style="font-size:17px;margin-bottom:8px">Héritage avec <code>super(...)</code></h3>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Vertebres</span> {
+    <span class="kw">public</span> <span class="fn">Vertebres</span>() {
+        System.out.println(<span class="str">"vertèbres inconnues"</span>);
+    }
+    <span class="kw">public</span> <span class="fn">Vertebres</span>(<span class="kw">int</span> nb) {
+        System.out.println(<span class="str">"nombre="</span> + nb);
+    }
+}
+
+<span class="cmt">// Mammifere HÉRITE de Vertebres</span>
+<span class="kw">public class</span> <span class="cls">Mammifere</span> <span class="kw">extends</span> <span class="cls">Vertebres</span> {
+    <span class="kw">public</span> <span class="fn">Mammifere</span>() {
+        <span class="kw">super</span>(<span class="num">30</span>);  <span class="cmt">// appelle Vertebres(int) — DOIT être 1ère ligne</span>
+    }
+
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        <span class="kw">new</span> Vertebres();     <span class="cmt">// "vertèbres inconnues"</span>
+        <span class="kw">new</span> Vertebres(<span class="num">10</span>);   <span class="cmt">// "nombre=10"</span>
+        <span class="kw">new</span> Mammifere();     <span class="cmt">// "nombre=30"</span>
+    }
+}</pre>
+
+      <h3 style="font-size:17px;margin:24px 0 8px"><code>protected</code> — accès pour les sous-classes</h3>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Villain</span> {
+    <span class="kw">protected int</span> i;  <span class="cmt">// accessible dans Villain ET ses sous-classes</span>
+
+    <span class="kw">public</span> <span class="fn">Villain</span>(<span class="kw">int</span> i) { <span class="kw">this</span>.i = i; }
+    <span class="kw">public int</span> <span class="fn">read</span>() { <span class="kw">return</span> i; }
+    <span class="kw">protected void</span> <span class="fn">set</span>(<span class="kw">int</span> i) { <span class="kw">this</span>.i = i; }
+}
+
+<span class="kw">public class</span> <span class="cls">Orc</span> <span class="kw">extends</span> <span class="cls">Villain</span> {
+    <span class="kw">private int</span> j;
+
+    <span class="kw">public</span> <span class="fn">Orc</span>(<span class="kw">int</span> j) {
+        <span class="kw">super</span>(j);       <span class="cmt">// appelle Villain(int)</span>
+        <span class="kw">this</span>.j = j;
+    }
+
+    <span class="kw">public void</span> <span class="fn">change</span>(<span class="kw">int</span> x) {
+        <span class="fn">set</span>(x);         <span class="cmt">// méthode protected héritée</span>
+    }
+
+    <span class="kw">public void</span> <span class="fn">afficher</span>() {
+        System.out.println(<span class="str">"valeur = "</span> + i);  <span class="cmt">// ACCÈS DIRECT à i (protected)</span>
+    }
+}</pre>
+
+      <h3 style="font-size:17px;margin:24px 0 8px">Agrégation — Configuration</h3>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Configuration</span> {
+    <span class="cmt">// 3 attributs = agrégation de 3 objets</span>
+    <span class="kw">public</span> <span class="cls">Ecran</span> unEcran;
+    <span class="kw">public</span> <span class="cls">Clavier</span> unClavier;
+    <span class="kw">public</span> <span class="cls">Disque</span> unDisque;
+
+    <span class="kw">public</span> <span class="fn">Configuration</span>(<span class="cls">Ecran</span> e, <span class="cls">Clavier</span> c, <span class="cls">Disque</span> d) {
+        unEcran = e; unClavier = c; unDisque = d;
+    }
+
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        <span class="cmt">// on crée les objets INDÉPENDANTS d'abord</span>
+        <span class="cls">Ecran</span> e = <span class="kw">new</span> Ecran();
+        <span class="cls">Clavier</span> c = <span class="kw">new</span> Clavier();
+        <span class="cls">Disque</span> d = <span class="kw">new</span> Disque();
+        <span class="cmt">// puis on les relie à une Configuration</span>
+        <span class="cls">Configuration</span> config = <span class="kw">new</span> Configuration(e, c, d);
+    }
+}</pre>
+
+      <h3 style="font-size:17px;margin:24px 0 8px">Transtypage (upcasting / downcasting)</h3>
+<pre class="code"><span class="kw">class</span> <span class="cls">Personne</span> { }
+<span class="kw">class</span> <span class="cls">Homme</span> <span class="kw">extends</span> <span class="cls">Personne</span> { }
+
+<span class="cls">Personne</span> p = <span class="kw">new</span> Homme();  <span class="cmt">// UPCASTING implicite ✅</span>
+<span class="cls">Homme</span> h = (<span class="cls">Homme</span>) p;      <span class="cmt">// DOWNCASTING explicite ✅</span>
+
+<span class="cls">Personne</span> p2 = <span class="kw">new</span> Personne();
+<span class="cls">Homme</span> h2 = (<span class="cls">Homme</span>) p2;    <span class="cmt">// 💥 ClassCastException à l'exécution</span></pre>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">En profondeur</div>
+        <h2>Les 5 mécanismes de l'héritage — un par un</h2>
+        <p>Pas juste "comment les repérer" — ce que chacun <b>fait vraiment</b> quand le programme s'exécute.</p>
+      </div>
+      <div class="qa-list">
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">① extends</span>
+            <span class="qa-text">"Je suis une sorte de..." — qu'est-ce que ça change concrètement pour la classe fille ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <p>Ça dit à Java : <i>"un Mammifere EST UNE SORTE DE Vertebres."</i> Concrètement, Mammifere <b>reçoit automatiquement</b> tout ce que Vertebres possède (méthodes publiques/protected), sans les réécrire.</p>
+            <p><b>Analogie :</b> hériter d'une maison de famille — pas besoin de reconstruire les fondations, elles sont déjà là.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">② super(...)</span>
+            <span class="qa-text">"Avant de faire MON truc, fais D'ABORD le truc du parent" — pourquoi c'est obligatoire en 1ère ligne ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <p>Un objet Mammifere contient <b>deux parties</b> : la partie "Vertebres" (héritée) et la partie "Mammifere" (propre). <code>super(30)</code> dit : <i>"avant tout, va exécuter le constructeur Vertebres(int) avec 30."</i></p>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Mammifere</span> <span class="kw">extends</span> <span class="cls">Vertebres</span> {
+    <span class="kw">public</span> <span class="fn">Mammifere</span>() {
+        <span class="kw">super</span>(<span class="num">30</span>);  <span class="cmt">// DOIT être la 1ère ligne</span>
+    }
+}</pre>
+            <p><b>Sans ça</b>, la partie héritée ne serait jamais initialisée proprement — Java t'oblige à le préciser dès que le parent n'a pas de constructeur simple.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">③ super.methode()</span>
+            <span class="qa-text">"Fais quand même l'ancienne version, en plus de la nouvelle" — à quoi ça sert ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <p>Différent de <code>super(...)</code> : ici on appelle une <b>méthode normale</b> du parent, pas le constructeur.</p>
+<pre class="code"><span class="kw">public void</span> <span class="fn">afficher</span>() {
+    <span class="kw">super</span>.<span class="fn">afficher</span>();   <span class="cmt">// exécute D'ABORD la version du parent</span>
+    System.out.println(<span class="str">"...et un Orc !"</span>);  <span class="cmt">// PUIS ajoute ma ligne</span>
+}</pre>
+            <p><b>Sans <code>super.afficher()</code></b>, la version du parent ne s'afficherait jamais — la méthode d'Orc <b>remplace complètement</b> celle du parent. <code>super.methode()</code> permet de <b>réutiliser</b> l'ancien comportement au lieu de le perdre.</p>
+            <p>⚠️ <b>Aucun de tes fichiers réels de semaine 2 ne l'illustre</b> — le cours en parle en théorie, mais aucun zip fourni ne le code concrètement. L'exemple ci-dessus est reconstruit pour que tu puisses le visualiser.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">④ protected</span>
+            <span class="qa-text">Un niveau d'accès, pas une action — quelle est la vraie différence avec private ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <p><code>protected</code> ne "fait" rien à l'exécution — c'est une <b>règle de visibilité</b>. Compare :</p>
+<pre class="code"><span class="cmt">// AVEC protected</span>
+<span class="kw">protected int</span> i;
+<span class="cmt">// dans Orc (sous-classe) :</span>
+System.out.println(i);   <span class="cmt">// ✅ ça marche</span>
+
+<span class="cmt">// AVEC private</span>
+<span class="kw">private int</span> i;
+<span class="cmt">// dans Orc (sous-classe) :</span>
+System.out.println(i);   <span class="cmt">// ❌ ERREUR DE COMPILATION</span></pre>
+            <p><code>protected</code> = <i>"je le cache au monde extérieur, mais je le montre à mes enfants (sous-classes)."</i> Compromis entre <code>private</code> (personne) et <code>public</code> (tout le monde).</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">⑤ @Override</span>
+            <span class="qa-text">Un message pour le COMPILATEUR, pas pour le programme — pourquoi ça protège d'un bug silencieux ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <p><code>@Override</code> ne change <b>rien à l'exécution</b>. Il sert uniquement à te protéger d'une <b>faute de frappe</b>.</p>
+<pre class="code"><span class="kw">@Override</span>
+<span class="kw">public void</span> <span class="fn">Afficher</span>() { ... }   <span class="cmt">// "A" majuscule par erreur !</span></pre>
+            <p><b>Sans <code>@Override</code></b> : Java ne remarque rien, il crée juste une <b>nouvelle méthode</b> sans lien avec le parent — bug silencieux découvert bien plus tard.</p>
+            <p><b>Avec <code>@Override</code></b> : Java vérifie qu'une méthode <code>afficher()</code> existe vraiment dans le parent avec la même signature. Faute de frappe → <b>erreur de compilation immédiate</b>.</p>
+          </div></div>
+        </div>
+
+      </div>
+
+      <h3 style="font-size:18px;margin:32px 0 14px">🖥️ Les 5 mécanismes ensemble — code + sortie + trace</h3>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Villain</span> {
+    <span class="kw">protected int</span> force;                          <span class="cmt">// ④ protected</span>
+    <span class="kw">public</span> <span class="fn">Villain</span>(<span class="kw">int</span> force) {
+        <span class="kw">this</span>.force = force;
+        System.out.println(<span class="str">"Villain cree avec force="</span>+force);
+    }
+    <span class="kw">public void</span> <span class="fn">afficher</span>() {
+        System.out.println(<span class="str">"Je suis un Villain, force="</span>+force);
+    }
+}
+
+<span class="kw">public class</span> <span class="cls">Orc</span> <span class="kw">extends</span> <span class="cls">Villain</span> {              <span class="cmt">// ① extends</span>
+    <span class="kw">public</span> <span class="fn">Orc</span>(<span class="kw">int</span> force) {
+        <span class="kw">super</span>(force);                                   <span class="cmt">// ② super(...)</span>
+        System.out.println(<span class="str">"Orc cree"</span>);
+    }
+    <span class="kw">@Override</span>                                            <span class="cmt">// ⑤ @Override</span>
+    <span class="kw">public void</span> <span class="fn">afficher</span>() {
+        <span class="kw">super</span>.<span class="fn">afficher</span>();                                    <span class="cmt">// ③ super.methode()</span>
+        System.out.println(<span class="str">"...et c'est un Orc qui rugit !"</span>);
+        System.out.println(<span class="str">"Force directe via protected : "</span>+force); <span class="cmt">// ④</span>
+    }
+}</pre>
+
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>#</th><th>Sortie console</th><th>Qui l'a produite</th><th>Pourquoi</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td><code>Villain cree avec force=75</code></td><td>Villain(75)</td><td><code>new Orc(75)</code> exécute d'abord <code>super(force)</code> — Villain tourne EN PREMIER</td></tr>
+            <tr><td>2</td><td><code>Orc cree</code></td><td>Orc(75)</td><td>Une fois Villain(75) terminé, Orc continue sa propre ligne</td></tr>
+            <tr><td>3</td><td><code>Je suis un Villain, force=75</code></td><td>Villain.afficher()</td><td><code>monOrc.afficher()</code> lance la version d'Orc (grâce à @Override), mais sa 1ère ligne est <code>super.afficher()</code></td></tr>
+            <tr><td>4</td><td><code>...et c'est un Orc qui rugit !</code></td><td>Orc.afficher()</td><td>Après le super.afficher(), Orc continue sa propre ligne</td></tr>
+            <tr><td>5</td><td><code>Force directe via protected : 75</code></td><td>Orc.afficher()</td><td>Orc lit force directement, sans getter, car protected</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-size:18px;margin:32px 0 14px">📂 Où voir chaque mécanisme dans tes vrais fichiers</h3>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>Fichier réel</th><th>extends</th><th>super(...)</th><th>super.methode()</th><th>protected</th><th>@Override</th></tr></thead>
+          <tbody>
+            <tr><td><b>cours2_protected_villain_heritage</b></td><td>✅</td><td>✅</td><td>❌</td><td>✅</td><td>❌</td></tr>
+            <tr><td>cours2_vertebres_heritage</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+            <tr><td>cours2_pile (VideException)</td><td>✅</td><td>❌ (implicite)</td><td>❌</td><td>❌</td><td>✅</td></tr>
+            <tr><td>cours2_transtypage</td><td>✅</td><td>❌ (implicite)</td><td>❌</td><td>❌</td><td>❌</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="color:var(--muted);font-size:13.5px;margin-top:12px"><b>cours2_protected_villain_heritage</b> (Villain/Orc) est le fichier le plus complet de la semaine — 3 mécanismes sur 5.</p>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Corrigé officiel</div>
+        <h2>Réponses aux 13 exercices de la semaine</h2>
+        <p>Les vraies questions du PDF "Diagrammes UML" (JP Segado), extraites section par section.</p>
+      </div>
+      <div class="qa-list">
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 1</span>
+            <span class="qa-text">cours2_dependance_maitre_chien_os.zip — Comment traduire en Java que Maitre donne à manger un Os à un Chien ? Comment le Chien mange l'Os ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours2_dependance_maitre_chien_os.zip</span>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Chien</span> {
+    <span class="kw">public void</span> <span class="fn">manger</span>(<span class="cls">Os</span> unOs) { }  <span class="cmt">// Os reçu en PARAMÈTRE</span>
+}
+<span class="kw">public class</span> <span class="cls">Maitre</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        <span class="cls">Os</span> unOs = <span class="kw">new</span> Os();
+        <span class="cls">Chien</span> leChien = <span class="kw">new</span> Chien();
+        leChien.<span class="fn">manger</span>(unOs);   <span class="cmt">// le maître "donne à manger"</span>
+    }
+}</pre>
+            <p>"Le maître donne à manger un Os à un Chien" se traduit par un <b>appel de méthode</b> où l'Os est passé en argument : <code>leChien.manger(unOs)</code>.</p>
+            <p>"Le Chien mange l'Os" est modélisé par la méthode <code>manger(Os unOs)</code> elle-même : l'Os n'est qu'un paramètre <b>temporaire</b>, jamais stocké en attribut de Chien — c'est la signature même d'une relation de <b>dépendance</b> (pas d'agrégation, car rien n'est conservé après l'appel).</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 2</span>
+            <span class="qa-text">cours2_entrepot_articles.zip — Comment traduire "Article est stocké dans Entrepot" et "Entrepot contient au moins un Article" ? Et "gardien de plusieurs articles" ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours2_entrepot_articles.zip</span>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Article</span> {
+    <span class="kw">public</span> <span class="cls">Entrepot</span> unEntrepot;  <span class="cmt">// "est stocké dans" → référence retour</span>
+}
+<span class="kw">public class</span> <span class="cls">Entrepot</span> {
+    <span class="kw">public</span> <span class="cls">Article</span>[] stock;    <span class="cmt">// "contient" → tableau = plusieurs</span>
+    <span class="kw">public void</span> <span class="fn">stocker</span>(<span class="cls">Article</span> unArticle) { }
+}</pre>
+            <p><b>"Article est stocké dans Entrepot"</b> : Article a un attribut <code>Entrepot unEntrepot</code> (référence vers son entrepôt).</p>
+            <p><b>"Entrepot contient au moins un Article"</b> : Entrepot a un attribut <code>Article[] stock</code> — un <b>tableau</b> car il peut y en avoir plusieurs.</p>
+            <p><b>"Gardien de plusieurs articles"</b> (cardinalité 0..* côté Article) : en Java, dès qu'une cardinalité dépasse 1, on utilise une <b>collection</b> (tableau, ou plus tard <code>ArrayList&lt;Article&gt;</code>) plutôt qu'un simple attribut objet unique.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 3</span>
+            <span class="qa-text">En fonction des explications de cours, expliquez clairement la signification des relations entre les classes Maison et Personne.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">Question conceptuelle sur diagramme UML</span>
+            <p>La relation typique Maison/Personne est une <b>association</b> (voire une agrégation) : une Personne "habite" une Maison. Une association relie deux classes <b>sans hiérarchie</b> particulière — contrairement à l'héritage, aucune classe n'est une "spécialisation" de l'autre.</p>
+            <p>Selon la cardinalité du diagramme (souvent 1 Maison ↔ 0..* Personnes), ça se traduit en Java par un attribut <code>Personne[] habitants</code> dans Maison, et/ou un attribut <code>Maison maMaison</code> dans Personne — selon le sens de navigabilité voulu (voir Exo 10 sur la navigabilité restreinte).</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 4</span>
+            <span class="qa-text">Que signifient les multiplicités entre Oeuvre et Livre ? Comment implémenter en Java dans les deux sens, en tenant compte des cardinalités ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">Multiplicités (cardinalités) UML</span>
+<pre class="code"><span class="kw">class</span> <span class="cls">Oeuvre</span> {
+    <span class="kw">private</span> <span class="cls">Livre</span>[] livres;  <span class="cmt">// cardinalité 1..* côté Livre → collection</span>
+}
+<span class="kw">class</span> <span class="cls">Livre</span> {
+    <span class="kw">private</span> <span class="cls">Oeuvre</span> oeuvre;   <span class="cmt">// cardinalité 1..1 côté Oeuvre → attribut simple</span>
+}</pre>
+            <p>Une Oeuvre "donne lieu à" plusieurs Livre (éditions, exemplaires) — cardinalité <b>1..*</b> côté Livre. Inversement, un Livre est issu d'une <b>seule</b> Oeuvre — cardinalité <b>1..1</b> côté Oeuvre.</p>
+            <p><b>Règle générale du cours</b> : une cardinalité <b>supérieure à 1</b> se traduit toujours par une collection (tableau ou liste) ; une cardinalité <b>1..1</b> se traduit par un simple attribut objet.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 5</span>
+            <span class="qa-text">cours2_classe_association.zip — Comment ce code Java montre-t-il que la classe Mariage est en association avec les classes Homme et Femme ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours2_classe_association.zip — Mariage.java</span>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Mariage</span> {
+    <span class="kw">private</span> String date, lieu;
+    <span class="kw">private</span> <span class="cls">Homme</span> ungars;
+    <span class="kw">private</span> <span class="cls">Femme</span> unefille;
+    <span class="kw">public</span> <span class="fn">Mariage</span>(String pdate, String plieu, Homme h, Femme f) { ... }
+}</pre>
+            <p>Mariage possède <b>deux attributs objets</b>, l'un de type <code>Homme</code> et l'autre de type <code>Femme</code> — c'est la preuve concrète de l'association : la classe intermédiaire <b>référence chacune des deux classes reliées</b>.</p>
+            <p>Le constructeur impose de fournir les deux objets à la création (<code>Homme h, Femme f</code>) : un Mariage ne peut pas exister sans les deux personnes qu'il relie.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 6</span>
+            <span class="qa-text">Toujours avec cours2_classe_association.zip, comment traduisez-vous la relation entre la classe Mariage et Contrat, en tenant compte des cardinalités ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">Classe-association participant à une autre relation</span>
+<pre class="code"><span class="kw">class</span> <span class="cls">Mariage</span> {
+    <span class="kw">private</span> <span class="cls">Contrat</span> monContrat;  <span class="cmt">// peut valoir null → cardinalité 0..1</span>
+}</pre>
+            <p>"Chaque mariage donne lieu <b>ou pas</b> à un contrat type" = cardinalité <b>0..1</b> côté Contrat. Ça se traduit simplement par un attribut objet <b>optionnel</b> dans Mariage : s'il n'y a pas de contrat, l'attribut vaut <code>null</code>.</p>
+            <p>Point important du cours : une classe-association (comme Mariage) peut elle-même participer à <b>d'autres relations</b> — ici, Mariage est à la fois l'association entre Homme/Femme, ET agrège un Contrat.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 7</span>
+            <span class="qa-text">Comment traduisez-vous la relation entre les 4 classes du diagramme (association à arité supérieure à 2) ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">Association d'arité &gt; 2 (revues / points de vente / semaines)</span>
+            <p>Une association à <b>arité supérieure à 2</b> (plus de 2 classes reliées <b>simultanément</b>) ne peut <b>pas</b> être représentée par de simples attributs croisés entre deux classes.</p>
+            <p>Il faut une <b>classe association à part entière</b> qui référence <b>toutes</b> les classes concernées en même temps — même principe que Mariage (Exo 5), mais avec autant d'attributs objets que de classes reliées (ici 4 au lieu de 2).</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 8</span>
+            <span class="qa-text">cours2_agregation.zip — Traduire la relation entre les 4 classes. Différence avec l'exercice 7 ? Comment le code montre l'agrégation ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours2_agregation.zip — Configuration.java</span>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Configuration</span> {
+    <span class="kw">public</span> <span class="cls">Ecran</span> unEcran;
+    <span class="kw">public</span> <span class="cls">Clavier</span> unClavier;
+    <span class="kw">public</span> <span class="cls">Disque</span> unDisque;
+}</pre>
+            <p><b>Différence avec l'Exo 7</b> : ici <b>pas de 5ᵉ classe intermédiaire</b> — Configuration EST elle-même la classe qui agrège directement les 3 autres en attributs. Contrairement à l'association d'arité 4, aucune classe séparée n'est nécessaire pour porter la relation.</p>
+            <p><b>Preuve d'agrégation dans le code</b> : les 3 attributs sont des <b>objets d'autres classes</b>, créés depuis l'<b>extérieur</b> (dans le main) puis simplement passés au constructeur — signe qu'ils existent <b>indépendamment</b> de Configuration (appartenance faible, pas de destruction en cascade).</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 9</span>
+            <span class="qa-text">cours2_pile.zip — Relation entre Pile et Liste ? Différence agrégation/composition ? Effet de la suppression du composé ? Idem pour Configuration/Ecran ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours2_pile.zip — Pile.java</span>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Pile</span> {
+    <span class="kw">private</span> <span class="cls">Liste</span> maListe;
+    <span class="kw">public</span> <span class="fn">Pile</span>() { <span class="kw">this</span>.maListe = <span class="kw">new</span> Liste(); }  <span class="cmt">// créée DANS le constructeur</span>
+}</pre>
+            <p><b>Relation Pile/Liste</b> : <b>composition</b> (pas juste agrégation) — la Liste est créée <b>directement à l'intérieur</b> du constructeur de Pile, elle n'existe jamais indépendamment.</p>
+            <p><b>Différence agrégation/composition</b> : en agrégation (Configuration/Ecran, Exo 8), les objets sont créés à l'<b>extérieur</b> puis simplement "reliés" — ils survivent indépendamment. En composition (Pile/Liste), l'objet composant est créé <b>par</b> le composé lui-même — son cycle de vie lui est <b>entièrement subordonné</b>.</p>
+            <p><b>Suppression du composé (Pile)</b> : la Liste est supprimée <b>automatiquement</b> avec lui (appartenance forte).</p>
+            <p><b>Pour Configuration/Ecran (agrégation)</b> : supprimer la Configuration <b>ne supprime pas</b> l'Ecran, le Clavier, le Disque — le cours le précise explicitement : <i>"la destruction d'une configuration n'entraîne pas celle de ses trois composants, mais seulement la suppression du lien."</i></p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 10</span>
+            <span class="qa-text">Navigabilité restreinte de la bibliothèque vers les livres — expliquez la signification de cette relation, en tenant compte des cardinalités.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">Navigabilité restreinte</span>
+<pre class="code"><span class="kw">class</span> <span class="cls">Bibliotheque</span> {
+    <span class="kw">private</span> <span class="cls">Livre</span>[] livres;   <span class="cmt">// navigable → la Bibliothèque connaît ses Livres</span>
+}
+<span class="kw">class</span> <span class="cls">Livre</span> {
+    <span class="cmt">// PAS d'attribut Bibliotheque ici → non navigable dans l'autre sens</span>
+}</pre>
+            <p><b>Navigabilité restreinte</b> = la relation n'est utilisable que <b>dans un seul sens</b>. Ici, la Bibliothèque connaît ses Livres (attribut <code>Livre[] livres</code>), mais un Livre <b>ne connaît pas</b> sa Bibliothèque (pas d'attribut retour).</p>
+            <p>On peut donc naviguer <b>de Bibliothèque vers Livre</b>, mais pas l'inverse — exactement comme dans l'exemple du cours : <i>"la bibliothèque connaît ses livres, mais il ne semble pas nécessaire à chaque livre de connaître la bibliothèque."</i></p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 11</span>
+            <span class="qa-text">cours2_vertebres_heritage.zip — Quel mot indique l'héritage ? Différence entre les 2 constructeurs de Vertebres ? Implication lors de l'instanciation dans le main de Mammifere ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours2_vertebres_heritage.zip</span>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Mammifere</span> <span class="kw">extends</span> <span class="cls">Vertebres</span> {
+    <span class="kw">public</span> <span class="fn">Mammifere</span>() { <span class="kw">super</span>(<span class="num">30</span>); }
+}</pre>
+            <p><b><code>extends</code></b> indique l'héritage de Mammifere par rapport à Vertebres.</p>
+            <p>⚠️ Piège dans l'énoncé : en Java, les <b>constructeurs ne sont jamais hérités</b>. C'est <code>super(...)</code> qui permet à Mammifere d'<b>appeler</b> (pas d'hériter) un constructeur de Vertebres.</p>
+            <p><b>Les 2 constructeurs de Vertebres</b> : <code>Vertebres()</code> (sans paramètre, affiche "nombre inconnu") et <code>Vertebres(int nbVertebres)</code> (avec paramètre, affiche le nombre) — c'est de la <b>surcharge</b> de constructeur.</p>
+            <p><b>Implication dans le main</b> : <code>new Vertebres()</code> appelle le 1er constructeur, <code>new Vertebres(10)</code> appelle le 2ᵉ, et <code>new Mammifere()</code> déclenche <code>super(30)</code> qui appelle le 2ᵉ constructeur de Vertebres avec la valeur 30 — donc affiche <code>"nombre=30"</code>.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 12</span>
+            <span class="qa-text">cours2_protected_villain_heritage.zip — Implication de protected sur Orc.afficher() ? Peut-on afficher l'attribut dans le main de Main ? Que signifie super dans le constructeur d'Orc ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours2_protected_villain_heritage.zip</span>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Villain</span> {
+    <span class="kw">protected int</span> i;
+    <span class="kw">public int</span> <span class="fn">read</span>() { <span class="kw">return</span> i; }
+}
+<span class="kw">public class</span> <span class="cls">Orc</span> <span class="kw">extends</span> <span class="cls">Villain</span> {
+    <span class="kw">public</span> <span class="fn">Orc</span>(<span class="kw">int</span> j) { <span class="kw">super</span>(j); <span class="kw">this</span>.j = j; }
+    <span class="kw">public void</span> <span class="fn">afficher</span>() { System.out.println(<span class="str">"valeur = "</span>+i); }  <span class="cmt">// accès DIRECT à i</span>
+}</pre>
+            <p><b><code>protected</code> sur <code>afficher()</code></b> : permet à Orc d'accéder <b>directement</b> à <code>i</code> (attribut hérité de Villain) <b>sans passer par un getter</b> — c'est le sens même de <code>protected</code> : accessible aux sous-classes.</p>
+            <p><b>Dans le main de Main</b> (hors hiérarchie Villain/Orc) : on ne peut <b>pas</b> écrire <code>c.i</code> directement, car <code>i</code> n'est pas <code>public</code>. Il faut passer par la méthode publique héritée : <code>c.read()</code>.</p>
+            <p><b><code>super(j)</code></b> dans le constructeur d'Orc appelle le constructeur <code>Villain(int i)</code> du parent avec <code>j</code> comme argument — ça initialise l'attribut <code>i</code> hérité de Villain.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 13</span>
+            <span class="qa-text">cours2_transtypage.zip — Comment la classe Personne permet de relier 2 objets de cette classe ? Comment le main de Test relie 2 objets de Homme et Femme ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours2_transtypage.zip</span>
+<pre class="code"><span class="kw">class</span> <span class="cls">Personne</span> {
+    <span class="kw">private</span> <span class="cls">Personne</span> conjoint = <span class="kw">null</span>;
+    <span class="kw">public void</span> <span class="fn">pacser</span>(<span class="cls">Personne</span> p) { conjoint = p; }
+}
+<span class="kw">public class</span> <span class="cls">Homme</span> <span class="kw">extends</span> <span class="cls">Personne</span> { }
+<span class="kw">public class</span> <span class="cls">Femme</span> <span class="kw">extends</span> <span class="cls">Personne</span> { }</pre>
+            <p><b>Personne relie 2 objets</b> via son attribut <code>private Personne conjoint</code> : un objet Personne peut référencer un <b>autre</b> objet Personne.</p>
+            <p><b>Dans le main de Test</b> : <code>marie.pacser(jean);</code> — comme Homme et Femme <b>héritent</b> tous deux de Personne (<code>extends</code>), un objet Homme ou Femme <b>EST</b> une Personne (<b>upcasting</b> implicite). La méthode <code>pacser(Personne p)</code> accepte donc aussi bien un Homme qu'une Femme en argument, <b>sans cast explicite</b> nécessaire.</p>
+          </div></div>
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Attention</div>
+        <h2>Pièges à anticiper</h2>
+      </div>
+      <div class="trap-list">
+        <div class="trap"><b>Piège 1</b><code>super(...)</code> doit être la <b>1ère ligne</b> du constructeur.</div>
+        <div class="trap"><b>Piège 2</b>Si le parent n'a pas de constructeur sans paramètre, <code>super(x)</code> devient obligatoire.</div>
+        <div class="trap"><b>Piège 3</b><code>this(...)</code> et <code>super(...)</code> incompatibles dans le même constructeur.</div>
+        <div class="trap"><b>Piège 4</b>Downcasting risqué : compile toujours, mais peut planter (<code>ClassCastException</code>).</div>
+        <div class="trap"><b>Piège 5</b>Agrégation ≠ Dépendance. Agrégation = stocké, dépendance = juste en paramètre.</div>
+        <div class="trap"><b>Piège 6</b><code>private</code> du parent = non accessible directement dans la fille.</div>
+      </div>
+      <div class="tip" style="margin-top:20px"><b>Astuce</b>Pour reconnaître la relation en un coup d'œil : cherche <code>extends</code> (héritage), puis regarde les attributs (agrégation), puis les paramètres (dépendance).</div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Auto-évaluation</div>
+        <h2>Checklist — je maîtrise</h2>
+      </div>
+      <ul class="checklist">
+        <li>Je sais écrire <code>class Fille extends Mere</code></li>
+        <li>Je sais quand et comment utiliser <code>super(...)</code></li>
+        <li>Je distingue <code>private</code> / <code>protected</code> / <code>public</code></li>
+        <li>Je reconnais les 4 relations UML rien qu'en lisant le code</li>
+        <li>Je comprends upcasting vs downcasting et les risques</li>
+        <li>Je comprends la différence entre <code>this(...)</code> et <code>super(...)</code></li>
+        <li>Je reconnais une classe d'exception (<code>extends Exception</code>)</li>
+      </ul>
+      <div style="margin-top:20px;text-align:center">
+        <button class="btn btn-primary" onclick="startQCM('s2')">Lancer le QCM Semaine 2 →</button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- FUTUR -->
+<div id="futur" class="view">
+  <div class="wrap">
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Semaines 3 à 7</div>
+        <h2>À compléter en cours</h2>
+        <p>Chaque semaine sera ajoutée ici au fur et à mesure que tu la termines. Le format restera identique : notions, code, pièges, QCM.</p>
+      </div>
+
+      <div class="weeks">
+        <div class="wk locked">
+          <span class="tag">À venir</span>
+          <div class="num">Semaine 3</div>
+          <div class="t">Point, Segment, constructeurs</div>
+          <div class="d">Basé sur <code>cours3_point*.zip</code>, <code>cours3_constructeurs_surcharges</code>. Approfondissement des constructeurs, affectation d'objets, transport/individu/conduite.</div>
+        </div>
+        <div class="wk locked">
+          <span class="tag">À venir</span>
+          <div class="num">Semaine 4</div>
+          <div class="t">Polymorphisme, interfaces, abstrait</div>
+          <div class="d"><code>cours4_interface</code>, <code>cours4_classe_abstraite</code>, <code>cours4_avec_polymorphisme</code>, <code>comparatorForme</code>.</div>
+        </div>
+        <div class="wk locked">
+          <span class="tag">À venir</span>
+          <div class="num">Semaine 5</div>
+          <div class="t">Exceptions et sérialisation</div>
+          <div class="d"><code>cours5_Demo_Exception</code>, <code>cours5_Exception_DivisionParZero</code>, <code>cours6_serialisation</code>. try/catch/throw, sauvegarde d'objets sur disque.</div>
+        </div>
+        <div class="wk locked">
+          <span class="tag">À venir</span>
+          <div class="num">Semaine 6</div>
+          <div class="t">Conteneurs et Swing</div>
+          <div class="d"><code>cours6_conteneur</code>, <code>cours6_HelloWorldSwing</code>, <code>cours6_JFileChooser</code>, <code>FactorielleGUI</code>, <code>TelephoneIHM</code>.</div>
+        </div>
+        <div class="wk locked">
+          <span class="tag">À venir</span>
+          <div class="num">Semaine 7</div>
+          <div class="t">Programme complet</div>
+          <div class="d">Contenu à confirmer une fois les zips reçus.</div>
+        </div>
+      </div>
+
+      <div class="tip" style="margin-top:32px"><b>Comment débloquer</b>Quand tu finis une semaine, dis-moi juste "récap semaine X" et je remplirai le contenu ici avec tes vrais exos.</div>
+    </section>
+  </div>
+</div>
+
+<!-- QCM -->
+<div id="qcm" class="view">
+  <div class="wrap">
+    <section>
+      <div class="section-head" style="text-align:center">
+        <div class="eyebrow">Auto-évaluation</div>
+        <h2>QCM d'entraînement</h2>
+        <p style="margin:8px auto 0">Filtre par semaine ou fais l'intégral. Feedback immédiat sur chaque question.</p>
+      </div>
+
+      <div class="qcm-filter">
+        <button class="active" data-filter="all" onclick="filterQCM('all')">Tout (35)</button>
+        <button data-filter="s1" onclick="filterQCM('s1')">Semaine 1 (20)</button>
+        <button data-filter="s2" onclick="filterQCM('s2')">Semaine 2 (15)</button>
+      </div>
+
+      <div class="qcm-wrap" id="qcmApp"></div>
+    </section>
+  </div>
+</div>
+
+<!-- LIVRE -->
+<div id="livre" class="view">
+  <div class="wrap">
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Entraînement</div>
+        <h2>Exercice Livre — pratique intensive</h2>
+        <p>Un exo type Etudiant2026 pour t'entraîner à écrire une classe complète depuis zéro : attributs, constructeurs (surchargés), méthodes de saisie, tableau de notes, moyenne, affichage.</p>
+      </div>
+
+      <div class="notions">
+        <div class="notion">
+          <h3>📄 Énoncé</h3>
+          <p>Fichier <code>entrainement_livre/EXERCICE.md</code>. Détaille les 7 attributs et méthodes à écrire.</p>
+        </div>
+        <div class="notion">
+          <h3>📝 Sujet à compléter</h3>
+          <p>Squelette <code>entrainement_livre/sujet/src/Livre.java</code> avec les commentaires <code>A COMPLETER</code>.</p>
+        </div>
+        <div class="notion">
+          <h3>✅ Corrigé annoté</h3>
+          <p>Solution ultra-commentée dans <code>entrainement_livre/corrige/src/Livre.java</code>. Chaque concept nommé.</p>
+        </div>
+      </div>
+
+      <div class="tip" style="margin-top:24px"><b>Méthode conseillée</b>1) Lis l'énoncé, 2) code de tête dans <code>sujet/</code> sans regarder le corrigé, 3) compare avec le corrigé, 4) relis les commentaires pour chaque notion. Bloc de 45 min max.</div>
+    </section>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    Corentin — Ing2 Gr02 — POO Java S3 · Contenu généré à partir des zips <code>cours1_*</code> et <code>cours2_*</code>. Ouvre <code>info/entrainement_livre/</code> pour les exos, ou lance un QCM ci-dessus.
+  </div>
+</footer>
+
+<script>
+// ---------- Theme ----------
+function toggleTheme(){
+  const cur = document.documentElement.getAttribute('data-theme');
+  const isDarkOS = matchMedia('(prefers-color-scheme: dark)').matches;
+  let next;
+  if (cur === 'dark') next = 'light';
+  else if (cur === 'light') next = 'dark';
+  else next = isDarkOS ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  try { localStorage.setItem('theme', next); } catch(e) {}
+}
+try {
+  const saved = localStorage.getItem('theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+} catch(e) {}
+
+// ---------- Q&A Accordion ----------
+function toggleQA(btn){
+  btn.parentElement.classList.toggle('open');
+}
+
+// ---------- Navigation ----------
+function showView(id){
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav button').forEach(b => b.classList.toggle('active', b.dataset.view === id));
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ---------- Countdown ----------
+(function(){
+  const partiels = new Date('2026-12-14T08:00:00+01:00');
+  const now = new Date();
+  const days = Math.max(0, Math.ceil((partiels - now) / (1000*60*60*24)));
+  const el = document.getElementById('daysLeft');
+  if (el) el.textContent = days;
+  const eval1 = new Date('2026-10-17T09:00:00+02:00');
+  const d2 = Math.max(0, Math.ceil((eval1 - now) / (1000*60*60*24)));
+  const el2 = document.getElementById('nextMilestoneDate');
+  if (el2) el2.textContent = `J-${d2} · Samedi 17 octobre, 9h00 (Analyse 3) puis 11h00 (Élec)`;
+})();
+
+// ---------- QCM ----------
+const ALL_QUESTIONS = [
+  // ================== SEMAINE 1 ==================
+  {wk:'s1', topic:'Arguments du main', q:'Dans <code>public static void main(String[] args)</code>, quel est le type de <code>args</code> ?',
+   choices:['Un tableau de <code>String</code>','Une seule <code>String</code>','Un tableau de <code>int</code>','Un objet <code>Scanner</code>'],
+   c:0, exp:'<code>String[] args</code> est un <b>tableau de String</b>.'},
+  {wk:'s1', topic:'Conversion', q:'Pour convertir <code>"42"</code> en <code>int</code> :',
+   choices:['<code>(int) "42"</code>','<code>Integer.parseInt("42")</code>','<code>String.toInt("42")</code>','<code>"42".toInt()</code>'],
+   c:1, exp:'<code>Integer.parseInt(s)</code> convertit une chaîne en int.'},
+  {wk:'s1', topic:'Type de retour', q:'Le code compile-t-il ? <code>public boolean flag() { return 0; }</code>',
+   choices:['Oui, 0 → false','Oui, 0 → true','Non, erreur de compilation','Oui mais exception'],
+   c:2, exp:'<code>int</code> et <code>boolean</code> ne sont pas compatibles.'},
+  {wk:'s1', topic:'void et return', q:'<code>public void piaf() { return; }</code> est-il valide ?',
+   choices:['Non, void ne peut jamais avoir return','Oui, ça sort de la méthode','Non, il faut return null','Oui, mais en dernière ligne uniquement'],
+   c:1, exp:'<code>return;</code> sans valeur est autorisé dans une void pour sortir plus tôt.'},
+  {wk:'s1', topic:'Appel de méthode', q:'La bonne façon d\'appeler nextInt :',
+   choices:['<code>clavier.nextInt</code>','<code>clavier.nextInt()</code>','<code>Scanner.nextInt</code>','<code>nextInt(clavier)</code>'],
+   c:1, exp:'Un appel de méthode a toujours des parenthèses.'},
+  {wk:'s1', topic:'Scanner', q:'Pour lire un nombre à virgule :',
+   choices:['<code>nextInt()</code>','<code>nextLine()</code>','<code>nextDouble()</code>','<code>readFloat()</code>'],
+   c:2, exp:'<code>nextDouble()</code> pour double, <code>nextFloat()</code> pour float.'},
+  {wk:'s1', topic:'static', q:'<code>static int i=10;</code> Après <code>s2.i++;</code>, que vaut <code>s1.i</code> ?',
+   choices:['10','11','0','Erreur'],
+   c:1, exp:'Un champ static est partagé par tous les objets — une seule copie.'},
+  {wk:'s1', topic:'final', q:'<code>final String NOM="X"; s1.NOM="Y";</code> — que se passe-t-il ?',
+   choices:['OK','Exception à l\'exécution','Erreur de compilation','OK dans main seulement'],
+   c:2, exp:'<code>final</code> = une seule affectation, à la déclaration ou au constructeur.'},
+  {wk:'s1', topic:'String', q:'<code>String a="hi"; String b=new String("hi");</code>',
+   choices:['a=null','Contenus identiques, mais a==b peut être false','b contient "new hi"','a==b toujours true'],
+   c:1, exp:'Deux objets différents mais contenus identiques. Utiliser <code>.equals()</code>.'},
+  {wk:'s1', topic:'Comparaison String', q:'Pour comparer le contenu de deux String :',
+   choices:['<code>a == b</code>','<code>a.equals(b)</code>','<code>a.compareTo(b)</code>','<code>String.compare(a,b)</code>'],
+   c:1, exp:'<code>.equals()</code> compare le contenu, <code>==</code> compare les adresses.'},
+  {wk:'s1', topic:'Déclaration multiple', q:'Après <code>int d[], e;</code>, d et e sont :',
+   choices:['Deux tableaux d\'int','d tableau, e int simple','Deux int simples','Erreur'],
+   c:1, exp:'Les <code>[]</code> collent au nom de la variable, pas au type.'},
+  {wk:'s1', topic:'Allocation tableau', q:'<code>double[] notes; notes[0]=12.5;</code> — que se passe-t-il ?',
+   choices:['notes[0]=12.5','notes[0]=0.0','NullPointerException','ArrayIndexOutOfBoundsException'],
+   c:2, exp:'Tableau déclaré mais pas alloué (pas de <code>new</code>) = null → NPE.'},
+  {wk:'s1', topic:'Taille tableau', q:'Pour la taille d\'un tableau <code>a</code> :',
+   choices:['<code>a.length()</code>','<code>a.size()</code>','<code>a.length</code>','<code>length(a)</code>'],
+   c:2, exp:'<code>length</code> est un attribut (pas de parenthèses) pour un tableau. Pour String c\'est <code>s.length()</code>.'},
+  {wk:'s1', topic:'Valeurs par défaut', q:'Après <code>int[] a = new int[3];</code>, a contient :',
+   choices:['[null,null,null]','[0,0,0]','Rien','Aléatoire'],
+   c:1, exp:'Java initialise à 0 pour les entiers.'},
+  {wk:'s1', topic:'Dépassement', q:'<code>double[] t = new double[3]; for(int i=0;i&lt;=3;i++) t[i]=i;</code>',
+   choices:['OK','Erreur compilation','ArrayIndexOutOfBoundsException','NullPointerException'],
+   c:2, exp:'Indices valides 0,1,2. <code>i&lt;=3</code> accède à t[3] → exception.'},
+  {wk:'s1', topic:'Tableaux 2D', q:'Pour parcourir un tableau 2D :',
+   choices:['Une seule boucle','Deux boucles imbriquées','<code>println(tab)</code>','Convertir en 1D'],
+   c:1, exp:'Boucle externe = lignes, boucle interne = colonnes.'},
+  {wk:'s1', topic:'Référence tableau', q:'<code>int[][] tab3 = tab; tab3[0][0]=99;</code>',
+   choices:['tab inchangé','tab et tab3 valent 99','Erreur compilation','tab3 est une copie'],
+   c:1, exp:'On copie la référence, pas le contenu. Même tableau en mémoire.'},
+  {wk:'s1', topic:'Instanciation', q:'<code>new Train()</code> fait :',
+   choices:['Déclare uniquement','Alloue + constructeur + retourne référence','Appelle main','Copie'],
+   c:1, exp:'3 étapes : allocation mémoire, constructeur, référence retournée.'},
+  {wk:'s1', topic:'Appel de méthode', q:'Pour appeler <code>stopper()</code> sur <code>trainsdi</code> :',
+   choices:['<code>stopper(trainsdi)</code>','<code>Train.stopper()</code>','<code>trainsdi.stopper()</code>','<code>trainsdi::stopper</code>'],
+   c:2, exp:'Syntaxe : <code>nomObjet.nomMethode(args)</code>.'},
+  {wk:'s1', topic:'Attribut vs méthode', q:'<code>a.length</code> et <code>s.stopper()</code> diffèrent parce que :',
+   choices:['Interchangeables','length attribut, stopper méthode','length privé','stopper() erroné'],
+   c:1, exp:'Attribut sans (), méthode avec (). Piège classique.'},
+
+  // ================== SEMAINE 2 ==================
+  {wk:'s2', topic:'Héritage', q:'Quel mot-clé déclare que Fille hérite de Mere ?',
+   choices:['<code>inherits</code>','<code>extends</code>','<code>implements</code>','<code>super</code>'],
+   c:1, exp:'<code>extends</code> pour l\'héritage. <code>implements</code> pour les interfaces (semaine 4).'},
+  {wk:'s2', topic:'super(...)', q:'Dans un constructeur fille, <code>super(...)</code> doit être :',
+   choices:['N\'importe où','La 1ère ligne','La dernière ligne','Optionnel toujours'],
+   c:1, exp:'<code>super(...)</code> DOIT être la 1ère instruction du constructeur.'},
+  {wk:'s2', topic:'protected', q:'Un attribut <code>protected int i;</code> est accessible :',
+   choices:['Seulement dans la classe','Dans la classe + ses sous-classes + le package','Partout','Nulle part'],
+   c:1, exp:'<code>protected</code> = classe + sous-classes + même package.'},
+  {wk:'s2', topic:'Constructeur auto', q:'Si la classe parent n\'a que <code>Parent(int x)</code>, dans la fille :',
+   choices:['<code>super()</code> est ajouté auto','Il faut explicitement <code>super(x)</code>','Aucun constructeur nécessaire','Erreur au runtime'],
+   c:1, exp:'Sans <code>Parent()</code>, l\'appel implicite <code>super()</code> échoue. On doit appeler <code>super(x)</code>.'},
+  {wk:'s2', topic:'this vs super', q:'Peut-on avoir <code>this(...)</code> ET <code>super(...)</code> dans un constructeur ?',
+   choices:['Oui','Non, un seul des deux','Oui mais dans cet ordre','Oui si static'],
+   c:1, exp:'Les deux doivent être en 1ère ligne, donc incompatibles.'},
+  {wk:'s2', topic:'Agrégation', q:'Le code <code>class Config { Ecran e; }</code> représente :',
+   choices:['Héritage','Agrégation','Dépendance','Association'],
+   c:1, exp:'Un objet Ecran stocké en attribut = agrégation.'},
+  {wk:'s2', topic:'Dépendance', q:'<code>void manger(Os unOs) { }</code> représente :',
+   choices:['Héritage','Agrégation','Dépendance','Association'],
+   c:2, exp:'L\'objet Os est reçu en paramètre mais pas stocké → dépendance.'},
+  {wk:'s2', topic:'Upcasting', q:'<code>Personne p = new Homme();</code> nécessite un cast ?',
+   choices:['Oui, <code>(Personne)</code>','Non, implicite (fille → mère)','Non, on ne peut pas','Oui, <code>(Homme)</code>'],
+   c:1, exp:'Upcasting = implicite. Un Homme EST une Personne.'},
+  {wk:'s2', topic:'Downcasting', q:'<code>Personne p = new Personne(); Homme h = (Homme) p;</code>',
+   choices:['Compile et marche','Compile puis ClassCastException','Erreur de compilation','Retourne null'],
+   c:1, exp:'Compile car cast présent, mais explose à l\'exécution.'},
+  {wk:'s2', topic:'super.methode()', q:'Pour appeler la méthode <code>afficher()</code> du parent dans la fille :',
+   choices:['<code>parent.afficher()</code>','<code>super.afficher()</code>','<code>super().afficher()</code>','<code>this.super()</code>'],
+   c:1, exp:'<code>super.methode()</code> — sans parenthèses après super.'},
+  {wk:'s2', topic:'@Override', q:'À quoi sert <code>@Override</code> ?',
+   choices:['Rendre la méthode plus rapide','Indiquer une redéfinition d\'une méthode héritée','Rendre static','Bloquer l\'héritage'],
+   c:1, exp:'C\'est une annotation qui indique une redéfinition. Le compilateur vérifie que la signature correspond bien à une méthode du parent.'},
+  {wk:'s2', topic:'Exception perso', q:'Pour créer une exception personnalisée :',
+   choices:['<code>class E implements Exception</code>','<code>class E extends Exception</code>','<code>class E throws Exception</code>','<code>@Exception class E</code>'],
+   c:1, exp:'Une exception est une classe qui hérite de Exception.'},
+  {wk:'s2', topic:'throws', q:'<code>public void f() throws IOException</code> signifie :',
+   choices:['La méthode lève toujours IOException','La méthode peut lever IOException','Elle capture IOException','Elle refuse IOException'],
+   c:1, exp:'<code>throws</code> déclare que la méthode PEUT lancer cette exception.'},
+  {wk:'s2', topic:'Héritage privé', q:'Un attribut <code>private int x</code> du parent est accessible dans la fille ?',
+   choices:['Directement','Via une méthode publique/protected héritée','Pas du tout','Via cast'],
+   c:1, exp:'private est invisible dans la fille. On passe par des méthodes publiques.'},
+  {wk:'s2', topic:'Association', q:'Une classe <code>Mariage { Homme h; Femme f; date; lieu; }</code> représente :',
+   choices:['Héritage','Agrégation simple','Association avec classe intermédiaire','Dépendance'],
+   c:2, exp:'La relation elle-même a des attributs (date, lieu), d\'où la classe intermédiaire.'}
+];
+
+let qcmState = { list: [], idx: 0, score: 0, history: [], filter: 'all' };
+
+function initQCM() {
+  document.getElementById('qcmCount').textContent = ALL_QUESTIONS.length;
+  filterQCM('all');
+}
+
+function filterQCM(f) {
+  document.querySelectorAll('.qcm-filter button').forEach(b => b.classList.toggle('active', b.dataset.filter === f));
+  qcmState.filter = f;
+  qcmState.list = f === 'all' ? [...ALL_QUESTIONS] : ALL_QUESTIONS.filter(q => q.wk === f);
+  qcmState.idx = 0; qcmState.score = 0; qcmState.history = [];
+  renderQCM();
+}
+
+function startQCM(f) {
+  showView('qcm');
+  filterQCM(f);
+}
+
+const LETTERS = ['A','B','C','D'];
+
+function renderQCM() {
+  const app = document.getElementById('qcmApp');
+  const list = qcmState.list;
+  if (list.length === 0) { app.innerHTML = '<div class="panel">Aucune question dans ce filtre.</div>'; return; }
+  const q = list[qcmState.idx];
+  const pct = (qcmState.idx / list.length) * 100;
+  app.innerHTML = `
+    <div class="qcm-progress">
+      <div class="meta">
+        <span>Question ${qcmState.idx+1} / ${list.length}</span>
+        <span>Score ${qcmState.score}</span>
+      </div>
+      <div class="bar"><div class="fill" style="width:${pct}%"></div></div>
+    </div>
+    <div class="qcm-card">
+      <div class="qcm-topic">${q.wk.toUpperCase()} · ${q.topic}</div>
+      <div class="qcm-q">${q.q}</div>
+      <div class="qcm-answers" id="answers">
+        ${q.choices.map((c,i) => `<button class="qcm-ans" data-i="${i}"><span class="letter">${LETTERS[i]}</span><span>${c}</span></button>`).join('')}
+      </div>
+      <div id="fb"></div>
+      <div class="qcm-actions" id="actions"></div>
+    </div>
+  `;
+  document.querySelectorAll('.qcm-ans').forEach(btn => btn.addEventListener('click', () => answerQCM(parseInt(btn.dataset.i, 10))));
+}
+
+function answerQCM(picked) {
+  const q = qcmState.list[qcmState.idx];
+  const ok = picked === q.c;
+  if (ok) qcmState.score++;
+  qcmState.history.push({ ok, topic: q.topic, wk: q.wk });
+  document.querySelectorAll('.qcm-ans').forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === q.c) btn.classList.add('correct');
+    else if (i === picked) btn.classList.add('wrong');
+    else btn.classList.add('dim');
+  });
+  document.getElementById('fb').innerHTML = `
+    <div class="qcm-fb ${ok?'good':'bad'}">
+      <span class="lbl">${ok?'✓ Bonne réponse':'✗ Réponse : '+LETTERS[q.c]}</span>
+      <div>${q.exp}</div>
+    </div>
+  `;
+  const isLast = qcmState.idx === qcmState.list.length - 1;
+  document.getElementById('actions').innerHTML = `<button class="btn btn-primary" onclick="nextQCM()">${isLast?'Voir les résultats':'Question suivante →'}</button>`;
+}
+
+function nextQCM() {
+  qcmState.idx++;
+  if (qcmState.idx >= qcmState.list.length) resultsQCM();
+  else renderQCM();
+}
+
+function resultsQCM() {
+  const total = qcmState.list.length;
+  const pct = Math.round((qcmState.score/total)*100);
+  let verdict;
+  if (pct >= 85) verdict = "Excellent — tu maîtrises. Passe au chapitre suivant.";
+  else if (pct >= 70) verdict = "Bonne maîtrise. Relis les questions ratées.";
+  else if (pct >= 50) verdict = "Base correcte. Refais l'exo Livre et retente demain.";
+  else verdict = "Reprends les fiches mémo et les zips un par un.";
+  document.getElementById('qcmApp').innerHTML = `
+    <div class="qcm-card qcm-results">
+      <div class="qcm-topic">Résultat</div>
+      <div class="score">${qcmState.score}<span class="tot"> / ${total}</span></div>
+      <div class="verdict">${pct}% · ${verdict}</div>
+      <div class="qcm-breakdown">
+        <div style="font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px">Détail</div>
+        ${qcmState.history.map((h,i) => `
+          <div class="review-item">
+            <span class="num">${h.wk.toUpperCase()}·${(i+1).toString().padStart(2,'0')}</span>
+            <span>${h.topic}</span>
+            <span class="mark ${h.ok?'good':'bad'}">${h.ok?'✓':'✗'}</span>
+          </div>
+        `).join('')}
+      </div>
+      <div class="qcm-actions" style="justify-content:center;margin-top:24px">
+        <button class="btn btn-ghost" onclick="filterQCM(qcmState.filter)">Recommencer</button>
+        <button class="btn btn-primary" onclick="reviewWrongQCM()">Ne revoir que mes erreurs</button>
+      </div>
+    </div>
+  `;
+}
+
+function reviewWrongQCM() {
+  const wrong = qcmState.history.map((h, i) => h.ok ? -1 : i).filter(x => x >= 0);
+  if (wrong.length === 0) { alert('Aucune erreur — sans-faute !'); return; }
+  qcmState.list = wrong.map(i => qcmState.list[i]);
+  qcmState.idx = 0; qcmState.score = 0; qcmState.history = [];
+  renderQCM();
+}
+
+initQCM();
+</script>
+</body>
+</html>
