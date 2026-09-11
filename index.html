@@ -859,86 +859,141 @@ clavier.<span class="fn">close</span>();                              <span clas
       </div>
 
       <div class="diagram-box">
-        <svg viewBox="0 0 640 260" role="img" aria-label="Exemple : Client et Administrateur, Client generalise Utilisateur, Passer commande inclut Verifier stock, Payer par carte etend Payer">
+        <span class="sheet-label" style="display:block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px">Ton TP2 — Deliveroo</span>
+        <svg viewBox="0 0 820 360" role="img" aria-label="Systeme Deliveroo : Client et Livreur generalisent Utilisateur, Passer commande inclut Verifier disponibilite, Payer par carte et Benefice livraison gratuite etendent leurs cas de base">
           <defs>
             <marker id="s2tri" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" orient="auto"><path d="M1,1 L10,6 L1,11 Z" fill="var(--surface2)" stroke="currentColor" stroke-width="1.2"/></marker>
             <marker id="s2oa" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="9" markerHeight="9" orient="auto"><path d="M1,1 L10,6 L1,11" fill="none" stroke="currentColor" stroke-width="1.4"/></marker>
           </defs>
-          <rect x="150" y="15" width="350" height="230" rx="12" fill="none" stroke="currentColor" stroke-width="1.2"/>
-          <text x="325" y="34" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="currentColor">Système</text>
+          <rect x="140" y="15" width="540" height="330" rx="14" fill="none" stroke="currentColor" stroke-width="1.2"/>
+          <text x="410" y="34" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="currentColor">Système Deliveroo</text>
 
           <!-- Utilisateur (parent) -->
-          <g font-size="11" font-family="IBM Plex Sans, sans-serif">
-            <circle cx="50" cy="35" r="8" fill="none" stroke="currentColor" stroke-width="1.4"/>
-            <line x1="50" y1="43" x2="50" y2="65" stroke="currentColor" stroke-width="1.4"/>
-            <line x1="38" y1="50" x2="62" y2="50" stroke="currentColor" stroke-width="1.4"/>
-            <line x1="50" y1="65" x2="40" y2="81" stroke="currentColor" stroke-width="1.4"/>
-            <line x1="50" y1="65" x2="60" y2="81" stroke="currentColor" stroke-width="1.4"/>
-            <text x="50" y="97" text-anchor="middle" font-style="italic" fill="currentColor">Utilisateur</text>
+          <g font-size="10.5" font-family="IBM Plex Sans, sans-serif">
+            <circle cx="45" cy="35" r="8" fill="none" stroke="currentColor" stroke-width="1.4"/>
+            <line x1="45" y1="43" x2="45" y2="65" stroke="currentColor" stroke-width="1.4"/>
+            <line x1="33" y1="50" x2="57" y2="50" stroke="currentColor" stroke-width="1.4"/>
+            <line x1="45" y1="65" x2="35" y2="81" stroke="currentColor" stroke-width="1.4"/>
+            <line x1="45" y1="65" x2="55" y2="81" stroke="currentColor" stroke-width="1.4"/>
+            <text x="45" y="97" text-anchor="middle" font-style="italic" fill="currentColor">Utilisateur</text>
           </g>
 
-          <!-- generalization Client -> Utilisateur -->
-          <line x1="50" y1="132" x2="50" y2="89" stroke="currentColor" stroke-width="1.3" marker-end="url(#s2tri)"/>
+          <!-- generalizations Client/Livreur -> Utilisateur -->
+          <line x1="45" y1="132" x2="45" y2="89" stroke="currentColor" stroke-width="1.3" marker-end="url(#s2tri)"/>
+          <line x1="60" y1="272" x2="47" y2="91" stroke="currentColor" stroke-width="1.1" marker-end="url(#s2tri)"/>
 
           <!-- Client -->
-          <g font-size="11.5" font-family="IBM Plex Sans, sans-serif" font-weight="600">
-            <circle cx="50" cy="140" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
-            <line x1="50" y1="148" x2="50" y2="170" stroke="currentColor" stroke-width="1.5"/>
-            <line x1="38" y1="155" x2="62" y2="155" stroke="currentColor" stroke-width="1.5"/>
-            <line x1="50" y1="170" x2="40" y2="186" stroke="currentColor" stroke-width="1.5"/>
-            <line x1="50" y1="170" x2="60" y2="186" stroke="currentColor" stroke-width="1.5"/>
-            <text x="50" y="202" text-anchor="middle" fill="currentColor">Client</text>
+          <g font-size="11" font-family="IBM Plex Sans, sans-serif" font-weight="600">
+            <circle cx="45" cy="140" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="45" y1="148" x2="45" y2="170" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="33" y1="155" x2="57" y2="155" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="45" y1="170" x2="35" y2="186" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="45" y1="170" x2="55" y2="186" stroke="currentColor" stroke-width="1.5"/>
+            <text x="45" y="202" text-anchor="middle" fill="currentColor">Client</text>
+          </g>
+
+          <!-- Livreur -->
+          <g font-size="11" font-family="IBM Plex Sans, sans-serif" font-weight="600">
+            <circle cx="45" cy="280" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="45" y1="288" x2="45" y2="310" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="33" y1="295" x2="57" y2="295" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="45" y1="310" x2="35" y2="326" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="45" y1="310" x2="55" y2="326" stroke="currentColor" stroke-width="1.5"/>
+            <text x="45" y="342" text-anchor="middle" fill="currentColor">Livreur</text>
+          </g>
+
+          <!-- Restaurant partenaire -->
+          <g font-size="10.5" font-family="IBM Plex Sans, sans-serif" font-weight="600">
+            <circle cx="775" cy="110" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="775" y1="118" x2="775" y2="140" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="763" y1="125" x2="787" y2="125" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="775" y1="140" x2="765" y2="156" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="775" y1="140" x2="785" y2="156" stroke="currentColor" stroke-width="1.5"/>
+            <text x="775" y="172" text-anchor="middle" fill="currentColor">Restaurant</text>
+            <text x="775" y="185" text-anchor="middle" fill="currentColor">partenaire</text>
           </g>
 
           <!-- Administrateur -->
-          <g font-size="11.5" font-family="IBM Plex Sans, sans-serif" font-weight="600">
-            <circle cx="590" cy="140" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
-            <line x1="590" y1="148" x2="590" y2="170" stroke="currentColor" stroke-width="1.5"/>
-            <line x1="578" y1="155" x2="602" y2="155" stroke="currentColor" stroke-width="1.5"/>
-            <line x1="590" y1="170" x2="580" y2="186" stroke="currentColor" stroke-width="1.5"/>
-            <line x1="590" y1="170" x2="600" y2="186" stroke="currentColor" stroke-width="1.5"/>
-            <text x="590" y="202" text-anchor="middle" fill="currentColor">Administrateur</text>
+          <g font-size="10.5" font-family="IBM Plex Sans, sans-serif" font-weight="600">
+            <circle cx="775" cy="270" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="775" y1="278" x2="775" y2="300" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="763" y1="285" x2="787" y2="285" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="775" y1="300" x2="765" y2="316" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="775" y1="300" x2="785" y2="316" stroke="currentColor" stroke-width="1.5"/>
+            <text x="775" y="332" text-anchor="middle" fill="currentColor">Administrateur</text>
           </g>
 
-          <!-- use cases left (Client) -->
-          <g font-size="10.5" font-family="IBM Plex Sans, sans-serif" text-anchor="middle" fill="currentColor">
-            <ellipse cx="280" cy="75" rx="68" ry="19" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
-            <text x="280" y="79">Se connecter</text>
-            <ellipse cx="280" cy="140" rx="68" ry="19" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
-            <text x="280" y="144">Passer commande</text>
-            <ellipse cx="280" cy="205" rx="68" ry="19" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
-            <text x="280" y="209">Payer</text>
+          <!-- use cases Client -->
+          <g font-size="9.5" font-family="IBM Plex Sans, sans-serif" text-anchor="middle" fill="currentColor">
+            <ellipse cx="250" cy="50" rx="72" ry="18" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
+            <text x="250" y="54">Parcourir restaurants</text>
+            <ellipse cx="250" cy="100" rx="72" ry="18" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
+            <text x="250" y="104">Passer commande</text>
+            <ellipse cx="250" cy="175" rx="72" ry="18" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
+            <text x="250" y="179">Payer commande</text>
+            <ellipse cx="250" cy="225" rx="72" ry="18" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
+            <text x="250" y="229">Suivre livraison</text>
+            <ellipse cx="250" cy="280" rx="72" ry="18" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
+            <text x="250" y="284">S'abonner Deliveroo Plus</text>
           </g>
 
-          <!-- use case right (Administrateur) -->
-          <g font-size="10.5" font-family="IBM Plex Sans, sans-serif" text-anchor="middle" fill="currentColor">
-            <ellipse cx="460" cy="140" rx="68" ry="19" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
-            <text x="460" y="144">Gérer utilisateurs</text>
+          <!-- use case Livreur -->
+          <g font-size="9.5" font-family="IBM Plex Sans, sans-serif" text-anchor="middle" fill="currentColor">
+            <ellipse cx="250" cy="328" rx="72" ry="16" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
+            <text x="250" y="332">Accepter livraison</text>
+          </g>
+
+          <!-- use cases Restaurant -->
+          <g font-size="9.5" font-family="IBM Plex Sans, sans-serif" text-anchor="middle" fill="currentColor">
+            <ellipse cx="590" cy="50" rx="68" ry="17" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
+            <text x="590" y="54">Gérer le menu</text>
+            <ellipse cx="590" cy="100" rx="68" ry="17" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
+            <text x="590" y="104">Confirmer disponibilité</text>
+          </g>
+
+          <!-- use cases Administrateur -->
+          <g font-size="9.5" font-family="IBM Plex Sans, sans-serif" text-anchor="middle" fill="currentColor">
+            <ellipse cx="590" cy="255" rx="68" ry="17" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
+            <text x="590" y="259">Gérer utilisateurs</text>
+            <ellipse cx="590" cy="305" rx="68" ry="17" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
+            <text x="590" y="309">Gérer zones livraison</text>
           </g>
 
           <!-- associations -->
-          <g stroke="currentColor" stroke-width="0.8" opacity="0.75">
-            <line x1="62" y1="155" x2="212" y2="75"/>
-            <line x1="62" y1="155" x2="212" y2="140"/>
-            <line x1="62" y1="155" x2="212" y2="205"/>
-            <line x1="578" y1="155" x2="528" y2="140"/>
+          <g stroke="currentColor" stroke-width="0.7" opacity="0.7">
+            <line x1="57" y1="155" x2="178" y2="50"/>
+            <line x1="57" y1="155" x2="178" y2="100"/>
+            <line x1="57" y1="155" x2="178" y2="175"/>
+            <line x1="57" y1="155" x2="178" y2="225"/>
+            <line x1="57" y1="155" x2="178" y2="280"/>
+            <line x1="57" y1="295" x2="178" y2="328"/>
+            <line x1="763" y1="125" x2="658" y2="50"/>
+            <line x1="763" y1="125" x2="658" y2="100"/>
+            <line x1="763" y1="285" x2="658" y2="255"/>
+            <line x1="763" y1="285" x2="658" y2="305"/>
           </g>
 
-          <!-- derived use cases -->
-          <g font-size="10" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">
-            <ellipse cx="390" cy="108" rx="60" ry="18" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.3"/>
-            <text x="390" y="112" fill="var(--accent)">Vérifier stock</text>
-            <ellipse cx="390" cy="205" rx="60" ry="18" fill="var(--teal-soft)" stroke="var(--accent2)" stroke-width="1.3"/>
-            <text x="390" y="209" fill="var(--accent2)">Payer par carte</text>
+          <!-- derived use cases (include / extend) -->
+          <g font-size="9" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">
+            <ellipse cx="420" cy="100" rx="58" ry="17" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.3"/>
+            <text x="420" y="104" fill="var(--accent)">Vérifier disponibilité</text>
+            <ellipse cx="420" cy="175" rx="56" ry="17" fill="var(--teal-soft)" stroke="var(--accent2)" stroke-width="1.3"/>
+            <text x="420" y="179" fill="var(--accent2)">Payer par carte</text>
+            <ellipse cx="420" cy="280" rx="58" ry="19" fill="var(--teal-soft)" stroke="var(--accent2)" stroke-width="1.3"/>
+            <text x="420" y="278" fill="var(--accent2)">Bénéficier livraison</text>
+            <text x="420" y="290" fill="var(--accent2)">gratuite</text>
           </g>
 
-          <line x1="348" y1="118" x2="335" y2="128" stroke="var(--accent)" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#s2oa)"/>
-          <text x="378" y="128" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--accent)" text-anchor="middle">«include»</text>
+          <line x1="322" y1="100" x2="362" y2="100" stroke="var(--accent)" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#s2oa)"/>
+          <text x="342" y="90" font-family="IBM Plex Mono, monospace" font-size="8.5" fill="var(--accent)" text-anchor="middle">«include»</text>
 
-          <line x1="332" y1="197" x2="346" y2="209" stroke="var(--accent2)" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#s2oa)"/>
-          <text x="378" y="228" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--accent2)" text-anchor="middle">«extend»</text>
+          <line x1="364" y1="185" x2="322" y2="177" stroke="var(--accent2)" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#s2oa)"/>
+          <text x="342" y="205" font-family="IBM Plex Mono, monospace" font-size="8.5" fill="var(--accent2)" text-anchor="middle">«extend»</text>
+
+          <line x1="362" y1="280" x2="322" y2="280" stroke="var(--accent2)" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#s2oa)"/>
+          <text x="342" y="270" font-family="IBM Plex Mono, monospace" font-size="8.5" fill="var(--accent2)" text-anchor="middle">«extend»</text>
         </svg>
-        <p class="diagram-caption">Client <b>généralise</b> Utilisateur (relation entre acteurs). « Passer commande » <b>inclut</b> toujours « Vérifier stock ». « Payer par carte » <b>étend</b> « Payer » (variante optionnelle).</p>
+        <p class="diagram-caption">Client <b>et</b> Livreur <b>généralisent</b> Utilisateur. « Passer commande » <b>inclut</b> toujours « Vérifier disponibilité ». « Payer par carte » <b>étend</b> « Payer commande » et « Bénéficier livraison gratuite » <b>étend</b> « S'abonner Deliveroo Plus » (2 variantes optionnelles).</p>
       </div>
 
       <!-- ============ 2. CLASSES ============ -->
@@ -983,46 +1038,111 @@ clavier.<span class="fn">close</span>();                              <span clas
       </div>
 
       <div class="diagram-box">
-        <svg viewBox="0 0 620 260" role="img" aria-label="Vertebres, Mammifere hérite de Vertebres, Mammifere agrège Poil, Mammifere compose Squelette">
+        <span class="sheet-label" style="display:block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px">Ton TP2 — Deliveroo (7 classes)</span>
+        <svg viewBox="0 0 860 400" role="img" aria-label="Utilisateur, Client et Livreur en heritent, Commande agrege Plat et compose Livraison, Client Restaurant et Livreur dependent de Commande/Livraison">
           <defs>
             <marker id="s2tri2" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" orient="auto"><path d="M1,1 L10,6 L1,11 Z" fill="var(--surface2)" stroke="currentColor" stroke-width="1.2"/></marker>
+            <marker id="s2oaC" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="9" markerHeight="9" orient="auto"><path d="M1,1 L10,6 L1,11" fill="none" stroke="var(--accent2)" stroke-width="1.4"/></marker>
           </defs>
           <g font-family="IBM Plex Sans, sans-serif">
-            <rect x="250" y="20" width="140" height="46" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
-            <line x1="250" y1="42" x2="390" y2="42" stroke="currentColor" stroke-width="1"/>
-            <text x="320" y="35" text-anchor="middle" font-weight="700" font-size="11.5" fill="currentColor">Vertebres</text>
-            <text x="258" y="57" font-family="IBM Plex Mono, monospace" font-size="8.5" fill="currentColor">- nbVertebres : int</text>
+            <!-- Utilisateur -->
+            <rect x="280" y="15" width="160" height="66" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
+            <line x1="280" y1="37" x2="440" y2="37" stroke="currentColor" stroke-width="1"/>
+            <text x="360" y="30" text-anchor="middle" font-weight="700" font-size="11" fill="currentColor">Utilisateur</text>
+            <text x="288" y="52" font-family="IBM Plex Mono, monospace" font-size="8" fill="currentColor">- nom, email : String</text>
+            <text x="288" y="64" font-family="IBM Plex Mono, monospace" font-size="8" fill="currentColor">- motDePasse : String</text>
+            <text x="288" y="76" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--muted)">+ seConnecter() ...</text>
 
-            <rect x="250" y="140" width="140" height="46" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
-            <line x1="250" y1="162" x2="390" y2="162" stroke="currentColor" stroke-width="1"/>
-            <text x="320" y="155" text-anchor="middle" font-weight="700" font-size="11.5" fill="currentColor">Mammifere</text>
-            <text x="258" y="177" font-family="IBM Plex Mono, monospace" font-size="8.5" fill="currentColor">- poids : double</text>
+            <!-- Client -->
+            <rect x="80" y="140" width="160" height="70" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
+            <line x1="80" y1="162" x2="240" y2="162" stroke="currentColor" stroke-width="1"/>
+            <text x="160" y="155" text-anchor="middle" font-weight="700" font-size="11" fill="currentColor">Client</text>
+            <text x="88" y="177" font-family="IBM Plex Mono, monospace" font-size="8" fill="currentColor">- adresseLivraison</text>
+            <text x="88" y="189" font-family="IBM Plex Mono, monospace" font-size="8" fill="currentColor">- historique : Commande[]</text>
+            <text x="88" y="201" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--muted)">+ passerCommande() ...</text>
 
-            <rect x="440" y="108" width="130" height="46" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
-            <line x1="440" y1="130" x2="570" y2="130" stroke="currentColor" stroke-width="1"/>
-            <text x="505" y="123" text-anchor="middle" font-weight="700" font-size="11.5" fill="currentColor">Poil</text>
-            <text x="448" y="145" font-family="IBM Plex Mono, monospace" font-size="8.5" fill="currentColor">- couleur : String</text>
+            <!-- Livreur -->
+            <rect x="280" y="140" width="160" height="70" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
+            <line x1="280" y1="162" x2="440" y2="162" stroke="currentColor" stroke-width="1"/>
+            <text x="360" y="155" text-anchor="middle" font-weight="700" font-size="11" fill="currentColor">Livreur</text>
+            <text x="288" y="177" font-family="IBM Plex Mono, monospace" font-size="8" fill="currentColor">- vehicule, disponible</text>
+            <text x="288" y="189" font-family="IBM Plex Mono, monospace" font-size="8" fill="currentColor">- positionGPS : String</text>
+            <text x="288" y="201" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--muted)">+ accepterLivraison() ...</text>
 
-            <rect x="440" y="192" width="130" height="46" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
-            <line x1="440" y1="214" x2="570" y2="214" stroke="currentColor" stroke-width="1"/>
-            <text x="505" y="207" text-anchor="middle" font-weight="700" font-size="11.5" fill="currentColor">Squelette</text>
-            <text x="448" y="229" font-family="IBM Plex Mono, monospace" font-size="8.5" fill="currentColor">- nbOs : int</text>
+            <!-- Restaurant -->
+            <rect x="640" y="15" width="170" height="70" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
+            <line x1="640" y1="37" x2="810" y2="37" stroke="currentColor" stroke-width="1"/>
+            <text x="725" y="30" text-anchor="middle" font-weight="700" font-size="11" fill="currentColor">Restaurant</text>
+            <text x="648" y="52" font-family="IBM Plex Mono, monospace" font-size="8" fill="currentColor">- nom, adresse : String</text>
+            <text x="648" y="64" font-family="IBM Plex Mono, monospace" font-size="8" fill="currentColor">- menu : Plat[], zoneLivraison</text>
+            <text x="648" y="76" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--muted)">+ gererMenu() ...</text>
+
+            <!-- Plat -->
+            <rect x="640" y="140" width="170" height="66" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
+            <line x1="640" y1="162" x2="810" y2="162" stroke="currentColor" stroke-width="1"/>
+            <text x="725" y="155" text-anchor="middle" font-weight="700" font-size="11" fill="currentColor">Plat</text>
+            <text x="648" y="177" font-family="IBM Plex Mono, monospace" font-size="8" fill="currentColor">- nom : String, prix : double</text>
+            <text x="648" y="189" font-family="IBM Plex Mono, monospace" font-size="8" fill="currentColor">- allergenes : String[]</text>
+            <text x="648" y="201" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--muted)">+ getPrix() ...</text>
+
+            <!-- Commande -->
+            <rect x="440" y="270" width="170" height="70" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
+            <line x1="440" y1="292" x2="610" y2="292" stroke="currentColor" stroke-width="1"/>
+            <text x="525" y="285" text-anchor="middle" font-weight="700" font-size="11" fill="currentColor">Commande</text>
+            <text x="448" y="307" font-family="IBM Plex Mono, monospace" font-size="8" fill="currentColor">- numero : int, statut : String</text>
+            <text x="448" y="319" font-family="IBM Plex Mono, monospace" font-size="8" fill="currentColor">- montantTotal, pourboire</text>
+            <text x="448" y="331" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--muted)">+ ajouterPlat(), calculerTotal() ...</text>
+
+            <!-- Livraison -->
+            <rect x="640" y="270" width="170" height="70" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
+            <line x1="640" y1="292" x2="810" y2="292" stroke="currentColor" stroke-width="1"/>
+            <text x="725" y="285" text-anchor="middle" font-weight="700" font-size="11" fill="currentColor">Livraison</text>
+            <text x="648" y="307" font-family="IBM Plex Mono, monospace" font-size="8" fill="currentColor">- statut : String</text>
+            <text x="648" y="319" font-family="IBM Plex Mono, monospace" font-size="8" fill="currentColor">- tempsEstime : int</text>
+            <text x="648" y="331" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--muted)">+ demarrer(), terminer() ...</text>
           </g>
 
-          <!-- heritage -->
-          <line x1="320" y1="140" x2="320" y2="68" stroke="currentColor" stroke-width="1.3" marker-end="url(#s2tri2)"/>
+          <!-- heritage Client/Livreur -> Utilisateur -->
+          <line x1="160" y1="140" x2="330" y2="83" stroke="currentColor" stroke-width="1.3" marker-end="url(#s2tri2)"/>
+          <line x1="360" y1="140" x2="360" y2="83" stroke="currentColor" stroke-width="1.3" marker-end="url(#s2tri2)"/>
 
-          <!-- aggregation Mammifere - Poil -->
-          <line x1="390" y1="150" x2="440" y2="131" stroke="currentColor" stroke-width="1.2"/>
-          <polygon points="390,150 400,145 405,152 395,157" fill="var(--surface2)" stroke="currentColor" stroke-width="1.1"/>
-          <text x="415" y="128" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--muted)" text-anchor="middle">0..*</text>
+          <!-- aggregation Commande - Plat -->
+          <line x1="610" y1="290" x2="700" y2="208" stroke="currentColor" stroke-width="1.2"/>
+          <polygon points="610,290 622,283 630,292 618,299" fill="var(--surface2)" stroke="currentColor" stroke-width="1.1"/>
+          <text x="660" y="245" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--muted)" text-anchor="middle">contient 1..*</text>
 
-          <!-- composition Mammifere - Squelette -->
-          <line x1="390" y1="175" x2="440" y2="213" stroke="currentColor" stroke-width="1.2"/>
-          <polygon points="390,175 400,170 405,177 395,182" fill="currentColor" stroke="currentColor" stroke-width="1.1"/>
-          <text x="415" y="200" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--muted)" text-anchor="middle">1</text>
+          <!-- composition Commande - Livraison -->
+          <line x1="610" y1="305" x2="640" y2="305" stroke="currentColor" stroke-width="1.3"/>
+          <polygon points="610,305 622,298 628,305 622,312" fill="currentColor" stroke="currentColor" stroke-width="1.1"/>
+          <text x="625" y="320" font-family="IBM Plex Mono, monospace" font-size="7.5" fill="var(--muted)" text-anchor="middle">génère 0..1</text>
+
+          <!-- dependencies -->
+          <line x1="220" y1="210" x2="455" y2="280" stroke="var(--accent2)" stroke-width="1.1" stroke-dasharray="4 3" marker-end="url(#s2oaC)"/>
+          <text x="330" y="255" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--accent2)" text-anchor="middle">passe par</text>
+
+          <line x1="700" y1="85" x2="590" y2="270" stroke="var(--accent2)" stroke-width="1.1" stroke-dasharray="4 3" marker-end="url(#s2oaC)"/>
+          <text x="660" y="170" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--accent2)" text-anchor="middle">concerne</text>
+
+          <line x1="400" y1="210" x2="650" y2="278" stroke="var(--accent2)" stroke-width="1.1" stroke-dasharray="4 3" marker-end="url(#s2oaC)"/>
+          <text x="500" y="240" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--accent2)" text-anchor="middle">assuré par</text>
         </svg>
-        <p class="diagram-caption">Mammifere <b>hérite</b> de Vertebres. Mammifere <b>agrège</b> des Poil (existent indépendamment). Mammifere <b>compose</b> un Squelette (n'existe que pour SON Mammifere — supprimé avec lui).</p>
+        <p class="diagram-caption">Client et Livreur <b>héritent</b> d'Utilisateur. Commande <b>agrège</b> des Plat (existent dans le menu, indépendants). Commande <b>compose</b> une Livraison (n'existe que pour elle). Les 3 flèches pointillées <b>vertes</b> sont des dépendances (Client passe par Commande, Restaurant est concerné, Livreur assure la Livraison).</p>
+      </div>
+
+      <h3 style="font-size:16px;margin:22px 0 10px">🧠 Le test pour ne plus confondre agrégation et composition</h3>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th></th><th>Agrégation (◇ creux) — Commande / Plat</th><th>Composition (◆ plein) — Commande / Livraison</th></tr></thead>
+          <tbody>
+            <tr><td><b>L'objet contenu existe...</b></td><td>indépendamment du contenant</td><td>seulement pour son contenant</td></tr>
+            <tr><td><b>Si je supprime le contenant</b></td><td>l'objet contenu <b>reste</b> (le Plat reste au menu)</td><td>l'objet contenu <b>disparaît aussi</b></td></tr>
+            <tr><td><b>Question à te poser</b></td><td colspan="2">"Si je supprime la Commande, est-ce que <i>ça</i> disparaît aussi ?" → Non = agrégation. Oui = composition.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tip" style="margin-top:16px"><b>Mnémotechnique</b>
+        <code>Triangle creux</code> = "EST UNE SORTE DE" (héritage) · <code>Losange creux</code> = "A, mais indépendant" (agrégation) · <code>Losange plein</code> = "A, et en dépend" (composition)
       </div>
 
       <!-- ============ 3. SEQUENCES ============ -->
@@ -1049,45 +1169,72 @@ clavier.<span class="fn">close</span>();                              <span clas
       </div>
 
       <div class="diagram-box">
-        <svg viewBox="0 0 560 260" role="img" aria-label="Client consulte le menu du Restaurant, cree une Commande, confirme la disponibilite">
-          <g font-family="IBM Plex Sans, sans-serif" font-size="11" font-weight="600" fill="currentColor">
-            <rect x="35" y="15" width="110" height="24" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
-            <text x="90" y="31" text-anchor="middle">Client</text>
-            <rect x="225" y="15" width="110" height="24" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
-            <text x="280" y="31" text-anchor="middle" text-decoration="underline">:Commande</text>
-            <rect x="415" y="15" width="110" height="24" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
-            <text x="470" y="31" text-anchor="middle">Restaurant</text>
+        <span class="sheet-label" style="display:block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px">Ton TP2 — Deliveroo, Séquence 1 : passer une commande</span>
+        <svg viewBox="0 0 720 400" role="img" aria-label="Client passe et paye une commande, Commande valide le paiement, Restaurant recoit et accepte, notifications envoyees au Client et au Livreur">
+          <g font-family="IBM Plex Sans, sans-serif" font-size="10.5" font-weight="600" fill="currentColor">
+            <rect x="25" y="15" width="110" height="24" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
+            <text x="80" y="31" text-anchor="middle">c : Client</text>
+            <rect x="205" y="15" width="110" height="24" fill="var(--accent2-soft, var(--surface2))" stroke="currentColor" stroke-width="1.3"/>
+            <text x="260" y="31" text-anchor="middle" text-decoration="underline">cmd : Commande</text>
+            <rect x="385" y="15" width="110" height="24" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
+            <text x="440" y="31" text-anchor="middle">r : Restaurant</text>
+            <rect x="565" y="15" width="110" height="24" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
+            <text x="620" y="31" text-anchor="middle">l : Livreur</text>
           </g>
           <g stroke="currentColor" stroke-width="1" stroke-dasharray="3 2">
-            <line x1="90" y1="39" x2="90" y2="235"/>
-            <line x1="280" y1="39" x2="280" y2="235"/>
-            <line x1="470" y1="39" x2="470" y2="235"/>
+            <line x1="80" y1="39" x2="80" y2="375"/>
+            <line x1="260" y1="39" x2="260" y2="375"/>
+            <line x1="440" y1="39" x2="440" y2="375"/>
+            <line x1="620" y1="39" x2="620" y2="375"/>
           </g>
 
-          <g font-family="IBM Plex Sans, sans-serif" font-size="9.5">
-            <line x1="90" y1="70" x2="463" y2="70" stroke="currentColor" stroke-width="1.4"/>
-            <polygon points="470,70 460,65 460,75" fill="currentColor"/>
-            <text x="280" y="64" text-anchor="middle" fill="currentColor">consulterMenu() (synchrone)</text>
+          <g font-family="IBM Plex Sans, sans-serif" font-size="9">
+            <!-- 1. passerCommande -->
+            <line x1="80" y1="65" x2="433" y2="65" stroke="currentColor" stroke-width="1.3"/>
+            <polygon points="440,65 430,60 430,70" fill="currentColor"/>
+            <text x="260" y="59" text-anchor="middle" fill="currentColor">passerCommande() (sync)</text>
 
-            <line x1="470" y1="103" x2="97" y2="103" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="3 3"/>
-            <polygon points="90,103 100,98 100,108" fill="var(--muted)"/>
-            <text x="280" y="97" text-anchor="middle" fill="var(--muted)">retour liste des plats</text>
+            <!-- 2. payerCommande -->
+            <line x1="80" y1="92" x2="433" y2="92" stroke="currentColor" stroke-width="1.3"/>
+            <polygon points="440,92 430,87 430,97" fill="currentColor"/>
+            <text x="260" y="86" text-anchor="middle" fill="currentColor">payerCommande() (sync)</text>
 
-            <line x1="90" y1="140" x2="273" y2="140" stroke="currentColor" stroke-width="1.4"/>
-            <polygon points="280,140 270,135 270,145" fill="currentColor"/>
-            <text x="185" y="134" text-anchor="middle" fill="currentColor">creer + ajouterPlat() (sync)</text>
+            <!-- 3. valider() sur cmd, avec activation -->
+            <line x1="80" y1="128" x2="253" y2="128" stroke="currentColor" stroke-width="1.3"/>
+            <polygon points="260,128 250,123 250,133" fill="currentColor"/>
+            <text x="170" y="122" text-anchor="middle" fill="currentColor">valider() (sync)</text>
+            <rect x="256" y="128" width="8" height="34" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
 
-            <line x1="280" y1="175" x2="463" y2="175" stroke="currentColor" stroke-width="1.4"/>
-            <polygon points="470,175 460,170 460,180" fill="currentColor"/>
-            <text x="375" y="169" text-anchor="middle" fill="currentColor">confirmerDisponibilite() (sync)</text>
+            <!-- 4. retour validation -->
+            <line x1="256" y1="162" x2="87" y2="162" stroke="var(--muted)" stroke-width="1.1" stroke-dasharray="3 3"/>
+            <polygon points="80,162 90,157 90,167" fill="var(--muted)"/>
+            <text x="170" y="176" text-anchor="middle" fill="var(--muted)">commande validée [paiement accepté]</text>
 
-            <line x1="470" y1="210" x2="287" y2="210" stroke="var(--accent2)" stroke-width="1.4" stroke-dasharray="4 3"/>
-            <polyline points="297,204 280,210 297,216" fill="none" stroke="var(--accent2)" stroke-width="1.4"/>
-            <text x="375" y="204" text-anchor="middle" fill="var(--accent2)">notifierDisponibilite() (asynchrone)</text>
+            <!-- 5. recevoirCommande, avec activation sur r -->
+            <line x1="264" y1="198" x2="433" y2="198" stroke="currentColor" stroke-width="1.3"/>
+            <polygon points="440,198 430,193 430,203" fill="currentColor"/>
+            <text x="350" y="192" text-anchor="middle" fill="currentColor">recevoirCommande() (sync)</text>
+            <rect x="436" y="198" width="8" height="34" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
+
+            <!-- 6. retour acceptation -->
+            <line x1="436" y1="232" x2="267" y2="232" stroke="var(--muted)" stroke-width="1.1" stroke-dasharray="3 3"/>
+            <polygon points="260,232 270,227 270,237" fill="var(--muted)"/>
+            <text x="350" y="246" text-anchor="middle" fill="var(--muted)">commande acceptée</text>
+
+            <!-- 7. notification async vers client -->
+            <line x1="260" y1="270" x2="87" y2="270" stroke="var(--accent2)" stroke-width="1.3" stroke-dasharray="4 3"/>
+            <polyline points="97,264 80,270 97,276" fill="none" stroke="var(--accent2)" stroke-width="1.3"/>
+            <text x="170" y="264" text-anchor="middle" fill="var(--accent2)">Notification : commande acceptée (async)</text>
+
+            <!-- 8. notification async vers livreur -->
+            <line x1="260" y1="300" x2="613" y2="300" stroke="var(--accent2)" stroke-width="1.3" stroke-dasharray="4 3"/>
+            <polyline points="603,294 620,300 603,306" fill="none" stroke="var(--accent2)" stroke-width="1.3"/>
+            <text x="440" y="294" text-anchor="middle" fill="var(--accent2)">Notification : mission proposée (async)</text>
           </g>
         </svg>
-        <p class="diagram-caption"><code>:Commande</code> (souligné) = ligne de vie d'un <b>objet</b>, pas d'un acteur humain. La confirmation finale est asynchrone : le Restaurant n'attend pas la réponse pour continuer.</p>
+        <p class="diagram-caption">Les rectangles sur <code>cmd</code> et <code>r</code> sont des <b>barres d'activation</b> (le temps où l'objet traite l'appel). Les 2 dernières notifications sont <b>asynchrones</b> (teal) : <code>cmd</code> ne bloque pas en attendant que Client ou Livreur réagisse.</p>
       </div>
+      <p class="diagram-caption" style="margin-top:-4px">Les séquences 2 (affectation/préparation) et 3 (retirer/livrer) de ton équipe suivent exactement la même logique : sync pour les appels qui attendent une réponse, async (teal) pour les notifications.</p>
     </section>
 
     <section>
