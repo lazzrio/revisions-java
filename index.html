@@ -251,7 +251,8 @@ footer{border-top:1px solid var(--line);background:var(--surface2);padding:32px 
       <button data-view="accueil" class="active" onclick="showView('accueil')">Accueil</button>
       <button data-view="s1" onclick="showView('s1')">Semaine 1</button>
       <button data-view="s2" onclick="showView('s2')">Semaine 2</button>
-      <button data-view="futur" onclick="showView('futur')">S3 → S7</button>
+      <button data-view="s3" onclick="showView('s3')">Semaine 3</button>
+      <button data-view="futur" onclick="showView('futur')">S4 → S7</button>
       <button data-view="qcm" onclick="showView('qcm')">QCM</button>
       <button data-view="livre" onclick="showView('livre')">Exo Livre</button>
     </nav>
@@ -290,14 +291,14 @@ footer{border-top:1px solid var(--line);background:var(--surface2);padding:32px 
           <div style="font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Ta progression</div>
           <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px">
             <div style="height:8px;background:var(--accent);border-radius:2px" title="Semaine 1"></div>
-            <div style="height:8px;background:var(--accent);border-radius:2px;opacity:.7" title="Semaine 2"></div>
-            <div style="height:8px;background:var(--line);border-radius:2px" title="Semaine 3"></div>
+            <div style="height:8px;background:var(--accent);border-radius:2px;opacity:.85" title="Semaine 2"></div>
+            <div style="height:8px;background:var(--accent);border-radius:2px;opacity:.7" title="Semaine 3"></div>
             <div style="height:8px;background:var(--line);border-radius:2px" title="Semaine 4"></div>
             <div style="height:8px;background:var(--line);border-radius:2px" title="Semaine 5"></div>
             <div style="height:8px;background:var(--line);border-radius:2px" title="Semaine 6"></div>
             <div style="height:8px;background:var(--line);border-radius:2px" title="Semaine 7"></div>
           </div>
-          <div style="font-size:13px;color:var(--muted);margin-top:8px">2 semaines couvertes / 7</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:8px">3 semaines couvertes / 7</div>
         </div>
       </div>
     </div>
@@ -323,11 +324,11 @@ footer{border-top:1px solid var(--line);background:var(--surface2);padding:32px 
           <div class="t">Relations UML</div>
           <div class="d">Héritage, agrégation, association, dépendance, protected, super, transtypage.</div>
         </button>
-        <button class="wk locked">
-          <span class="tag">À venir</span>
+        <button class="wk" onclick="showView('s3')">
+          <span class="tag">Fait</span>
           <div class="num">Semaine 3</div>
           <div class="t">Constructeurs & Points</div>
-          <div class="d">Constructeurs surchargés, initialisation d'objets, cas Point/Segment.</div>
+          <div class="d">Surcharge de constructeurs, this, toString/@Override, affectation d'objets, packages.</div>
         </button>
         <button class="wk locked">
           <span class="tag">À venir</span>
@@ -1791,23 +1792,366 @@ System.out.println(i);   <span class="cmt">// ❌ ERREUR DE COMPILATION</span></
   </div>
 </div>
 
+<!-- SEMAINE 3 -->
+<div id="s3" class="view">
+  <div class="wrap">
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Semaine 3</div>
+        <h2>Concepts de base — constructeurs, this, affectation d'objets</h2>
+        <p>Retour en profondeur sur une seule classe (comme S1), mais avec des outils plus fins : surcharger un constructeur, s'auto-référencer avec <code>this</code>, comparer et affecter des objets, organiser son code en packages.</p>
+      </div>
+
+      <h3 style="font-size:20px;margin-bottom:16px">📚 Notions clés</h3>
+      <div class="notions">
+        <div class="notion" style="border-left:3px solid var(--accent)">
+          <h3>Surcharge de constructeurs</h3>
+          <p>Plusieurs constructeurs, même nom (celui de la classe), <b>signatures différentes</b>. Java choisit selon les arguments fournis à <code>new</code>.</p>
+          <div class="example">Point() / Point(x,y) / Point(x,y,nom)</div>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--accent2)">
+          <h3>this() — chaîner les constructeurs</h3>
+          <p>Un constructeur peut <b>appeler un autre constructeur</b> de la même classe, en 1ère ligne, pour éviter de dupliquer du code d'initialisation.</p>
+          <div class="example">Point(x,y) { this(); this.x=x; ... }</div>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--good)">
+          <h3>this — auto-référence</h3>
+          <p>Désigne l'objet courant. Sert à lever l'ambiguïté attribut/paramètre, ou à <b>retourner une référence vers soi-même</b>.</p>
+          <div class="example">public Point getReferenceToMe() { return this; }</div>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--warn)">
+          <h3>toString() + @Override</h3>
+          <p>Méthode héritée de la classe <code>Object</code> (la mère de toutes les classes). La redéfinir change ce qu'affiche <code>println(objet)</code>.</p>
+          <div class="example">@Override public String toString() { return "..."; }</div>
+        </div>
+      </div>
+
+      <div class="notions" style="margin-top:16px">
+        <div class="notion" style="border-left:3px solid var(--bad)">
+          <h3>equals() vs ==</h3>
+          <p><code>==</code> compare les <b>références</b> (adresses). <code>equals()</code>, hérité d'<code>Object</code>, compare par défaut aussi les références — sauf si on le redéfinit.</p>
+          <div class="example">a.equals(b) // false si a et b sont 2 objets différents, même avec le même contenu</div>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--accent)">
+          <h3>Affectation d'objets</h3>
+          <p><code>a = b;</code> ne copie <b>pas</b> le contenu — ça copie la <b>référence</b>. Après ça, <code>a</code> et <code>b</code> désignent le même objet, et les anciennes valeurs de <code>a</code> sont perdues (accessibles nulle part).</p>
+          <div class="example">a = b; // a pointe maintenant vers l'objet de b</div>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--accent2)">
+          <h3>Packages</h3>
+          <p>Regroupe des classes liées sous un même nom. Une classe indique son package en 1ère ligne, et importe les classes des autres packages avec <code>import</code>.</p>
+          <div class="example">package individu; import transport.*;</div>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--good)">
+          <h3>Surcharge de méthodes</h3>
+          <p>Même principe que les constructeurs : plusieurs méthodes du <b>même nom</b>, <b>signatures différentes</b> (nombre/type de paramètres).</p>
+          <div class="example">translater(int,int) — Point vs translater(Point,Point) — Segment</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Vocabulaire</div>
+        <h2>Nouveaux mots-clés & méthodes</h2>
+      </div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>Mot-clé / méthode</th><th>Rôle</th><th>Point d'attention</th></tr></thead>
+          <tbody>
+            <tr><td><code>this(...)</code></td><td>Appelle un autre constructeur de la même classe</td><td>Doit être la 1ère ligne, comme <code>super(...)</code></td></tr>
+            <tr><td><code>this.attribut</code></td><td>Distingue l'attribut du paramètre de même nom</td><td>Toujours l'attribut, jamais le paramètre</td></tr>
+            <tr><td><code>this</code> (seul)</td><td>Référence vers l'objet courant</td><td>Peut être retourné par une méthode</td></tr>
+            <tr><td><code>toString()</code></td><td>Retourne une String représentant l'objet, héritée d'<code>Object</code></td><td>Appelée automatiquement par <code>println(objet)</code></td></tr>
+            <tr><td><code>@Override</code></td><td>Indique qu'on redéfinit une méthode héritée</td><td>Le compilateur vérifie que la signature correspond</td></tr>
+            <tr><td><code>equals()</code></td><td>Compare deux objets, hérité d'<code>Object</code></td><td>Compare les références par défaut, pas le contenu</td></tr>
+            <tr><td><code>getClass()</code></td><td>Retourne la classe réelle de l'objet</td><td><code>a.getClass().equals(b.getClass())</code> compare les TYPES</td></tr>
+            <tr><td><code>package nom;</code></td><td>Déclare à quel package appartient le fichier</td><td>Toujours en 1ère ligne du fichier</td></tr>
+            <tr><td><code>import pkg.*;</code></td><td>Utilise les classes d'un autre package</td><td>Sinon la classe externe est invisible</td></tr>
+            <tr><td><code>protected</code></td><td>Visible dans la classe + sous-classes + même package</td><td>Plus large que <code>private</code>, plus restreint que <code>public</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Exemples</div>
+        <h2>Code annoté</h2>
+      </div>
+
+      <h3 style="font-size:17px;margin-bottom:8px">this — auto-référence et chaînage de constructeurs</h3>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Point</span> {
+    <span class="kw">int</span> x, y;
+    String name;
+
+    <span class="kw">public</span> <span class="fn">Point</span>() {
+        String name = <span class="kw">null</span>;      <span class="cmt">// variable LOCALE name (masque l'attribut)</span>
+        x=<span class="num">0</span>; y=<span class="num">0</span>;
+        <span class="kw">this</span>.name = <span class="str">"segado"</span>;  <span class="cmt">// this.name = l'ATTRIBUT, sans ambiguïté</span>
+    }
+    <span class="kw">public</span> <span class="fn">Point</span>(<span class="kw">int</span> x, <span class="kw">int</span> y) {
+        <span class="kw">this</span>();              <span class="cmt">// appelle le constructeur SANS paramètre au-dessus</span>
+        <span class="kw">this</span>.x=x; <span class="kw">this</span>.y=y;
+    }
+    <span class="kw">public</span> <span class="fn">Point</span>(<span class="kw">int</span> x, <span class="kw">int</span> y, String name) {
+        <span class="kw">this</span> (x, y);          <span class="cmt">// appelle le constructeur à 2 paramètres au-dessus</span>
+        <span class="kw">this</span>.name = name;
+    }
+    <span class="kw">public</span> Point <span class="fn">getReferenceToMe</span> () {
+        <span class="kw">return</span> <span class="kw">this</span>;     <span class="cmt">// renvoie une référence vers CET objet précis</span>
+    }
+}</pre>
+      <p style="color:var(--muted);font-size:13.5px;margin-top:10px">Chaque constructeur appelle le précédent avec <code>this(...)</code> — évite de réécrire <code>x=0; y=0;</code> trois fois. C'est l'équivalent de <code>super(...)</code>, mais vers <b>sa propre classe</b> plutôt que vers le parent.</p>
+
+      <h3 style="font-size:17px;margin:24px 0 8px">toString() + @Override — remplacer l'affichage par défaut</h3>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Point</span> {
+    <span class="kw">private int</span> x, y;
+
+    <span class="kw">public</span> <span class="fn">Point</span>(<span class="kw">int</span> abs, <span class="kw">int</span> ord) { x = abs; y = ord; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> String <span class="fn">toString</span>() {
+        <span class="kw">return</span>(<span class="str">"Je suis un point de coordonnées ("</span> + x +<span class="str">","</span>+ y + <span class="str">")."</span>);
+    }
+}
+<span class="cmt">// System.out.println(monPoint); appelle AUTOMATIQUEMENT toString() !</span></pre>
+
+      <h3 style="font-size:17px;margin:24px 0 8px">Affectation d'objets — a = b copie la RÉFÉRENCE</h3>
+<pre class="code">Point a, b;
+a = <span class="kw">new</span> Point(); a.<span class="fn">initialise</span>(<span class="num">12</span>,<span class="num">17</span>);
+b = <span class="kw">new</span> Point(); b.<span class="fn">initialise</span>(<span class="num">14</span>,<span class="num">20</span>);
+
+<span class="kw">boolean</span> res1 = a.<span class="fn">equals</span>(b);              <span class="cmt">// false : 2 objets DIFFÉRENTS</span>
+<span class="kw">boolean</span> res2 = a.<span class="fn">getClass</span>().<span class="fn">equals</span>(b.<span class="fn">getClass</span>()); <span class="cmt">// true : MÊME classe Point</span>
+
+a = b;                              <span class="cmt">// a pointe maintenant vers l'objet de b</span>
+res1 = a.<span class="fn">equals</span>(b);                    <span class="cmt">// true : même référence, même objet !</span>
+<span class="cmt">// ⚠️ les anciennes valeurs (12,17) de a sont PERDUES, inaccessibles</span></pre>
+      <p style="color:var(--muted);font-size:13.5px;margin-top:10px">Exactement le même principe que <code>tab3 = tab;</code> pour les tableaux vu en semaine 1 — un objet se copie par <b>référence</b>, jamais par valeur.</p>
+
+      <h3 style="font-size:17px;margin:24px 0 8px">Packages — organiser son code sur plusieurs dossiers</h3>
+<pre class="code"><span class="cmt">// fichier individu/Personne.java</span>
+<span class="kw">package</span> individu;
+<span class="kw">public class</span> <span class="cls">Personne</span> {
+    <span class="kw">private</span> String nom;
+    <span class="kw">public</span> <span class="fn">Personne</span>(String pnom) { nom = pnom; }
+    <span class="kw">public void</span> <span class="fn">afficher</span>() { System.out.println(<span class="str">"Nom : "</span>+nom); }
+}
+
+<span class="cmt">// fichier individu/Conducteur.java</span>
+<span class="kw">package</span> individu;
+<span class="kw">import</span> transport.*;                  <span class="cmt">// pour utiliser la classe Train</span>
+
+<span class="kw">public class</span> <span class="cls">Conducteur</span> <span class="kw">extends</span> <span class="cls">Personne</span> {
+    <span class="kw">public</span> Train t;
+    <span class="kw">public</span> <span class="fn">Conducteur</span>(String pnom, <span class="kw">float</span> psalaire, Train ptrain) {
+        <span class="kw">super</span>(pnom);       <span class="cmt">// héritage CROSS-PACKAGE, toujours valide</span>
+        t = ptrain;
+    }
+}</pre>
+      <p style="color:var(--muted);font-size:13.5px;margin-top:10px">L'héritage et les imports fonctionnent <b>entre packages différents</b> — <code>Conducteur</code> (package <code>individu</code>) utilise <code>Train</code> (package <code>transport</code>) grâce à <code>import transport.*;</code>.</p>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Corrigé officiel</div>
+        <h2>Réponses aux 7 exercices de la semaine</h2>
+        <p>Les vraies questions du PDF "Concepts de base" (JP Segado), section par section.</p>
+      </div>
+      <div class="qa-list">
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 1</span>
+            <span class="qa-text">cours3_point.zip vs cours3_point2.zip — différences, meilleure conception, diagramme de classes Point/TstPoint, différence des 3 constructeurs, pourquoi @Override sur toString() ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours3_point.zip vs cours3_point2.zip</span>
+            <p><b>Différences</b> : la version 1 (<code>cours3_point</code>) utilise une méthode <code>initialise(int,int)</code> séparée + une méthode <code>affiche()</code> perso. La version 2 (<code>cours3_point2</code>) utilise un <b>constructeur</b> <code>Point(int,int)</code> pour initialiser directement, et redéfinit <code>toString()</code> avec <code>@Override</code> au lieu d'une méthode perso.</p>
+            <p><b>Meilleure version</b> : la version 2. Un objet doit être <b>valide dès sa création</b> — utiliser un constructeur garantit qu'on ne peut jamais avoir un Point "à moitié initialisé" (oubli d'appeler <code>initialise()</code>). Redéfinir <code>toString()</code> est aussi plus "objet" : ça s'intègre avec tout le langage (<code>println</code>, concaténation), pas besoin d'appeler une méthode perso.</p>
+            <p><b>Diagramme de classes Point/TstPoint</b> : <code>TstPoint</code> contient un <code>main</code> qui instancie des <code>Point</code> — c'est une <b>dépendance</b> (TstPoint utilise Point, sans le stocker en attribut), pas une agrégation.</p>
+            <p><b>Les 3 constructeurs de la v2</b> (dans <code>cours3_point3</code>, qui les détaille) : <code>Point()</code> sans paramètre, <code>Point(x,y)</code>, <code>Point(x,y,name)</code> — c'est de la <b>surcharge</b>. Dans le main, ça permet d'écrire <code>new Point()</code>, <code>new Point(5,7)</code> ou <code>new Point(2,8,"jps")</code> selon ce dont on a besoin.</p>
+            <p><b>Pourquoi <code>@Override</code> sur toString()</b> : parce que <code>toString()</code> existe déjà dans <code>Object</code> (la classe mère de toutes les classes Java) — on la <b>redéfinit</b>, on ne la crée pas depuis rien. <code>@Override</code> vérifie que la signature correspond bien.</p>
+            <p><b>Propriété qui rend Object "générique"</b> : <b>toute classe hérite implicitement d'Object</b> en Java, même sans écrire <code>extends Object</code> — c'est automatique. D'où le nom "générique" : elle est à la racine de toutes les classes.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 2</span>
+            <span class="qa-text">cours3_point_segment.zip — déduire les diagrammes de classes et de séquences de ce code.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours3_point_segment.zip</span>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Segment</span> {
+    <span class="kw">public</span> Point p1, p2;   <span class="cmt">// Segment CONTIENT 2 Point en attribut</span>
+    <span class="kw">public</span> <span class="fn">Segment</span> (Point point1, Point point2) { p1 = point1; p2 = point2; }
+}</pre>
+            <p><b>Diagramme de classes</b> : <code>Segment</code> a 2 attributs de type <code>Point</code> → c'est une <b>agrégation</b> (losange creux) avec une cardinalité <b>2</b> (ou <code>1..2</code>) côté Point — les Points existent indépendamment, créés avant d'être passés au constructeur de Segment.</p>
+            <p><b>Diagramme de séquences</b> (pour <code>s.translater(c,d)</code>) : <code>Main → Segment.translater(point1,point2)</code>, puis <b>à l'intérieur</b>, <code>Segment → p1.translater(...)</code> et <code>Segment → p2.translater(...)</code> — deux appels internes vers les Points membres.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 3</span>
+            <span class="qa-text">cours3_affectation_objets.zip — quelle méthode compare 2 objets ? Que se passe-t-il si on affecte b dans a (ligne 29) ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours3_affectation_objets.zip — TstPoint.java</span>
+<pre class="code">Point a = <span class="kw">new</span> Point(); a.<span class="fn">initialise</span>(<span class="num">12</span>,<span class="num">17</span>);
+Point b = <span class="kw">new</span> Point(); b.<span class="fn">initialise</span>(<span class="num">14</span>,<span class="num">20</span>);
+<span class="kw">boolean</span> res1 = a.<span class="fn">equals</span>(b);            <span class="cmt">// false</span>
+<span class="kw">boolean</span> res2 = a.<span class="fn">getClass</span>().<span class="fn">equals</span>(b.<span class="fn">getClass</span>()); <span class="cmt">// true</span>
+a = b;                                  <span class="cmt">// ligne 29</span>
+res1 = a.<span class="fn">equals</span>(b);                  <span class="cmt">// true</span></pre>
+            <p><b>Méthodes de comparaison</b> : <code>equals()</code> compare si ce sont le **même objet** (par défaut, comme <code>==</code>) ; <code>getClass().equals(...)</code> compare si ce sont des instances de la **même classe**.</p>
+            <p><b>Après <code>a = b;</code></b> : <code>a</code> et <code>b</code> désignent maintenant le **même objet** en mémoire, donc <code>a.equals(b)</code> devient <code>true</code>.</p>
+            <p><b>Anciennes valeurs de <code>a</code> (12,17)</b> : elles sont <b>perdues, inaccessibles</b>. Il n'existe plus aucune variable qui pointe vers cet ancien objet Point(12,17) — il devient orphelin en mémoire (le garbage collector le supprimera automatiquement).</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 4</span>
+            <span class="qa-text">cours3_transport_individu_conduite.zip — diagramme de classes des 3 packages, intérêt des packages, protected, extends, super, imports.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">packages conduite / individu / transport</span>
+            <p><b>Diagramme de classes</b> : <code>Personne</code> (package individu) est héritée par <code>Conducteur</code> et <code>Passager</code> (héritage). <code>Conducteur</code> et <code>Passager</code> ont chacun un attribut <code>Train</code> (package transport) → <b>agrégation</b> (le Train existe indépendamment, plusieurs personnes peuvent référencer le même Train).</p>
+            <p><b>Intérêt des packages</b> : regrouper logiquement des classes liées (ici : "les gens" vs "les transports" vs "le programme principal"), éviter les conflits de noms, faciliter la réutilisation.</p>
+            <p><b>Logique d'intégration</b> : chaque classe va dans le package qui correspond à son rôle métier — Personne/Conducteur/Passager = "individus", Train = "transport", Main = orchestration ("conduite").</p>
+            <p><b>Impact private/public entre classes</b> : <code>private</code> = invisible même entre classes du même package ; <code>public</code> = visible partout, y compris depuis un autre package (avec import).</p>
+            <p><b>Sur l'attribut <code>nom</code> de Personne</b> : ⚠️ dans le fichier fourni, cet attribut est <code>private</code> (pas <code>protected</code> comme le sous-entend la question du cours — vérifie ta propre version, ça peut varier). Si c'était <code>protected</code> : ça permettrait à <code>Conducteur</code>/<code>Passager</code> d'y accéder <b>directement</b>, sans passer par une méthode — contrairement à <code>private</code> qui l'interdit même aux sous-classes.</p>
+            <p><b><code>extends</code></b> dans Conducteur/Passager : déclare l'héritage depuis Personne — intérêt : réutiliser <code>nom</code> et la logique de base sans dupliquer de code.</p>
+            <p><b><code>super</code></b> : dans le constructeur, <code>super(pnom)</code> appelle le constructeur de Personne pour initialiser <code>nom</code>. Dans <code>afficher()</code>, <code>super.afficher()</code> réutilise l'affichage du parent avant d'ajouter les infos spécifiques (salaire, réservation...).</p>
+            <p><b>Utiliser des classes d'autres packages</b> : avec <code>import nomPackage.*;</code> en haut du fichier (ex : <code>import transport.*;</code> dans Conducteur.java).</p>
+            <p><b>Mot indiquant le package</b> : <code>package nomDuPackage;</code>, toujours en 1ère ligne du fichier.</p>
+            <p><b>Affecter nom/réservation/train à un Passager</b> : dans <code>Passager(String pnom, int presa, Train ptrain)</code> — <code>super(pnom)</code> (ligne 14) affecte le nom, <code>resa = presa;</code> et <code>t = ptrain;</code> (lignes 15-16) affectent le reste.</p>
+            <p><b>Affecter nom/salaire/train à un Conducteur</b> : même logique dans <code>Conducteur(String pnom, float psalaire, Train ptrain)</code> — <code>super(pnom)</code>, puis <code>salaire = psalaire; t = ptrain;</code>.</p>
+            <p><b>Affecter numéro/vitesse à un Train, augmenter sa vitesse</b> : dans <code>Train(int n, int v)</code> (constructeur) pour numéro/vitesse initiaux, et <code>augmenter(int v)</code> (<code>this.vitesse += v;</code>) pour l'augmenter — classe <code>Train</code>, package <code>transport</code>.</p>
+            <p><b>Instancier et afficher tout</b> : dans <code>Main.java</code> (package <code>conduite</code>) — <code>new Train(50,300)</code>, des tableaux <code>new Passager[3]</code> / <code>new Conducteur[2]</code> remplis avec <code>new Passager(...)</code>/<code>new Conducteur(...)</code>, puis des boucles <code>for</code> appelant <code>.afficher()</code> sur chaque élément.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 5</span>
+            <span class="qa-text">cours3_point_segment.zip (suite) — diagramme Main/Point/Segment, surcharge de translater(), pourquoi ne peut-on pas translater directement les points du segment ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours3_point_segment.zip</span>
+<pre class="code"><span class="cmt">// dans Point : translater DÉPLACE ce point (delta dx,dy)</span>
+<span class="kw">public void</span> <span class="fn">translater</span>(<span class="kw">int</span> dx, <span class="kw">int</span> dy) { x += dx; y += dy; }
+
+<span class="cmt">// dans Segment : translater prend 2 POINTS (pas des int) en paramètres de delta</span>
+<span class="kw">public void</span> <span class="fn">translater</span> (Point point1, Point point2) {
+    p1.<span class="fn">translater</span>(point1.<span class="fn">getX</span>(), point1.<span class="fn">getY</span>());  <span class="cmt">// extrait x,y de point1 comme delta</span>
+    p2.<span class="fn">translater</span>(point2.<span class="fn">getX</span>(), point2.<span class="fn">getY</span>());
+}</pre>
+            <p><b>Diagramme Main/Point/Segment</b> : Main <b>dépend</b> de Point et Segment (les utilise dans son main, sans les stocker) ; Segment <b>agrège</b> 2 Point.</p>
+            <p><b>Surcharge de translater()</b> : <code>Point.translater(int,int)</code> prend 2 entiers (delta direct) ; <code>Segment.translater(Point,Point)</code> prend 2 objets Point (dont on extrait x/y). Même nom, signatures différentes → surcharge.</p>
+            <p><b>Pourquoi pas de translation directe</b> : on ne peut pas écrire <code>p1 = point1;</code> dans Segment, car ça <b>remplacerait la référence</b> de p1 par l'objet point1 — ça ne "déplacerait" rien, ça casserait le lien avec l'objet original que <code>Main</code> continue de référencer (a et b). <b>Solution</b> : extraire les coordonnées de point1/point2 avec <code>getX()</code>/<code>getY()</code> et les utiliser comme <b>delta</b> dans <code>p1.translater(dx,dy)</code>, qui modifie l'objet EN PLACE sans changer sa référence.</p>
+            <p><b>Les appels à afficher() dans Main</b> : <code>a.afficher()</code>/<code>b.afficher()</code> appellent la méthode sur un <code>Point</code> directement ; <code>s.afficher()</code> appelle la méthode sur <code>Segment</code>, qui elle-même rappelle <code>p1.afficher()</code> et <code>p2.afficher()</code> en interne — même nom de méthode, mais sur des objets de classes différentes.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 6</span>
+            <span class="qa-text">cours3_constructeurs_surcharges.zip — qu'est-ce qui différencie les 2 constructeurs d'Arbre ? Différence d'appel de afficher() entre a1 et a2 ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours3_constructeurs_surcharges.zip — Arbre.java</span>
+<pre class="code"><span class="kw">public</span> <span class="fn">Arbre</span>() { hauteur = <span class="num">10</span>; }         <span class="cmt">// sans paramètre : hauteur fixe à 10</span>
+<span class="kw">public</span> <span class="fn">Arbre</span>(<span class="kw">int</span> h) { hauteur = h; }      <span class="cmt">// avec paramètre : hauteur choisie</span>
+
+Arbre a1 = <span class="kw">new</span> Arbre();     <span class="cmt">// hauteur = 10</span>
+Arbre a2 = <span class="kw">new</span> Arbre(<span class="num">20</span>);   <span class="cmt">// hauteur = 20</span></pre>
+            <p><b>Différence entre les 2 constructeurs</b> : le premier fixe automatiquement <code>hauteur=10</code> (valeur par défaut) ; le second prend un paramètre <code>h</code> et laisse choisir la hauteur — c'est de la <b>surcharge de constructeur</b> (même nom, signatures différentes : 0 paramètre vs 1 paramètre).</p>
+            <p><b>Différence d'appel <code>afficher()</code></b> : <code>a1.afficher()</code> affiche "La hauteur de l'arbre est 10" (valeur par défaut), <code>a2.afficher()</code> affiche "La hauteur de l'arbre est 20" — la méthode <code>afficher()</code> est identique dans les deux cas, seule la valeur de l'attribut <code>hauteur</code> change, selon le constructeur utilisé à l'instanciation.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item">
+          <button class="qa-q" onclick="toggleQA(this)">
+            <span class="qa-num">Exo 7</span>
+            <span class="qa-text">cours3_point3.zip — différences avec les 2 versions précédentes ? Signification et différentes utilisations de this dans la classe Point ?</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">cours3_point3.zip — Point.java</span>
+            <p><b>Différences avec point/point2</b> : la v3 ajoute un attribut <code>String name</code>, un <b>3ᵉ constructeur</b> surchargé, l'usage de <code>this()</code> pour chaîner les constructeurs entre eux, et une méthode <code>getReferenceToMe()</code> qui retourne <code>this</code>.</p>
+            <p><b>Les différentes utilisations de <code>this</code> dans cette classe</b> :</p>
+            <ol style="margin:6px 0 6px 18px;font-size:14px;line-height:1.7">
+              <li><code>this.name = "segado";</code> — désigne l'<b>attribut</b> (il y a une variable locale <code>name</code> juste au-dessus qui masquerait sinon l'attribut)</li>
+              <li><code>this();</code> — appelle un <b>autre constructeur</b> de la même classe</li>
+              <li><code>this(x, y);</code> — idem, avec des arguments</li>
+              <li><code>this.x=x; this.y=y;</code> — distingue attribut/paramètre de même nom</li>
+              <li><code>return this;</code> dans <code>getReferenceToMe()</code> — retourne une <b>référence vers l'objet courant</b> lui-même</li>
+            </ol>
+            <p><b>Lien avec les objets du main de TstPoint</b> : quand on écrit <code>p2 = p3.getReferenceToMe();</code> dans <code>TstPoint</code>, le <code>this</code> à l'intérieur de <code>getReferenceToMe()</code> désigne <b>l'objet p3</b> (celui qui a appelé la méthode) — donc après cette ligne, <code>p2</code> et <code>p3</code> pointent vers le <b>même objet</b>. C'est exactement le même phénomène que l'Exercice 3 (<code>a = b;</code>) : une affectation de référence, pas de copie.</p>
+          </div></div>
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Attention</div>
+        <h2>Pièges à anticiper</h2>
+      </div>
+      <div class="trap-list">
+        <div class="trap"><b>Piège 1</b>Une variable <b>locale</b> du même nom qu'un attribut <b>masque</b> l'attribut — sans <code>this.</code>, on modifie la mauvaise variable.</div>
+        <div class="trap"><b>Piège 2</b><code>this(...)</code> et <code>super(...)</code> sont incompatibles dans le même constructeur — un seul des deux, en 1ère ligne.</div>
+        <div class="trap"><b>Piège 3</b><code>equals()</code> non redéfini compare les <b>références</b>, pas le contenu — deux Points aux mêmes coordonnées peuvent donner <code>false</code>.</div>
+        <div class="trap"><b>Piège 4</b><code>a = b;</code> sur des objets perd <b>définitivement</b> l'ancien contenu de <code>a</code> — aucune sauvegarde automatique.</div>
+        <div class="trap"><b>Piège 5</b>Oublier <code>import</code> pour une classe d'un autre package → erreur de compilation, même si la classe existe.</div>
+        <div class="trap"><b>Piège 6</b>Réaffecter une <b>référence</b> (<code>p1 = point1;</code>) au lieu de <b>modifier l'objet en place</b> casse le lien avec les autres variables qui pointaient sur l'ancien objet.</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Auto-évaluation</div>
+        <h2>Checklist — je maîtrise</h2>
+      </div>
+      <ul class="checklist">
+        <li>Je sais surcharger un constructeur (plusieurs signatures)</li>
+        <li>Je sais chaîner des constructeurs avec <code>this(...)</code></li>
+        <li>Je comprends les 3 usages de <code>this</code> (attribut, chaînage, retour de référence)</li>
+        <li>Je sais pourquoi et comment redéfinir <code>toString()</code> avec <code>@Override</code></li>
+        <li>Je sais que <code>a = b;</code> copie une référence, pas un contenu</li>
+        <li>Je sais différencier <code>package</code> et <code>import</code></li>
+        <li>Je sais ce que <code>protected</code> change par rapport à <code>private</code></li>
+        <li>Je sais reconnaître une surcharge de méthode (même nom, signature différente)</li>
+      </ul>
+      <div style="margin-top:20px;text-align:center">
+        <button class="btn btn-primary" onclick="startQCM('s3')">Lancer le QCM Semaine 3 →</button>
+      </div>
+    </section>
+  </div>
+</div>
+
 <!-- FUTUR -->
 <div id="futur" class="view">
   <div class="wrap">
     <section>
       <div class="section-head">
-        <div class="eyebrow">Semaines 3 à 7</div>
+        <div class="eyebrow">Semaines 4 à 7</div>
         <h2>À compléter en cours</h2>
         <p>Chaque semaine sera ajoutée ici au fur et à mesure que tu la termines. Le format restera identique : notions, code, pièges, QCM.</p>
       </div>
 
       <div class="weeks">
-        <div class="wk locked">
-          <span class="tag">À venir</span>
-          <div class="num">Semaine 3</div>
-          <div class="t">Point, Segment, constructeurs</div>
-          <div class="d">Basé sur <code>cours3_point*.zip</code>, <code>cours3_constructeurs_surcharges</code>. Approfondissement des constructeurs, affectation d'objets, transport/individu/conduite.</div>
-        </div>
         <div class="wk locked">
           <span class="tag">À venir</span>
           <div class="num">Semaine 4</div>
@@ -1850,9 +2194,10 @@ System.out.println(i);   <span class="cmt">// ❌ ERREUR DE COMPILATION</span></
       </div>
 
       <div class="qcm-filter">
-        <button class="active" data-filter="all" onclick="filterQCM('all')">Tout (35)</button>
+        <button class="active" data-filter="all" onclick="filterQCM('all')">Tout (50)</button>
         <button data-filter="s1" onclick="filterQCM('s1')">Semaine 1 (20)</button>
         <button data-filter="s2" onclick="filterQCM('s2')">Semaine 2 (15)</button>
+        <button data-filter="s3" onclick="filterQCM('s3')">Semaine 3 (15)</button>
       </div>
 
       <div class="qcm-wrap" id="qcmApp"></div>
@@ -2050,7 +2395,54 @@ const ALL_QUESTIONS = [
    c:1, exp:'private est invisible dans la fille. On passe par des méthodes publiques.'},
   {wk:'s2', topic:'Association', q:'Une classe <code>Mariage { Homme h; Femme f; date; lieu; }</code> représente :',
    choices:['Héritage','Agrégation simple','Association avec classe intermédiaire','Dépendance'],
-   c:2, exp:'La relation elle-même a des attributs (date, lieu), d\'où la classe intermédiaire.'}
+   c:2, exp:'La relation elle-même a des attributs (date, lieu), d\'où la classe intermédiaire.'},
+
+  // ================== SEMAINE 3 ==================
+  {wk:'s3', topic:'this()', q:'Où doit être placé <code>this(...)</code> dans un constructeur ?',
+   choices:['N\'importe où','La 1ère ligne, comme super(...)','La dernière ligne','Dans une méthode static'],
+   c:1, exp:'Comme super(...), this(...) doit être la toute 1ère instruction du constructeur.'},
+  {wk:'s3', topic:'this vs super', q:'Peut-on écrire this(...) ET super(...) dans le même constructeur ?',
+   choices:['Oui, dans cet ordre','Non, un seul des deux','Oui, dans n\'importe quel ordre','Oui si static'],
+   c:1, exp:'Les deux doivent être en 1ère ligne, donc ils sont incompatibles entre eux.'},
+  {wk:'s3', topic:'toString()', q:'Que se passe-t-il quand on fait <code>System.out.println(monObjet)</code> ?',
+   choices:['Erreur de compilation sans toString()','Java appelle automatiquement toString()','Affiche toujours l\'adresse mémoire','Il faut appeler .afficher() à la main'],
+   c:1, exp:'println() appelle automatiquement toString() sur l\'objet pour savoir quoi afficher.'},
+  {wk:'s3', topic:'equals()', q:'Sans redéfinition, que compare <code>a.equals(b)</code> sur 2 objets ?',
+   choices:['Le contenu des attributs','Les références (comme ==)','Toujours true','Toujours false'],
+   c:1, exp:'equals() hérité d\'Object compare les références par défaut, comme ==.'},
+  {wk:'s3', topic:'Affectation d\'objets', q:'Après <code>Point a = new Point(1,1); Point b = new Point(9,9); a = b;</code>, que devient l\'ancien contenu de a (1,1) ?',
+   choices:['Fusionné avec b','Toujours accessible via a','Perdu, inaccessible','Copié dans une variable temporaire'],
+   c:2, exp:'a = b copie la référence. L\'ancien objet (1,1) n\'a plus aucune variable qui pointe vers lui.'},
+  {wk:'s3', topic:'Surcharge constructeur', q:'Qu\'est-ce qui distingue 2 constructeurs surchargés ?',
+   choices:['Leur nom','Leur signature (nombre/type de paramètres)','Leur type de retour','Leur ordre dans le fichier'],
+   c:1, exp:'Même nom (celui de la classe) obligatoire, mais signatures différentes.'},
+  {wk:'s3', topic:'package', q:'Où doit être placée l\'instruction <code>package nom;</code> ?',
+   choices:['N\'importe où dans le fichier','En 1ère ligne du fichier','Après les imports','Dans le main uniquement'],
+   c:1, exp:'package est toujours la première ligne du fichier, avant les imports.'},
+  {wk:'s3', topic:'import', q:'Pourquoi <code>import transport.*;</code> est nécessaire dans Conducteur.java ?',
+   choices:['Pour utiliser la classe Train, d\'un autre package','Pour hériter de Train','Obligatoire même dans le même package','Ce n\'est jamais nécessaire'],
+   c:0, exp:'Sans import, une classe d\'un autre package est invisible, même si elle est public.'},
+  {wk:'s3', topic:'protected', q:'Un attribut protected est visible depuis :',
+   choices:['Uniquement sa classe','Sa classe + ses sous-classes (+ même package)','Partout sans restriction','Aucune classe externe'],
+   c:1, exp:'protected = classe + sous-classes + même package. Plus large que private, plus restreint que public.'},
+  {wk:'s3', topic:'Surcharge méthode', q:'<code>Point.translater(int,int)</code> et <code>Segment.translater(Point,Point)</code> : que représente ce même nom ?',
+   choices:['Une erreur de compilation','De la surcharge de méthode','De l\'héritage','De la composition'],
+   c:1, exp:'Même nom, signatures différentes (types de paramètres) = surcharge, pas un conflit.'},
+  {wk:'s3', topic:'this — retour de référence', q:'Que retourne <code>public Point getReferenceToMe() { return this; }</code> ?',
+   choices:['Une copie du point','Rien, erreur','Une référence vers l\'objet courant lui-même','null'],
+   c:2, exp:'this désigne l\'objet courant ; le retourner permet à l\'appelant d\'obtenir une référence vers CET objet précis.'},
+  {wk:'s3', topic:'Masquage (shadowing)', q:'Dans un constructeur, une variable locale du même nom qu\'un attribut fait quoi sans this. ?',
+   choices:['Provoque une erreur de compilation','Masque (éclipse) l\'attribut','Fusionne avec l\'attribut','Rien, this. est toujours implicite'],
+   c:1, exp:'La variable locale la plus proche masque l\'attribut. this.nom force à viser l\'attribut.'},
+  {wk:'s3', topic:'getClass()', q:'Que fait <code>a.getClass().equals(b.getClass())</code> ?',
+   choices:['Compare le contenu de a et b','Compare si a et b sont la même instance','Compare si a et b sont de la même classe (type)','Erreur de compilation'],
+   c:2, exp:'getClass() retourne le type réel de l\'objet ; on compare ici les TYPES, pas le contenu ni l\'identité.'},
+  {wk:'s3', topic:'super cross-package', q:'Dans Conducteur (package individu) qui extends Personne (package individu), l\'appel super(pnom) fonctionne :',
+   choices:['Seulement si même package','Même entre packages différents, tant que l\'héritage est déclaré','Jamais entre packages','Seulement avec import explicite de super'],
+   c:1, exp:'L\'héritage fonctionne normalement entre packages différents (ex: Conducteur du package individu pourrait hériter d\'une classe d\'un autre package).'},
+  {wk:'s3', topic:'Agrégation Segment/Point', q:'<code>class Segment { public Point p1, p2; ... }</code> représente quelle relation ?',
+   choices:['Héritage','Agrégation (Segment contient des Point)','Dépendance','Généralisation'],
+   c:1, exp:'2 attributs de type Point dans Segment = agrégation, les Point existent indépendamment (créés avant, passés au constructeur).'}
 ];
 
 let qcmState = { list: [], idx: 0, score: 0, history: [], filter: 'all' };
