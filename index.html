@@ -237,6 +237,67 @@ footer{border-top:1px solid var(--line);background:var(--surface2);padding:32px 
   .qcm-card{padding:24px 20px}
   .qcm-q{font-size:17.5px}
 }
+
+/* ===================== MÉTHODES : déroulés, kit, pièges ===================== */
+.dgrid{display:grid;grid-template-columns:1fr;gap:20px;margin-top:24px}
+.deroule{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px;box-shadow:var(--shadow);scroll-margin-top:72px}
+.deroule .dh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.deroule .dn{font-family:var(--f-mono);font-weight:600;font-size:12px;color:#fff;background:var(--accent);padding:3px 8px;border-radius:6px}
+.deroule .dch{font-family:var(--f-mono);font-size:11px;color:var(--accent2);letter-spacing:.05em;text-transform:uppercase}
+.deroule h3{font-size:19px;font-style:italic}
+.enonce{background:var(--surface2);border-left:3px solid var(--accent2);border-radius:8px;padding:12px 14px;font-size:14.5px;margin:10px 0 14px}
+.enonce b.lab{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent2);display:block;margin-bottom:4px}
+.steps{list-style:none;padding:0;margin:0;counter-reset:st}
+.step{display:grid;grid-template-columns:30px 1fr;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line2)}
+.step:last-child{border-bottom:0}
+.step .sn{counter-increment:st;font-family:var(--f-mono);font-weight:700;font-size:13px;color:var(--accent);background:var(--accent-soft);width:30px;height:30px;border-radius:8px;display:grid;place-items:center}
+.step .sn::before{content:counter(st)}
+.step .st{font-weight:600;font-size:14.5px}
+.step .sd{font-size:13.8px;color:var(--muted);margin-top:3px;line-height:1.6}
+.step .sd b{color:var(--ink)}
+.step .sd code,.step .st code,.why code,.kcard code,.trapc code,.dtable code{font-family:var(--f-mono);font-size:.92em;background:var(--surface2);border:1px solid var(--line2);border-radius:4px;padding:.05em .35em}
+.calc{font-family:var(--f-mono);font-size:14px;background:var(--surface2);border:1px solid var(--line2);border-radius:8px;padding:9px 12px;margin:7px 0;overflow-x:auto;white-space:pre-wrap;color:var(--ink)}
+.answer{margin-top:12px;background:var(--good-soft);border:1px solid color-mix(in srgb,var(--good) 40%,transparent);border-radius:10px;padding:11px 14px;font-size:14.5px}
+.answer b.lab{color:var(--good);font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:3px}
+.why{margin-top:10px;font-size:13.5px;color:var(--muted);border-left:3px solid var(--accent2);padding:7px 12px;background:var(--accent-soft);border-radius:0 8px 8px 0}
+.why b.lab{color:var(--warn);font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:2px}
+.why b{color:var(--ink)}
+
+/* ===================== TABLE DE DÉCISION ===================== */
+.dtable td:first-child{font-weight:600;width:36%}
+.dtable td .arrow{color:var(--accent);font-family:var(--f-mono);margin-right:6px}
+.dtable td{vertical-align:top;font-size:13.8px}
+
+/* ===================== NOTIONS : RÉFLEXES & PIÈGES ===================== */
+.ncard .reflex,.ncard .piege{margin-top:12px;padding:9px 11px;border-radius:8px;font-size:13px;line-height:1.5}
+.ncard .reflex{background:var(--accent-soft);color:var(--ink)}
+.ncard .piege{background:var(--bad-soft);color:var(--ink)}
+.ncard .reflex b.lab,.ncard .piege b.lab{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:3px}
+.ncard .reflex b.lab{color:var(--accent)}
+.ncard .piege b.lab{color:var(--bad)}
+
+/* ===================== KIT « À CÔTÉ » ===================== */
+.kit{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-top:24px}
+.kcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow)}
+.kcard h3{font-size:17px;font-style:italic;margin-bottom:10px;display:flex;gap:8px;align-items:center}
+.kcard ul{margin:0;padding-left:18px;font-size:13.8px}
+.kcard li{margin:5px 0}
+.kcard p{font-size:13.8px;margin:6px 0;color:var(--muted)}
+.kcard .mono{font-family:var(--f-mono);font-size:13px}
+.kcard .tbl-wrap{margin:10px 0}
+.kcard table{font-size:13px}
+.kcard th,.kcard td{padding:6px 9px}
+.trapgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-top:20px}
+.trapc{background:var(--bad-soft);border-left:3px solid var(--bad);border-radius:8px;padding:12px 14px;font-size:13.8px}
+.trapc b.lab{display:block;color:var(--bad);font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.trapc .fix{display:block;margin-top:5px;color:var(--good);font-size:13px}
+.subhead{font-family:var(--f-disp);font-style:italic;font-size:24px;margin:44px 0 6px;letter-spacing:-.01em}
+.subhead+p.sublead{color:var(--muted);margin:0 0 6px;max-width:70ch;font-size:14.5px}
+.jumpbar{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 6px}
+.jumpbar a{font-family:var(--f-mono);font-size:12px;padding:6px 11px;border-radius:20px;border:1px solid var(--line);background:var(--surface);color:var(--muted)}
+.jumpbar a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+@media(max-width:640px){.step{grid-template-columns:26px 1fr;gap:9px}.step .sn{width:26px;height:26px;font-size:12px}.deroule{padding:16px}}
+
 </style>
 </head>
 <body>
@@ -253,6 +314,7 @@ footer{border-top:1px solid var(--line);background:var(--surface2);padding:32px 
       <button data-view="s2" onclick="showView('s2')">Semaine 2</button>
       <button data-view="s3" onclick="showView('s3')">Semaine 3</button>
       <button data-view="futur" onclick="showView('futur')">S4 → S7</button>
+      <button data-view="methodes" onclick="showView('methodes')">Méthodes</button>
       <button data-view="qcm" onclick="showView('qcm')">QCM</button>
       <button data-view="livre" onclick="showView('livre')">Exo Livre</button>
     </nav>
@@ -275,6 +337,7 @@ footer{border-top:1px solid var(--line);background:var(--surface2);padding:32px 
         <p class="lead">Fiches, exemples de code tirés de tes vrais exos, pièges à connaître et QCM d'entraînement. Un seul endroit pour tout ce qui compte avant le partiel du 14 décembre.</p>
         <div class="hero-cta">
           <button class="btn btn-primary" onclick="showView('s1')">Commencer semaine 1 →</button>
+          <button class="btn btn-ghost" onclick="showView('methodes')">🧭 Méthodes &amp; déroulés</button>
           <button class="btn btn-ghost" onclick="showView('qcm')">Lancer un QCM</button>
         </div>
         <div class="hero-meta">
@@ -366,6 +429,10 @@ footer{border-top:1px solid var(--line);background:var(--surface2);padding:32px 
         <div class="notion">
           <h3>🎯 Réviser vite</h3>
           <p>Va sur la fiche mémo de la semaine et ne fais que la section "Les pièges". C'est là que le QCM va te piéger.</p>
+        </div>
+        <div class="notion">
+          <h3>🧭 Savoir chercher</h3>
+          <p>L'onglet <b>Méthodes</b> : 6 exos types déroulés (écrire une classe, tracer une sortie, UML ↔ Java, erreurs de compilation, annale « Formes »), comment lire une erreur, et le kit Java « à côté ».</p>
         </div>
         <div class="notion">
           <h3>💻 Coder pour comprendre</h3>
@@ -2009,8 +2076,8 @@ Point b = <span class="kw">new</span> Point(); b.<span class="fn">initialise</sp
 <span class="kw">boolean</span> res2 = a.<span class="fn">getClass</span>().<span class="fn">equals</span>(b.<span class="fn">getClass</span>()); <span class="cmt">// true</span>
 a = b;                                  <span class="cmt">// ligne 29</span>
 res1 = a.<span class="fn">equals</span>(b);                  <span class="cmt">// true</span></pre>
-            <p><b>Méthodes de comparaison</b> : <code>equals()</code> compare si ce sont le **même objet** (par défaut, comme <code>==</code>) ; <code>getClass().equals(...)</code> compare si ce sont des instances de la **même classe**.</p>
-            <p><b>Après <code>a = b;</code></b> : <code>a</code> et <code>b</code> désignent maintenant le **même objet** en mémoire, donc <code>a.equals(b)</code> devient <code>true</code>.</p>
+            <p><b>Méthodes de comparaison</b> : <code>equals()</code> compare si ce sont le <b>même objet</b> (par défaut, comme <code>==</code>) ; <code>getClass().equals(...)</code> compare si ce sont des instances de la <b>même classe</b>.</p>
+            <p><b>Après <code>a = b;</code></b> : <code>a</code> et <code>b</code> désignent maintenant le <b>même objet</b> en mémoire, donc <code>a.equals(b)</code> devient <code>true</code>.</p>
             <p><b>Anciennes valeurs de <code>a</code> (12,17)</b> : elles sont <b>perdues, inaccessibles</b>. Il n'existe plus aucune variable qui pointe vers cet ancien objet Point(12,17) — il devient orphelin en mémoire (le garbage collector le supprimera automatiquement).</p>
           </div></div>
         </div>
@@ -2183,6 +2250,449 @@ Arbre a2 = <span class="kw">new</span> Arbre(<span class="num">20</span>);   <sp
   </div>
 </div>
 
+<!-- MÉTHODES -->
+<div id="methodes" class="view">
+  <div class="wrap">
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Méthodes</div>
+        <h2>Comment on aborde un exo Java — et comment on cherche</h2>
+        <p>Les DS et le partiel demandent toujours les mêmes gestes : écrire une classe à partir d'un énoncé, tracer ce qu'affiche un programme, passer d'un diagramme UML au code (et inversement), repérer une erreur de compilation. Voici la <b>méthode</b> pour chacun, avec un exo type déroulé pas à pas, puis les outils « à côté » qui font gagner des points.</p>
+      </div>
+
+      <h3 class="subhead">🔎 La table de décision</h3>
+      <p class="sublead">Ce que dit l'énoncé → ce que tu fais en premier.</p>
+      <div class="tbl-wrap">
+        <table class="tbl dtable">
+          <thead><tr><th>Je lis…</th><th>… je fais</th></tr></thead>
+          <tbody>
+            <tr><td>« Écrire la classe X avec les attributs… et les méthodes… »</td><td><span class="arrow">→</span>Lister les <b>noms</b> (attributs, <code>private</code>, avec leur type), puis le(s) <b>constructeur(s)</b>, puis les <b>getters</b> utiles, puis les méthodes métier, puis <code>toString()</code>. Dans cet ordre, toujours.</td></tr>
+            <tr><td>« Qu'affiche ce programme ? »</td><td><span class="arrow">→</span>Tracer <b>ligne par ligne</b> avec un tableau des variables. Pour un <code>new</code> : chercher <code>super(...)</code> / constructeur parent <em>d'abord</em>. Pour <code>static</code> : une seule case pour tous les objets.</td></tr>
+            <tr><td>« Quelle relation entre A et B ? » (code donné)</td><td><span class="arrow">→</span>Chercher <code>extends</code> (héritage) → attribut de type B créé <b>à l'extérieur</b> (agrégation) → créé <b>dans</b> le constructeur (composition) → seulement en <b>paramètre</b> (dépendance).</td></tr>
+            <tr><td>Un diagramme UML à traduire en Java</td><td><span class="arrow">→</span>Boîte = classe ; <code>-</code> = private, <code>+</code> = public ; triangle = <code>extends</code> ; cardinalité &gt; 1 = tableau ou <code>ArrayList</code> ; 0..1 = attribut pouvant valoir <code>null</code>.</td></tr>
+            <tr><td>« Ce code compile-t-il ? Sinon, corrigez. »</td><td><span class="arrow">→</span>Check-list : type de retour manquant/incompatible, appel non-static depuis <code>main</code>, accès à un <code>private</code> depuis une autre classe, <code>super(...)</code> pas en 1ʳᵉ ligne, constructeur inexistant, variable non initialisée, <code>;</code> ou <code>}</code> manquants.</td></tr>
+            <tr><td>« Pourquoi <code>private</code> / <code>protected</code> / <code>static</code> / <code>@Override</code> ici ? »</td><td><span class="arrow">→</span>Question de cours : répondre avec le <b>mot-clé</b> + la <b>conséquence concrète</b> (« private : inaccessible depuis Main, d'où le getter »).</td></tr>
+            <tr><td>« Quelle exception ? » / « Que se passe-t-il à l'exécution ? »</td><td><span class="arrow">→</span>Compile mais plante : <code>NullPointerException</code> (objet/tableau non <code>new</code>é), <code>ArrayIndexOutOfBounds</code> (indice ≥ length), <code>ClassCastException</code> (downcast faux), <code>InputMismatchException</code> (Scanner).</td></tr>
+            <tr><td>Un <code>main</code> qui manipule un tableau d'objets d'une classe mère</td><td><span class="arrow">→</span><b>Polymorphisme</b> (S4) : la méthode appelée est celle de la classe <em>réelle</em> de l'objet, pas du type déclaré. Chercher les <code>@Override</code>.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tip"><b>Les 4 questions avant d'écrire une ligne</b>
+        1) <b>Qui</b> sont les objets (les noms de l'énoncé) ? 2) <b>Que savent-ils</b> (attributs) ? 3) <b>Que savent-ils faire</b> (méthodes, avec leur type de retour) ? 4) <b>Qui crée qui</b> (constructeurs, relations) ? Répondre au brouillon en 2 minutes évite 80 % des réécritures.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Déroulés</div>
+        <h2>6 exos types résolus pas à pas</h2>
+      </div>
+      <div class="jumpbar">
+        <a href="#j1">J1 Écrire une classe</a><a href="#j2">J2 Tracer une sortie</a><a href="#j3">J3 UML → Java</a><a href="#j4">J4 Java → UML</a><a href="#j5">J5 Erreurs de compilation</a><a href="#j6">J6 Annale : hiérarchie &amp; polymorphisme</a>
+      </div>
+      <div class="dgrid">
+
+        <!-- J1 -->
+        <article class="deroule" id="j1">
+          <div class="dh"><span class="dn">J1</span><span class="dch">Type DS · écrire une classe complète</span><h3>« Écrire une classe CompteBancaire »</h3></div>
+          <div class="enonce"><b class="lab">Énoncé</b>Un compte bancaire a un numéro (entier, fixé à la création), un titulaire (chaîne) et un solde (réel, 0 au départ). On peut déposer un montant, retirer un montant (refusé si le solde est insuffisant : la méthode renvoie <code>false</code>), consulter le solde, et afficher le compte. Écrire la classe et un <code>main</code> de test.</div>
+          <ol class="steps">
+            <li class="step"><span class="sn"></span><div><div class="st">Repérer les noms → attributs, avec le type et <code>private</code></div><div class="sd">« numéro » → <code>int numero</code> ; « titulaire » → <code>String titulaire</code> ; « solde » → <code>double solde</code>. « fixé à la création » = donné au constructeur, pas de setter. « 0 au départ » = initialisé dans le constructeur.</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st">Repérer les verbes → méthodes, avec leur signature</div><div class="sd">« déposer un montant » → <code>void deposer(double montant)</code> ; « retirer… renvoie false » → <code>boolean retirer(double montant)</code> ; « consulter le solde » → <code>double getSolde()</code> ; « afficher » → <code>String toString()</code> avec <code>@Override</code> (ou <code>void afficher()</code> si l'énoncé l'impose).</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st">Écrire la classe dans l'ordre : attributs → constructeur → getters → métier → toString</div><div class="sd">
+<pre class="code"><span class="kw">public class</span> <span class="cls">CompteBancaire</span> {
+    <span class="kw">private int</span> numero;          <span class="cmt">// fixé à la création : pas de setter</span>
+    <span class="kw">private</span> String titulaire;
+    <span class="kw">private double</span> solde;
+
+    <span class="kw">public</span> <span class="fn">CompteBancaire</span>(<span class="kw">int</span> numero, String titulaire) {
+        <span class="kw">this</span>.numero = numero;     <span class="cmt">// this. car le paramètre porte le même nom</span>
+        <span class="kw">this</span>.titulaire = titulaire;
+        <span class="kw">this</span>.solde = <span class="num">0</span>;           <span class="cmt">// « 0 au départ »</span>
+    }
+
+    <span class="kw">public double</span> <span class="fn">getSolde</span>() { <span class="kw">return</span> solde; }
+    <span class="kw">public int</span> <span class="fn">getNumero</span>() { <span class="kw">return</span> numero; }
+
+    <span class="kw">public void</span> <span class="fn">deposer</span>(<span class="kw">double</span> montant) {
+        <span class="kw">if</span> (montant &gt; <span class="num">0</span>) solde += montant;   <span class="cmt">// garde-fou : un dépôt négatif n'a pas de sens</span>
+    }
+
+    <span class="kw">public boolean</span> <span class="fn">retirer</span>(<span class="kw">double</span> montant) {
+        <span class="kw">if</span> (montant &lt;= <span class="num">0</span> || montant &gt; solde) <span class="kw">return false</span>;   <span class="cmt">// refusé</span>
+        solde -= montant;
+        <span class="kw">return true</span>;
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> String <span class="fn">toString</span>() {
+        <span class="kw">return</span> <span class="str">"Compte n°"</span> + numero + <span class="str">" ("</span> + titulaire + <span class="str">") : "</span> + solde + <span class="str">" €"</span>;
+    }
+}</pre></div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st">Le <code>main</code> de test, dans une autre classe</div><div class="sd">
+<pre class="code"><span class="kw">public class</span> <span class="cls">Main</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        CompteBancaire c = <span class="kw">new</span> CompteBancaire(<span class="num">42</span>, <span class="str">"Corentin"</span>);
+        c.<span class="fn">deposer</span>(<span class="num">100</span>);
+        <span class="kw">boolean</span> ok = c.<span class="fn">retirer</span>(<span class="num">150</span>);      <span class="cmt">// false : solde insuffisant</span>
+        System.out.println(ok);            <span class="cmt">// false</span>
+        System.out.println(c);             <span class="cmt">// appelle toString() : Compte n°42 (Corentin) : 100.0 €</span>
+    }
+}</pre>Tester <b>le cas refusé</b> et le cas normal : c'est ce qui prouve que la méthode fait ce que l'énoncé demande.</div></div></li>
+          </ol>
+          <div class="answer"><b class="lab">Ce que le correcteur regarde</b>Attributs <code>private</code> + types justes · constructeur qui initialise <em>tout</em> · <code>this.</code> quand il y a ambiguïté · type de retour de <code>retirer</code> = <code>boolean</code> avec les deux <code>return</code> · <code>@Override toString()</code> · main dans une classe séparée.</div>
+          <div class="why"><b class="lab">Pourquoi cet ordre</b>Attributs d'abord : tout le reste en dépend. Constructeur ensuite : un objet doit être valide dès le <code>new</code>. Les getters avant le métier : on sait alors ce qui est lisible de l'extérieur. Le <code>toString</code> en dernier : il lit tout.</div>
+        </article>
+
+        <!-- J2 -->
+        <article class="deroule" id="j2">
+          <div class="dh"><span class="dn">J2</span><span class="dch">Type DS · tracer une sortie console</span><h3>« Qu'affiche ce programme ? » (héritage + static + constructeurs)</h3></div>
+          <div class="enonce"><b class="lab">Énoncé</b>
+<pre class="code"><span class="kw">class</span> <span class="cls">Animal</span> {
+    <span class="kw">static int</span> compteur = <span class="num">0</span>;
+    <span class="kw">protected</span> String nom;
+    <span class="kw">public</span> <span class="fn">Animal</span>(String nom) { <span class="kw">this</span>.nom = nom; compteur++; System.out.println(<span class="str">"Animal "</span> + nom); }
+    <span class="kw">public void</span> <span class="fn">crier</span>() { System.out.println(nom + <span class="str">" fait un bruit"</span>); }
+}
+<span class="kw">class</span> <span class="cls">Chien</span> <span class="kw">extends</span> <span class="cls">Animal</span> {
+    <span class="kw">public</span> <span class="fn">Chien</span>(String nom) { <span class="kw">super</span>(nom); System.out.println(<span class="str">"Chien "</span> + nom); }
+    <span class="kw">@Override</span> <span class="kw">public void</span> <span class="fn">crier</span>() { System.out.println(nom + <span class="str">" aboie"</span>); }
+}
+<span class="kw">public class</span> <span class="cls">Test</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] a) {
+        Animal x = <span class="kw">new</span> Animal(<span class="str">"Rex"</span>);
+        Animal y = <span class="kw">new</span> Chien(<span class="str">"Max"</span>);
+        x.<span class="fn">crier</span>();  y.<span class="fn">crier</span>();
+        System.out.println(Animal.compteur);
+        x = y;  x.<span class="fn">crier</span>();
+        System.out.println(Animal.compteur);
+    }
+}</pre></div>
+          <ol class="steps">
+            <li class="step"><span class="sn"></span><div><div class="st">Préparer le tableau de trace</div><div class="sd">Colonnes : <code>compteur</code> (static, une seule case), <code>x</code>, <code>y</code> (références : vers quel objet ?), sortie. On avance ligne par ligne.</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st"><code>new Animal("Rex")</code></div><div class="sd">Constructeur Animal : nom = "Rex", compteur = 1, affiche <code>Animal Rex</code>. x → objet Animal(Rex).</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st"><code>new Chien("Max")</code> — le parent d'abord</div><div class="sd">Constructeur Chien → <code>super(nom)</code> exécute Animal : compteur = 2, affiche <code>Animal Max</code>. Puis la suite de Chien : affiche <code>Chien Max</code>. y → objet Chien(Max), stocké dans une variable de type Animal (upcasting).</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st">Les appels de méthode : la classe <em>réelle</em> décide</div><div class="sd"><code>x.crier()</code> : x est un Animal → <code>Rex fait un bruit</code>. <code>y.crier()</code> : y est déclaré Animal mais l'objet est un Chien → la version redéfinie → <code>Max aboie</code>.</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st"><code>Animal.compteur</code></div><div class="sd">Static : accessible par le nom de la classe. Deux constructions d'Animal ont eu lieu (dont une via super) → affiche <code>2</code>.</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st"><code>x = y;</code> puis <code>x.crier()</code></div><div class="sd">Copie de référence : x pointe maintenant vers l'objet Chien(Max). L'objet Animal(Rex) n'est plus référencé. <code>x.crier()</code> → <code>Max aboie</code>. Aucun <code>new</code> : compteur reste <code>2</code>.</div></div></li>
+          </ol>
+          <div class="answer"><b class="lab">Sortie complète</b><pre class="code" style="margin:6px 0 0">Animal Rex
+Animal Max
+Chien Max
+Rex fait un bruit
+Max aboie
+2
+Max aboie
+2</pre></div>
+          <div class="why"><b class="lab">Les 3 réflexes de la trace</b>① Un <code>new</code> d'une classe fille exécute <em>toujours</em> le constructeur du parent avant le sien. ② Une méthode redéfinie est choisie selon l'objet réel, pas selon le type de la variable. ③ <code>a = b</code> ne crée rien et n'appelle aucun constructeur.</div>
+        </article>
+
+        <!-- J3 -->
+        <article class="deroule" id="j3">
+          <div class="dh"><span class="dn">J3</span><span class="dch">Type DS · UML → Java</span><h3>Traduire un diagramme de classes en code</h3></div>
+          <div class="enonce"><b class="lab">Diagramme (décrit)</b><code>Bibliotheque</code> (− nom : String) —— 1 ······ 0..* —— <code>Livre</code> (− titre : String, − isbn : String) ; <code>Livre</code> —— * ······ 1 —— <code>Auteur</code> (− nom : String) ; <code>Roman</code> (− genre : String) hérite de <code>Livre</code> (triangle creux) ; la navigabilité va de Bibliotheque vers Livre seulement.</div>
+          <ol class="steps">
+            <li class="step"><span class="sn"></span><div><div class="st">Une boîte = une classe, un fichier ; <code>-</code> = private</div><div class="sd">4 classes : <code>Bibliotheque</code>, <code>Livre</code>, <code>Auteur</code>, <code>Roman</code>. Chaque attribut listé devient <code>private</code> avec son type.</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st">Le triangle creux = <code>extends</code></div><div class="sd"><code>public class Roman extends Livre</code>. Le constructeur de Roman appelle <code>super(titre, isbn)</code> en première ligne puis initialise <code>genre</code>.</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st">Cardinalité &gt; 1 = collection ; = 1 = attribut simple ; 0..1 = attribut possiblement <code>null</code></div><div class="sd">Bibliotheque → 0..* Livre : <code>private Livre[] livres;</code> (ou <code>ArrayList&lt;Livre&gt;</code>). Livre → 1 Auteur : <code>private Auteur auteur;</code>.</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st">Navigabilité = qui a l'attribut</div><div class="sd">La flèche va de Bibliotheque vers Livre : <b>Bibliotheque a un attribut Livre[]</b>, mais <b>Livre n'a pas d'attribut Bibliotheque</b>. Pas de flèche entre Livre et Auteur = navigable dans les deux sens par défaut, mais en pratique on met <code>Auteur</code> dans Livre (c'est ce qui sert).</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st">Le squelette</div><div class="sd">
+<pre class="code"><span class="kw">public class</span> <span class="cls">Auteur</span> {
+    <span class="kw">private</span> String nom;
+    <span class="kw">public</span> <span class="fn">Auteur</span>(String nom) { <span class="kw">this</span>.nom = nom; }
+    <span class="kw">public</span> String <span class="fn">getNom</span>() { <span class="kw">return</span> nom; }
+}
+<span class="kw">public class</span> <span class="cls">Livre</span> {
+    <span class="kw">private</span> String titre, isbn;
+    <span class="kw">private</span> Auteur auteur;                 <span class="cmt">// cardinalité 1 → un attribut objet</span>
+    <span class="kw">public</span> <span class="fn">Livre</span>(String titre, String isbn, Auteur auteur) {
+        <span class="kw">this</span>.titre = titre; <span class="kw">this</span>.isbn = isbn; <span class="kw">this</span>.auteur = auteur;   <span class="cmt">// agrégation : l'Auteur vient de l'extérieur</span>
+    }
+    <span class="kw">public</span> String <span class="fn">getTitre</span>() { <span class="kw">return</span> titre; }
+}
+<span class="kw">public class</span> <span class="cls">Roman</span> <span class="kw">extends</span> <span class="cls">Livre</span> {                  <span class="cmt">// triangle creux</span>
+    <span class="kw">private</span> String genre;
+    <span class="kw">public</span> <span class="fn">Roman</span>(String titre, String isbn, Auteur auteur, String genre) {
+        <span class="kw">super</span>(titre, isbn, auteur);         <span class="cmt">// 1ère ligne obligatoire</span>
+        <span class="kw">this</span>.genre = genre;
+    }
+}
+<span class="kw">public class</span> <span class="cls">Bibliotheque</span> {
+    <span class="kw">private</span> String nom;
+    <span class="kw">private</span> Livre[] livres;                 <span class="cmt">// 0..* → collection</span>
+    <span class="kw">private int</span> nbLivres = <span class="num">0</span>;              <span class="cmt">// combien de cases sont remplies</span>
+    <span class="kw">public</span> <span class="fn">Bibliotheque</span>(String nom, <span class="kw">int</span> capacite) { <span class="kw">this</span>.nom = nom; livres = <span class="kw">new</span> Livre[capacite]; }
+    <span class="kw">public void</span> <span class="fn">ajouter</span>(Livre l) { <span class="kw">if</span> (nbLivres &lt; livres.length) livres[nbLivres++] = l; }
+}</pre></div></div></li>
+          </ol>
+          <div class="answer"><b class="lab">Ce que le correcteur regarde</b>Bon mot-clé pour chaque relation (<code>extends</code> vs attribut) · collection pour &gt; 1 · <code>super(...)</code> dans Roman · pas d'attribut Bibliotheque dans Livre (navigabilité) · tableau alloué avec <code>new</code> dans le constructeur.</div>
+          <div class="why"><b class="lab">Agrégation ou composition ?</b>Ici l'Auteur est passé au constructeur de Livre (il existe avant, il survivra au Livre) : agrégation, losange creux. Si Livre faisait <code>auteur = new Auteur(...)</code> lui-même, ce serait une composition (losange plein). Le code <em>montre</em> la relation : regarde d'où vient le <code>new</code>.</div>
+        </article>
+
+        <!-- J4 -->
+        <article class="deroule" id="j4">
+          <div class="dh"><span class="dn">J4</span><span class="dch">Type DS · Java → UML</span><h3>Lire du code et nommer les relations</h3></div>
+          <div class="enonce"><b class="lab">Énoncé</b>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Moteur</span> { <span class="kw">private int</span> puissance; <span class="kw">public</span> <span class="fn">Moteur</span>(<span class="kw">int</span> p) { puissance = p; } }
+<span class="kw">public class</span> <span class="cls">Roue</span> { }
+<span class="kw">public class</span> <span class="cls">Garagiste</span> { <span class="kw">public void</span> <span class="fn">reparer</span>(Voiture v) { <span class="cmt">/* ... */</span> } }
+<span class="kw">public class</span> <span class="cls">Vehicule</span> { <span class="kw">protected</span> String immat; }
+<span class="kw">public class</span> <span class="cls">Voiture</span> <span class="kw">extends</span> <span class="cls">Vehicule</span> {
+    <span class="kw">private</span> Moteur moteur;
+    <span class="kw">private</span> Roue[] roues;
+    <span class="kw">public</span> <span class="fn">Voiture</span>(Moteur m) {
+        moteur = m;
+        roues = <span class="kw">new</span> Roue[<span class="num">4</span>];
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; <span class="num">4</span>; i++) roues[i] = <span class="kw">new</span> Roue();
+    }
+}</pre>Donner le diagramme de classes avec les 4 relations et leurs cardinalités.</div>
+          <ol class="steps">
+            <li class="step"><span class="sn"></span><div><div class="st">Chercher <code>extends</code></div><div class="sd"><code>Voiture extends Vehicule</code> → <b>héritage</b>, triangle creux pointant vers Vehicule. Voiture récupère <code>immat</code> (protected : accessible directement).</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st">Chercher les attributs de type objet, et d'où vient leur <code>new</code></div><div class="sd"><code>Moteur moteur</code> reçu en <b>paramètre</b> du constructeur, créé à l'extérieur → <b>agrégation</b> (losange creux côté Voiture), cardinalité 1. <code>Roue[] roues</code> créées <b>dans</b> le constructeur avec <code>new Roue()</code> → <b>composition</b> (losange plein), cardinalité 4.</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st">Chercher les objets reçus uniquement en paramètre de méthode</div><div class="sd"><code>Garagiste.reparer(Voiture v)</code> : v n'est pas stocké → <b>dépendance</b>, flèche pointillée de Garagiste vers Voiture.</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st">Écrire le diagramme (texte)</div><div class="sd"><div class="calc">Vehicule ◁—— Voiture           (héritage)
+Voiture ◇—— 1 Moteur           (agrégation : le moteur survit à la voiture)
+Voiture ◆—— 4 Roue             (composition : détruire la voiture détruit ses roues)
+Garagiste - - -&gt; Voiture        (dépendance : paramètre de reparer)</div></div></div></li>
+          </ol>
+          <div class="answer"><b class="lab">Réponse</b>1 héritage, 1 agrégation (1), 1 composition (4), 1 dépendance. Compartiments : <code>- puissance : int</code>, <code>+ Moteur(int)</code>, etc.</div>
+          <div class="why"><b class="lab">La question qui tranche agrégation / composition</b>« Si je supprime la Voiture, le Moteur existe-t-il encore ? » Oui (il a été créé ailleurs) → agrégation. « Et les Roues ? » Non (personne d'autre n'y a accès) → composition. C'est exactement le critère du TP2 (Commande/Plat vs Commande/Livraison).</div>
+        </article>
+
+        <!-- J5 -->
+        <article class="deroule" id="j5">
+          <div class="dh"><span class="dn">J5</span><span class="dch">Type DS · trouver les erreurs</span><h3>« Ce code contient 6 erreurs de compilation. Les trouver et les corriger. »</h3></div>
+          <div class="enonce"><b class="lab">Énoncé</b>
+<pre class="code"><span class="num">1</span>  <span class="kw">public class</span> <span class="cls">Rectangle</span> {
+<span class="num">2</span>      <span class="kw">private double</span> largeur, hauteur;
+<span class="num">3</span>      <span class="kw">public void</span> <span class="fn">Rectangle</span>(<span class="kw">double</span> l, <span class="kw">double</span> h) { largeur = l; hauteur = h; }
+<span class="num">4</span>      <span class="kw">public double</span> <span class="fn">aire</span>() { <span class="kw">double</span> a = largeur * hauteur; }
+<span class="num">5</span>      <span class="kw">public boolean</span> <span class="fn">estCarre</span>() { <span class="kw">return</span> largeur == hauteur }
+<span class="num">6</span>  }
+<span class="num">7</span>  <span class="kw">public class</span> <span class="cls">Main</span> {
+<span class="num">8</span>      <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+<span class="num">9</span>          Rectangle r = <span class="kw">new</span> Rectangle(<span class="num">3</span>, <span class="num">4</span>);
+<span class="num">10</span>         System.out.println(r.largeur);
+<span class="num">11</span>         <span class="kw">int</span> s = r.<span class="fn">aire</span>();
+<span class="num">12</span>         Rectangle t;  System.out.println(t.<span class="fn">estCarre</span>());
+<span class="num">13</span>     }
+<span class="num">14</span> }</pre></div>
+          <ol class="steps">
+            <li class="step"><span class="sn"></span><div><div class="st">Ligne 3 — un constructeur n'a pas de type de retour</div><div class="sd"><code>public void Rectangle(...)</code> est une <em>méthode</em> nommée Rectangle, pas un constructeur. Du coup <code>new Rectangle(3,4)</code> ligne 9 ne trouve aucun constructeur à 2 paramètres. <b>Correction :</b> enlever <code>void</code>.</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st">Ligne 4 — <code>missing return statement</code></div><div class="sd">La méthode promet un <code>double</code> mais ne retourne rien. <b>Correction :</b> <code>return largeur * hauteur;</code></div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st">Ligne 5 — <code>';' expected</code></div><div class="sd">Point-virgule manquant après <code>hauteur</code>. Le compilateur pointe la fin de ligne.</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st">Ligne 10 — <code>largeur has private access in Rectangle</code></div><div class="sd">Depuis Main, un attribut <code>private</code> est invisible. <b>Correction :</b> ajouter un getter <code>getLargeur()</code> dans Rectangle et appeler <code>r.getLargeur()</code>.</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st">Ligne 11 — <code>incompatible types: possible lossy conversion from double to int</code></div><div class="sd">On range un <code>double</code> dans un <code>int</code>. <b>Correction :</b> <code>double s = r.aire();</code> (ou un cast explicite <code>(int)</code> si on accepte la troncature).</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st">Ligne 12 — <code>variable t might not have been initialized</code></div><div class="sd">t est déclaré mais jamais affecté (pas de <code>new</code>). Java refuse de compiler (pour un attribut ce serait <code>null</code> et une <code>NullPointerException</code> à l'exécution, mais une variable <em>locale</em> doit être initialisée). <b>Correction :</b> <code>Rectangle t = new Rectangle(2, 2);</code></div></div></li>
+          </ol>
+          <div class="answer"><b class="lab">Réponse</b>6 erreurs : constructeur avec <code>void</code> · <code>return</code> manquant · <code>;</code> manquant · accès à un <code>private</code> · <code>double</code> → <code>int</code> · variable locale non initialisée.</div>
+          <div class="why"><b class="lab">Lire un message du compilateur</b>Il donne <b>le fichier, la ligne et un nom d'erreur</b>. Les 6 messages les plus fréquents : <code>cannot find symbol</code> (faute de frappe, import manquant, variable hors portée), <code>missing return statement</code>, <code>incompatible types</code>, <code>non-static method … cannot be referenced from a static context</code> (appel sans objet depuis main), <code>… has private access</code>, <code>';' expected</code>. Corriger la <em>première</em> erreur d'abord : les suivantes en découlent souvent.</div>
+        </article>
+
+        <!-- J6 -->
+        <article class="deroule" id="j6">
+          <div class="dh"><span class="dn">J6</span><span class="dch">Type annale · hiérarchie, abstrait, polymorphisme (aperçu S4)</span><h3>« Formes géométriques » — l'exo qui revient dans presque toutes les annales</h3></div>
+          <div class="enonce"><b class="lab">Énoncé (résumé de l'annale type)</b>Une <code>Forme</code> a un nom et sait calculer son aire, mais on ne peut pas créer une Forme « en général ». <code>Cercle</code> (rayon) et <code>Rectangle</code> (largeur, hauteur) sont des formes. Écrire les classes, puis un main qui range un cercle et un rectangle dans un <b>même tableau</b> et affiche l'aire de chacun. Questions : pourquoi <code>abstract</code> ? Peut-on écrire <code>new Forme("f")</code> ? Que se passe-t-il dans la boucle ?</div>
+          <ol class="steps">
+            <li class="step"><span class="sn"></span><div><div class="st">« On ne peut pas créer une Forme en général » = classe abstraite, méthode abstraite</div><div class="sd">
+<pre class="code"><span class="kw">public abstract class</span> <span class="cls">Forme</span> {
+    <span class="kw">protected</span> String nom;                       <span class="cmt">// protected : les filles y accèdent directement</span>
+    <span class="kw">public</span> <span class="fn">Forme</span>(String nom) { <span class="kw">this</span>.nom = nom; }
+    <span class="kw">public abstract double</span> <span class="fn">aire</span>();             <span class="cmt">// pas de corps : chaque fille DOIT la définir</span>
+    <span class="kw">public void</span> <span class="fn">afficher</span>() { System.out.println(nom + <span class="str">" : aire = "</span> + <span class="fn">aire</span>()); }
+}</pre>Comme dans <code>cours4_classe_abstraite</code> (Personnels / Enseignants).</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st">Les filles : <code>extends</code> + <code>super(...)</code> + <code>@Override</code> de la méthode abstraite</div><div class="sd">
+<pre class="code"><span class="kw">public class</span> <span class="cls">Cercle</span> <span class="kw">extends</span> <span class="cls">Forme</span> {
+    <span class="kw">private double</span> rayon;
+    <span class="kw">public</span> <span class="fn">Cercle</span>(<span class="kw">double</span> rayon) { <span class="kw">super</span>(<span class="str">"Cercle"</span>); <span class="kw">this</span>.rayon = rayon; }
+    <span class="kw">@Override</span> <span class="kw">public double</span> <span class="fn">aire</span>() { <span class="kw">return</span> Math.PI * rayon * rayon; }
+}
+<span class="kw">public class</span> <span class="cls">Rectangle</span> <span class="kw">extends</span> <span class="cls">Forme</span> {
+    <span class="kw">private double</span> largeur, hauteur;
+    <span class="kw">public</span> <span class="fn">Rectangle</span>(<span class="kw">double</span> l, <span class="kw">double</span> h) { <span class="kw">super</span>(<span class="str">"Rectangle"</span>); largeur = l; hauteur = h; }
+    <span class="kw">@Override</span> <span class="kw">public double</span> <span class="fn">aire</span>() { <span class="kw">return</span> largeur * hauteur; }
+}</pre>Si une fille oublie <code>aire()</code>, elle devient elle-même abstraite ou ne compile pas : c'est le contrat.</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st">Le main : un tableau du type <em>parent</em>, rempli avec des objets <em>enfants</em></div><div class="sd">
+<pre class="code">Forme[] formes = { <span class="kw">new</span> Cercle(<span class="num">1</span>), <span class="kw">new</span> Rectangle(<span class="num">2</span>, <span class="num">3</span>) };   <span class="cmt">// upcasting implicite</span>
+<span class="kw">for</span> (Forme f : formes) f.<span class="fn">afficher</span>();      <span class="cmt">// Cercle : aire = 3.14…  /  Rectangle : aire = 6.0</span></pre>Dans <code>afficher()</code>, l'appel <code>aire()</code> est <b>polymorphe</b> : Java choisit la version de la classe réelle de f à chaque tour. C'est exactement <code>Music2.tune(Instrument i)</code> de <code>cours4_avec_polymorphisme</code>.</div></div></li>
+            <li class="step"><span class="sn"></span><div><div class="st">Répondre aux questions de cours</div><div class="sd"><b>Pourquoi abstract ?</b> Une Forme sans géométrie n'a pas d'aire calculable ; on interdit l'instanciation tout en imposant <code>aire()</code> aux filles. <b><code>new Forme("f")</code> ?</b> Erreur de compilation : <code>Forme is abstract; cannot be instantiated</code>. <b>Dans la boucle ?</b> Même appel <code>f.afficher()</code>, comportements différents selon l'objet : polymorphisme par redéfinition.</div></div></li>
+          </ol>
+          <div class="answer"><b class="lab">Ce que le correcteur regarde</b><code>abstract</code> sur la classe ET sur <code>aire()</code> · <code>super("...")</code> en 1ʳᵉ ligne · <code>@Override</code> · tableau de type <code>Forme</code> · explication du polymorphisme avec le mot « classe réelle de l'objet ».</div>
+          <div class="why"><b class="lab">Interface ou classe abstraite ?</b>Classe abstraite = « est une sorte de » avec du code commun (attribut <code>nom</code>, méthode <code>afficher</code>). Interface = « sait faire » sans état, plusieurs à la fois (<code>Personne implements Client, Employe, Sportif</code> dans <code>cours4_interface</code>). En Java on hérite d'<b>une seule</b> classe mais on implémente <b>autant</b> d'interfaces qu'on veut.</div>
+        </article>
+
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Comment on cherche</div>
+        <h2>Débloquer seul : erreurs, plantages, documentation</h2>
+      </div>
+      <div class="kit">
+        <div class="kcard"><h3>🧱 Ça ne compile pas</h3>
+          <ul>
+            <li><b>Lire la première erreur</b> : fichier + ligne + message. Les 20 suivantes sont souvent des conséquences.</li>
+            <li><code>cannot find symbol</code> → faute de frappe (majuscule ?), variable déclarée dans un autre bloc <code>{ }</code>, <code>import</code> manquant (<code>java.util.Scanner</code>, <code>java.util.ArrayList</code>).</li>
+            <li><code>non-static … from a static context</code> → tu appelles une méthode d'instance depuis <code>main</code> sans objet : crée un objet ou rends la méthode static.</li>
+            <li><code>has private access</code> → passe par un getter/setter.</li>
+            <li><code>constructor X cannot be applied to given types</code> → mauvais nombre/type d'arguments dans le <code>new</code>, ou constructeur par défaut supprimé par un constructeur à paramètres.</li>
+            <li><code>call to super must be first statement</code> → déplacer <code>super(...)</code>.</li>
+          </ul>
+        </div>
+        <div class="kcard"><h3>💥 Ça compile mais ça plante</h3>
+          <ul>
+            <li>Lire la <b>stack trace</b> de haut en bas : la 1ʳᵉ ligne = type d'exception + message ; la 1ʳᵉ ligne <code>at …(Fichier.java:NN)</code> qui est <em>ton</em> fichier = l'endroit du bug.</li>
+            <li><code>NullPointerException</code> → un objet ou un tableau déclaré mais jamais <code>new</code>é, ou une case de tableau d'objets restée à <code>null</code>.</li>
+            <li><code>ArrayIndexOutOfBoundsException: 5</code> → tu as demandé l'indice 5 ; vérifie <code>i &lt; tab.length</code> (pas <code>&lt;=</code>).</li>
+            <li><code>InputMismatchException</code> → <code>nextInt()</code> a reçu un texte ; ou le <code>nextLine()</code> avale le retour à la ligne laissé par <code>nextInt()</code> (faire un <code>nextLine()</code> de plus).</li>
+            <li><code>ClassCastException</code> → downcast vers une classe dont l'objet n'est pas une instance ; tester avec <code>instanceof</code> avant.</li>
+            <li><code>ArithmeticException: / by zero</code> → division entière par 0 (en <code>double</code>, ça donne Infinity sans planter).</li>
+          </ul>
+        </div>
+        <div class="kcard"><h3>🔬 Ça tourne mais le résultat est faux</h3>
+          <ul>
+            <li><b>Mettre des <code>System.out.println</code></b> aux endroits clés (« valeur de x ici : … »). Rustique, imbattable.</li>
+            <li><b>Écrire un mini-main</b> qui teste <em>une seule</em> méthode avec des valeurs simples dont tu connais le résultat.</li>
+            <li>Suspects habituels : division entière (<code>7/2 = 3</code>), <code>==</code> sur des String, variable locale qui masque un attribut (manque <code>this.</code>), boucle qui commence à 1 au lieu de 0, référence copiée au lieu de l'objet (<code>a = b</code>).</li>
+            <li>Le <b>débogueur</b> d'IntelliJ : clic dans la marge (point rouge) → Debug → F8 pour avancer ligne par ligne, on voit toutes les variables.</li>
+          </ul>
+        </div>
+        <div class="kcard"><h3>📚 Où chercher</h3>
+          <ul>
+            <li><b>Javadoc officielle</b> (docs.oracle.com, « Java 17 API ») : la page d'une classe liste ses constructeurs et méthodes. Chercher « String Java 17 API » suffit.</li>
+            <li>Dans IntelliJ : <b>Ctrl+Q</b> sur un nom affiche sa doc ; <b>Ctrl+clic</b> ouvre le code source ; <b>Ctrl+espace</b> complète.</li>
+            <li>Tes zips de cours : chaque mécanisme a son exemple minimal (tableau « où voir chaque mécanisme » en semaine 2). Relire l'exemple du prof avant de chercher ailleurs.</li>
+            <li>Formuler la recherche avec le <b>nom exact de l'erreur</b> entre guillemets + « java ».</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">À connaître à côté</div>
+        <h2>Le kit Java qui n'est pas « dans le cours » mais dans tous les exos</h2>
+      </div>
+      <div class="kit">
+        <div class="kcard"><h3>🔢 Types primitifs et valeurs par défaut</h3>
+          <div class="tbl-wrap"><table class="tbl">
+            <thead><tr><th>Type</th><th>Contenu</th><th>Défaut (attribut / case de tableau)</th></tr></thead>
+            <tbody>
+              <tr><td><code>int</code></td><td>entier 32 bits (±2·10⁹)</td><td><code>0</code></td></tr>
+              <tr><td><code>long</code></td><td>entier 64 bits, suffixe <code>L</code></td><td><code>0L</code></td></tr>
+              <tr><td><code>double</code></td><td>réel 64 bits (<code>3.14</code>)</td><td><code>0.0</code></td></tr>
+              <tr><td><code>float</code></td><td>réel 32 bits, suffixe <code>f</code> (<code>3.14f</code>)</td><td><code>0.0f</code></td></tr>
+              <tr><td><code>boolean</code></td><td><code>true</code> / <code>false</code></td><td><code>false</code></td></tr>
+              <tr><td><code>char</code></td><td>un caractère <code>'a'</code> (guillemets simples)</td><td><code>'\0'</code></td></tr>
+              <tr><td>objet (<code>String</code>, tableau…)</td><td>référence</td><td><code>null</code></td></tr>
+            </tbody>
+          </table></div>
+          <p>Les <b>variables locales</b> n'ont pas de valeur par défaut : Java refuse de compiler si tu les lis avant de les affecter.</p>
+        </div>
+        <div class="kcard"><h3>➗ Opérateurs et conversions qui piègent</h3>
+          <ul>
+            <li><code>7 / 2</code> vaut <code>3</code> (division entière) ; <code>7 / 2.0</code> vaut <code>3.5</code> ; <code>7 % 2</code> vaut <code>1</code> (reste).</li>
+            <li><code>(int) 3.9</code> vaut <code>3</code> (troncature, pas arrondi) ; <code>Math.round(3.9)</code> vaut <code>4</code>.</li>
+            <li>int → double : automatique. double → int : cast obligatoire (<code>(int) x</code>).</li>
+            <li><code>i++</code> (utilise puis incrémente) vs <code>++i</code> ; <code>x += 2</code> ≡ <code>x = x + 2</code>.</li>
+            <li><code>&amp;&amp;</code> et <code>||</code> s'arrêtent dès que le résultat est connu (utile : <code>t != null &amp;&amp; t.length &gt; 0</code>).</li>
+            <li>Ternaire : <code>int max = (a &gt; b) ? a : b;</code></li>
+            <li><code>"a" + 1 + 2</code> donne <code>"a12"</code> ; <code>1 + 2 + "a"</code> donne <code>"3a"</code> (gauche → droite).</li>
+            <li><code>==</code> compare les primitifs par valeur, les objets par <b>référence</b> ; <code>.equals()</code> pour le contenu.</li>
+          </ul>
+        </div>
+        <div class="kcard"><h3>🔤 String — les méthodes qui reviennent</h3>
+          <div class="tbl-wrap"><table class="tbl">
+            <tbody>
+              <tr><td><code>s.length()</code></td><td>longueur (avec parenthèses !)</td></tr>
+              <tr><td><code>s.charAt(i)</code></td><td>caractère n° i (à partir de 0)</td></tr>
+              <tr><td><code>s.substring(a, b)</code></td><td>de l'indice a inclus à b exclu</td></tr>
+              <tr><td><code>s.indexOf("x")</code></td><td>position, ou −1</td></tr>
+              <tr><td><code>s.equals(t)</code> / <code>equalsIgnoreCase</code></td><td>comparaison de contenu</td></tr>
+              <tr><td><code>s.compareTo(t)</code></td><td>&lt; 0, 0, &gt; 0 (ordre alphabétique)</td></tr>
+              <tr><td><code>s.toUpperCase()</code>, <code>trim()</code>, <code>contains("x")</code>, <code>split(",")</code></td><td>renvoient une <b>nouvelle</b> String (immutabilité)</td></tr>
+              <tr><td><code>String.valueOf(42)</code>, <code>Integer.parseInt("42")</code></td><td>conversions</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="kcard"><h3>🧮 Math, boucles, switch</h3>
+          <ul>
+            <li><code>Math.abs</code>, <code>Math.pow(x, 2)</code>, <code>Math.sqrt</code>, <code>Math.max</code>, <code>Math.min</code>, <code>Math.PI</code>, <code>Math.random()</code> (dans [0,1[). Tout est <b>static</b> : pas de <code>new Math()</code>.</li>
+            <li>Entier aléatoire entre a et b inclus : <code>a + (int)(Math.random() * (b − a + 1))</code>.</li>
+            <li>Boucle for-each : <code>for (double n : notes) somme += n;</code> — lecture seule, pas d'indice.</li>
+            <li><code>while</code> quand on ne connaît pas le nombre de tours ; <code>do … while</code> quand il faut passer au moins une fois (saisie avec validation).</li>
+            <li><code>switch (choix) { case 1: …; break; default: … }</code> — oublier <code>break</code> enchaîne les cas.</li>
+            <li><code>break</code> sort de la boucle ; <code>continue</code> passe au tour suivant.</li>
+          </ul>
+        </div>
+        <div class="kcard"><h3>📦 ArrayList — l'aperçu indispensable (S6, mais dans les annales)</h3>
+          <pre class="code" style="margin:6px 0 10px"><span class="kw">import</span> java.util.ArrayList;
+ArrayList&lt;Livre&gt; liste = <span class="kw">new</span> ArrayList&lt;&gt;();   <span class="cmt">// taille variable, type entre &lt; &gt;</span>
+liste.<span class="fn">add</span>(unLivre);            <span class="cmt">// ajouter à la fin</span>
+liste.<span class="fn">get</span>(0);                  <span class="cmt">// lire (indice à partir de 0)</span>
+liste.<span class="fn">size</span>();                  <span class="cmt">// nombre d'éléments (méthode, avec ())</span>
+liste.<span class="fn">remove</span>(0);  liste.<span class="fn">contains</span>(unLivre);  liste.<span class="fn">isEmpty</span>();
+<span class="kw">for</span> (Livre l : liste) System.out.println(l);</pre>
+          <p>Pas de primitifs dedans : <code>ArrayList&lt;Integer&gt;</code>, pas <code>&lt;int&gt;</code> (Java convertit automatiquement, c'est l'<em>autoboxing</em>). Tableau = taille fixe, <code>.length</code> ; ArrayList = taille variable, <code>.size()</code>.</p>
+        </div>
+        <div class="kcard"><h3>🧬 Object, instanceof, final, static</h3>
+          <ul>
+            <li>Toute classe hérite d'<code>Object</code> : <code>toString()</code>, <code>equals()</code>, <code>hashCode()</code>, <code>getClass()</code>. Sans redéfinition, <code>println(obj)</code> affiche <code>Nom@1b6d3586</code>.</li>
+            <li><code>obj instanceof Chien</code> → <code>true</code> si l'objet réel est un Chien (ou une sous-classe). À tester avant un downcast.</li>
+            <li><code>final</code> : variable = constante (une seule affectation) ; méthode = non redéfinissable ; classe = non héritable. Convention : <code>static final double TVA = 0.2;</code> en MAJUSCULES.</li>
+            <li><code>static</code> : appartient à la classe, pas à l'objet. Une méthode static ne peut pas utiliser <code>this</code> ni les attributs d'instance.</li>
+            <li>Passage de paramètres : les <b>primitifs sont copiés</b> (la méthode ne peut pas modifier ton <code>int</code>), les <b>objets sont passés par référence</b> (la méthode peut modifier l'objet, mais pas te faire pointer ailleurs).</li>
+          </ul>
+        </div>
+        <div class="kcard"><h3>⚠️ Exceptions — l'aperçu (S5, dans toutes les annales)</h3>
+          <pre class="code" style="margin:6px 0 10px"><span class="kw">class</span> <span class="cls">SoldeInsuffisantException</span> <span class="kw">extends</span> <span class="cls">Exception</span> {
+    <span class="kw">public</span> <span class="fn">SoldeInsuffisantException</span>(String msg) { <span class="kw">super</span>(msg); }
+}
+<span class="kw">public void</span> <span class="fn">retirer</span>(<span class="kw">double</span> m) <span class="kw">throws</span> SoldeInsuffisantException {
+    <span class="kw">if</span> (m &gt; solde) <span class="kw">throw new</span> SoldeInsuffisantException(<span class="str">"solde "</span> + solde);
+    solde -= m;
+}
+<span class="kw">try</span> { c.<span class="fn">retirer</span>(<span class="num">500</span>); }
+<span class="kw">catch</span> (SoldeInsuffisantException e) { System.out.println(e.<span class="fn">getMessage</span>()); }
+<span class="kw">finally</span> { System.out.println(<span class="str">"toujours exécuté"</span>); }</pre>
+          <p><code>throw</code> lance (un objet), <code>throws</code> déclare (dans la signature), <code>try/catch</code> attrape. Plusieurs <code>catch</code> : du plus précis au plus général (<code>Exception</code> en dernier). Modèle : <code>cours5_Exception_DivisionParZero</code>.</p>
+        </div>
+        <div class="kcard"><h3>📁 Fichiers, compilation, conventions</h3>
+          <ul>
+            <li>Une classe <code>public</code> par fichier, <b>même nom</b> que le fichier : <code>Train</code> → <code>Train.java</code>.</li>
+            <li><code>javac Train.java</code> crée <code>Train.class</code> ; <code>java Train</code> exécute (sans extension). Le <code>main</code> est le point d'entrée, toujours <code>public static void main(String[] args)</code>.</li>
+            <li>Nommage : classes en <code>PascalCase</code>, méthodes/variables en <code>camelCase</code>, constantes en <code>MAJUSCULES</code>. Getters <code>getX()</code>, booléens <code>isX()</code>, setters <code>setX(...)</code>.</li>
+            <li>Un bloc <code>{ }</code> = une portée : une variable déclarée dans un <code>for</code> n'existe plus après.</li>
+            <li>Ordre dans un fichier : <code>package</code>, <code>import</code>, classe. Ordre dans une classe : attributs, constructeurs, méthodes.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Rédaction</div>
+        <h2>Écrire du Java sur papier (DS) sans perdre de points bêtes</h2>
+      </div>
+      <div class="trapgrid">
+        <div class="trapc"><b class="lab">Signatures complètes</b>Écrire <code>public boolean retirer(double montant)</code>, pas « retirer(montant) ». Visibilité + type de retour + types des paramètres : c'est souvent la moitié des points de la question.</div>
+        <div class="trapc"><b class="lab">Accolades et ; </b>Sur papier on oublie les <code>}</code> de fin de classe et les <code>;</code>. Relire chaque méthode en comptant les accolades. Indenter : le correcteur suit la structure d'un coup d'œil.</div>
+        <div class="trapc"><b class="lab">private + getters</b>Par défaut, tout attribut est <code>private</code>. Si le main doit lire une valeur, ajouter le getter — et le montrer.</div>
+        <div class="trapc"><b class="lab">Constructeur qui initialise tout</b>Chaque attribut doit être affecté dans le constructeur (ou à la déclaration). Un attribut oublié = objet à moitié construit.</div>
+        <div class="trapc"><b class="lab">this. quand ça s'appelle pareil</b>Paramètre <code>nom</code> et attribut <code>nom</code> : <code>this.nom = nom;</code>. Sans <code>this.</code>, tu affectes le paramètre à lui-même (et ça compile !).</div>
+        <div class="trapc"><b class="lab">@Override visible</b>Toute redéfinition (<code>toString</code>, méthode du parent, méthode abstraite) porte <code>@Override</code>. C'est gratuit et c'est noté.</div>
+        <div class="trapc"><b class="lab">Justifier en une phrase</b>« Pourquoi X ? » attend le mot-clé + l'effet : « <code>static</code> : partagé par tous les objets, donc un seul compteur ». Deux lignes max.</div>
+        <div class="trapc"><b class="lab">Ne pas réinventer</b>Si l'énoncé fournit une classe, on l'utilise telle quelle (mêmes noms de méthodes). Le correcteur teste ta lecture, pas ta créativité.</div>
+      </div>
+      <div style="margin-top:24px;text-align:center">
+        <button class="btn btn-primary" onclick="startQCM('meth')">Lancer le QCM Méthodes →</button>
+      </div>
+    </section>
+  </div>
+</div>
+
 <!-- QCM -->
 <div id="qcm" class="view">
   <div class="wrap">
@@ -2194,10 +2704,11 @@ Arbre a2 = <span class="kw">new</span> Arbre(<span class="num">20</span>);   <sp
       </div>
 
       <div class="qcm-filter">
-        <button class="active" data-filter="all" onclick="filterQCM('all')">Tout (50)</button>
+        <button class="active" data-filter="all" onclick="filterQCM('all')">Tout (62)</button>
         <button data-filter="s1" onclick="filterQCM('s1')">Semaine 1 (20)</button>
         <button data-filter="s2" onclick="filterQCM('s2')">Semaine 2 (15)</button>
         <button data-filter="s3" onclick="filterQCM('s3')">Semaine 3 (15)</button>
+        <button data-filter="meth" onclick="filterQCM('meth')">Méthodes (12)</button>
       </div>
 
       <div class="qcm-wrap" id="qcmApp"></div>
@@ -2442,7 +2953,44 @@ const ALL_QUESTIONS = [
    c:1, exp:'L\'héritage fonctionne normalement entre packages différents (ex: Conducteur du package individu pourrait hériter d\'une classe d\'un autre package).'},
   {wk:'s3', topic:'Agrégation Segment/Point', q:'<code>class Segment { public Point p1, p2; ... }</code> représente quelle relation ?',
    choices:['Héritage','Agrégation (Segment contient des Point)','Dépendance','Généralisation'],
-   c:1, exp:'2 attributs de type Point dans Segment = agrégation, les Point existent indépendamment (créés avant, passés au constructeur).'}
+   c:1, exp:'2 attributs de type Point dans Segment = agrégation, les Point existent indépendamment (créés avant, passés au constructeur).'},
+  // ================== MÉTHODES ==================
+  {wk:'meth', topic:'Trace — ordre des constructeurs', q:'<code>new Chien("Max")</code> où <code>Chien extends Animal</code>. Dans quel ordre s\'exécutent les constructeurs ?',
+   choices:['Chien puis Animal','Animal puis Chien','Seulement Chien','Seulement Animal'],
+   c:1, exp:'<code>super(...)</code> (explicite ou implicite) exécute le constructeur du parent AVANT le reste du constructeur de la fille.'},
+  {wk:'meth', topic:'Trace — méthode redéfinie', q:'<code>Animal y = new Chien("Max"); y.crier();</code> avec <code>crier()</code> redéfinie dans Chien. Quelle version s\'exécute ?',
+   choices:['Celle d\'Animal (type déclaré)','Celle de Chien (classe réelle de l\'objet)','Les deux','Erreur de compilation'],
+   c:1, exp:'Polymorphisme : la méthode appelée dépend de la classe réelle de l\'objet, pas du type de la variable.'},
+  {wk:'meth', topic:'Trace — static', q:'Un attribut <code>static int compteur</code> incrémenté dans le constructeur d\'Animal. Après <code>new Animal("a"); new Chien("b");</code> il vaut :',
+   choices:['1','2','0','3'],
+   c:1, exp:'Le constructeur de Chien appelle celui d\'Animal via super : deux incrémentations, une seule case partagée.'},
+  {wk:'meth', topic:'Compilation — constructeur', q:'<code>public void Rectangle(double l, double h) { ... }</code> dans la classe Rectangle est :',
+   choices:['Un constructeur valide','Une méthode nommée Rectangle, pas un constructeur','Une erreur de compilation','Un constructeur static'],
+   c:1, exp:'Un constructeur n\'a JAMAIS de type de retour. Avec void, c\'est une méthode ordinaire, et new Rectangle(3,4) ne trouve aucun constructeur à 2 paramètres.'},
+  {wk:'meth', topic:'Compilation — message', q:'Le compilateur affiche <code>non-static method aire() cannot be referenced from a static context</code>. Cause :',
+   choices:['aire() est private','On appelle aire() depuis main sans objet','Il manque un return','aire() n\'existe pas'],
+   c:1, exp:'Depuis main (static), une méthode d\'instance doit être appelée sur un objet : <code>r.aire()</code>.'},
+  {wk:'meth', topic:'Exécution — NPE', q:'<code>Rectangle[] t = new Rectangle[3]; t[0].aire();</code> provoque :',
+   choices:['Rien, aire() renvoie 0','NullPointerException','ArrayIndexOutOfBoundsException','Erreur de compilation'],
+   c:1, exp:'Le tableau est alloué mais ses cases valent null : il faut faire <code>t[0] = new Rectangle(...)</code> avant.'},
+  {wk:'meth', topic:'Java → UML', q:'<code>class Voiture { private Roue[] roues; Voiture() { roues = new Roue[4]; for(...) roues[i] = new Roue(); } }</code> représente :',
+   choices:['Une agrégation','Une composition','Une dépendance','Un héritage'],
+   c:1, exp:'Les Roues sont créées DANS le constructeur de Voiture et n\'existent que pour elle : composition (losange plein).'},
+  {wk:'meth', topic:'UML → Java', q:'Cardinalité « 1 Bibliotheque ↔ 0..* Livre », navigable de Bibliotheque vers Livre. En Java :',
+   choices:['Livre a un attribut Bibliotheque','Bibliotheque a un attribut Livre[] (ou ArrayList), Livre n\'a rien','Les deux classes ont un attribut l\'une vers l\'autre','Livre extends Bibliotheque'],
+   c:1, exp:'Cardinalité > 1 = collection ; navigabilité restreinte = seul le côté d\'origine porte l\'attribut.'},
+  {wk:'meth', topic:'Écrire une classe', q:'L\'énoncé dit « retirer un montant, refusé si le solde est insuffisant ». La signature la plus adaptée :',
+   choices:['<code>void retirer(double m)</code>','<code>boolean retirer(double m)</code>','<code>double retirer()</code>','<code>static void retirer(double m)</code>'],
+   c:1, exp:'Un résultat « accepté / refusé » se traduit par un boolean retourné à l\'appelant.'},
+  {wk:'meth', topic:'Division entière', q:'<code>int a = 7, b = 2; System.out.println(a / b);</code> affiche :',
+   choices:['3.5','3','4','Erreur'],
+   c:1, exp:'Division entre deux int = division entière (troncature). Pour 3.5, écrire <code>a / 2.0</code> ou caster.'},
+  {wk:'meth', topic:'Classe abstraite', q:'<code>public abstract class Forme { public abstract double aire(); }</code> — que provoque <code>new Forme()</code> ?',
+   choices:['Un objet Forme d\'aire 0','Erreur de compilation : classe abstraite non instanciable','Une exception à l\'exécution','null'],
+   c:1, exp:'Une classe abstraite ne peut pas être instanciée ; seules ses filles concrètes (qui définissent aire()) le peuvent.'},
+  {wk:'meth', topic:'Exceptions', q:'Dans une signature, <code>throws MonException</code> signifie :',
+   choices:['La méthode lance toujours MonException','La méthode peut lancer MonException et prévient l\'appelant','La méthode attrape MonException','MonException est une sous-classe de la méthode'],
+   c:1, exp:'throws = déclaration ; throw new = lancement effectif ; try/catch = capture chez l\'appelant.'}
 ];
 
 let qcmState = { list: [], idx: 0, score: 0, history: [], filter: 'all' };
