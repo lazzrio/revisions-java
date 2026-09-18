@@ -1997,6 +1997,37 @@ res1 = a.<span class="fn">equals</span>(b);                    <span class="cmt"
 <span class="cmt">// ⚠️ les anciennes valeurs (12,17) de a sont PERDUES, inaccessibles</span></pre>
       <p style="color:var(--muted);font-size:13.5px;margin-top:10px">Exactement le même principe que <code>tab3 = tab;</code> pour les tableaux vu en semaine 1 — un objet se copie par <b>référence</b>, jamais par valeur.</p>
 
+      <h3 style="font-size:17px;margin:24px 0 8px">Redéfinir equals() — comparer le CONTENU au lieu de la référence</h3>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Complexe</span> {
+    <span class="kw">private double</span> reel;   <span class="cmt">// partie réelle</span>
+    <span class="kw">private double</span> img;    <span class="cmt">// partie imaginaire</span>
+
+    <span class="kw">public</span> <span class="fn">Complexe</span>(<span class="kw">double</span> r, <span class="kw">double</span> i) { reel = r; img = i; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public boolean</span> <span class="fn">equals</span>(Object autre) {
+        <span class="cmt">// 1) securite : autre ne doit pas etre null</span>
+        <span class="kw">if</span> (autre == <span class="kw">null</span>) <span class="kw">return false</span>;
+
+        <span class="cmt">// 2) verifie qu'on compare deux objets de la MEME classe</span>
+        <span class="kw">if</span> (<span class="kw">this</span>.<span class="fn">getClass</span>() != autre.<span class="fn">getClass</span>()) <span class="kw">return false</span>;
+
+        <span class="cmt">// 3) transtypage : autre est un Object, on le voit comme un Complexe</span>
+        Complexe c = (Complexe) autre;
+
+        <span class="cmt">// 4) compare le CONTENU (reel ET img)</span>
+        <span class="kw">return this</span>.reel == c.reel &amp;&amp; <span class="kw">this</span>.img == c.img;
+    }
+}
+
+<span class="cmt">// utilisation ------------------------------------------------------</span>
+Complexe a = <span class="kw">new</span> Complexe(<span class="num">1.0</span>, <span class="num">2.0</span>);
+Complexe b = <span class="kw">new</span> Complexe(<span class="num">1.0</span>, <span class="num">2.0</span>);
+
+a.<span class="fn">equals</span>(b);   <span class="cmt">// true  : meme contenu (grace au equals() redefini)</span>
+a == b;         <span class="cmt">// false : 2 objets differents en memoire</span></pre>
+      <p style="color:var(--muted);font-size:13.5px;margin-top:10px">Sans cette redéfinition, <code>a.equals(b)</code> renverrait <code>false</code> (comportement hérité d'<code>Object</code> = compare les références). Les 4 étapes sont le patron classique : <b>null → getClass → cast → comparer chaque attribut</b>.</p>
+
       <h3 style="font-size:17px;margin:24px 0 8px">Packages — organiser son code sur plusieurs dossiers</h3>
 <pre class="code"><span class="cmt">// fichier individu/Personne.java</span>
 <span class="kw">package</span> individu;
