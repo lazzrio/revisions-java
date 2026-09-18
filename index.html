@@ -313,7 +313,8 @@ footer{border-top:1px solid var(--line);background:var(--surface2);padding:32px 
       <button data-view="s1" onclick="showView('s1')">Semaine 1</button>
       <button data-view="s2" onclick="showView('s2')">Semaine 2</button>
       <button data-view="s3" onclick="showView('s3')">Semaine 3</button>
-      <button data-view="futur" onclick="showView('futur')">S4 → S7</button>
+      <button data-view="s4" onclick="showView('s4')">Semaine 4</button>
+      <button data-view="futur" onclick="showView('futur')">S5 → S7</button>
       <button data-view="methodes" onclick="showView('methodes')">Méthodes</button>
       <button data-view="qcm" onclick="showView('qcm')">QCM</button>
       <button data-view="livre" onclick="showView('livre')">Exo Livre</button>
@@ -356,7 +357,7 @@ footer{border-top:1px solid var(--line);background:var(--surface2);padding:32px 
             <div style="height:8px;background:var(--accent);border-radius:2px" title="Semaine 1"></div>
             <div style="height:8px;background:var(--accent);border-radius:2px;opacity:.85" title="Semaine 2"></div>
             <div style="height:8px;background:var(--accent);border-radius:2px;opacity:.7" title="Semaine 3"></div>
-            <div style="height:8px;background:var(--line);border-radius:2px" title="Semaine 4"></div>
+            <div style="height:8px;background:var(--accent);border-radius:2px;opacity:.55" title="Semaine 4"></div>
             <div style="height:8px;background:var(--line);border-radius:2px" title="Semaine 5"></div>
             <div style="height:8px;background:var(--line);border-radius:2px" title="Semaine 6"></div>
             <div style="height:8px;background:var(--line);border-radius:2px" title="Semaine 7"></div>
@@ -393,11 +394,10 @@ footer{border-top:1px solid var(--line);background:var(--surface2);padding:32px 
           <div class="t">Constructeurs & Points</div>
           <div class="d">Surcharge de constructeurs, this, toString/@Override, affectation d'objets, packages.</div>
         </button>
-        <button class="wk locked">
-          <span class="tag">À venir</span>
+        <button class="wk" onclick="showView('s4')">
           <div class="num">Semaine 4</div>
           <div class="t">Interfaces & Polymorphisme</div>
-          <div class="d">Interface, classes abstraites, polymorphisme, Comparator.</div>
+          <div class="d">Classes abstraites, interfaces (multi-implements), polymorphisme d'exécution, collections + Comparable/Comparator.</div>
         </button>
         <button class="wk locked">
           <span class="tag">À venir</span>
@@ -2239,6 +2239,232 @@ Arbre a2 = <span class="kw">new</span> Arbre(<span class="num">20</span>);   <sp
   </div>
 </div>
 
+<!-- SEMAINE 4 -->
+<div id="s4" class="view">
+  <div class="wrap">
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Semaine 4</div>
+        <h2>Polymorphisme, classes abstraites, interfaces, collections</h2>
+        <p>Après l'héritage (S2) et les concepts de base (S3), on monte d'un cran : on <b>oblige</b> les filles à implémenter certaines méthodes (<code>abstract</code>), on définit des <b>contrats</b> multi-classes (<code>interface</code>), et on exploite l'appel polymorphe avec les <b>collections</b> triables (<code>Comparable</code>/<code>Comparator</code>).</p>
+      </div>
+
+      <h3 style="font-size:20px;margin-bottom:16px">📚 Notions clés</h3>
+      <div class="notions">
+        <div class="notion" style="border-left:3px solid var(--accent)">
+          <h3>Classe abstraite</h3>
+          <p>Classe <b>non instanciable</b> qui peut contenir des méthodes <code>abstract</code> (déclarées sans corps). Les filles concrètes doivent toutes les redéfinir.</p>
+          <div class="example">public abstract class Personnels { public abstract void travailler(int h); }</div>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--accent2)">
+          <h3>Méthode abstraite</h3>
+          <p>Déclarée dans une classe abstraite avec <code>abstract</code>, se termine par <code>;</code> (pas de <code>{}</code>). Force chaque sous-classe à fournir sa propre implémentation.</p>
+          <div class="example">public abstract double getSurface();</div>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--good)">
+          <h3>Interface</h3>
+          <p>100 % contrat : liste de méthodes que la classe qui l'<code>implements</code> doit fournir. Pas d'attribut d'état, pas de constructeur.</p>
+          <div class="example">interface Sportif { public void jouer(); }</div>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--warn)">
+          <h3>implements (multiple)</h3>
+          <p>Contrairement à <code>extends</code> (une seule classe mère), une classe peut <code>implements</code> <b>plusieurs interfaces</b> en même temps, séparées par virgules.</p>
+          <div class="example">class Personne implements Client, Employe, Sportif</div>
+        </div>
+      </div>
+
+      <div class="notions" style="margin-top:16px">
+        <div class="notion" style="border-left:3px solid var(--bad)">
+          <h3>Polymorphisme</h3>
+          <p>Une variable du type parent peut désigner un objet fille ; la méthode appelée est celle de la <b>classe réelle</b> de l'objet, pas du type déclaré.</p>
+          <div class="example">Instrument i = new Wind(); i.play(); // appelle Wind.play()</div>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--accent)">
+          <h3>Argument polymorphe</h3>
+          <p>Une méthode qui prend un paramètre du type parent accepte n'importe quelle fille — sans savoir à l'avance laquelle.</p>
+          <div class="example">static void tune(Instrument i) { i.play(...); }</div>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--accent2)">
+          <h3>Collections (List, Vector)</h3>
+          <p>Tableaux <b>dynamiques</b> génériques : <code>List&lt;T&gt;</code>, <code>Vector&lt;T&gt;</code>, <code>ArrayList&lt;T&gt;</code>. Taille automatique, <code>add()</code>, <code>get(i)</code>, <code>size()</code>.</p>
+          <div class="example">List&lt;Forme&gt; l = new Vector&lt;Forme&gt;();</div>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--good)">
+          <h3>Comparable vs Comparator</h3>
+          <p><code>Comparable</code> : ordre naturel <b>dans</b> la classe (<code>compareTo</code>). <code>Comparator</code> : ordre externe défini <b>ailleurs</b>, souvent comme classe anonyme.</p>
+          <div class="example">Collections.sort(l);  // natural / Collections.sort(l, cmp);</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Vocabulaire</div>
+        <h2>Nouveaux mots-clés & méthodes</h2>
+      </div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>Mot-clé / méthode</th><th>Rôle</th><th>Point d'attention</th></tr></thead>
+          <tbody>
+            <tr><td><code>abstract class</code></td><td>Déclare une classe <b>non instanciable</b>, peut mixer méthodes concrètes et abstraites</td><td><code>new AbstractClass()</code> = erreur de compilation</td></tr>
+            <tr><td><code>abstract method</code></td><td>Signature sans corps, se termine par <code>;</code></td><td>Force les filles concrètes à la redéfinir</td></tr>
+            <tr><td><code>interface</code></td><td>Contrat pur : uniquement des signatures de méthodes publiques</td><td>Pas de constructeur, pas d'attribut d'état (avant Java 8)</td></tr>
+            <tr><td><code>implements</code></td><td>Classe promet de fournir toutes les méthodes de l'interface</td><td>Plusieurs interfaces possibles avec virgules</td></tr>
+            <tr><td><code>@Override</code></td><td>Marque une redéfinition d'une méthode héritée ou d'une interface</td><td>Le compilateur vérifie la signature</td></tr>
+            <tr><td><code>List&lt;T&gt;</code></td><td>Interface générique pour toute liste dynamique</td><td>Type d'accueil : <code>List&lt;Forme&gt; l = new Vector&lt;&gt;()</code></td></tr>
+            <tr><td><code>Vector&lt;T&gt;</code> / <code>ArrayList&lt;T&gt;</code></td><td>Implémentations concrètes de List</td><td>Vector = synchronisé (plus lent), ArrayList = plus courant</td></tr>
+            <tr><td><code>Comparable&lt;T&gt;</code></td><td>Ordre naturel via <code>compareTo(T other)</code></td><td>Renvoie <code>&lt;0 / 0 / &gt;0</code></td></tr>
+            <tr><td><code>Comparator&lt;T&gt;</code></td><td>Ordre externe via <code>compare(T x, T y)</code></td><td>Souvent défini en classe anonyme</td></tr>
+            <tr><td><code>Collections.sort(l)</code></td><td>Tri d'une liste (ordre naturel ou avec Comparator)</td><td>La classe des éléments doit implémenter Comparable, sinon fournir un Comparator</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Exemples</div>
+        <h2>Code annoté</h2>
+      </div>
+
+      <h3 style="font-size:17px;margin-bottom:8px">Classe abstraite — <code>cours4_classe_abstraite</code></h3>
+<pre class="code"><span class="kw">public abstract class</span> <span class="cls">Personnels</span> {
+    <span class="kw">protected int</span> nb_heures;
+    <span class="kw">public abstract void</span> <span class="fn">travailler</span>(<span class="kw">int</span> heures);  <span class="cmt">// signature seule, PAS de corps</span>
+}
+
+<span class="kw">public class</span> <span class="cls">Enseignants</span> <span class="kw">extends</span> <span class="cls">Personnels</span> {
+    <span class="kw">public void</span> <span class="fn">travailler</span>(<span class="kw">int</span> heures) {   <span class="cmt">// OBLIGATOIRE de la redéfinir</span>
+        nb_heures = heures;
+        System.out.println(<span class="str">"nombre d'heures de cours = "</span> + nb_heures);
+    }
+}
+
+<span class="cmt">// Main --------------------------------------------</span>
+Personnels prof = <span class="kw">new</span> Enseignants();   <span class="cmt">// type parent, objet fille (polymorphisme)</span>
+prof.<span class="fn">travailler</span>(<span class="num">300</span>);                    <span class="cmt">// appelle Enseignants.travailler()</span>
+
+<span class="cmt">// new Personnels() → erreur de compilation !</span></pre>
+      <p style="color:var(--muted);font-size:13.5px;margin-top:10px">La classe mère <b>oblige</b> ses filles à implémenter <code>travailler()</code>. Impossible d'instancier <code>Personnels</code> directement — c'est un "modèle" à compléter.</p>
+
+      <h3 style="font-size:17px;margin:24px 0 8px">Interface — <code>cours4_interface</code></h3>
+<pre class="code"><span class="kw">interface</span> <span class="cls">Client</span>   { <span class="kw">public void</span> <span class="fn">commander</span>();  <span class="kw">public void</span> <span class="fn">acheter</span>(); }
+<span class="kw">interface</span> <span class="cls">Employe</span>  { <span class="kw">public void</span> <span class="fn">travailler</span>(); }
+<span class="kw">interface</span> <span class="cls">Sportif</span>  { <span class="kw">public void</span> <span class="fn">jouer</span>(); }
+
+<span class="kw">public class</span> <span class="cls">Personne</span> <span class="kw">implements</span> <span class="cls">Client</span>, <span class="cls">Employe</span>, <span class="cls">Sportif</span> {
+    <span class="cmt">// Personne DOIT implémenter TOUTES les méthodes des 3 interfaces</span>
+    <span class="kw">public void</span> <span class="fn">commander</span>()  { System.out.println(<span class="str">"je commande"</span>); }
+    <span class="kw">public void</span> <span class="fn">acheter</span>()    { System.out.println(<span class="str">"j'achète"</span>);  }
+    <span class="kw">public void</span> <span class="fn">travailler</span>() { System.out.println(<span class="str">"je travaille"</span>); }
+    <span class="kw">public void</span> <span class="fn">jouer</span>()      { System.out.println(<span class="str">"je joue"</span>); }
+}</pre>
+      <p style="color:var(--muted);font-size:13.5px;margin-top:10px">Contrairement à <code>extends</code> qui limite à <b>une seule</b> classe mère, on peut <code>implements</code> <b>plusieurs interfaces</b>. C'est la solution Java à l'héritage multiple.</p>
+
+      <h3 style="font-size:17px;margin:24px 0 8px">Polymorphisme — <code>cours4_avec_polymorphisme</code></h3>
+<pre class="code"><span class="kw">public class</span> <span class="cls">Instrument</span> {
+    <span class="kw">public void</span> <span class="fn">play</span>(<span class="kw">int</span> note) { System.out.println(<span class="str">"Instrument.play()"</span>); }
+}
+<span class="kw">public class</span> <span class="cls">Wind</span>    <span class="kw">extends</span> <span class="cls">Instrument</span> { <span class="kw">public void</span> <span class="fn">play</span>(<span class="kw">int</span> n){System.out.println(<span class="str">"Wind.play()"</span>);} }
+<span class="kw">public class</span> <span class="cls">Brass</span>   <span class="kw">extends</span> <span class="cls">Instrument</span> { <span class="kw">public void</span> <span class="fn">play</span>(<span class="kw">int</span> n){System.out.println(<span class="str">"Brass.play()"</span>);} }
+
+<span class="kw">public class</span> <span class="cls">Music2</span> {
+    <span class="cmt">// ARGUMENT POLYMORPHE : accepte n'importe quelle fille d'Instrument</span>
+    <span class="kw">public static void</span> <span class="fn">tune</span>(Instrument i) {
+        i.<span class="fn">play</span>(<span class="num">0</span>);   <span class="cmt">// APPEL POLYMORPHE : dépend de la classe réelle de i</span>
+    }
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        <span class="fn">tune</span>(<span class="kw">new</span> Wind());     <span class="cmt">// affiche "Wind.play()"</span>
+        <span class="fn">tune</span>(<span class="kw">new</span> Brass());    <span class="cmt">// affiche "Brass.play()"</span>
+    }
+}</pre>
+      <p style="color:var(--muted);font-size:13.5px;margin-top:10px">Une seule signature <code>tune(Instrument)</code>, mais deux comportements différents à l'exécution — l'appel <code>i.play(0)</code> est <b>résolu dynamiquement</b> selon le vrai type de l'objet passé.</p>
+
+      <h3 style="font-size:17px;margin:24px 0 8px">Collections + Comparable + Comparator — <code>comparatorForme</code></h3>
+<pre class="code"><span class="kw">abstract class</span> <span class="cls">Forme</span> <span class="kw">implements</span> <span class="cls">Comparable</span>&lt;Forme&gt; {
+    <span class="kw">protected double</span> x, y, distance;
+    <span class="kw">abstract public double</span> <span class="fn">getSurface</span>();   <span class="cmt">// chaque fille définit sa surface</span>
+
+    <span class="cmt">// ORDRE NATUREL : trier par distance à l'origine</span>
+    <span class="kw">public int</span> <span class="fn">compareTo</span>(Forme x) {
+        <span class="kw">if</span> (<span class="kw">this</span>.distance &lt; x.distance) <span class="kw">return</span> -<span class="num">1</span>;
+        <span class="kw">if</span> (<span class="kw">this</span>.distance &gt; x.distance) <span class="kw">return</span> <span class="num">1</span>;
+        <span class="kw">return</span> <span class="num">0</span>;
+    }
+}
+<span class="kw">public class</span> <span class="cls">Carre</span>    <span class="kw">extends</span> <span class="cls">Forme</span> { <span class="kw">public double</span> <span class="fn">getSurface</span>(){<span class="kw">return</span> cote*cote;} }
+<span class="kw">public class</span> <span class="cls">Cercle</span>   <span class="kw">extends</span> <span class="cls">Forme</span> { <span class="kw">public double</span> <span class="fn">getSurface</span>(){<span class="kw">return</span> Math.PI*r*r;} }
+
+<span class="cmt">// ORDRE EXTERNE : trier par surface, dans une classe anonyme</span>
+<span class="kw">public class</span> <span class="cls">FormeComparator</span> {
+    <span class="kw">static final</span> Comparator&lt;Forme&gt; SURFACE_ORDER = <span class="kw">new</span> Comparator&lt;Forme&gt;() {
+        <span class="kw">public int</span> <span class="fn">compare</span>(Forme x, Forme y) {
+            <span class="kw">return</span> Double.<span class="fn">compare</span>(x.<span class="fn">getSurface</span>(), y.<span class="fn">getSurface</span>());
+        }
+    };
+}
+
+<span class="cmt">// Main --------------------------------------------</span>
+List&lt;Forme&gt; l = <span class="kw">new</span> Vector&lt;Forme&gt;();          <span class="cmt">// collection dynamique</span>
+l.<span class="fn">add</span>(<span class="kw">new</span> Carre(...));  l.<span class="fn">add</span>(<span class="kw">new</span> Cercle(...));
+
+Collections.<span class="fn">sort</span>(l);                          <span class="cmt">// ordre naturel (compareTo)</span>
+Collections.<span class="fn">sort</span>(l, FormeComparator.SURFACE_ORDER);  <span class="cmt">// ordre custom</span>
+
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; l.<span class="fn">size</span>(); i++)
+    System.out.<span class="fn">println</span>(l.<span class="fn">get</span>(i));            <span class="cmt">// polymorphisme d'affichage : toString() de la vraie classe</span></pre>
+      <p style="color:var(--muted);font-size:13.5px;margin-top:10px"><b>4 concepts en 1 exemple</b> : classe abstraite (<code>Forme</code>) + polymorphisme (<code>getSurface()</code>, <code>toString()</code>) + interface (<code>Comparable</code>) + collection triable (<code>Vector</code>, <code>Collections.sort</code>). Le tri fonctionne parce que <code>Forme</code> implémente <code>Comparable</code>.</p>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Pièges classiques</div>
+        <h2>Ce qui coince souvent en TP</h2>
+      </div>
+      <div class="notions">
+        <div class="notion" style="border-left:3px solid var(--bad)">
+          <h3>Instancier une classe abstraite</h3>
+          <p><code>new Personnels()</code> → <b>erreur de compilation</b>. Il faut passer par une fille concrète : <code>new Enseignants()</code>.</p>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--bad)">
+          <h3>Oublier une méthode d'interface</h3>
+          <p>Si <code>implements Sportif</code>, il faut fournir <code>jouer()</code> — sinon le compilateur refuse la classe. Message : <i>Personne must implement Sportif.jouer()</i>.</p>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--warn)">
+          <h3>Confondre extends et implements</h3>
+          <p><code>extends</code> pour <b>une seule</b> classe (mère), <code>implements</code> pour <b>plusieurs</b> interfaces. Une classe peut avoir les deux : <code>class C extends A implements B, D</code>.</p>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--warn)">
+          <h3>Sort sans Comparable/Comparator</h3>
+          <p><code>Collections.sort(l)</code> sur des objets qui n'implémentent pas <code>Comparable</code> → <b>erreur de compilation</b>. Deux solutions : implémenter <code>Comparable</code>, ou passer un <code>Comparator</code>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="eyebrow">Checklist</div>
+        <h2>À maîtriser avant la semaine 5</h2>
+      </div>
+      <ul class="checklist">
+        <li>Je sais déclarer une classe <code>abstract</code> et une méthode <code>abstract</code></li>
+        <li>Je sais qu'une classe abstraite n'est pas instanciable avec <code>new</code></li>
+        <li>Je sais écrire une <code>interface</code> et la faire <code>implements</code> par une classe</li>
+        <li>Je sais qu'une classe peut <code>implements</code> plusieurs interfaces à la fois</li>
+        <li>Je sais différencier polymorphisme d'héritage (S2) et polymorphisme d'exécution (S4)</li>
+        <li>Je sais qu'une variable du type parent peut désigner un objet fille</li>
+        <li>Je sais utiliser <code>List&lt;T&gt;</code>, <code>Vector&lt;T&gt;</code>, <code>add()</code>, <code>get(i)</code>, <code>size()</code></li>
+        <li>Je sais implémenter <code>Comparable&lt;T&gt;.compareTo(T other)</code></li>
+        <li>Je sais écrire un <code>Comparator&lt;T&gt;</code> en classe anonyme</li>
+        <li>Je sais appeler <code>Collections.sort(l)</code> et <code>Collections.sort(l, comparator)</code></li>
+      </ul>
+      <div style="margin-top:20px;text-align:center">
+        <button class="btn btn-primary" onclick="startQCM('s4')">Lancer le QCM Semaine 4 →</button>
+      </div>
+    </section>
+  </div>
+</div>
+
 <!-- FUTUR -->
 <div id="futur" class="view">
   <div class="wrap">
@@ -2250,12 +2476,6 @@ Arbre a2 = <span class="kw">new</span> Arbre(<span class="num">20</span>);   <sp
       </div>
 
       <div class="weeks">
-        <div class="wk locked">
-          <span class="tag">À venir</span>
-          <div class="num">Semaine 4</div>
-          <div class="t">Polymorphisme, interfaces, abstrait</div>
-          <div class="d"><code>cours4_interface</code>, <code>cours4_classe_abstraite</code>, <code>cours4_avec_polymorphisme</code>, <code>comparatorForme</code>.</div>
-        </div>
         <div class="wk locked">
           <span class="tag">À venir</span>
           <div class="num">Semaine 5</div>
@@ -2735,10 +2955,11 @@ liste.<span class="fn">remove</span>(0);  liste.<span class="fn">contains</span>
       </div>
 
       <div class="qcm-filter">
-        <button class="active" data-filter="all" onclick="filterQCM('all')">Tout (62)</button>
+        <button class="active" data-filter="all" onclick="filterQCM('all')">Tout (72)</button>
         <button data-filter="s1" onclick="filterQCM('s1')">Semaine 1 (20)</button>
         <button data-filter="s2" onclick="filterQCM('s2')">Semaine 2 (15)</button>
         <button data-filter="s3" onclick="filterQCM('s3')">Semaine 3 (15)</button>
+        <button data-filter="s4" onclick="filterQCM('s4')">Semaine 4 (10)</button>
         <button data-filter="meth" onclick="filterQCM('meth')">Méthodes (12)</button>
       </div>
 
@@ -2985,6 +3206,37 @@ const ALL_QUESTIONS = [
   {wk:'s3', topic:'Agrégation Segment/Point', q:'<code>class Segment { public Point p1, p2; ... }</code> représente quelle relation ?',
    choices:['Héritage','Agrégation (Segment contient des Point)','Dépendance','Généralisation'],
    c:1, exp:'2 attributs de type Point dans Segment = agrégation, les Point existent indépendamment (créés avant, passés au constructeur).'},
+  // ================== SEMAINE 4 ==================
+  {wk:'s4', topic:'Classe abstraite', q:'<code>public abstract class Personnels { public abstract void travailler(int h); }</code>. Que fait <code>new Personnels()</code> ?',
+   choices:['Crée un objet Personnels vide','Erreur de compilation : classe abstraite non instanciable','Crée un objet Enseignants par défaut','Lance une exception à l\'exécution'],
+   c:1, exp:'Une classe abstraite ne peut jamais être instanciée directement. Il faut passer par une fille concrète : new Enseignants().'},
+  {wk:'s4', topic:'Méthode abstraite', q:'Qu\'est-ce qui distingue une méthode abstraite d\'une méthode normale ?',
+   choices:['Elle est private','Elle n\'a pas de corps, se termine par ;','Elle est static','Elle retourne toujours null'],
+   c:1, exp:'Une méthode abstract n\'a pas de {} — elle finit par ; et force chaque sous-classe concrète à la redéfinir.'},
+  {wk:'s4', topic:'interface', q:'Une <code>interface</code> peut contenir :',
+   choices:['Des attributs d\'état et un constructeur','Uniquement des signatures de méthodes publiques','Uniquement des méthodes private','Aucune méthode, juste des constantes'],
+   c:1, exp:'Une interface (avant Java 8) = pur contrat : uniquement des signatures publiques, pas de corps, pas de constructeur, pas d\'attribut d\'état.'},
+  {wk:'s4', topic:'implements multiple', q:'<code>class Personne implements Client, Employe, Sportif</code>. Que doit fournir Personne ?',
+   choices:['Uniquement les méthodes de Client','Toutes les méthodes des 3 interfaces','Aucune, tout est hérité','Un constructeur par interface'],
+   c:1, exp:'implements = promesse de fournir TOUTES les méthodes de TOUTES les interfaces listées. Sinon, erreur de compilation.'},
+  {wk:'s4', topic:'extends vs implements', q:'Une classe Java peut :',
+   choices:['extends plusieurs classes','implements une seule interface','extends une seule classe + implements plusieurs interfaces','extends plusieurs interfaces'],
+   c:2, exp:'Java autorise UN SEUL extends (héritage simple) mais PLUSIEURS implements. C\'est la solution Java à l\'héritage multiple.'},
+  {wk:'s4', topic:'Polymorphisme d\'exécution', q:'<code>Instrument i = new Wind(); i.play(0);</code> où Wind redéfinit play(). Quelle version est appelée ?',
+   choices:['Instrument.play() (type déclaré)','Wind.play() (classe réelle de l\'objet)','Les deux','Erreur de compilation'],
+   c:1, exp:'Le polymorphisme d\'exécution : c\'est la CLASSE RÉELLE de l\'objet qui détermine la méthode appelée, pas le type de la variable.'},
+  {wk:'s4', topic:'Argument polymorphe', q:'<code>static void tune(Instrument i) { i.play(0); }</code>. Cette méthode accepte :',
+   choices:['Uniquement des Instrument','Instrument et toutes ses filles (Wind, Brass...)','Uniquement Wind','Aucun type précis'],
+   c:1, exp:'Un paramètre du type parent accepte n\'importe quelle sous-classe : c\'est un argument polymorphe.'},
+  {wk:'s4', topic:'List / Vector', q:'<code>List&lt;Forme&gt; l = new Vector&lt;Forme&gt;();</code>. Pourquoi le type d\'accueil est List et pas Vector ?',
+   choices:['Obligatoire, sinon erreur','Bonne pratique : programmer contre l\'interface, pas l\'implémentation','Vector est plus rapide comme type déclaré','Pour cacher le contenu'],
+   c:1, exp:'Programmer contre List (l\'interface) permet de changer d\'implémentation (ArrayList, LinkedList...) sans toucher au reste du code.'},
+  {wk:'s4', topic:'Comparable', q:'Pour utiliser <code>Collections.sort(l)</code> sur une <code>List&lt;Forme&gt;</code>, il faut :',
+   choices:['Rien, ça marche toujours','Que Forme implémente Comparable&lt;Forme&gt; avec compareTo()','Que Forme extends Comparator','Utiliser un tableau à la place'],
+   c:1, exp:'sort() sans comparateur utilise l\'ordre naturel, défini via compareTo() dans l\'interface Comparable.'},
+  {wk:'s4', topic:'Comparator', q:'<code>Collections.sort(l, FormeComparator.SURFACE_ORDER)</code>. À quoi sert le 2ème argument ?',
+   choices:['À filtrer la liste','À définir un ordre externe (par surface) différent de l\'ordre naturel','À accélérer le tri','Il est ignoré'],
+   c:1, exp:'Un Comparator fournit un ordre ALTERNATIF au compareTo() naturel. Ici, tri par surface au lieu de la distance à l\'origine.'},
   // ================== MÉTHODES ==================
   {wk:'meth', topic:'Trace — ordre des constructeurs', q:'<code>new Chien("Max")</code> où <code>Chien extends Animal</code>. Dans quel ordre s\'exécutent les constructeurs ?',
    choices:['Chien puis Animal','Animal puis Chien','Seulement Chien','Seulement Animal'],
