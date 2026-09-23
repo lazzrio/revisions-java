@@ -49,7 +49,7 @@
   var cat = "all";
 
   function normaliser(s) {
-    return (s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+    return (s || "").toLowerCase().normalize("NFD").replace(new RegExp("[" + String.fromCharCode(0x300) + "-" + String.fromCharCode(0x36f) + "]", "g"), "");
   }
   function filtrer() {
     var q = normaliser(champ ? champ.value.trim() : "");
