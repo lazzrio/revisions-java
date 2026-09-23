@@ -1,0 +1,1809 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Corrigés POO Java — Ing2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<meta name="description" content="Tous les corrigés de POO Java ING2 (ECE) : exercices du cours, TP 1 à 7, annales 2013-2025, avec méthode et code vérifié.">
+<meta name="theme-color" content="#b45a1e" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161211" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:title" content="POO Java — Ing2">
+<meta property="og:description" content="Cours, exercices corrigés, TP et annales de POO Java (ECE ING2).">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="cx-page">
+<a class="skip" href="#contenu">Aller au contenu</a>
+<div class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="index.html" aria-label="Accueil" style="text-decoration:none">
+      <span class="mug">☕</span>
+      <span>POO Java · Ing2</span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="index.html#accueil">Accueil</a>
+      <a href="index.html#s1" title="Semaine 1 — bases de la POO">S1</a>
+      <a href="index.html#s2" title="Semaine 2 — UML et relations">S2</a>
+      <a href="index.html#s3" title="Semaine 3 — concepts de base">S3</a>
+      <a href="index.html#s4" title="Semaine 4 — polymorphisme, interfaces, collections">S4</a>
+      <a href="index.html#s5" title="Semaine 5 — exceptions, fichiers, sérialisation">S5</a>
+      <a href="index.html#s6" title="Semaine 6 — Swing, layouts, listeners">S6</a>
+      <a href="index.html#s7" title="Semaine 7 — pattern MVC">S7</a>
+      <a href="index.html#methodes">Méthodes</a>
+      <a class="nav-cx active" href="corriges.html" aria-current="page">✅ Corrigés</a>
+      <a href="index.html#qcm">QCM</a>
+      <a href="index.html#livre">Exo Livre</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Changer de thème">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</div>
+
+<main id="contenu">
+  <div class="wrap">
+    <section style="padding-bottom:10px">
+      <div class="section-head">
+        <div class="eyebrow">✅ Corrigés</div>
+        <h2>Tous les exercices de POO Java, corrigés et expliqués</h2>
+        <p>Exercices du cours (semaines 1 à 7), <b>TP 1 à 7</b> et <b>annales</b>. Pour chaque exercice : la <b>méthode</b> (comment on attaque), la réponse rédigée et le code — compilé et exécuté. Clique sur un exercice pour le déplier ; marque-le « fait » en bas de la correction (mémorisé sur cet appareil).</p>
+      </div>
+      <div class="tip"><b>Comment s'en servir sans se piéger</b>Lis l'énoncé, cherche 10 minutes sur papier, <b>puis</b> ouvre la correction. Relire un corrigé sans avoir cherché donne l'impression de savoir… jusqu'au DS.</div>
+    </section>
+    <div class="cx-toolbar" id="cxToolbar">
+      <input class="cx-search" id="cxSearch" type="search" placeholder="Rechercher : HashMap, finally, MVC, 2023…" aria-label="Rechercher dans les corrigés">
+      <div class="cx-chips" id="cxChips">
+        <button class="active" data-cat="all">Tout</button>
+        <button data-cat="cours">Exos du cours</button>
+        <button data-cat="tp">TP</button>
+        <button data-cat="annales">Annales</button>
+      </div>
+      <button class="cx-btn" id="cxExpand" type="button">Tout déplier</button>
+      <span class="cx-progress" id="cxProgress" aria-live="polite"></span>
+    </div>
+    <section id="cours" data-cat="cours">
+      <div class="section-head">
+        <div class="eyebrow">Exercices du cours</div>
+        <h2>50 exercices des PDF « Cours et exercices », semaine par semaine</h2>
+        <p>Les corrigés détaillés sont placés dans chaque semaine, juste après le cours correspondant. Chaque carte ouvre directement la liste.</p>
+      </div>
+      <div class="cx-index">
+        <a class="cx-week" href="index.html#s1-exos"><div class="n">Semaine 1 · 10 exos</div><div class="t">Bases POO</div><div class="d">Train, String, arguments, static, Scanner, tableaux 1D/2D, copie de référence.</div></a>
+        <a class="cx-week" href="index.html#s2-exos"><div class="n">Semaine 2 · 13 exos</div><div class="t">UML &amp; relations</div><div class="d">Dépendance, association, agrégation, composition, classe d'association, héritage, transtypage, pile.</div></a>
+        <a class="cx-week" href="index.html#s3-exos"><div class="n">Semaine 3 · 7 exos</div><div class="t">Concepts de base</div><div class="d">Point / Segment, affectation d'objets, packages, surcharge de constructeurs, this.</div></a>
+        <a class="cx-week" href="index.html#s4-exos"><div class="n">Semaine 4 · 8 exos</div><div class="t">Polymorphisme &amp; collections</div><div class="d">Instruments, Personnels, interfaces, Animal, écueils UML, ArrayList, HashMap, Comparator.</div></a>
+        <a class="cx-week" href="index.html#s5-exos"><div class="n">Semaine 5 · 5 exos</div><div class="t">Exceptions &amp; sérialisation</div><div class="d">AgeOver, AEgalBException, DivMul, lecture de fichier, Customer.</div></a>
+        <a class="cx-week" href="index.html#s6-exos"><div class="n">Semaine 6 · 7 exos</div><div class="t">Swing &amp; listeners</div><div class="d">Conteneur, HelloWorldSwing, JFileChooser, layouts, téléphone, factorielle, listener du cadran.</div></a>
+        <a class="cx-week" href="index.html#s7-exos"><div class="n">Semaine 7 · 4 exos</div><div class="t">MVC (entraînement)</div><div class="d">Classer M/V/C, repérer ce qui n'est pas MVC, tracer un clic, ajouter une vue.</div></a>
+        <a class="cx-week" href="index.html#livre"><div class="n">Bonus</div><div class="t">Exercice Livre</div><div class="d">Écrire une classe complète depuis zéro (sujet + corrigé commenté).</div></a>
+      </div>
+    </section>
+    <section id="tp" data-cat="tp">
+      <div class="section-head">
+        <div class="eyebrow">Travaux pratiques</div>
+        <h2>TP 1 à 7 : corrigés types</h2>
+        <p>Le TP1 est un exercice individuel à solution unique. Les TP 2 à 7 sont un projet d'équipe sur un <b>thème libre</b> : il n'existe pas « la » solution. Le corrigé type suit le thème <b>FastBite</b> (livraison de repas) et prolonge le code du TP3, étape par étape. Tout le code a été compilé et exécuté.</p>
+      </div>
+      <div class="tip"><b>Règle du jeu (écrite dans les sujets)</b>L'aide d'une IA ou d'un corrigé est autorisée <b>si tu la cites</b> (avec le pourcentage d'aide) et si tu sais <b>expliquer chaque ligne</b> à l'oral. Utilise ces corrigés pour comprendre la démarche, puis adapte-les à ton propre diagramme.</div>
+      <div class="qa-list">
+
+        <div class="qa-item" id="tp1">
+          <button class="qa-q" onclick="toggleQA(this)" aria-expanded="false">
+            <span class="qa-num">TP1</span>
+            <span class="qa-text">Etudiant2026 : compléter la classe (saisies contrôlées, tableau de notes, affichage, moyenne) en respectant la capture d'écran, et répondre aux 3 questions.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">Solution testée avec la saisie de la capture : sortie identique, « Moyenne : 11,87 »</span>
+            <div class="qa-meth"><b>🧭 Méthode</b>1) Lire la <b>capture d'écran</b> : c'est elle qui fixe les messages et les bornes (âge 18-25, 2 à 5 notes, notes 0-20), pas les commentaires du code (qui disent 0-99 et 1-4). 2) Une méthode = une saisie avec sa boucle de contrôle <code>while (valeur hors bornes) { message; relire; }</code>. 3) <code>double</code> partout pour les notes.</div>
+            <p><b>Pourquoi le main est dans une autre classe que Etudiant ?</b> Séparer les responsabilités : <code>Etudiant</code> décrit un étudiant (données + comportements) et peut être réutilisée dans n'importe quel programme ; <code>Main</code> n'est que le point d'entrée qui l'utilise. C'est la base de la POO (et de l'organisation MVC de la semaine 7).</p>
+            <p><b>Pourquoi ne peut-on pas afficher directement nom, âge et notes depuis Main ?</b> Les attributs sont <code>private</code> : visibles uniquement dans la classe <code>Etudiant</code>. <code>eleve.nom</code> dans <code>Main</code> → erreur <i>nom has private access in Etudiant</i>.</p>
+            <p><b>La solution proposée :</b> passer par des <b>méthodes publiques</b> de la classe : les méthodes <code>get…()</code> qui renvoient les valeurs et <code>afficherInfos()</code> qui affiche depuis l'intérieur de la classe. C'est l'<b>encapsulation</b> : l'objet contrôle l'accès à ses données.</p>
+<pre class="code"><span class="kw">import</span> java.util.<span class="cls">Locale</span>;
+<span class="kw">import</span> java.util.<span class="cls">Scanner</span>;
+
+<span class="cmt">// Classe Etudiant : tous les attributs sont private (encapsulation)</span>
+<span class="kw">class</span> <span class="cls">Etudiant</span> {
+    <span class="kw">private</span> <span class="cls">String</span> nom;
+    <span class="kw">private</span> <span class="kw">int</span> age;
+    <span class="kw">private</span> <span class="kw">double</span>[] notes;
+    <span class="kw">private</span> <span class="kw">int</span> nbnotes;
+
+    <span class="cmt">// UN seul Scanner pour tout l'objet ; Locale.FRANCE : on tape 4,5 (virgule) comme sur la capture</span>
+    <span class="kw">private</span> <span class="kw">final</span> <span class="cls">Scanner</span> clavier = <span class="kw">new</span> <span class="fn">Scanner</span>(<span class="cls">System</span>.in).<span class="fn">useLocale</span>(<span class="cls">Locale</span>.<span class="cls">FRANCE</span>);
+
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">getNom</span>() {
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Entrez le nom :"</span>);
+        nom = clavier.<span class="fn">nextLine</span>();
+        <span class="kw">return</span> nom;
+    }
+
+    <span class="kw">public</span> <span class="kw">int</span> <span class="fn">getAge</span>() {
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Entrez l'age :"</span>);
+        age = clavier.<span class="fn">nextInt</span>();
+        <span class="kw">while</span> (age &lt; <span class="num">18</span> || age &gt; <span class="num">25</span>) {                         <span class="cmt">// bornes de la capture d'écran</span>
+            <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Age n'est pas entre 18 et 25 !"</span>);
+            age = clavier.<span class="fn">nextInt</span>();
+        }
+        <span class="kw">return</span> age;
+    }
+
+    <span class="kw">public</span> <span class="kw">int</span> <span class="fn">getNbnotes</span>() {
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Entrez le nombre de notes :"</span>);
+        nbnotes = clavier.<span class="fn">nextInt</span>();
+        <span class="kw">while</span> (nbnotes &lt; <span class="num">2</span> || nbnotes &gt; <span class="num">5</span>) {
+            <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Nombre de notes n'est pas entre 2 et 5 !"</span>);
+            nbnotes = clavier.<span class="fn">nextInt</span>();                      <span class="cmt">// on relit nbnotes (et pas age !)</span>
+        }
+        <span class="kw">return</span> nbnotes;
+    }
+
+    <span class="kw">public</span> <span class="kw">double</span>[] <span class="fn">getNotes</span>(<span class="kw">int</span> nbnotes) {
+        notes = <span class="kw">new</span> <span class="kw">double</span>[nbnotes];                          <span class="cmt">// instancier AVANT de remplir</span>
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Entrez les notes :"</span>);
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; nbnotes; i++) {
+            notes[i] = clavier.<span class="fn">nextDouble</span>();                  <span class="cmt">// nextDouble : une note peut être 12,5</span>
+            <span class="kw">while</span> (notes[i] &lt; <span class="num">0</span> || notes[i] &gt; <span class="num">20</span>) {
+                <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Note n'est pas entre 0 et 20 !"</span>);
+                notes[i] = clavier.<span class="fn">nextDouble</span>();
+            }
+        }
+        <span class="kw">return</span> notes;
+    }
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">afficherInfos</span>() {
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"--- Informations de l'etudiant ---"</span>);
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Nom : "</span> + nom);
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Age : "</span> + age);
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Notes :"</span>);
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; nbnotes; i++) {
+            <span class="cls">System</span>.out.<span class="fn">println</span>(notes[i]);                     <span class="cmt">// println d'un double : 4.5 (point)</span>
+        }
+        <span class="cls">System</span>.out.<span class="fn">println</span>();                                 <span class="cmt">// la ligne vide de la capture</span>
+    }
+
+    <span class="kw">public</span> <span class="kw">double</span> <span class="fn">calculerMoyenne</span>() {
+        <span class="kw">double</span> somme = <span class="num">0</span>;                                      <span class="cmt">// double, surtout pas int</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; nbnotes; i++) {
+            somme += notes[i];
+        }
+        <span class="kw">return</span> somme / nbnotes;                                <span class="cmt">// double / int : division réelle</span>
+    }
+}</pre>
+<pre class="code"><span class="kw">import</span> java.util.<span class="cls">Locale</span>;
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Main</span> {
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">main</span>(<span class="cls">String</span>[] args) {
+        <span class="cls">String</span> nom;
+        <span class="kw">int</span> age;
+        <span class="kw">double</span>[] notes;
+        <span class="kw">int</span> nbnotes;
+
+        <span class="cls">Etudiant</span> eleve = <span class="kw">new</span> <span class="fn">Etudiant</span>();                       <span class="cmt">// objet de la classe Etudiant</span>
+        nom = eleve.<span class="fn">getNom</span>();
+        age = eleve.<span class="fn">getAge</span>();
+        nbnotes = eleve.<span class="fn">getNbnotes</span>();
+        notes = eleve.<span class="fn">getNotes</span>(nbnotes);
+        eleve.<span class="fn">afficherInfos</span>();
+        <span class="cls">System</span>.out.<span class="fn">printf</span>(<span class="cls">Locale</span>.<span class="cls">FRANCE</span>, <span class="str">"Moyenne : %.2f%n"</span>, eleve.<span class="fn">calculerMoyenne</span>());   <span class="cmt">// 11,87</span>
+    }
+}</pre>
+            <div class="tbl-wrap"><table class="tbl">
+              <thead><tr><th>Erreur fréquente (vue dans des copies)</th><th>Conséquence</th><th>Correction</th></tr></thead>
+              <tbody>
+                <tr><td>Dans la boucle de <code>getNbnotes</code>, relire <code>age = clavier.nextInt();</code></td><td><code>nbnotes</code> ne change jamais : <b>boucle infinie</b></td><td>relire <code>nbnotes</code></td></tr>
+                <tr><td><code>int somme = 0; somme += notes[i];</code></td><td><code>+=</code> tronque silencieusement : 4,5 + 12,6 + 18,5 donne 34 au lieu de 35,6</td><td><code>double somme = 0;</code></td></tr>
+                <tr><td><code>return somme / nbnotes;</code> avec deux <code>int</code></td><td>division entière : 34 / 3 = 11</td><td>un des deux en <code>double</code></td></tr>
+                <tr><td><code>notes[i] = clavier.nextInt();</code></td><td>« 4,5 » → <code>InputMismatchException</code></td><td><code>nextDouble()</code></td></tr>
+                <tr><td>Bornes 0-99 / 1-4 (commentaires) au lieu de 18-25 / 2-5 (capture)</td><td>affichage différent de l'attendu : points perdus</td><td>suivre la capture</td></tr>
+                <tr><td>Oublier <code>notes = new double[nbnotes];</code></td><td><code>NullPointerException</code> au premier <code>notes[i] = …</code></td><td>instancier avant la boucle</td></tr>
+              </tbody>
+            </table></div>
+            <div class="tip"><b>Virgule ou point ?</b>Sur un Windows en français, <code>nextDouble()</code> attend « 4,5 » ; sur un PC en anglais, « 4.5 ». <code>useLocale(Locale.FRANCE)</code> fixe le comportement. À l'affichage, <code>println(4.5)</code> écrit toujours « 4.5 », alors que <code>printf("%.2f")</code> suit la langue (« 11,87 »).</div>
+          </div></div>
+        </div>
+
+        <div class="qa-item" id="tp2">
+          <button class="qa-q" onclick="toggleQA(this)" aria-expanded="false">
+            <span class="qa-num">TP2</span>
+            <span class="qa-text">Diagrammes UML d'un thème libre : cas d'utilisation (3 acteurs, ≥3 cas chacun, relation entre acteurs, extend, include), classes (≥4, héritage, relation, ≥3 attributs et méthodes, constructeurs), séquences.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">Thème FastBite — les diagrammes dessinés sont dans l'onglet Semaine 2</span>
+            <div class="qa-meth"><b>🧭 Méthode</b>Partir des <b>phrases</b> du thème : les acteurs sont les sujets (« le client commande »), les cas d'utilisation sont les verbes, les classes sont les noms qui ont des données (Commande, Plat…), les séquences sont les scénarios qu'on raconterait à l'oral. Puis cocher la liste des contraintes une par une : c'est la grille de notation.</div>
+            <p><b>Q1 — Cas d'utilisation (FastBite)</b></p>
+            <div class="tbl-wrap"><table class="tbl">
+              <thead><tr><th>Acteur</th><th>Cas d'utilisation (≥ 3)</th></tr></thead>
+              <tbody>
+                <tr><td>Client</td><td>Rechercher un restaurant, Passer une commande, Payer, Suivre la livraison, Noter le livreur</td></tr>
+                <tr><td>Restaurant</td><td>Gérer le menu, Accepter une commande, Signaler « commande prête »</td></tr>
+                <tr><td>Livreur</td><td>Se déclarer disponible, Accepter une livraison, Confirmer la livraison</td></tr>
+                <tr><td>Utilisateur (acteur général)</td><td>S'authentifier</td></tr>
+              </tbody>
+            </table></div>
+            <ul>
+              <li><b>Relation entre acteurs</b> : Client, Restaurant et Livreur <b>héritent</b> de l'acteur Utilisateur (flèche à triangle vide) : ils ont tous accès à « S'authentifier ».</li>
+              <li><b>«include»</b> (réutilisation obligatoire) : « Payer » <i>inclut</i> « S'authentifier » — on ne paie jamais sans être connecté. Flèche pointillée <b>de Payer vers S'authentifier</b>.</li>
+              <li><b>«extend»</b> (extension facultative) : « Appliquer un code promo » <i>étend</i> « Passer une commande » — seulement si le client a un code. Flèche pointillée <b>de l'extension vers le cas de base</b>. (Le sujet parle de « généralisation » pour extend : à l'oral, préciser que extend est une <b>extension conditionnelle</b>, alors que la vraie généralisation se dessine avec un triangle.)</li>
+            </ul>
+            <p><b>Q2 — Classes (≥ 4)</b> : <code>Utilisateur</code> (nom, email, motDePasse ; seConnecter, seDeconnecter, toString) ; <code>Client extends Utilisateur</code> (adresse, solde, historique) ; <code>Livreur extends Utilisateur</code> (véhicule, disponible, position) ; <code>Restaurant</code> (nom, adresse, menu) ; <code>Plat</code> (nom, prix, description) ; <code>Commande</code> (numéro, statut, montant, plats) ; <code>Livraison</code> (dates, statut). Relations : héritage (Client, Livreur), <b>agrégation</b> Restaurant ◇— Plat (un plat existe dans la base même hors d'un menu), <b>composition</b> Commande ◆— Livraison (une livraison n'existe pas sans sa commande), <b>association</b> Client 1 — 0..* Commande, <b>dépendance</b> Client ⇢ Livreur (<code>noterLivreur(Livreur l, int note)</code> reçoit le livreur en paramètre sans le stocker). Chaque classe : constructeur par défaut + constructeur avec paramètres.</p>
+            <p><b>Q3 — Séquences (≥ 4 scénarios)</b> : 1) passer une commande, 2) payer, 3) livrer, 4) noter. Lignes de vie : <code>:Client</code>, <code>:FastBite</code> (système), <code>:Restaurant</code>, <code>:Livreur</code>. Message <b>synchrone</b> (flèche pleine, l'émetteur attend la réponse) : <code>payer(montant)</code> → réponse « paiement accepté ». Message <b>asynchrone</b> (flèche ouverte, pas d'attente) : <code>notifierNouvelleCommande()</code> envoyé au restaurant. Un fragment <b>alt</b> [solde suffisant] / [sinon] pour le paiement est un bonus apprécié.</p>
+            <div class="tip"><b>Ce qui fait perdre des points</b>Des cas d'utilisation qui sont des étapes techniques (« cliquer sur le bouton ») au lieu d'objectifs de l'acteur ; include/extend dans le mauvais sens ; des classes sans méthodes ; des multiplicités absentes ; un diagramme de séquence sans messages de retour.</div>
+          </div></div>
+        </div>
+
+        <div class="qa-item" id="tp3">
+          <button class="qa-q" onclick="toggleQA(this)" aria-expanded="false">
+            <span class="qa-num">TP3</span>
+            <span class="qa-text">Implémenter en Java une partie des diagrammes du TP2 : fonctionnalités par acteur, classes (Q2), séquences traduites en appels (Q3).</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">Code FastBite du TP3 (dossier info/java/semaine 3/rendu_tp3_fastbite)</span>
+            <p><b>Traduire un diagramme de classes en Java :</b></p>
+            <div class="tbl-wrap"><table class="tbl">
+              <thead><tr><th>UML</th><th>Java</th></tr></thead>
+              <tbody>
+                <tr><td>Classe avec <code>- nom : String</code></td><td><code>private String nom;</code></td></tr>
+                <tr><td>Héritage (triangle vide)</td><td><code>class Client extends Utilisateur</code> + <code>super(...)</code> en 1<sup>re</sup> ligne du constructeur</td></tr>
+                <tr><td>Association / agrégation 1 — *</td><td>attribut <code>List&lt;Plat&gt; menu</code> (+ méthode <code>ajouterPlat</code>)</td></tr>
+                <tr><td>Association vers 1</td><td>attribut <code>private Restaurant restaurant;</code></td></tr>
+                <tr><td>Composition</td><td>l'objet « partie » est créé <b>par</b> le tout (<code>this.livraison = new Livraison(this, l);</code>)</td></tr>
+                <tr><td>Dépendance</td><td>seulement un <b>paramètre</b> ou une variable locale</td></tr>
+              </tbody>
+            </table></div>
+            <p><b>Une séquence = une suite d'appels dans le main :</b> le scénario « passer commande » devient <code>Commande cmd = alice.passerCommande(chezMario, 1001); cmd.ajouterPlat(pizza); cmd.validerCommande();</code> ; chaque flèche du diagramme de séquence correspond à un appel de méthode sur l'objet destinataire, et chaque <code>System.out.println</code> à la trace montrée en capture.</p>
+            <p><b>Relecture du code TP3 (ce qui sera amélioré aux TP suivants) :</b></p>
+            <ul>
+              <li>Les statuts sont des <code>String</code> (<code>"PAYEE"</code>, <code>"VALIDEE"</code>) : une faute de frappe passe inaperçue → une <code>enum StatutCommande</code> les remplace au TP4.</li>
+              <li><code>payerCommande</code> renvoie <code>false</code> quand le solde manque : l'appelant peut ignorer le résultat → au TP5, on <b>lève une exception</b>.</li>
+              <li><code>Utilisateur</code> est instanciable alors qu'un « utilisateur tout court » n'existe pas → au TP4, elle devient <b>abstraite</b>.</li>
+              <li><code>noterLivreur</code> ne mémorise pas la note : prévoir un attribut <code>notes</code> dans <code>Livreur</code>.</li>
+            </ul>
+          </div></div>
+        </div>
+
+        <div class="qa-item" id="tp4">
+          <button class="qa-q" onclick="toggleQA(this)" aria-expanded="false">
+            <span class="qa-num">TP4</span>
+            <span class="qa-text">Interface avec les actions principales, classe qui l'implémente, classe abstraite + 2 filles, classe avec une collection et Comparable/compareTo, implémentation Java.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">Corrigé type FastBite — packages fastbite.modele + fastbite.app (compile et s'exécute)</span>
+            <div class="qa-meth"><b>🧭 Méthode</b>Interface = <b>ce que le système sait faire</b> (les cas d'utilisation deviennent des signatures). Classe abstraite = le <b>concept général</b> qui n'existe jamais seul (Utilisateur). Collection = la classe qui <b>contient une liste</b> (Restaurant et son menu). Comparable = l'<b>ordre naturel</b> des éléments de la liste.</div>
+            <p><b>Q1 — L'interface et la classe qui l'implémente.</b> Justification à écrire : l'interface fixe le contrat de la plateforme (passer commande, ajouter un plat, payer, assigner un livreur) indépendamment de son implémentation ; une autre implémentation (tests, version « démo ») pourrait la remplacer sans changer le code qui l'utilise.</p>
+<pre class="code"><span class="kw">package</span> fastbite.modele;
+
+<span class="cmt">/** TP4 Q1 a : l'INTERFACE = le contrat de ce que la plateforme sait faire. */</span>
+<span class="kw">public</span> <span class="kw">interface</span> <span class="cls">ServiceCommande</span> {
+    <span class="cls">Commande</span> <span class="fn">passerCommande</span>(<span class="cls">Client</span> client, <span class="cls">Restaurant</span> restaurant);
+    <span class="kw">void</span> <span class="fn">ajouterPlat</span>(<span class="cls">Commande</span> commande, <span class="cls">Plat</span> plat) <span class="kw">throws</span> <span class="cls">PlatIndisponibleException</span>;
+    <span class="kw">void</span> <span class="fn">payer</span>(<span class="cls">Commande</span> commande) <span class="kw">throws</span> <span class="cls">SoldeInsuffisantException</span>;
+    <span class="cls">Livraison</span> <span class="fn">assignerLivreur</span>(<span class="cls">Commande</span> commande) <span class="kw">throws</span> <span class="cls">AucunLivreurException</span>;
+}</pre>
+            <p><b>Q2 — La classe abstraite et ses 2 filles.</b> Chaque fille ajoute ses attributs (<code>solde</code>, <code>adresseLivraison</code> / <code>vehicule</code>, <code>disponible</code>) et redéfinit les méthodes abstraites.</p>
+<pre class="code"><span class="kw">package</span> fastbite.modele;
+
+<span class="kw">import</span> java.io.<span class="cls">Serializable</span>;
+
+<span class="cmt">/** TP4 Q2 : classe ABSTRAITE — on ne crée jamais « un utilisateur » tout court. */</span>
+<span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> <span class="cls">Utilisateur</span> <span class="kw">implements</span> <span class="cls">Serializable</span> {
+    <span class="kw">private</span> <span class="kw">static</span> <span class="kw">final</span> <span class="kw">long</span> serialVersionUID = <span class="num">1L</span>;
+
+    <span class="kw">protected</span> <span class="cls">String</span> nom;
+    <span class="kw">protected</span> <span class="cls">String</span> email;
+    <span class="kw">protected</span> <span class="kw">transient</span> <span class="cls">String</span> motDePasse;   <span class="cmt">// TP5 : transient = jamais écrit dans le .ser</span>
+
+    <span class="kw">public</span> <span class="fn">Utilisateur</span>(<span class="cls">String</span> nom, <span class="cls">String</span> email, <span class="cls">String</span> motDePasse) {
+        <span class="kw">this</span>.nom = nom;
+        <span class="kw">this</span>.email = email;
+        <span class="kw">this</span>.motDePasse = motDePasse;
+    }
+
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">getNom</span>()   { <span class="kw">return</span> nom; }
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">getEmail</span>() { <span class="kw">return</span> email; }
+
+    <span class="kw">public</span> <span class="kw">boolean</span> <span class="fn">seConnecter</span>(<span class="cls">String</span> email, <span class="cls">String</span> mdp) {
+        <span class="kw">return</span> <span class="kw">this</span>.email.<span class="fn">equals</span>(email) &amp;&amp; motDePasse != <span class="kw">null</span> &amp;&amp; motDePasse.<span class="fn">equals</span>(mdp);
+    }
+
+    <span class="cmt">/** Méthodes abstraites : chaque sorte d'utilisateur a SON rôle et SON tableau de bord. */</span>
+    <span class="kw">public</span> <span class="kw">abstract</span> <span class="cls">String</span> <span class="fn">getRole</span>();
+    <span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">void</span> <span class="fn">afficherTableauDeBord</span>();
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">toString</span>() { <span class="kw">return</span> <span class="fn">getRole</span>() + <span class="str">"["</span> + nom + <span class="str">", "</span> + email + <span class="str">"]"</span>; }
+}</pre>
+<pre class="code"><span class="kw">public</span> <span class="kw">class</span> <span class="cls">Livreur</span> <span class="kw">extends</span> <span class="cls">Utilisateur</span> {
+    <span class="kw">private</span> <span class="cls">String</span> vehicule;
+    <span class="kw">private</span> <span class="kw">boolean</span> disponible = <span class="kw">true</span>;
+    <span class="kw">private</span> <span class="kw">int</span> nbLivraisons;
+    <span class="kw">public</span> <span class="fn">Livreur</span>(<span class="cls">String</span> nom, <span class="cls">String</span> email, <span class="cls">String</span> motDePasse, <span class="cls">String</span> vehicule) {
+        <span class="kw">super</span>(nom, email, motDePasse);
+        <span class="kw">this</span>.vehicule = vehicule;
+    }
+    <span class="kw">@Override</span> <span class="kw">public</span> <span class="cls">String</span> <span class="fn">getRole</span>() { <span class="kw">return</span> <span class="str">"Livreur"</span>; }
+    <span class="kw">@Override</span> <span class="kw">public</span> <span class="kw">void</span> <span class="fn">afficherTableauDeBord</span>() {
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"[Livreur] "</span> + nom + <span class="str">" ("</span> + vehicule + <span class="str">") | "</span>
+                + (disponible ? <span class="str">"disponible"</span> : <span class="str">"en course"</span>) + <span class="str">" | "</span> + nbLivraisons + <span class="str">" livraison(s)"</span>);
+    }
+}</pre>
+            <p><b>Q3 — La collection et Comparable.</b> La consigne dit « cette classe implémente Comparable » : deux lectures possibles, les deux sont montrées. (a) Les <b>éléments</b> de la collection (<code>Plat</code>) sont comparables par prix → <code>Collections.sort(menu)</code>. (b) La classe <b>conteneur</b> (<code>Restaurant</code>) est elle-même comparable (par note) → on peut trier une liste de restaurants. Préciser à l'oral laquelle tu as choisie.</p>
+<pre class="code"><span class="kw">public</span> <span class="kw">class</span> <span class="cls">Plat</span> <span class="kw">implements</span> <span class="cls">Comparable</span>&lt;<span class="cls">Plat</span>&gt;, <span class="cls">Serializable</span> {
+    <span class="cmt">// ...</span>
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="kw">int</span> <span class="fn">compareTo</span>(<span class="cls">Plat</span> autre) {
+        <span class="kw">return</span> <span class="cls">Double</span>.<span class="fn">compare</span>(<span class="kw">this</span>.prix, autre.prix);   <span class="cmt">// négatif, 0 ou positif</span>
+    }
+}
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Restaurant</span> <span class="kw">implements</span> <span class="cls">Serializable</span>, <span class="cls">Comparable</span>&lt;<span class="cls">Restaurant</span>&gt; {
+    <span class="kw">private</span> <span class="kw">final</span> <span class="cls">List</span>&lt;<span class="cls">Plat</span>&gt; menu = <span class="kw">new</span> <span class="cls">ArrayList</span>&lt;&gt;();
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">ajouterPlat</span>(<span class="cls">Plat</span> p) { menu.<span class="fn">add</span>(p); }                       <span class="cmt">// méthode d'ajout demandée</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">trierMenuParPrix</span>() { <span class="cls">Collections</span>.<span class="fn">sort</span>(menu); }              <span class="cmt">// ordre naturel des plats</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">trierMenuParNom</span>() { menu.<span class="fn">sort</span>(<span class="cls">Comparator</span>.<span class="fn">comparing</span>(<span class="cls">Plat</span>::getNom)); }   <span class="cmt">// autre ordre</span>
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="kw">int</span> <span class="fn">compareTo</span>(<span class="cls">Restaurant</span> autre) {
+        <span class="kw">return</span> <span class="cls">Double</span>.<span class="fn">compare</span>(autre.noteMoyenne, <span class="kw">this</span>.noteMoyenne);        <span class="cmt">// meilleure note d'abord</span>
+    }
+}</pre>
+            <p><b>Q4 — Démo (sortie réelle) :</b></p>
+            <pre class="code">[Client] Alice | solde 30.0 EUR | 0 commande(s)
+[Livreur] Bob (scooter) | disponible | 0 livraison(s)
+Menu trié par prix : [Tiramisu (6.0 EUR), Pasta Carbonara (10.0 EUR), Pizza Margherita (12.5 EUR)]
+Menu trié par nom  : [Pasta Carbonara (10.0 EUR), Pizza Margherita (12.5 EUR), Tiramisu (6.0 EUR)]
+Restaurants du mieux noté au moins bien noté : [Burger Bro (4.8/5, 0 plats), Chez Mario (4.6/5, 3 plats), Sushi Go (4.2/5, 0 plats)]
+Commande #1001 NOUVELLE : [Pasta Carbonara (10.0 EUR)] = 10.0 EUR</pre>
+            <p>Les deux premières lignes montrent le <b>polymorphisme</b> : une boucle sur des <code>Utilisateur</code> appelle la version de chaque fille. Code complet : dossier <code>code/fastbite</code> du dépôt.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item" id="tp5">
+          <button class="qa-q" onclick="toggleQA(this)" aria-expanded="false">
+            <span class="qa-num">TP5</span>
+            <span class="qa-text">Repérer, lever, propager et attraper les exceptions ; enregistrer / relire un fichier texte (séparateur) ; sérialiser / désérialiser dans un .ser.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">Corrigé type FastBite — DemoTP5 (sortie réelle ci-dessous)</span>
+            <div class="qa-meth"><b>🧭 Méthode</b>Pour chaque méthode du TP4, se demander « qu'est-ce qui peut rater ? » (solde, plat absent, personne pour livrer, fichier illisible, nombre mal écrit). Chaque réponse devient une exception : <b>lancée</b> là où on détecte le problème, <b>propagée</b> (<code>throws</code>) par les méthodes intermédiaires, <b>attrapée</b> là où l'on sait quoi dire à l'utilisateur.</div>
+            <p><b>Q1 — Exceptions repérées :</b> <code>SoldeInsuffisantException</code> (payer), <code>PlatIndisponibleException</code> (ajouter un plat absent du menu), <code>AucunLivreurException</code> (assigner une livraison), plus les exceptions Java : <code>IOException</code> (fichiers), <code>NumberFormatException</code> (prix mal écrit dans le fichier), <code>IllegalArgumentException</code> (prix négatif dans le constructeur de <code>Plat</code>).</p>
+<pre class="code"><span class="kw">package</span> fastbite.modele;
+
+<span class="cmt">/** Exception CONTRÔLÉE (extends Exception) : l'appelant est OBLIGÉ de la traiter ou de la propager. */</span>
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">SoldeInsuffisantException</span> <span class="kw">extends</span> <span class="cls">Exception</span> {
+    <span class="kw">private</span> <span class="kw">static</span> <span class="kw">final</span> <span class="kw">long</span> serialVersionUID = <span class="num">1L</span>;
+    <span class="kw">public</span> <span class="fn">SoldeInsuffisantException</span>(<span class="cls">String</span> client, <span class="kw">double</span> montant, <span class="kw">double</span> solde) {
+        <span class="kw">super</span>(client + <span class="str">" doit payer "</span> + montant + <span class="str">" EUR mais n'a que "</span> + solde + <span class="str">" EUR"</span>);
+    }
+}</pre>
+<pre class="code"><span class="cmt">// Client : on LANCE</span>
+<span class="kw">public</span> <span class="kw">void</span> <span class="fn">payer</span>(<span class="cls">Commande</span> c) <span class="kw">throws</span> <span class="cls">SoldeInsuffisantException</span> {
+    <span class="kw">if</span> (c.<span class="fn">getMontantTotal</span>() &gt; solde) <span class="kw">throw</span> <span class="kw">new</span> <span class="fn">SoldeInsuffisantException</span>(nom, c.<span class="fn">getMontantTotal</span>(), solde);
+    solde -= c.<span class="fn">getMontantTotal</span>();
+    c.<span class="fn">setStatut</span>(<span class="cls">StatutCommande</span>.<span class="cls">PAYEE</span>);
+}
+<span class="cmt">// PlateformeFastBite : on PROPAGE (pas de try ici)</span>
+<span class="kw">public</span> <span class="kw">void</span> <span class="fn">payer</span>(<span class="cls">Commande</span> commande) <span class="kw">throws</span> <span class="cls">SoldeInsuffisantException</span> { commande.<span class="fn">getClient</span>().<span class="fn">payer</span>(commande); }
+<span class="cmt">// main : on ATTRAPE</span>
+<span class="kw">try</span> {
+    plateforme.<span class="fn">ajouterPlat</span>(c, pizza);
+    plateforme.<span class="fn">ajouterPlat</span>(c, pasta);
+    plateforme.<span class="fn">payer</span>(c);
+} <span class="kw">catch</span> (<span class="cls">PlatIndisponibleException</span> e) {
+    <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Plat refusé : "</span> + e.<span class="fn">getMessage</span>());
+} <span class="kw">catch</span> (<span class="cls">SoldeInsuffisantException</span> e) {
+    <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Paiement refusé : "</span> + e.<span class="fn">getMessage</span>());
+}</pre>
+            <p><b>Modification des diagrammes :</b> ajouter les 3 classes d'exception (stéréotype «exception», héritage de <code>Exception</code>) et les dépendances « lance » depuis <code>Client</code>, <code>Commande</code>, <code>PlateformeFastBite</code>.</p>
+            <p><b>Q2 — Fichier texte.</b> Format choisi : <b>une ligne par plat, <code>nom;prix;description</code></b> (séparateur <code>;</code> car la description peut contenir des virgules). Une ligne mal formée est signalée puis ignorée, au lieu de faire échouer toute la lecture.</p>
+<pre class="code"><span class="kw">package</span> fastbite.persistance;
+
+<span class="kw">import</span> fastbite.modele.<span class="cls">Plat</span>;
+<span class="kw">import</span> fastbite.modele.<span class="cls">Restaurant</span>;
+
+<span class="kw">import</span> java.io.<span class="cls">BufferedReader</span>;
+<span class="kw">import</span> java.io.<span class="cls">FileReader</span>;
+<span class="kw">import</span> java.io.<span class="cls">FileWriter</span>;
+<span class="kw">import</span> java.io.<span class="cls">IOException</span>;
+<span class="kw">import</span> java.io.<span class="cls">PrintWriter</span>;
+<span class="kw">import</span> java.util.<span class="cls">ArrayList</span>;
+<span class="kw">import</span> java.util.<span class="cls">List</span>;
+
+<span class="cmt">/** TP5 Q2 : une ligne par plat, champs séparés par « ; » :  nom;prix;description */</span>
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">MenuTexte</span> {
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">final</span> <span class="cls">String</span> <span class="cls">SEP</span> = <span class="str">";"</span>;
+
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">ecrire</span>(<span class="cls">Restaurant</span> r, <span class="cls">String</span> fichier) <span class="kw">throws</span> <span class="cls">IOException</span> {
+        <span class="kw">try</span> (<span class="cls">PrintWriter</span> out = <span class="kw">new</span> <span class="fn">PrintWriter</span>(<span class="kw">new</span> <span class="fn">FileWriter</span>(fichier))) {   <span class="cmt">// fermé automatiquement</span>
+            <span class="kw">for</span> (<span class="cls">Plat</span> p : r.<span class="fn">getMenu</span>()) {
+                out.<span class="fn">println</span>(p.<span class="fn">getNom</span>() + <span class="cls">SEP</span> + p.<span class="fn">getPrix</span>() + <span class="cls">SEP</span> + p.<span class="fn">getDescription</span>());
+            }
+        }
+    }
+
+    <span class="cmt">/** Lit le fichier ; une ligne mal formée est signalée puis ignorée (on ne plante pas tout). */</span>
+    <span class="kw">public</span> <span class="kw">static</span> <span class="cls">List</span>&lt;<span class="cls">Plat</span>&gt; <span class="fn">lire</span>(<span class="cls">String</span> fichier) <span class="kw">throws</span> <span class="cls">IOException</span> {
+        <span class="cls">List</span>&lt;<span class="cls">Plat</span>&gt; plats = <span class="kw">new</span> <span class="cls">ArrayList</span>&lt;&gt;();
+        <span class="kw">try</span> (<span class="cls">BufferedReader</span> in = <span class="kw">new</span> <span class="fn">BufferedReader</span>(<span class="kw">new</span> <span class="fn">FileReader</span>(fichier))) {
+            <span class="cls">String</span> ligne;
+            <span class="kw">int</span> n = <span class="num">0</span>;
+            <span class="kw">while</span> ((ligne = in.<span class="fn">readLine</span>()) != <span class="kw">null</span>) {
+                n++;
+                <span class="cls">String</span>[] champs = ligne.<span class="fn">split</span>(<span class="cls">SEP</span>);
+                <span class="kw">try</span> {
+                    plats.<span class="fn">add</span>(<span class="kw">new</span> <span class="fn">Plat</span>(champs[<span class="num">0</span>], <span class="cls">Double</span>.<span class="fn">parseDouble</span>(champs[<span class="num">1</span>]), champs[<span class="num">2</span>]));
+                } <span class="kw">catch</span> (<span class="cls">NumberFormatException</span> | <span class="cls">ArrayIndexOutOfBoundsException</span> e) {
+                    <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Ligne "</span> + n + <span class="str">" ignorée ("</span> + e.<span class="fn">getClass</span>().<span class="fn">getSimpleName</span>() + <span class="str">") : "</span> + ligne);
+                }
+            }
+        }
+        <span class="kw">return</span> plats;
+    }
+}</pre>
+            <p><b>Q3 — Sérialisation.</b> Toutes les classes du modèle <code>implements Serializable</code> ; la liste entière des restaurants (menus compris) s'écrit en un seul <code>writeObject</code>. Le mot de passe est <code>transient</code> : il n'est pas écrit dans le fichier (sécurité), ce que la démo prouve.</p>
+<pre class="code"><span class="kw">package</span> fastbite.persistance;
+
+<span class="kw">import</span> fastbite.modele.<span class="cls">Restaurant</span>;
+
+<span class="kw">import</span> java.io.<span class="cls">FileInputStream</span>;
+<span class="kw">import</span> java.io.<span class="cls">FileOutputStream</span>;
+<span class="kw">import</span> java.io.<span class="cls">IOException</span>;
+<span class="kw">import</span> java.io.<span class="cls">ObjectInputStream</span>;
+<span class="kw">import</span> java.io.<span class="cls">ObjectOutputStream</span>;
+<span class="kw">import</span> java.util.<span class="cls">ArrayList</span>;
+<span class="kw">import</span> java.util.<span class="cls">List</span>;
+
+<span class="cmt">/** TP5 Q3 : sérialisation binaire (.ser) de toute la liste de restaurants (menus compris). */</span>
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Sauvegarde</span> {
+
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">sauver</span>(<span class="cls">List</span>&lt;<span class="cls">Restaurant</span>&gt; restaurants, <span class="cls">String</span> fichier) <span class="kw">throws</span> <span class="cls">IOException</span> {
+        <span class="kw">try</span> (<span class="cls">ObjectOutputStream</span> oos = <span class="kw">new</span> <span class="fn">ObjectOutputStream</span>(<span class="kw">new</span> <span class="fn">FileOutputStream</span>(fichier))) {
+            oos.<span class="fn">writeObject</span>(<span class="kw">new</span> <span class="cls">ArrayList</span>&lt;&gt;(restaurants));   <span class="cmt">// ArrayList est Serializable</span>
+        }
+    }
+
+    <span class="kw">@SuppressWarnings</span>(<span class="str">"unchecked"</span>)
+    <span class="kw">public</span> <span class="kw">static</span> <span class="cls">List</span>&lt;<span class="cls">Restaurant</span>&gt; <span class="fn">charger</span>(<span class="cls">String</span> fichier) <span class="kw">throws</span> <span class="cls">IOException</span>, <span class="cls">ClassNotFoundException</span> {
+        <span class="kw">try</span> (<span class="cls">ObjectInputStream</span> ois = <span class="kw">new</span> <span class="fn">ObjectInputStream</span>(<span class="kw">new</span> <span class="fn">FileInputStream</span>(fichier))) {
+            <span class="kw">return</span> (<span class="cls">List</span>&lt;<span class="cls">Restaurant</span>&gt;) ois.<span class="fn">readObject</span>();      <span class="cmt">// cast obligatoire : readObject renvoie Object</span>
+        }
+    }
+}</pre>
+            <p><b>Sortie réelle de DemoTP5</b> (à commenter dans le rendu) :</p>
+            <pre class="code">Paiement refusé : Alice doit payer 22.5 EUR mais n'a que 20.0 EUR
+Plat refusé : Le plat « Sushi » n'est pas disponible chez Chez Mario
+Livraison impossible : Aucun livreur disponible pour le moment
+Ligne 3 ignorée (ArrayIndexOutOfBoundsException) : Ligne cassée sans prix
+Relu depuis menu_mario.txt : [Pizza Margherita (12.5 EUR), Pasta Carbonara (10.0 EUR)]
+Erreur fichier : fichier_absent.txt (Le fichier spécifié est introuvable)
+Désérialisé : Chez Mario (4.6/5, 2 plats) -> [Pizza Margherita (12.5 EUR), Pasta Carbonara (10.0 EUR)]
+Même objet que l'original ? false
+Client[Alice, alice@mail.com] se connecte avec 1234 ? false</pre>
+            <p>Dernière ligne : après désérialisation, <code>motDePasse</code> vaut <code>null</code> (transient) : la connexion échoue, c'est voulu.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item" id="tp6">
+          <button class="qa-q" onclick="toggleQA(this)" aria-expanded="false">
+            <span class="qa-num">TP6</span>
+            <span class="qa-text">Maquette (wireframes) et storyboard par IA, au moins 2 fenêtres Swing, listeners, exceptions, fichiers et sérialisation dans l'IHM.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">Corrigé type FastBite — package fastbite.swing (compile)</span>
+            <p><b>Q1 Wireframes / Q2 Storyboard :</b> une maquette = les <b>écrans</b> en boîtes grises (zones, boutons, listes), sans couleurs ; un storyboard = les <b>enchaînements</b> entre écrans (flèches « clic sur Commander → écran Suivi »). Exemple de prompt à citer : « Génère un wireframe basse fidélité pour une appli de livraison de repas en Java Swing : écran 1 choix du restaurant + menu (JList) + panier (JTextArea) + total ; écran 2 suivi de la commande. » Montrer ensuite comment chaque zone devient un composant Swing.</p>
+            <div class="tbl-wrap"><table class="tbl">
+              <thead><tr><th>Zone de la maquette</th><th>Composant Swing</th><th>Layout</th></tr></thead>
+              <tbody>
+                <tr><td>Choix du restaurant</td><td><code>JComboBox&lt;Restaurant&gt;</code></td><td>NORTH (panneau FlowLayout)</td></tr>
+                <tr><td>Menu</td><td><code>JList&lt;Plat&gt;</code> dans un <code>JScrollPane</code></td><td>CENTER</td></tr>
+                <tr><td>Panier + total</td><td><code>JTextArea</code> non éditable + <code>JLabel</code></td><td>EAST</td></tr>
+                <tr><td>Actions</td><td>3 <code>JButton</code></td><td>SOUTH (GridLayout 3 × 1)</td></tr>
+                <tr><td>Écran 2 : suivi</td><td><code>JDialog</code> modal</td><td>GridLayout(0, 1)</td></tr>
+              </tbody>
+            </table></div>
+            <p><b>Q3-Q4 — Fenêtres et listeners.</b> La fenêtre principale écoute ses composants ; chaque exception du modèle devient une boîte d'erreur ; « Commander » ouvre la 2<sup>e</sup> fenêtre ; « Exporter » écrit le fichier texte via un <code>JFileChooser</code>.</p>
+<pre class="code"><span class="kw">@Override</span>
+<span class="kw">public</span> <span class="kw">void</span> <span class="fn">actionPerformed</span>(<span class="cls">ActionEvent</span> e) {
+    <span class="cls">Object</span> source = e.<span class="fn">getSource</span>();                    <span class="cmt">// QUI a déclenché l'événement ?</span>
+    <span class="kw">if</span> (source == choixResto) {
+        <span class="fn">nouvelleCommande</span>();
+    } <span class="kw">else</span> <span class="kw">if</span> (source == boutonAjouter) {
+        <span class="cls">Plat</span> p = listeMenu.<span class="fn">getSelectedValue</span>();
+        <span class="kw">if</span> (p == <span class="kw">null</span>) { <span class="fn">erreur</span>(<span class="str">"Sélectionne d'abord un plat."</span>); <span class="kw">return</span>; }
+        <span class="kw">try</span> {
+            plateforme.<span class="fn">ajouterPlat</span>(commande, p);
+            <span class="fn">rafraichirPanier</span>();
+        } <span class="kw">catch</span> (<span class="cls">PlatIndisponibleException</span> ex) {
+            <span class="fn">erreur</span>(ex.<span class="fn">getMessage</span>());                  <span class="cmt">// exception du TP5 -&gt; message à l'écran</span>
+        }
+    } <span class="kw">else</span> <span class="kw">if</span> (source == boutonCommander) {
+        <span class="kw">try</span> {
+            plateforme.<span class="fn">payer</span>(commande);
+            <span class="cls">Livraison</span> l = plateforme.<span class="fn">assignerLivreur</span>(commande);
+            <span class="kw">new</span> <span class="fn">FenetreSuivi</span>(<span class="kw">this</span>, commande, l).<span class="fn">setVisible</span>(<span class="kw">true</span>);   <span class="cmt">// 2e fenêtre</span>
+            <span class="fn">nouvelleCommande</span>();
+        } <span class="kw">catch</span> (<span class="cls">SoldeInsuffisantException</span> | <span class="cls">AucunLivreurException</span> ex) {
+            <span class="fn">erreur</span>(ex.<span class="fn">getMessage</span>());
+        }
+    } <span class="kw">else</span> <span class="kw">if</span> (source == boutonExporter) {
+        <span class="cls">JFileChooser</span> chooser = <span class="kw">new</span> <span class="fn">JFileChooser</span>();
+        chooser.<span class="fn">setSelectedFile</span>(<span class="kw">new</span> <span class="fn">File</span>(<span class="str">"menu.txt"</span>));
+        <span class="kw">if</span> (chooser.<span class="fn">showSaveDialog</span>(<span class="kw">this</span>) == <span class="cls">JFileChooser</span>.<span class="cls">APPROVE_OPTION</span>) {
+            <span class="kw">try</span> {
+                <span class="cls">MenuTexte</span>.<span class="fn">ecrire</span>(<span class="fn">restoChoisi</span>(), chooser.<span class="fn">getSelectedFile</span>().<span class="fn">getPath</span>());
+            } <span class="kw">catch</span> (<span class="cls">IOException</span> ex) {
+                <span class="fn">erreur</span>(<span class="str">"Écriture impossible : "</span> + ex.<span class="fn">getMessage</span>());
+            }
+        }
+    }
+}
+
+<span class="kw">private</span> <span class="kw">void</span> <span class="fn">erreur</span>(<span class="cls">String</span> message) {
+    <span class="cls">JOptionPane</span>.<span class="fn">showMessageDialog</span>(<span class="kw">this</span>, message, <span class="str">"FastBite"</span>, <span class="cls">JOptionPane</span>.<span class="cls">ERROR_MESSAGE</span>);
+}</pre>
+<pre class="code"><span class="kw">package</span> fastbite.swing;
+
+<span class="kw">import</span> fastbite.modele.<span class="cls">Commande</span>;
+<span class="kw">import</span> fastbite.modele.<span class="cls">Livraison</span>;
+
+<span class="kw">import</span> javax.swing.*;
+<span class="kw">import</span> java.awt.*;
+
+<span class="cmt">/** Deuxième fenêtre (boîte de dialogue modale) : navigation entre pages du storyboard. */</span>
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">FenetreSuivi</span> <span class="kw">extends</span> <span class="cls">JDialog</span> {
+    <span class="kw">public</span> <span class="fn">FenetreSuivi</span>(<span class="cls">JFrame</span> parent, <span class="cls">Commande</span> c, <span class="cls">Livraison</span> l) {
+        <span class="kw">super</span>(parent, <span class="str">"Suivi de la commande #"</span> + c.<span class="fn">getNumero</span>(), <span class="kw">true</span>);   <span class="cmt">// true = modale</span>
+        <span class="cls">JPanel</span> p = <span class="kw">new</span> <span class="fn">JPanel</span>(<span class="kw">new</span> <span class="fn">GridLayout</span>(<span class="num">0</span>, <span class="num">1</span>, <span class="num">4</span>, <span class="num">4</span>));
+        p.<span class="fn">setBorder</span>(<span class="cls">BorderFactory</span>.<span class="fn">createEmptyBorder</span>(<span class="num">12</span>, <span class="num">12</span>, <span class="num">12</span>, <span class="num">12</span>));
+        p.<span class="fn">add</span>(<span class="kw">new</span> <span class="fn">JLabel</span>(<span class="str">"Commande : "</span> + c.<span class="fn">getPlats</span>()));
+        p.<span class="fn">add</span>(<span class="kw">new</span> <span class="fn">JLabel</span>(<span class="str">"Montant : "</span> + c.<span class="fn">getMontantTotal</span>() + <span class="str">" EUR"</span>));
+        p.<span class="fn">add</span>(<span class="kw">new</span> <span class="fn">JLabel</span>(<span class="str">"Livreur : "</span> + l.<span class="fn">getLivreur</span>().<span class="fn">getNom</span>()));
+        <span class="cls">JButton</span> fermer = <span class="kw">new</span> <span class="fn">JButton</span>(<span class="str">"Fermer"</span>);
+        fermer.<span class="fn">addActionListener</span>(e -&gt; <span class="fn">dispose</span>());                           <span class="cmt">// listener en lambda</span>
+        p.<span class="fn">add</span>(fermer);
+        <span class="fn">setContentPane</span>(p);
+        <span class="fn">pack</span>();
+        <span class="fn">setLocationRelativeTo</span>(parent);
+    }
+}</pre>
+            <p><b>Test cases à capturer :</b> ajout d'un plat, clic sur « Ajouter » sans sélection (message), commande avec solde insuffisant (boîte d'erreur), commande réussie (fenêtre de suivi), 2<sup>e</sup> commande sans livreur libre (erreur), export puis ouverture du fichier texte. Code complet : <code>code/fastbite/src/fastbite/swing</code>.</p>
+            <div class="tip"><b>À dire à l'oral</b>Cette version fonctionne mais mélange affichage, écoute et règles dans une seule classe : c'est exactement ce que le TP7 (MVC) va séparer.</div>
+          </div></div>
+        </div>
+
+        <div class="qa-item" id="tp7">
+          <button class="qa-q" onclick="toggleQA(this)" aria-expanded="false">
+            <span class="qa-num">TP7</span>
+            <span class="qa-text">Réorganiser le TP6 (et une partie des TP2-TP5) selon le pattern MVC, avec des captures qui prouvent que MVC est respecté.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">Corrigé type FastBite — package fastbite.mvc (test automatique sans écran fourni)</span>
+            <div class="qa-meth"><b>🧭 Méthode</b>Partir de la fenêtre du TP6 et trier chaque ligne : données et règles → <b>Modèle</b> ; composants et affichage → <b>Vue</b> ; <code>actionPerformed</code> → <b>Contrôleur</b>. Puis relier : la vue s'abonne au modèle, le contrôleur s'abonne aux boutons de la vue.</div>
+<pre class="code"><span class="kw">package</span> fastbite.mvc;
+
+<span class="cmt">/** Le modèle prévient ses « abonnés » sans les connaître : c'est le patron Observateur. */</span>
+<span class="kw">public</span> <span class="kw">interface</span> <span class="cls">PanierListener</span> {
+    <span class="kw">void</span> <span class="fn">panierModifie</span>(<span class="cls">PanierModele</span> modele);
+}</pre>
+<pre class="code"><span class="kw">package</span> fastbite.mvc;
+
+<span class="kw">import</span> fastbite.modele.*;
+
+<span class="kw">import</span> java.util.<span class="cls">ArrayList</span>;
+<span class="kw">import</span> java.util.<span class="cls">List</span>;
+
+<span class="cmt">/** MODÈLE : les données + les règles métier. Aucun import javax.swing ici ! */</span>
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">PanierModele</span> {
+    <span class="kw">private</span> <span class="kw">final</span> <span class="cls">PlateformeFastBite</span> plateforme;
+    <span class="kw">private</span> <span class="kw">final</span> <span class="cls">Client</span> client;
+    <span class="kw">private</span> <span class="kw">final</span> <span class="cls">Restaurant</span> restaurant;
+    <span class="kw">private</span> <span class="cls">Commande</span> commande;
+    <span class="kw">private</span> <span class="cls">String</span> dernierMessage = <span class="str">""</span>;
+    <span class="kw">private</span> <span class="kw">final</span> <span class="cls">List</span>&lt;<span class="cls">PanierListener</span>&gt; abonnes = <span class="kw">new</span> <span class="cls">ArrayList</span>&lt;&gt;();
+
+    <span class="kw">public</span> <span class="fn">PanierModele</span>(<span class="cls">PlateformeFastBite</span> plateforme, <span class="cls">Client</span> client, <span class="cls">Restaurant</span> restaurant) {
+        <span class="kw">this</span>.plateforme = plateforme;
+        <span class="kw">this</span>.client = client;
+        <span class="kw">this</span>.restaurant = restaurant;
+        <span class="kw">this</span>.commande = plateforme.<span class="fn">passerCommande</span>(client, restaurant);
+    }
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">ajouterAbonne</span>(<span class="cls">PanierListener</span> l) { abonnes.<span class="fn">add</span>(l); }
+    <span class="kw">private</span> <span class="kw">void</span> <span class="fn">prevenir</span>() { <span class="kw">for</span> (<span class="cls">PanierListener</span> l : abonnes) l.<span class="fn">panierModifie</span>(<span class="kw">this</span>); }
+
+    <span class="kw">public</span> <span class="cls">List</span>&lt;<span class="cls">Plat</span>&gt; <span class="fn">getMenu</span>() { <span class="kw">return</span> restaurant.<span class="fn">getMenu</span>(); }
+    <span class="kw">public</span> <span class="cls">List</span>&lt;<span class="cls">Plat</span>&gt; <span class="fn">getPanier</span>() { <span class="kw">return</span> commande.<span class="fn">getPlats</span>(); }
+    <span class="kw">public</span> <span class="kw">double</span> <span class="fn">getTotal</span>() { <span class="kw">return</span> commande.<span class="fn">getMontantTotal</span>(); }
+    <span class="kw">public</span> <span class="kw">double</span> <span class="fn">getSolde</span>() { <span class="kw">return</span> client.<span class="fn">getSolde</span>(); }
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">getDernierMessage</span>() { <span class="kw">return</span> dernierMessage; }
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">ajouter</span>(<span class="cls">Plat</span> p) <span class="kw">throws</span> <span class="cls">PlatIndisponibleException</span> {
+        plateforme.<span class="fn">ajouterPlat</span>(commande, p);
+        dernierMessage = p.<span class="fn">getNom</span>() + <span class="str">" ajouté"</span>;
+        <span class="fn">prevenir</span>();
+    }
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">vider</span>() {
+        commande = plateforme.<span class="fn">passerCommande</span>(client, restaurant);
+        dernierMessage = <span class="str">"Panier vidé"</span>;
+        <span class="fn">prevenir</span>();
+    }
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">valider</span>() <span class="kw">throws</span> <span class="cls">SoldeInsuffisantException</span>, <span class="cls">AucunLivreurException</span> {
+        plateforme.<span class="fn">payer</span>(commande);
+        <span class="cls">Livraison</span> l = plateforme.<span class="fn">assignerLivreur</span>(commande);
+        dernierMessage = <span class="str">"Commande #"</span> + commande.<span class="fn">getNumero</span>() + <span class="str">" confiée à "</span> + l.<span class="fn">getLivreur</span>().<span class="fn">getNom</span>();
+        commande = plateforme.<span class="fn">passerCommande</span>(client, restaurant);
+        <span class="fn">prevenir</span>();
+    }
+}</pre>
+<pre class="code"><span class="kw">package</span> fastbite.mvc;
+
+<span class="kw">import</span> fastbite.modele.*;
+
+<span class="kw">import</span> java.awt.event.<span class="cls">ActionEvent</span>;
+<span class="kw">import</span> java.awt.event.<span class="cls">ActionListener</span>;
+
+<span class="cmt">/** CONTRÔLEUR : traduit un clic en appel au modèle, et une exception en message pour la vue. */</span>
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">PanierControleur</span> <span class="kw">implements</span> <span class="cls">ActionListener</span> {
+    <span class="kw">private</span> <span class="kw">final</span> <span class="cls">PanierModele</span> modele;
+    <span class="kw">private</span> <span class="kw">final</span> <span class="cls">PanierVue</span> vue;
+
+    <span class="kw">public</span> <span class="fn">PanierControleur</span>(<span class="cls">PanierModele</span> modele, <span class="cls">PanierVue</span> vue) {
+        <span class="kw">this</span>.modele = modele;
+        <span class="kw">this</span>.vue = vue;
+        vue.<span class="fn">ecouterBoutons</span>(<span class="kw">this</span>);
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">actionPerformed</span>(<span class="cls">ActionEvent</span> e) {
+        <span class="cls">Object</span> s = e.<span class="fn">getSource</span>();
+        <span class="kw">try</span> {
+            <span class="kw">if</span> (s == vue.<span class="fn">getAjouter</span>()) {
+                <span class="cls">Plat</span> p = vue.<span class="fn">getPlatSelectionne</span>();
+                <span class="kw">if</span> (p == <span class="kw">null</span>) { vue.<span class="fn">afficherErreur</span>(<span class="str">"Sélectionne un plat"</span>); <span class="kw">return</span>; }
+                modele.<span class="fn">ajouter</span>(p);
+            } <span class="kw">else</span> <span class="kw">if</span> (s == vue.<span class="fn">getVider</span>()) {
+                modele.<span class="fn">vider</span>();
+            } <span class="kw">else</span> <span class="kw">if</span> (s == vue.<span class="fn">getValider</span>()) {
+                modele.<span class="fn">valider</span>();
+            }
+        } <span class="kw">catch</span> (<span class="cls">PlatIndisponibleException</span> | <span class="cls">SoldeInsuffisantException</span> | <span class="cls">AucunLivreurException</span> ex) {
+            vue.<span class="fn">afficherErreur</span>(ex.<span class="fn">getMessage</span>());
+        }
+    }
+}</pre>
+<pre class="code"><span class="cmt">// Vue (extrait) : aucun calcul, aucune règle, juste de l'affichage</span>
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">PanierVue</span> <span class="kw">extends</span> <span class="cls">JPanel</span> <span class="kw">implements</span> <span class="cls">PanierListener</span> {
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">ecouterBoutons</span>(<span class="cls">ActionListener</span> l) { ajouter.<span class="fn">addActionListener</span>(l); vider.<span class="fn">addActionListener</span>(l); valider.<span class="fn">addActionListener</span>(l); }
+    <span class="kw">public</span> <span class="cls">Plat</span> <span class="fn">getPlatSelectionne</span>() { <span class="kw">return</span> listeMenu.<span class="fn">getSelectedValue</span>(); }
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">afficherErreur</span>(<span class="cls">String</span> message) { statut.<span class="fn">setText</span>(<span class="str">"⚠ "</span> + message); <span class="cmt">/* + JOptionPane si écran */</span> }
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">panierModifie</span>(<span class="cls">PanierModele</span> m) {            <span class="cmt">// appelée par le modèle</span>
+        panier.<span class="fn">clear</span>();
+        <span class="kw">for</span> (<span class="cls">Plat</span> p : m.<span class="fn">getPanier</span>()) panier.<span class="fn">addElement</span>(p);
+        total.<span class="fn">setText</span>(<span class="str">"Total : "</span> + m.<span class="fn">getTotal</span>() + <span class="str">" EUR   (solde "</span> + m.<span class="fn">getSolde</span>() + <span class="str">" EUR)"</span>);
+        statut.<span class="fn">setText</span>(m.<span class="fn">getDernierMessage</span>());
+    }
+}</pre>
+<pre class="code"><span class="kw">package</span> fastbite.mvc;
+
+<span class="kw">import</span> fastbite.modele.*;
+
+<span class="kw">import</span> javax.swing.*;
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">AppMVC</span> {
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">main</span>(<span class="cls">String</span>[] args) {
+        <span class="cls">PlateformeFastBite</span> p = <span class="kw">new</span> <span class="fn">PlateformeFastBite</span>();
+        <span class="cls">Restaurant</span> mario = <span class="kw">new</span> <span class="fn">Restaurant</span>(<span class="str">"Chez Mario"</span>, <span class="str">"12 rue de Paris"</span>, <span class="num">4.6</span>);
+        mario.<span class="fn">ajouterPlat</span>(<span class="kw">new</span> <span class="fn">Plat</span>(<span class="str">"Pizza Margherita"</span>, <span class="num">12.50</span>, <span class="str">"Tomate, mozzarella"</span>));
+        mario.<span class="fn">ajouterPlat</span>(<span class="kw">new</span> <span class="fn">Plat</span>(<span class="str">"Pasta Carbonara"</span>, <span class="num">10.00</span>, <span class="str">"Lardons, oeuf"</span>));
+        p.<span class="fn">ajouterRestaurant</span>(mario);
+        p.<span class="fn">ajouterLivreur</span>(<span class="kw">new</span> <span class="fn">Livreur</span>(<span class="str">"Bob"</span>, <span class="str">"bob@mail.com"</span>, <span class="str">"abcd"</span>, <span class="str">"scooter"</span>));
+        <span class="cls">Client</span> alice = <span class="kw">new</span> <span class="fn">Client</span>(<span class="str">"Alice"</span>, <span class="str">"alice@mail.com"</span>, <span class="str">"1234"</span>, <span class="str">"5 av. Foch"</span>, <span class="num">30.0</span>);
+
+        <span class="cls">SwingUtilities</span>.<span class="fn">invokeLater</span>(() -&gt; {
+            <span class="cls">PanierModele</span> modele = <span class="kw">new</span> <span class="fn">PanierModele</span>(p, alice, mario);   <span class="cmt">// M</span>
+            <span class="cls">PanierVue</span> vue = <span class="kw">new</span> <span class="fn">PanierVue</span>();                              <span class="cmt">// V</span>
+            modele.<span class="fn">ajouterAbonne</span>(vue);                                    <span class="cmt">// V observe M</span>
+            <span class="kw">new</span> <span class="fn">PanierControleur</span>(modele, vue);                            <span class="cmt">// C relie V -&gt; M</span>
+            vue.<span class="fn">panierModifie</span>(modele);                                    <span class="cmt">// premier affichage</span>
+
+            <span class="cls">JFrame</span> f = <span class="kw">new</span> <span class="fn">JFrame</span>(<span class="str">"FastBite — MVC"</span>);
+            f.<span class="fn">setContentPane</span>(vue);
+            f.<span class="fn">setDefaultCloseOperation</span>(<span class="cls">JFrame</span>.<span class="cls">EXIT_ON_CLOSE</span>);
+            f.<span class="fn">pack</span>();
+            f.<span class="fn">setVisible</span>(<span class="kw">true</span>);
+        });
+    }
+}</pre>
+            <p><b>Preuve que MVC est respecté</b> (à mettre dans le rendu) : 1) le package du modèle n'importe <b>aucune</b> classe Swing ; 2) un test pilote l'application <b>sans ouvrir de fenêtre</b> en simulant les clics (<code>doClick()</code>) — sortie réelle :</p>
+            <pre class="code">1) ⚠ Sélectionne un plat
+2) Total : 25.0 EUR   (solde 30.0 EUR)
+3) Commande #1001 confiée à Bob | Total : 0.0 EUR   (solde 5.0 EUR)
+4) ⚠ Alice doit payer 10.0 EUR mais n'a que 5.0 EUR</pre>
+            <p>3) on peut brancher une seconde vue (console) sur le même modèle sans le modifier. <b>Amélioration à proposer au bilan :</b> <code>valider()</code> débite le client <b>avant</b> de chercher un livreur ; s'il n'y en a pas, il faudrait rembourser (ou vérifier la disponibilité d'abord).</p>
+          </div></div>
+        </div>
+
+      </div>
+    </section>
+    <section id="annales" data-cat="annales">
+      <div class="section-head">
+        <div class="eyebrow">Annales</div>
+        <h2>Les DS de J.-P. Segado, corrigés et vérifiés</h2>
+        <p>Ce sont des DS d'ING3 mais le programme est le même que le tien (héritage, abstract, interface, ArrayList, exceptions, Swing, listeners). Chaque code a été <b>compilé et exécuté</b> ; quand le corrigé officiel contient une erreur, elle est signalée.</p>
+      </div>
+      <div class="tip"><b>Format du DS du 2 novembre (1 h 30)</b>Questions de cours courtes, un « qu'affiche ce programme ? », puis du code à écrire sur papier à partir d'annexes Javadoc. Entraîne-toi <b>chronomètre en main</b>, sans IntelliJ, puis compare.</div>
+      <div class="qa-list">
+
+        <!-- ================= QCM 2025 ================= -->
+        <div class="qa-item" id="an-qcm2025">
+          <button class="qa-q" onclick="toggleQA(this)" aria-expanded="false">
+            <span class="qa-num">QCM 2025</span>
+            <span class="qa-text">DS QCM (25 questions, +0,8 / −0,4) : réponses justifiées. La clé officielle se trompe à la question 18.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">2025-DS QCM-Java-ING3 + « Réponses » officielles — Q2, Q9, Q11, Q16, Q25 vérifiées en exécutant le code</span>
+            <div class="qa-meth"><b>🧭 Méthode QCM à points négatifs</b>−0,4 par erreur : si tu hésites entre 2 réponses sans argument, l'espérance est de +0,2 ; entre 3, elle est ≈ 0. Pour les questions « qu'affiche… », écris la trace sur le brouillon : variables, puis chaque ligne affichée.</div>
+            <div class="tbl-wrap"><table class="tbl">
+              <thead><tr><th>Q</th><th>Rép.</th><th>Justification</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>B</td><td><code>c = a + b</code> : concaténation. <code>c += a</code> lit <code>c</code> non initialisée (erreur) ; pas d'opérateur <code>-</code> sur les String ; <code>'a'</code> est un <code>char</code>, pas une String.</td></tr>
+                <tr><td>2</td><td>C</td><td>« 20 », « 20 » : <code>prn()</code> appelle <code>this.getVal()</code>, liaison dynamique → version de B pour un B, et pour un C (qui hérite de B).</td></tr>
+                <tr><td>3</td><td>D</td><td>La <b>JVM</b> exécute le bytecode ; le JDK contient le compilateur ; l'API est la bibliothèque ; AWT est graphique.</td></tr>
+                <tr><td>4</td><td>C</td><td><code>super(10);</code> en 1<sup>re</sup> ligne du constructeur <code>Sub()</code>. <code>super(…)</code> est interdit ailleurs que dans un constructeur. (Le sujet contient <code>public public void sub()</code> : double modificateur, qui ne compilerait pas — coquille.)</td></tr>
+                <tr><td>5</td><td>B</td><td><code>throws IOException</code> dans la signature, sinon le <code>catch (IOException)</code> du try serait refusé (exception jamais lancée). C : <code>throw</code> sans s ; D : syntaxe fausse.</td></tr>
+                <tr><td>6</td><td>A</td><td>Plusieurs <code>implements</code>, un seul <code>extends</code>.</td></tr>
+                <tr><td>7</td><td>C</td><td><code>Object</code> est la racine de toutes les classes.</td></tr>
+                <tr><td>8</td><td>A</td><td>Une interface ne s'instancie pas (mais peut être un type de référence et être implémentée).</td></tr>
+                <tr><td>9</td><td>B</td><td>77 : <code>A.f(2)</code> est statique, résolu sur <b>A</b> → 7 ; <code>a.g(3)</code> est d'instance, liaison dynamique sur l'objet D → 11 ; 7 × 11.</td></tr>
+                <tr><td>10</td><td>B</td><td>Upcast implicite puis downcast d'un objet qui EST un Triangle. A et C : <code>ClassCastException</code> ; D : <code>Triangle z = y</code> sans cast ne compile pas.</td></tr>
+                <tr><td>11</td><td>B</td><td>4 : <code>D(5,6)</code> → <code>this(6)</code> → <code>this()</code> : x = 3 ; puis x = 3 + 6 = 9 ; puis x = 9 − 5 = 4.</td></tr>
+                <tr><td>12</td><td>B</td><td>Visibilité par défaut (package) : toutes les classes du même package.</td></tr>
+                <tr><td>13</td><td>D</td><td>CENTER.</td></tr>
+                <tr><td>14</td><td>B</td><td>Une classe abstraite peut avoir constructeurs, méthodes concrètes et attributs ; elle ne peut pas être instanciée.</td></tr>
+                <tr><td>15</td><td>C</td><td><code>package</code> en premier ; <code>java.lang</code> est importé automatiquement, il faut importer <code>java.util</code>.</td></tr>
+                <tr><td>16</td><td>D</td><td>« FifilleMaman » : le constructeur de Maman appelle <code>this.getVal()</code>, et <code>this</code> est un objet Fifille → version de Fifille, puis « Maman » pour le 2<sup>e</sup> objet.</td></tr>
+                <tr><td>17</td><td>C</td><td>10 références (toutes à <code>null</code>) et <b>aucun</b> objet String.</td></tr>
+                <tr><td>18</td><td><b>B</b></td><td><code>arr.length - 1</code>. ⚠ <b>La clé officielle indique D</b> (<code>arr.length()-1</code>), qui <b>ne compile pas</b> : sur un tableau, <code>length</code> est un attribut, sans parenthèses (<code>length()</code> c'est pour les String). La même question vaut B dans le DS 2020.</td></tr>
+                <tr><td>19</td><td>A</td><td>Aucun constructeur <code>Bidon(int)</code> : seul le constructeur par défaut implicite existe. <code>toString</code> et <code>equals</code> sont hérités d'Object.</td></tr>
+                <tr><td>20</td><td>D</td><td><code>java.lang</code>.</td></tr>
+                <tr><td>21</td><td>C</td><td><code>String</code> est une classe, pas un mot-clé.</td></tr>
+                <tr><td>22</td><td>C</td><td>Réponse attendue. En réalité aucune proposition ne compile (<code>new BureauImplemente</code> sans parenthèses, <code>guichets</code> privé) ; le code correct : <code>Guichet g = new BureauImplemente(…).getGuichets().get(0); int cap = g.capacite;</code></td></tr>
+                <tr><td>23</td><td>D</td><td>77 : même calcul que la Q9, propositions dans un autre ordre.</td></tr>
+                <tr><td>24</td><td>D</td><td>Deux <code>new</code> = deux instances ; <code>y = x</code> copie une référence.</td></tr>
+                <tr><td>25</td><td>A</td><td>« File found.Doing finally.0 » : le <code>finally</code> s'exécute avant que <code>work()</code> rende 0, puis <code>println</code> affiche 0. Sans le fichier : « No such file found.Doing finally.-1 ».</td></tr>
+              </tbody>
+            </table></div>
+          </div></div>
+        </div>
+
+        <!-- ================= DS 2023 ================= -->
+        <div class="qa-item" id="an-2023-cours">
+          <button class="qa-q" onclick="toggleQA(this)" aria-expanded="false">
+            <span class="qa-num">DS 2023</span>
+            <span class="qa-text">Questions de cours (5 pts) : super, objet de type abstrait, interface, un layout, les 2 actions pour écouter un événement.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <ol>
+              <li><b>super</b> : dans une classe fille, pour appeler le <b>constructeur</b> de la classe mère (<code>super(…)</code>, obligatoirement en 1<sup>re</sup> ligne) ou une <b>méthode</b> de la mère qu'on a redéfinie (<code>super.afficher()</code>).</li>
+              <li><b>Type abstrait</b> : on ne peut pas l'<b>instancier</b> avec <code>new</code> (<code>new Forme()</code> interdit) ; on peut en revanche déclarer <code>Forme f = new Carre();</code>.</li>
+              <li><b>Interface</b> : elle ne contient que des signatures de méthodes (un <b>contrat</b>), sans attribut d'état ni constructeur ; les classes qui l'<code>implements</code> doivent écrire toutes ces méthodes. Elle sert à imposer un comportement commun à des classes sans lien d'héritage et permet une forme d'héritage multiple.</li>
+              <li><b>Un layout</b> (au choix) : <code>BorderLayout</code> découpe le conteneur en 5 zones (NORTH, SOUTH, EAST, WEST, CENTER), le centre prend la place restante ; <code>GridLayout(l, c)</code> : grille de cases identiques ; <code>FlowLayout</code> : composants à la suite, taille naturelle.</li>
+              <li><b>Écouter un événement</b> : 1) <b>abonner</b> l'écouteur au composant (<code>bouton.addActionListener(ecouteur)</code>) ; 2) <b>implémenter</b> la méthode de l'interface d'écoute (<code>implements ActionListener</code> et <code>public void actionPerformed(ActionEvent e)</code>).</li>
+            </ol>
+          </div></div>
+        </div>
+
+        <div class="qa-item" id="an-2023-ex1">
+          <button class="qa-q" onclick="toggleQA(this)" aria-expanded="false">
+            <span class="qa-num">DS 2023</span>
+            <span class="qa-text">Exercice 1 (2 pts) : sortie de mystery() sur {'a','b','d','c'} — justifier.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <div class="qa-meth"><b>🧭 Méthode</b>Faire un tableau de trace : une ligne par valeur de <code>i</code>, la valeur finale de <code>min</code>, et l'état du tableau après <code>swap</code>. Les <code>char</code> se comparent dans l'ordre alphabétique (codes Unicode).</div>
+            <div class="tbl-wrap"><table class="tbl">
+              <thead><tr><th>i</th><th>j parcourt</th><th>min (indice du plus GRAND)</th><th>swap</th><th>tableau</th></tr></thead>
+              <tbody>
+                <tr><td>—</td><td>—</td><td>—</td><td>—</td><td>a b d c</td></tr>
+                <tr><td>0</td><td>0..3</td><td>2 ('d')</td><td>swap(0,2)</td><td>d b a c</td></tr>
+                <tr><td>1</td><td>1..3</td><td>3 ('c')</td><td>swap(1,3)</td><td>d c a b</td></tr>
+                <tr><td>2</td><td>2..3</td><td>3 ('b')</td><td>swap(2,3)</td><td>d c b a</td></tr>
+              </tbody>
+            </table></div>
+            <p><b>Sortie :</b> <code>d,c,b,a,</code> (avec une virgule finale : <code>display</code> ajoute <code>","</code> après <b>chaque</b> caractère). <code>mystery</code> est un <b>tri par sélection décroissant</b> : malgré son nom, <code>min</code> mémorise l'indice du <b>maximum</b> (test <code>tab[j] > tab[min]</code>).</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item" id="an-2023-ex2">
+          <button class="qa-q" onclick="toggleQA(this)" aria-expanded="false">
+            <span class="qa-num">DS 2023</span>
+            <span class="qa-text">Exercice 2 (6 pts) : classe Dummy — constructeur, remplirAlea() avec exception si n ≤ 0, moyenne() en float, afficher(), main qui recommence tant qu'il y a une exception.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">Testé : saisies « abc », « -3 », « 5 » → deux messages d'erreur puis la moyenne</span>
+<pre class="code"><span class="kw">import</span> java.util.<span class="cls">ArrayList</span>;
+<span class="kw">import</span> java.util.<span class="cls">InputMismatchException</span>;
+<span class="kw">import</span> java.util.<span class="cls">Random</span>;
+<span class="kw">import</span> java.util.<span class="cls">Scanner</span>;
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Dummy</span> {
+    <span class="kw">private</span> <span class="cls">ArrayList</span>&lt;<span class="cls">Integer</span>&gt; vecteur;                    <span class="cmt">// ArrayList d'objets Integer</span>
+    <span class="kw">private</span> <span class="kw">static</span> <span class="kw">final</span> <span class="cls">Scanner</span> <span class="cls">CLAVIER</span> = <span class="kw">new</span> <span class="fn">Scanner</span>(<span class="cls">System</span>.in);   <span class="cmt">// UN seul Scanner pour tout le programme</span>
+
+    <span class="cmt">// 1) constructeur : instancier le vecteur</span>
+    <span class="kw">public</span> <span class="fn">Dummy</span>() {
+        vecteur = <span class="kw">new</span> <span class="cls">ArrayList</span>&lt;<span class="cls">Integer</span>&gt;();
+    }
+
+    <span class="cmt">// 2) saisir n &gt; 0, sinon lever Exception ; remplir n valeurs aléatoires dans [0, 20]</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">remplirAlea</span>() <span class="kw">throws</span> <span class="cls">Exception</span> {
+        <span class="cls">System</span>.out.<span class="fn">print</span>(<span class="str">"Nombre d'éléments n (&gt; 0) : "</span>);
+        <span class="kw">int</span> n;
+        <span class="kw">try</span> {
+            n = <span class="cls">CLAVIER</span>.<span class="fn">nextInt</span>();
+        } <span class="kw">catch</span> (<span class="cls">InputMismatchException</span> e) {
+            <span class="cls">CLAVIER</span>.<span class="fn">nextLine</span>();                            <span class="cmt">// jeter la saisie invalide, sinon boucle infinie</span>
+            <span class="kw">throw</span> <span class="kw">new</span> <span class="fn">Exception</span>(<span class="str">"il faut un entier"</span>);
+        }
+        <span class="kw">if</span> (n &lt;= <span class="num">0</span>) {
+            <span class="kw">throw</span> <span class="kw">new</span> <span class="fn">Exception</span>(<span class="str">"n doit être strictement positif (reçu "</span> + n + <span class="str">")"</span>);
+        }
+        <span class="cls">Random</span> r = <span class="kw">new</span> <span class="fn">Random</span>();
+        vecteur.<span class="fn">clear</span>();                                   <span class="cmt">// au cas où la méthode est rappelée</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; n; i++) {
+            vecteur.<span class="fn">add</span>(r.<span class="fn">nextInt</span>(<span class="num">21</span>));                    <span class="cmt">// 21 valeurs possibles : 0..20 (autoboxing int -&gt; Integer)</span>
+        }
+    }
+
+    <span class="cmt">// 3) moyenne en float, sans affichage</span>
+    <span class="kw">public</span> <span class="kw">float</span> <span class="fn">moyenne</span>() {
+        <span class="kw">if</span> (vecteur.<span class="fn">isEmpty</span>()) <span class="kw">return</span> <span class="num">0f</span>;                  <span class="cmt">// éviter 0/0 = NaN</span>
+        <span class="kw">float</span> somme = <span class="num">0</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; vecteur.<span class="fn">size</span>(); i++) {
+            somme += vecteur.<span class="fn">get</span>(i);                       <span class="cmt">// unboxing Integer -&gt; int</span>
+        }
+        <span class="kw">return</span> somme / vecteur.<span class="fn">size</span>();                     <span class="cmt">// float / int -&gt; division RÉELLE</span>
+    }
+
+    <span class="cmt">// 4) afficher les valeurs</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">afficher</span>() {
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; vecteur.<span class="fn">size</span>(); i++) {
+            <span class="cls">System</span>.out.<span class="fn">print</span>(vecteur.<span class="fn">get</span>(i) + <span class="str">" "</span>);
+        }
+        <span class="cls">System</span>.out.<span class="fn">println</span>();
+    }
+
+    <span class="cmt">// 5) main</span>
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">main</span>(<span class="cls">String</span> argv[]) {
+        <span class="cls">Dummy</span> d = <span class="kw">new</span> <span class="fn">Dummy</span>();
+        <span class="kw">boolean</span> ok = <span class="kw">false</span>;
+        <span class="kw">while</span> (!ok) {                                      <span class="cmt">// on recommence tant qu'une exception est attrapée</span>
+            <span class="kw">try</span> {
+                d.<span class="fn">remplirAlea</span>();
+                ok = <span class="kw">true</span>;                                 <span class="cmt">// atteint seulement si AUCUNE exception</span>
+            } <span class="kw">catch</span> (<span class="cls">Exception</span> e) {
+                <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Erreur : "</span> + e.<span class="fn">getMessage</span>() + <span class="str">", recommence."</span>);
+            }
+        }
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Moyenne = "</span> + d.<span class="fn">moyenne</span>());
+        d.<span class="fn">afficher</span>();
+    }
+}</pre>
+            <p><b>Points qui rapportent :</b> <code>throws Exception</code> dans la signature (Exception est contrôlée) ; <code>r.nextInt(21)</code> pour 0..20 inclus (<code>nextInt(n)</code> donne 0..n−1) ; <code>somme</code> en <code>float</code> pour une division réelle ; la boucle du main qui ne sort que quand <code>remplirAlea()</code> s'est terminée <b>sans</b> exception.</p>
+            <div class="tip"><b>Le piège du Scanner</b>Le corrigé officiel crée un <code>new Scanner(System.in)</code> à chaque appel. Si l'utilisateur tape « abc », <code>nextInt()</code> lance <code>InputMismatchException</code> <b>sans consommer</b> « abc » : il faut un seul Scanner et un <code>nextLine()</code> pour vider la saisie invalide, sinon on risque une boucle infinie.</div>
+          </div></div>
+        </div>
+
+        <div class="qa-item" id="an-2023-ex3">
+          <button class="qa-q" onclick="toggleQA(this)" aria-expanded="false">
+            <span class="qa-num">DS 2023</span>
+            <span class="qa-text">Exercice 3 (7 pts) : Personnage abstraite, Magicien, MagicienBlanc, MagicienNoir (constructeur par copie), main de la classe Magie.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">Version qui compile (le corrigé officiel ne compile pas, voir encadré)</span>
+<pre class="code"><span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> <span class="cls">Personnage</span> {
+    <span class="kw">protected</span> <span class="kw">int</span> point_vie;
+    <span class="kw">protected</span> <span class="kw">int</span> point_defense;
+
+    <span class="kw">public</span> <span class="fn">Personnage</span>() {                    <span class="cmt">// constructeur par défaut</span>
+        point_vie = <span class="num">1</span>;
+        point_defense = <span class="num">0</span>;
+    }
+
+    <span class="kw">public</span> <span class="fn">Personnage</span>(<span class="kw">int</span> vie, <span class="kw">int</span> defense) {
+        point_vie = vie;
+        point_defense = defense;
+    }
+
+    <span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">void</span> <span class="fn">actions</span>();          <span class="cmt">// pas de corps : chaque personnage agit à sa façon</span>
+}</pre>
+<pre class="code"><span class="kw">import</span> java.util.<span class="cls">Random</span>;
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Magicien</span> <span class="kw">extends</span> <span class="cls">Personnage</span> {
+    <span class="kw">private</span> <span class="kw">int</span> point_magie;
+
+    <span class="cmt">// « hérite du second constructeur » = appelle super(vie, defense)</span>
+    <span class="kw">public</span> <span class="fn">Magicien</span>(<span class="kw">int</span> vie, <span class="kw">int</span> defense) {
+        <span class="kw">super</span>(vie, defense);
+        point_magie = <span class="kw">new</span> <span class="fn">Random</span>().<span class="fn">nextInt</span>(<span class="num">5</span>) + <span class="num">1</span>;       <span class="cmt">// 1..5</span>
+    }
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">setPoint_magie</span>(<span class="kw">int</span> magie) {             <span class="cmt">// le « setter »</span>
+        point_magie = magie;
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">actions</span>() {
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"vie="</span> + point_vie + <span class="str">" défense="</span> + point_defense + <span class="str">" magie="</span> + point_magie);
+    }
+}</pre>
+<pre class="code"><span class="kw">public</span> <span class="kw">class</span> <span class="cls">MagicienBlanc</span> <span class="kw">extends</span> <span class="cls">Magicien</span> {
+
+    <span class="cmt">// OBLIGATOIRE : Magicien n'a pas de constructeur sans paramètre,</span>
+    <span class="cmt">// donc le super() implicite ne compilerait pas.</span>
+    <span class="kw">public</span> <span class="fn">MagicienBlanc</span>(<span class="kw">int</span> vie, <span class="kw">int</span> defense) {
+        <span class="kw">super</span>(vie, defense);
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">actions</span>() {
+        <span class="kw">super</span>.<span class="fn">actions</span>();                                <span class="cmt">// d'abord la version de Magicien</span>
+        point_defense = <span class="num">5</span>;                              <span class="cmt">// protected : accessible dans la fille</span>
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"défense="</span> + point_defense);
+    }
+}</pre>
+<pre class="code"><span class="kw">public</span> <span class="kw">class</span> <span class="cls">MagicienNoir</span> <span class="kw">extends</span> <span class="cls">Magicien</span> {
+
+    <span class="cmt">// constructeur « par copie » : on recopie l'état d'un autre Magicien</span>
+    <span class="kw">public</span> <span class="fn">MagicienNoir</span>(<span class="cls">Magicien</span> m) {
+        <span class="kw">super</span>(m.point_vie, m.point_defense);           <span class="cmt">// OK : même package (protected = package + filles)</span>
+        <span class="fn">setPoint_magie</span>(<span class="num">3</span>);                             <span class="cmt">// point_magie est private dans Magicien : on passe par le setter</span>
+    }
+}</pre>
+<pre class="code"><span class="kw">import</span> java.util.<span class="cls">Random</span>;
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Magie</span> {
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">main</span>(<span class="cls">String</span> argv[]) {
+        <span class="cls">Random</span> r = <span class="kw">new</span> <span class="fn">Random</span>();
+        <span class="kw">int</span> vie = r.<span class="fn">nextInt</span>(<span class="num">3</span>) + <span class="num">1</span>;                    <span class="cmt">// 1..3</span>
+        <span class="kw">int</span> defense = r.<span class="fn">nextInt</span>(<span class="num">3</span>) + <span class="num">1</span>;
+        <span class="cls">MagicienBlanc</span> mb = <span class="kw">new</span> <span class="fn">MagicienBlanc</span>(vie, defense);
+        <span class="cls">MagicienNoir</span> mn = <span class="kw">new</span> <span class="fn">MagicienNoir</span>(mb);         <span class="cmt">// un MagicienBlanc EST un Magicien : upcast implicite</span>
+        mb.<span class="fn">actions</span>();
+        mn.<span class="fn">actions</span>();
+    }
+}</pre>
+            <p><b>Exemple d'exécution :</b> <code>vie=2 défense=3 magie=1</code> / <code>défense=5</code> / <code>vie=2 défense=3 magie=3</code>. Le magicien noir a copié vie et défense du blanc <b>avant</b> que <code>actions()</code> ne passe la défense du blanc à 5.</p>
+            <div class="tip"><b>Erreurs du corrigé officiel (ne pas les recopier)</b><code>point_magie = = r.nextInt(5)+1;</code> (syntaxe) ; <code>System.out.printn</code> ; <code>MagicienBlanc</code> sans constructeur alors que <code>Magicien</code> n'a pas de constructeur sans paramètre (le <code>super()</code> implicite échoue) ; <code>new MagicienBlanc(vie, defense)</code> et <code>super(m.point_vie, m.point_defense)</code> appellent un constructeur à 2 paramètres alors que le corrigé en déclare un à 3. Règle à retenir : <b>dès qu'une classe mère n'a que des constructeurs avec paramètres, chaque fille doit écrire un constructeur qui appelle <code>super(…)</code></b>.</div>
+          </div></div>
+        </div>
+
+        <!-- ================= DS 2020 ================= -->
+        <div class="qa-item" id="an-2020-qcm">
+          <button class="qa-q" onclick="toggleQA(this)" aria-expanded="false">
+            <span class="qa-num">DS 2020</span>
+            <span class="qa-text">Partie 1 : 8 QCM (passage de paramètre, instances, this(), package event, finally, interfaces, super(10), dernier indice).</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <div class="tbl-wrap"><table class="tbl">
+              <thead><tr><th>Q</th><th>Rép.</th><th>Justification</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>B</td><td>« 10 40 » (exécuté) : <code>x</code> est une <b>copie</b> de <code>i</code> (passage par valeur), donc <code>i</code> reste 10 ; <code>j</code> est un attribut <code>static</code> modifié directement → 40.</td></tr>
+                <tr><td>2</td><td>D</td><td>Deux <code>new</code> → deux instances ; <code>A y = x;</code> copie la référence.</td></tr>
+                <tr><td>3</td><td>C</td><td>« ExamI5 2010 » (exécuté) : <code>this()</code> affiche « Exam » avec <code>printf</code> (sans retour à la ligne), puis <code>println</code>.</td></tr>
+                <tr><td>4</td><td>A</td><td><code>java.awt.event</code>.</td></tr>
+                <tr><td>5</td><td>D*</td><td>Réponse attendue : « Doing finally », « 0 ». ⚠ Mais le code du sujet <b>ne compile pas</b> : <code>System.out.println("File found");</code> est placé <b>après</b> <code>return 0;</code> → <code>error: unreachable statement</code> (vérifié). En copie, cocher D et, si c'est possible, l'écrire.</td></tr>
+                <tr><td>6</td><td>A</td><td>Plusieurs interfaces, une seule classe mère.</td></tr>
+                <tr><td>7</td><td>B</td><td>« Success! » (exécuté) : <code>G</code> n'a qu'un constructeur <code>G(int)</code>, donc <code>H()</code> doit appeler <code>super(10)</code>. <code>this(10)</code> chercherait <code>H(int)</code> (inexistant) ; <code>G(10)</code> n'est pas une syntaxe d'appel.</td></tr>
+                <tr><td>8</td><td>B</td><td><code>arr.length - 1</code>.</td></tr>
+              </tbody>
+            </table></div>
+          </div></div>
+        </div>
+
+        <div class="qa-item" id="an-2020-laby">
+          <button class="qa-q" onclick="toggleQA(this)" aria-expanded="false">
+            <span class="qa-num">DS 2020</span>
+            <span class="qa-text">Partie 2 (16 pts) : jeu du labyrinthe — Cellule, Occupant, Mobile, Fixe, Mur, Explorateur, ObstacleException, fenêtre Labyrinthe (constructeur + actionPerformed).</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <span class="qa-source">Version complète qui compile ; la partie modèle est testée en console</span>
+            <div class="qa-meth"><b>🧭 Méthode</b>Lire d'abord le diagramme : <code>Occupant</code> (abstraite) ← <code>Fixe</code> (abstraite) ← <code>Mur</code> ; <code>Occupant</code> ← <code>Mobile</code> (abstraite) ← <code>Explorateur</code>. Cellule ↔ Occupant est une association <b>réciproque</b> : chaque fois qu'on change un côté, il faut mettre l'autre à jour (c'est tout l'enjeu de <code>prendreOccupant</code> / <code>perdreOccupant</code> / <code>setCellule</code>).</div>
+            <p><b>Trois problèmes du sujet à connaître :</b> 1) <code>goto</code> est un <b>mot réservé</b> de Java (inutilisé mais interdit comme nom) : la méthode s'appelle ici <code>allerVers</code> ; 2) <code>@override</code> en minuscule ne compile pas : <code>@Override</code> ; 3) <code>getCellule(posX, posY)</code> est une méthode de <code>Cellule</code> qui doit retrouver <b>n'importe quelle</b> cellule : il lui faut accès à la matrice, d'où l'attribut <code>static Cellule[][] matrice</code> renseigné par le labyrinthe. Et les classes abstraites <code>Mobile</code>/<code>Fixe</code> doivent déclarer un constructeur qui appelle <code>super(uneCel)</code> (Occupant n'a pas de constructeur vide).</p>
+<pre class="code"><span class="kw">public</span> <span class="kw">class</span> <span class="cls">Cellule</span> {
+    <span class="kw">public</span> <span class="kw">int</span> posX, posY;                          <span class="cmt">// coordonnées (posX = ligne, posY = colonne)</span>
+    <span class="kw">public</span> <span class="cls">Cellule</span> sud, est, nord, ouest;           <span class="cmt">// 4 voisines (null au bord)</span>
+    <span class="kw">public</span> <span class="cls">Occupant</span> occupant;                       <span class="cmt">// null = cellule libre</span>
+
+    <span class="cmt">// Ajout nécessaire : getCellule(x, y) doit pouvoir retrouver n'importe quelle cellule.</span>
+    <span class="cmt">// La matrice est donc partagée (static) ; Labyrinthe la renseigne au démarrage.</span>
+    <span class="kw">public</span> <span class="kw">static</span> <span class="cls">Cellule</span>[][] matrice;
+
+    <span class="kw">public</span> <span class="fn">Cellule</span>(<span class="kw">int</span> posX, <span class="kw">int</span> posY) {
+        <span class="kw">this</span>.posX = posX;
+        <span class="kw">this</span>.posY = posY;
+    }
+
+    <span class="cmt">/** Retourne la cellule (x, y) ou null si elle est hors du labyrinthe. */</span>
+    <span class="kw">public</span> <span class="cls">Cellule</span> <span class="fn">getCellule</span>(<span class="kw">int</span> posX, <span class="kw">int</span> posY) {
+        <span class="kw">if</span> (posX &lt; <span class="num">0</span> || posY &lt; <span class="num">0</span> || posX &gt;= matrice.length || posY &gt;= matrice[<span class="num">0</span>].length) <span class="kw">return</span> <span class="kw">null</span>;
+        <span class="kw">return</span> matrice[posX][posY];
+    }
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">affecterVoisines</span>() {
+        nord  = <span class="fn">getCellule</span>(posX - <span class="num">1</span>, posY);
+        sud   = <span class="fn">getCellule</span>(posX + <span class="num">1</span>, posY);
+        ouest = <span class="fn">getCellule</span>(posX, posY - <span class="num">1</span>);
+        est   = <span class="fn">getCellule</span>(posX, posY + <span class="num">1</span>);
+    }
+
+    <span class="kw">public</span> <span class="kw">boolean</span> <span class="fn">estLibre</span>() {
+        <span class="kw">return</span> occupant == <span class="kw">null</span>;
+    }
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">prendreOccupant</span>(<span class="cls">Occupant</span> occupant) {
+        <span class="kw">this</span>.occupant = occupant;
+        <span class="kw">if</span> (occupant != <span class="kw">null</span>) occupant.<span class="fn">setCellule</span>(<span class="kw">this</span>);
+    }
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">perdreOccupant</span>() {
+        <span class="kw">if</span> (!<span class="fn">estLibre</span>()) occupant.<span class="fn">setCellule</span>(<span class="kw">null</span>);
+        occupant = <span class="kw">null</span>;
+    }
+
+    <span class="kw">@Override</span>                                        <span class="cmt">// et non @override : le compilateur refuse la minuscule</span>
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">toString</span>() {
+        <span class="kw">return</span> <span class="fn">estLibre</span>() ? <span class="str">"-"</span> : occupant.<span class="fn">toString</span>();
+    }
+}</pre>
+<pre class="code"><span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> <span class="cls">Occupant</span> {
+    <span class="kw">protected</span> <span class="cls">Cellule</span> cellule;
+
+    <span class="kw">public</span> <span class="fn">Occupant</span>(<span class="cls">Cellule</span> uneCel) {
+        cellule = uneCel;
+        <span class="kw">if</span> (uneCel != <span class="kw">null</span>) uneCel.<span class="fn">prendreOccupant</span>(<span class="kw">this</span>);   <span class="cmt">// la cellule connaît son occupant (lien réciproque)</span>
+    }
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">setCellule</span>(<span class="cls">Cellule</span> uneCel) { cellule = uneCel; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="kw">abstract</span> <span class="cls">String</span> <span class="fn">toString</span>();            <span class="cmt">// redéclarée abstraite : chaque occupant DOIT la fournir</span>
+}</pre>
+<pre class="code"><span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> <span class="cls">Mobile</span> <span class="kw">extends</span> <span class="cls">Occupant</span> {
+
+    <span class="kw">public</span> <span class="fn">Mobile</span>(<span class="cls">Cellule</span> uneCel) { <span class="kw">super</span>(uneCel); }  <span class="cmt">// indispensable : Occupant n'a pas de constructeur vide</span>
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">deplacerVers</span>(<span class="cls">Cellule</span> cell_dest) {
+        cellule.<span class="fn">perdreOccupant</span>();              <span class="cmt">// quitte la case actuelle (met cellule à null)</span>
+        cell_dest.<span class="fn">prendreOccupant</span>(<span class="kw">this</span>);       <span class="cmt">// occupe la nouvelle case (remet cellule à jour)</span>
+    }
+
+    <span class="cmt">// « goto » est un MOT RÉSERVÉ en Java (inutilisé mais interdit) : on renomme la méthode.</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">allerVers</span>(<span class="cls">Cellule</span> cell_dest) <span class="kw">throws</span> <span class="cls">ObstacleException</span> {
+        <span class="kw">if</span> (cell_dest != <span class="kw">null</span> &amp;&amp; cell_dest.<span class="fn">estLibre</span>()) {
+            <span class="fn">deplacerVers</span>(cell_dest);
+        } <span class="kw">else</span> {
+            <span class="kw">throw</span> <span class="kw">new</span> <span class="fn">ObstacleException</span>(cell_dest == <span class="kw">null</span> ? <span class="str">"bord du labyrinthe"</span> : <span class="str">"case occupée"</span>);
+        }
+    }
+}</pre>
+<pre class="code"><span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> <span class="cls">Fixe</span> <span class="kw">extends</span> <span class="cls">Occupant</span> {
+    <span class="kw">public</span> <span class="fn">Fixe</span>(<span class="cls">Cellule</span> uneCel) { <span class="kw">super</span>(uneCel); }
+}
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Mur</span> <span class="kw">extends</span> <span class="cls">Fixe</span> {
+    <span class="kw">public</span> <span class="fn">Mur</span>(<span class="cls">Cellule</span> uneCel) { <span class="kw">super</span>(uneCel); }
+    <span class="kw">@Override</span> <span class="kw">public</span> <span class="cls">String</span> <span class="fn">toString</span>() { <span class="kw">return</span> <span class="str">"x"</span>; }
+}
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Explorateur</span> <span class="kw">extends</span> <span class="cls">Mobile</span> {
+    <span class="kw">public</span> <span class="fn">Explorateur</span>(<span class="cls">Cellule</span> uneCel) { <span class="kw">super</span>(uneCel); }
+    <span class="kw">@Override</span> <span class="kw">public</span> <span class="cls">String</span> <span class="fn">toString</span>() { <span class="kw">return</span> <span class="str">"O"</span>; }
+    <span class="kw">public</span> <span class="cls">Cellule</span> <span class="fn">getCellule</span>() { <span class="kw">return</span> cellule; }
+}
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">ObstacleException</span> <span class="kw">extends</span> <span class="cls">Exception</span> {
+    <span class="kw">public</span> <span class="fn">ObstacleException</span>(<span class="cls">String</span> msg) { <span class="kw">super</span>(msg); }
+}</pre>
+<pre class="code"><span class="kw">import</span> javax.swing.*;
+<span class="kw">import</span> java.awt.*;
+<span class="kw">import</span> java.awt.event.*;
+<span class="kw">import</span> java.util.*;
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Labyrinthe</span> <span class="kw">extends</span> <span class="cls">JFrame</span> <span class="kw">implements</span> <span class="cls">ActionListener</span> {
+    <span class="kw">private</span> <span class="cls">Cellule</span> matrice[][];
+    <span class="kw">private</span> <span class="cls">JButton</span> grille[][];
+    <span class="kw">private</span> <span class="kw">int</span> nLig, nCol;
+    <span class="kw">private</span> <span class="cls">Explorateur</span> jps;
+    <span class="kw">private</span> <span class="kw">int</span> posX, posY;
+    <span class="kw">private</span> <span class="cls">JButton</span> directions[] = <span class="kw">new</span> <span class="cls">JButton</span>[<span class="num">4</span>];
+
+    <span class="kw">public</span> <span class="fn">Labyrinthe</span>() {
+        <span class="kw">super</span>(<span class="str">"Labyrinthe"</span>);
+        <span class="cls">Random</span> r = <span class="kw">new</span> <span class="fn">Random</span>();
+        nLig = r.<span class="fn">nextInt</span>(<span class="num">6</span>) + <span class="num">5</span>;                       <span class="cmt">// 5..10</span>
+        nCol = r.<span class="fn">nextInt</span>(<span class="num">6</span>) + <span class="num">5</span>;
+        matrice = <span class="kw">new</span> <span class="cls">Cellule</span>[nLig][nCol];
+        grille = <span class="kw">new</span> <span class="cls">JButton</span>[nLig][nCol];
+        <span class="cls">Cellule</span>.matrice = matrice;                     <span class="cmt">// partage pour getCellule</span>
+
+        <span class="cmt">// 1) créer TOUTES les cellules avant de chercher les voisines</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; nLig; i++)
+            <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j &lt; nCol; j++)
+                matrice[i][j] = <span class="kw">new</span> <span class="fn">Cellule</span>(i, j);
+
+        <span class="cmt">// 2) voisines + occupant aléatoire (1 chance sur 4 d'être un mur)</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; nLig; i++)
+            <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j &lt; nCol; j++) {
+                matrice[i][j].<span class="fn">affecterVoisines</span>();
+                <span class="kw">if</span> (r.<span class="fn">nextInt</span>(<span class="num">4</span>) == <span class="num">0</span>) <span class="kw">new</span> <span class="fn">Mur</span>(matrice[i][j]);   <span class="cmt">// le constructeur appelle prendreOccupant</span>
+                <span class="kw">else</span> matrice[i][j].<span class="fn">prendreOccupant</span>(<span class="kw">null</span>);        <span class="cmt">// occupant vide</span>
+            }
+
+        <span class="cmt">// 3) position aléatoire de l'explorateur, hors d'un mur</span>
+        <span class="kw">do</span> {
+            posX = r.<span class="fn">nextInt</span>(nLig);
+            posY = r.<span class="fn">nextInt</span>(nCol);
+        } <span class="kw">while</span> (!matrice[posX][posY].<span class="fn">estLibre</span>());
+        <span class="cls">Cellule</span> depart = matrice[<span class="num">0</span>][<span class="num">0</span>].<span class="fn">getCellule</span>(posX, posY);
+        jps = <span class="kw">new</span> <span class="fn">Explorateur</span>(depart);                 <span class="cmt">// appelle depart.prendreOccupant(jps)</span>
+
+        <span class="cmt">// 4) boutons de la grille (texte = toString de la cellule)</span>
+        <span class="cls">JPanel</span> panneauGrille = <span class="kw">new</span> <span class="fn">JPanel</span>(<span class="kw">new</span> <span class="fn">GridLayout</span>(nLig, nCol));
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; nLig; i++)
+            <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j &lt; nCol; j++) {
+                grille[i][j] = <span class="kw">new</span> <span class="fn">JButton</span>(matrice[i][j].<span class="fn">toString</span>());
+                panneauGrille.<span class="fn">add</span>(grille[i][j]);
+            }
+
+        <span class="cmt">// 5) boutons de direction</span>
+        <span class="cls">String</span>[] noms = {<span class="str">"est"</span>, <span class="str">"ouest"</span>, <span class="str">"nord"</span>, <span class="str">"sud"</span>};
+        <span class="cls">JPanel</span> panneauDirections = <span class="kw">new</span> <span class="fn">JPanel</span>(<span class="kw">new</span> <span class="fn">GridLayout</span>(<span class="num">1</span>, <span class="num">4</span>));
+        <span class="kw">for</span> (<span class="kw">int</span> k = <span class="num">0</span>; k &lt; <span class="num">4</span>; k++) {
+            directions[k] = <span class="kw">new</span> <span class="fn">JButton</span>(noms[k]);
+            directions[k].<span class="fn">addActionListener</span>(<span class="kw">this</span>);
+            panneauDirections.<span class="fn">add</span>(directions[k]);
+        }
+
+        <span class="cls">Container</span> cp = <span class="fn">getContentPane</span>();
+        cp.<span class="fn">setLayout</span>(<span class="kw">new</span> <span class="fn">BorderLayout</span>());
+        cp.<span class="fn">add</span>(panneauGrille, <span class="cls">BorderLayout</span>.<span class="cls">CENTER</span>);
+        cp.<span class="fn">add</span>(panneauDirections, <span class="cls">BorderLayout</span>.<span class="cls">SOUTH</span>);
+        <span class="fn">setDefaultCloseOperation</span>(<span class="cls">JFrame</span>.<span class="cls">EXIT_ON_CLOSE</span>);
+        <span class="fn">setSize</span>(<span class="num">60</span> * nCol, <span class="num">60</span> * nLig + <span class="num">60</span>);
+        <span class="fn">setVisible</span>(<span class="kw">true</span>);
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">actionPerformed</span>(<span class="cls">ActionEvent</span> e) {
+        <span class="cls">Cellule</span> ici = jps.<span class="fn">getCellule</span>();
+        <span class="cls">Cellule</span> cible = <span class="kw">null</span>;
+        <span class="cls">Object</span> s = e.<span class="fn">getSource</span>();
+        <span class="kw">if</span> (s == directions[<span class="num">0</span>]) cible = ici.est;
+        <span class="kw">else</span> <span class="kw">if</span> (s == directions[<span class="num">1</span>]) cible = ici.ouest;
+        <span class="kw">else</span> <span class="kw">if</span> (s == directions[<span class="num">2</span>]) cible = ici.nord;
+        <span class="kw">else</span> <span class="kw">if</span> (s == directions[<span class="num">3</span>]) cible = ici.sud;
+        <span class="kw">try</span> {
+            jps.<span class="fn">allerVers</span>(cible);
+            grille[ici.posX][ici.posY].<span class="fn">setText</span>(ici.<span class="fn">toString</span>());          <span class="cmt">// ancienne case : "-"</span>
+            <span class="cls">Cellule</span> nouv = jps.<span class="fn">getCellule</span>();
+            grille[nouv.posX][nouv.posY].<span class="fn">setText</span>(nouv.<span class="fn">toString</span>());       <span class="cmt">// nouvelle case : "O"</span>
+        } <span class="kw">catch</span> (<span class="cls">ObstacleException</span> ex) {
+            <span class="cmt">// l'explorateur ne bouge pas</span>
+        }
+    }
+
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">main</span>(<span class="cls">String</span>[] args) {
+        <span class="cls">SwingUtilities</span>.<span class="fn">invokeLater</span>(<span class="cls">Labyrinthe</span>::<span class="kw">new</span>);
+    }
+}</pre>
+            <p><b>Test console du modèle</b> (grille 3×3, mur en haut au milieu, explorateur au centre) : aller au nord → « case occupée » ; à l'est → OK ; encore à l'est → « bord du labyrinthe ».</p>
+            <pre class="code">- x -
+- O -
+- - -
+nord : case occupée
+est : OK
+encore est : bord du labyrinthe
+- x -
+- - O
+- - -</pre>
+          </div></div>
+        </div>
+
+        <!-- ================= DS 2016-2017 ================= -->
+        <div class="qa-item" id="an-2016">
+          <button class="qa-q" onclick="toggleQA(this)" aria-expanded="false">
+            <span class="qa-num">DS 2016</span>
+            <span class="qa-text">Cours (interface, polymorphisme, implements, Object, package) ; Exercice 1 Guichet / Bureau / BureauSature ; Exercice 2 UnBouton / DeuxBoutons.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <p><b>Questions de cours :</b> 1) interface = liste de signatures (contrat) à implémenter ; 2) <b>polymorphisme</b> = une même méthode appelée sur des objets de classes différentes d'une hiérarchie donne des comportements propres à chacune (liaison dynamique) ; 3) <code>implements</code> : quand une classe réalise une interface (et s'engage à écrire toutes ses méthodes) ; 4) <code>Object</code> n'a pas de classe mère, c'est la racine de toutes les classes ; 5) visibilité <b>package</b> (aucun mot-clé) : accessible uniquement par les classes du même package.</p>
+<pre class="code"><span class="kw">import</span> java.util.<span class="cls">ArrayList</span>;
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Guichet</span> {
+    <span class="kw">public</span> <span class="cls">ArrayList</span>&lt;<span class="cls">Integer</span>&gt; usagers;       <span class="cmt">// public pour la dernière question (sinon : private + getter)</span>
+    <span class="kw">public</span> <span class="kw">int</span> capacite;
+
+    <span class="kw">public</span> <span class="fn">Guichet</span>(<span class="kw">int</span> capacite) {
+        <span class="kw">this</span>.capacite = capacite;
+        usagers = <span class="kw">new</span> <span class="cls">ArrayList</span>&lt;<span class="cls">Integer</span>&gt;();   <span class="cmt">// ArrayList vide, SANS capacité</span>
+    }
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">ajouterUsager</span>(<span class="kw">int</span> numero) {
+        usagers.<span class="fn">add</span>(numero);                  <span class="cmt">// autoboxing int -&gt; Integer</span>
+    }
+
+    <span class="kw">public</span> <span class="kw">boolean</span> <span class="fn">estPlein</span>() { <span class="kw">return</span> usagers.<span class="fn">size</span>() &gt;= capacite; }
+}</pre>
+<pre class="code"><span class="kw">import</span> java.util.<span class="cls">ArrayList</span>;
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">BureauImplemente</span> <span class="kw">implements</span> <span class="cls">Bureau</span> {
+    <span class="kw">private</span> <span class="cls">ArrayList</span>&lt;<span class="cls">Guichet</span>&gt; guichets;
+    <span class="kw">private</span> <span class="kw">int</span> nombre;
+
+    <span class="kw">public</span> <span class="fn">BureauImplemente</span>(<span class="kw">int</span> nombre) {
+        <span class="kw">this</span>.nombre = nombre;
+        guichets = <span class="kw">new</span> <span class="cls">ArrayList</span>&lt;<span class="cls">Guichet</span>&gt;(nombre);      <span class="cmt">// capacité INITIALE (taille = 0 au départ !)</span>
+    }
+
+    <span class="kw">public</span> <span class="cls">ArrayList</span>&lt;<span class="cls">Guichet</span>&gt; <span class="fn">getGuichets</span>() { <span class="kw">return</span> guichets; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="cls">Guichet</span> <span class="fn">ouvrirNouveauGuichet</span>(<span class="kw">int</span> capacite) {
+        <span class="cls">Guichet</span> g = <span class="kw">new</span> <span class="fn">Guichet</span>(capacite);
+        guichets.<span class="fn">add</span>(g);
+        <span class="kw">return</span> g;
+    }
+
+    <span class="cmt">/** Ajoute l'usager au guichet NON PLEIN qui a le moins d'usagers. */</span>
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">ajouterUsager</span>(<span class="kw">int</span> numero) <span class="kw">throws</span> <span class="cls">BureauSature</span> {
+        <span class="cls">Guichet</span> meilleur = <span class="kw">null</span>;
+        <span class="kw">for</span> (<span class="cls">Guichet</span> g : guichets) {
+            <span class="kw">if</span> (!g.<span class="fn">estPlein</span>() &amp;&amp; (meilleur == <span class="kw">null</span> || g.usagers.<span class="fn">size</span>() &lt; meilleur.usagers.<span class="fn">size</span>())) {
+                meilleur = g;
+            }
+        }
+        <span class="kw">if</span> (meilleur == <span class="kw">null</span>) <span class="kw">throw</span> <span class="kw">new</span> <span class="fn">BureauSature</span>();  <span class="cmt">// aucun guichet disponible (ou aucun ouvert)</span>
+        meilleur.<span class="fn">ajouterUsager</span>(numero);
+    }
+
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">main</span>(<span class="cls">String</span>[] args) {
+        <span class="cls">BureauImplemente</span> b = <span class="kw">new</span> <span class="fn">BureauImplemente</span>(<span class="num">2</span>);
+        b.<span class="fn">ouvrirNouveauGuichet</span>(<span class="num">2</span>);
+        b.<span class="fn">ouvrirNouveauGuichet</span>(<span class="num">1</span>);
+        <span class="kw">for</span> (<span class="kw">int</span> n = <span class="num">1</span>; n &lt;= <span class="num">4</span>; n++) {
+            <span class="kw">try</span> {
+                b.<span class="fn">ajouterUsager</span>(n);
+                <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"usager "</span> + n + <span class="str">" placé"</span>);
+            } <span class="kw">catch</span> (<span class="cls">BureauSature</span> e) {
+                <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"usager "</span> + n + <span class="str">" refusé : "</span> + e.<span class="fn">getMessage</span>());
+            }
+        }
+        <span class="cmt">// dernière question : capacité du premier guichet</span>
+        <span class="cls">Guichet</span> premier = b.<span class="fn">getGuichets</span>().<span class="fn">get</span>(<span class="num">0</span>);
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"capacité du 1er guichet = "</span> + premier.capacite + <span class="str">", usagers = "</span> + premier.usagers);
+    }
+}</pre>
+            <p><b>Test :</b> 2 guichets de capacités 2 et 1 → usagers 1, 2, 3 placés, le 4<sup>e</sup> refusé (« Tous les guichets sont saturés ») ; le 1<sup>er</sup> guichet contient [1, 3].</p>
+            <div class="tip"><b>Deux subtilités</b><code>new ArrayList&lt;Guichet&gt;(nombre)</code> donne une capacité <b>initiale</b>, pas une taille : <code>size()</code> vaut 0 tant qu'on n'a rien ajouté (<code>guichets.get(0)</code> lèverait une exception). Et le corrigé officiel parcourt les guichets en partant du 1<sup>er</sup> même s'il est plein : ma version ne retient que les guichets non pleins, ce qui garantit l'exception seulement quand <b>tous</b> sont saturés.</div>
+<pre class="code"><span class="kw">import</span> javax.swing.<span class="cls">JButton</span>;
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">UnBouton</span> <span class="kw">extends</span> <span class="cls">JButton</span> {
+    <span class="kw">public</span> <span class="fn">UnBouton</span>(<span class="cls">String</span> texte) {
+        <span class="kw">super</span>(texte);                 <span class="cmt">// appelle JButton(String text)</span>
+    }
+}</pre>
+<pre class="code"><span class="kw">import</span> javax.swing.*;
+<span class="kw">import</span> java.awt.*;
+<span class="kw">import</span> java.awt.event.<span class="cls">ActionEvent</span>;
+<span class="kw">import</span> java.awt.event.<span class="cls">ActionListener</span>;
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">DeuxBoutons</span> <span class="kw">extends</span> <span class="cls">JFrame</span> <span class="kw">implements</span> <span class="cls">ActionListener</span> {
+    <span class="cls">UnBouton</span> b1, b2;
+
+    <span class="kw">public</span> <span class="fn">DeuxBoutons</span>() {
+        b1 = <span class="kw">new</span> <span class="fn">UnBouton</span>(<span class="str">"bouton1"</span>);
+        b2 = <span class="kw">new</span> <span class="fn">UnBouton</span>(<span class="str">"bouton2"</span>);
+        <span class="cls">Container</span> boite = <span class="fn">getContentPane</span>();
+        boite.<span class="fn">setLayout</span>(<span class="kw">new</span> <span class="fn">FlowLayout</span>());   <span class="cmt">// sans ça (BorderLayout par défaut), b2 recouvre b1 au CENTER</span>
+        boite.<span class="fn">add</span>(b1);
+        boite.<span class="fn">add</span>(b2);
+        b1.<span class="fn">addActionListener</span>(<span class="kw">this</span>);
+        b2.<span class="fn">addActionListener</span>(<span class="kw">this</span>);
+        <span class="fn">setDefaultCloseOperation</span>(<span class="cls">JFrame</span>.<span class="cls">EXIT_ON_CLOSE</span>);
+        <span class="fn">pack</span>();
+        <span class="fn">setVisible</span>(<span class="kw">true</span>);
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">actionPerformed</span>(<span class="cls">ActionEvent</span> e) {
+        <span class="cls">Object</span> o = e.<span class="fn">getSource</span>();
+        <span class="kw">if</span> (o == b1) b2.<span class="fn">setText</span>(<span class="str">"bouton1"</span>);
+        <span class="kw">else</span> <span class="kw">if</span> (o == b2) b1.<span class="fn">setText</span>(<span class="str">"bouton2"</span>);
+    }
+
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">main</span>(<span class="cls">String</span>[] args) {
+        <span class="cls">SwingUtilities</span>.<span class="fn">invokeLater</span>(<span class="cls">DeuxBoutons</span>::<span class="kw">new</span>);
+    }
+}</pre>
+            <p><b>Attention :</b> « sans layout particulier » = le <code>BorderLayout</code> par défaut de la JFrame, où deux <code>add</code> sans contrainte vont au CENTER : seul <code>b2</code> serait visible. Le <code>FlowLayout</code> ajouté règle ce défaut du sujet.</p>
+          </div></div>
+        </div>
+
+        <!-- ================= DS 2015-2016 ================= -->
+        <div class="qa-item" id="an-2015-gen">
+          <button class="qa-q" onclick="toggleQA(this)" aria-expanded="false">
+            <span class="qa-num">DS 2015</span>
+            <span class="qa-text">Partie 1 (7 pts) : générateur de nombres aléatoires [500, 800] — classes Swing de la maquette, lignes à compléter, listeners « Autre nombre » et « Quitter ».</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <p><b>1.1 Maquette :</b> la fenêtre est une <code>JFrame</code>, le champ du nombre un <code>JTextField</code>, les deux boutons des <code>JButton</code> ; layout : <code>BorderLayout</code> (champ au NORTH, « Autre nombre » au CENTER, « Quitter » au SOUTH).</p>
+<pre class="code"><span class="kw">import</span> java.util.*;
+<span class="kw">import</span> javax.swing.*;
+<span class="kw">import</span> java.awt.*;
+<span class="kw">import</span> java.awt.event.*;
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Generateur</span> <span class="kw">extends</span> <span class="cls">JFrame</span> <span class="kw">implements</span> <span class="cls">ActionListener</span> {
+    <span class="cls">JTextField</span> nombreTire = <span class="kw">new</span> <span class="fn">JTextField</span>();
+    <span class="cls">JButton</span> boutonAutre = <span class="kw">new</span> <span class="fn">JButton</span>(<span class="str">"Autre nombre"</span>);
+    <span class="cls">JButton</span> boutonQuitter = <span class="kw">new</span> <span class="fn">JButton</span>(<span class="str">"Quitter"</span>);
+    <span class="kw">private</span> <span class="kw">final</span> <span class="cls">Random</span> r = <span class="kw">new</span> <span class="fn">Random</span>();
+
+    <span class="kw">public</span> <span class="kw">int</span> <span class="fn">tirerNombreHasard</span>() {
+        <span class="kw">return</span> r.<span class="fn">nextInt</span>(<span class="num">301</span>) + <span class="num">500</span>;                 <span class="cmt">// 301 valeurs : 500..800 inclus</span>
+    }
+
+    <span class="kw">public</span> <span class="fn">Generateur</span>() {
+        <span class="kw">super</span>(<span class="str">"Generateur aleatoire"</span>);               <span class="cmt">// constructeur de JFrame(String title)</span>
+        nombreTire.<span class="fn">setText</span>(<span class="cls">String</span>.<span class="fn">valueOf</span>(<span class="fn">tirerNombreHasard</span>()));
+        <span class="fn">add</span>(nombreTire, <span class="cls">BorderLayout</span>.<span class="cls">NORTH</span>);         <span class="cmt">// JFrame : BorderLayout par défaut</span>
+        <span class="fn">add</span>(boutonAutre, <span class="cls">BorderLayout</span>.<span class="cls">CENTER</span>);
+        <span class="fn">add</span>(boutonQuitter, <span class="cls">BorderLayout</span>.<span class="cls">SOUTH</span>);
+        boutonAutre.<span class="fn">addActionListener</span>(<span class="kw">this</span>);         <span class="cmt">// abonnements</span>
+        boutonQuitter.<span class="fn">addActionListener</span>(<span class="kw">this</span>);
+        <span class="fn">setDefaultCloseOperation</span>(<span class="cls">JFrame</span>.<span class="cls">EXIT_ON_CLOSE</span>);
+        <span class="fn">setSize</span>(<span class="num">300</span>, <span class="num">150</span>);
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">actionPerformed</span>(<span class="cls">ActionEvent</span> e) {
+        <span class="cls">Object</span> source = e.<span class="fn">getSource</span>();
+        <span class="kw">if</span> (source == boutonAutre) {
+            nombreTire.<span class="fn">setText</span>(<span class="cls">String</span>.<span class="fn">valueOf</span>(<span class="fn">tirerNombreHasard</span>()));
+        } <span class="kw">else</span> <span class="kw">if</span> (source == boutonQuitter) {
+            <span class="fn">dispose</span>();                               <span class="cmt">// ferme la fenêtre</span>
+            <span class="cls">System</span>.<span class="fn">exit</span>(<span class="num">0</span>);                          <span class="cmt">// termine le programme</span>
+        }
+    }
+
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">main</span>(<span class="cls">String</span>[] args) {
+        <span class="cls">SwingUtilities</span>.<span class="fn">invokeLater</span>(() -&gt; <span class="kw">new</span> <span class="fn">Generateur</span>().<span class="fn">setVisible</span>(<span class="kw">true</span>));
+    }
+}</pre>
+            <p><b>Les 5 lignes attendues (1.2) :</b> <code>public class Generateur extends JFrame implements ActionListener</code> ; <code>return r.nextInt(301) + 500;</code> (301 valeurs : de 500 à 800 inclus — <code>nextInt(300)</code> n'atteindrait jamais 800) ; <code>super("Generateur aleatoire");</code> ; <code>nombreTire.setText(String.valueOf(tirerNombreHasard()));</code> ; <code>add(nombreTire, BorderLayout.NORTH);</code>. <b>1.3</b> : les deux <code>addActionListener(this)</code> dans le constructeur et la méthode <code>actionPerformed</code> qui teste <code>e.getSource()</code>.</p>
+          </div></div>
+        </div>
+
+        <div class="qa-item" id="an-2015-playlist">
+          <button class="qa-q" onclick="toggleQA(this)" aria-expanded="false">
+            <span class="qa-num">DS 2015</span>
+            <span class="qa-text">Partie 2 (13 pts) : PlayList de vidéos — Vidéo abstraite, protected, rechercher (exception VideoInexistante), moyenne (NotesNulles), tri décroissant, BandeAnnonce.setNote, Publicité.getMarque.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <p><b>1a)</b> Vidéo est abstraite car une « vidéo » générique n'existe pas : ce sont toujours des bandes annonces ou des publicités ; elle <b>factorise</b> titre et durée. <b>1b)</b> <code>protected</code> : les filles accèdent directement à <code>titre</code> et <code>durée</code>, qui restent cachés aux autres classes (hors package). <b>5b)</b> Pas de <code>setMarque</code> : la marque d'une publicité ne doit pas changer après sa création ; sans accesseur en écriture, elle est en <b>lecture seule</b>.</p>
+<pre class="code"><span class="cmt">/** Le sujet écrit « Vidéo » et « Video » : les accents sont légaux en Java,
+    mais il faut UN SEUL nom partout. On choisit Video (sans accent). */</span>
+<span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> <span class="cls">Video</span> {
+    <span class="kw">protected</span> <span class="cls">String</span> titre;
+    <span class="kw">protected</span> <span class="kw">int</span> duree;
+
+    <span class="kw">public</span> <span class="fn">Video</span>(<span class="cls">String</span> titre, <span class="kw">int</span> duree) {
+        <span class="kw">this</span>.titre = titre;
+        <span class="kw">this</span>.duree = duree;
+    }
+
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">getTitre</span>() { <span class="kw">return</span> titre; }
+    <span class="kw">public</span> <span class="kw">int</span> <span class="fn">getDuree</span>() { <span class="kw">return</span> duree; }
+}</pre>
+<pre class="code"><span class="kw">import</span> java.util.<span class="cls">ArrayList</span>;
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">PlayList</span> {
+    <span class="kw">public</span> <span class="kw">static</span> <span class="cls">ArrayList</span>&lt;<span class="cls">Video</span>&gt; liste = <span class="kw">new</span> <span class="cls">ArrayList</span>&lt;&gt;();
+
+    <span class="kw">public</span> <span class="kw">static</span> <span class="cls">Video</span> <span class="fn">rechercher</span>(<span class="cls">String</span> titre) <span class="kw">throws</span> <span class="cls">VideoInexistante</span> {
+        <span class="kw">for</span> (<span class="cls">Video</span> v : liste) {
+            <span class="kw">if</span> (v.<span class="fn">getTitre</span>().<span class="fn">equals</span>(titre)) {       <span class="cmt">// equals, JAMAIS == pour comparer des String</span>
+                <span class="kw">return</span> v;
+            }
+        }
+        <span class="kw">throw</span> <span class="kw">new</span> <span class="fn">VideoInexistante</span>(titre);
+    }
+
+    <span class="kw">public</span> <span class="kw">float</span> <span class="fn">moyenne</span>() <span class="kw">throws</span> <span class="cls">NotesNulles</span> {
+        <span class="kw">float</span> somme = <span class="num">0</span>;
+        <span class="kw">int</span> nb = <span class="num">0</span>;
+        <span class="kw">for</span> (<span class="cls">Video</span> v : liste) {
+            <span class="kw">if</span> (v <span class="kw">instanceof</span> <span class="cls">BandeAnnonce</span>) {         <span class="cmt">// seules les bandes annonces ont une note</span>
+                <span class="kw">float</span> n = ((<span class="cls">BandeAnnonce</span>) v).<span class="fn">getNote</span>();
+                <span class="kw">if</span> (n != <span class="num">0</span>) { somme += n; nb++; }
+            }
+        }
+        <span class="kw">if</span> (nb == <span class="num">0</span>) <span class="kw">throw</span> <span class="kw">new</span> <span class="fn">NotesNulles</span>();
+        <span class="kw">return</span> somme / nb;
+    }
+
+    <span class="cmt">/** Trie les bandes annonces par note décroissante (sans toucher à la playlist) et les affiche. */</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">trierEtAfficher</span>() {
+        <span class="cls">ArrayList</span>&lt;<span class="cls">BandeAnnonce</span>&gt; ba = <span class="kw">new</span> <span class="cls">ArrayList</span>&lt;&gt;();
+        <span class="kw">for</span> (<span class="cls">Video</span> v : liste) <span class="kw">if</span> (v <span class="kw">instanceof</span> <span class="cls">BandeAnnonce</span>) ba.<span class="fn">add</span>((<span class="cls">BandeAnnonce</span>) v);
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; ba.<span class="fn">size</span>() - <span class="num">1</span>; i++) {           <span class="cmt">// tri par sélection, ordre décroissant</span>
+            <span class="kw">int</span> iMax = i;
+            <span class="kw">for</span> (<span class="kw">int</span> j = i + <span class="num">1</span>; j &lt; ba.<span class="fn">size</span>(); j++) {
+                <span class="kw">if</span> (ba.<span class="fn">get</span>(j).<span class="fn">getNote</span>() &gt; ba.<span class="fn">get</span>(iMax).<span class="fn">getNote</span>()) iMax = j;
+            }
+            <span class="cls">BandeAnnonce</span> tmp = ba.<span class="fn">get</span>(i);
+            ba.<span class="fn">set</span>(i, ba.<span class="fn">get</span>(iMax));
+            ba.<span class="fn">set</span>(iMax, tmp);
+        }
+        <span class="kw">for</span> (<span class="cls">BandeAnnonce</span> b : ba) {
+            <span class="cls">System</span>.out.<span class="fn">println</span>(b.<span class="fn">getTitre</span>() + <span class="str">" ; "</span> + b.<span class="fn">getDuree</span>() + <span class="str">" s ; note "</span> + b.<span class="fn">getNote</span>());
+        }
+        <span class="kw">try</span> {
+            <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Moyenne des notes non nulles = "</span> + <span class="fn">moyenne</span>());
+        } <span class="kw">catch</span> (<span class="cls">NotesNulles</span> e) {
+            <span class="cls">System</span>.out.<span class="fn">println</span>(e.<span class="fn">getMessage</span>());
+        }
+    }
+
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">main</span>(<span class="cls">String</span>[] args) <span class="kw">throws</span> <span class="cls">Exception</span> {
+        <span class="cls">PlayList</span> p = <span class="kw">new</span> <span class="fn">PlayList</span>();
+        liste.<span class="fn">add</span>(<span class="kw">new</span> <span class="fn">BandeAnnonce</span>(<span class="str">"Dune 3"</span>, <span class="num">150</span>, <span class="num">4.5f</span>));
+        liste.<span class="fn">add</span>(<span class="kw">new</span> <span class="fn">Publicite</span>(<span class="str">"Pub café"</span>, <span class="num">30</span>, <span class="str">"Nespresso"</span>));
+        liste.<span class="fn">add</span>(<span class="kw">new</span> <span class="fn">BandeAnnonce</span>(<span class="str">"Toy Story 5"</span>, <span class="num">120</span>, <span class="num">0f</span>));
+        liste.<span class="fn">add</span>(<span class="kw">new</span> <span class="fn">BandeAnnonce</span>(<span class="str">"Mission 9"</span>, <span class="num">140</span>, <span class="num">3.5f</span>));
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Trouvé : "</span> + <span class="fn">rechercher</span>(<span class="str">"Pub café"</span>).<span class="fn">getTitre</span>());
+        p.<span class="fn">trierEtAfficher</span>();
+        <span class="kw">new</span> <span class="fn">BandeAnnonce</span>(<span class="str">"Nouveau"</span>, <span class="num">90</span>, <span class="num">0f</span>).<span class="fn">setNote</span>(<span class="num">5f</span>, <span class="str">"Nouveau"</span>, p);   <span class="cmt">// absente -&gt; ajoutée</span>
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Taille de la playlist après setNote : "</span> + liste.<span class="fn">size</span>());
+        <span class="kw">try</span> { <span class="fn">rechercher</span>(<span class="str">"Inconnu"</span>); } <span class="kw">catch</span> (<span class="cls">VideoInexistante</span> e) { <span class="cls">System</span>.out.<span class="fn">println</span>(e.<span class="fn">getMessage</span>()); }
+    }
+}</pre>
+<pre class="code"><span class="kw">public</span> <span class="kw">class</span> <span class="cls">BandeAnnonce</span> <span class="kw">extends</span> <span class="cls">Video</span> {
+    <span class="kw">private</span> <span class="kw">float</span> note;
+
+    <span class="kw">public</span> <span class="fn">BandeAnnonce</span>(<span class="cls">String</span> titre, <span class="kw">int</span> duree, <span class="kw">float</span> note) {
+        <span class="kw">super</span>(titre, duree);                    <span class="cmt">// les attributs hérités sont initialisés par Video</span>
+        <span class="kw">this</span>.note = note;
+    }
+
+    <span class="kw">public</span> <span class="kw">float</span> <span class="fn">getNote</span>() { <span class="kw">return</span> note; }
+
+    <span class="cmt">/** Modifie la note ; si le titre n'est pas dans la playlist, on y ajoute cette bande annonce. */</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">setNote</span>(<span class="kw">float</span> note, <span class="cls">String</span> titre, <span class="cls">PlayList</span> liste) {
+        <span class="kw">this</span>.note = note;
+        <span class="kw">try</span> {
+            <span class="cls">PlayList</span>.<span class="fn">rechercher</span>(titre);          <span class="cmt">// méthode STATIQUE : on l'appelle sur la classe</span>
+        } <span class="kw">catch</span> (<span class="cls">VideoInexistante</span> e) {
+            <span class="cls">PlayList</span>.liste.<span class="fn">add</span>(<span class="kw">this</span>);
+        }
+    }
+}</pre>
+<pre class="code"><span class="kw">public</span> <span class="kw">class</span> <span class="cls">Publicite</span> <span class="kw">extends</span> <span class="cls">Video</span> {
+    <span class="kw">private</span> <span class="cls">String</span> marque;
+
+    <span class="kw">public</span> <span class="fn">Publicite</span>(<span class="cls">String</span> titre, <span class="kw">int</span> duree, <span class="cls">String</span> marque) {
+        <span class="kw">super</span>(titre, duree);
+        <span class="kw">this</span>.marque = marque;
+    }
+
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">getMarque</span>() { <span class="kw">return</span> marque; }  <span class="cmt">// lecture seule : pas de setMarque</span>
+}</pre>
+            <p><b>Exécution :</b> « Dune 3 ; 150 s ; note 4.5 », « Mission 9 ; 140 s ; note 3.5 », « Toy Story 5 ; 120 s ; note 0.0 », puis « Moyenne des notes non nulles = 4.0 » (la note 0 est exclue).</p>
+            <div class="tip"><b>Erreurs du corrigé officiel</b>1) <code>v.getTitre() == titre</code> compare des <b>références</b> : deux chaînes de même contenu peuvent être des objets différents → toujours <code>equals</code>. 2) Dans le tri, <code>v1.getNote()</code> sur une variable de type <code>Vidéo</code> ne compile pas (la méthode n'existe que dans BandeAnnonce). 3) <code>liste = listetriee;</code> ne compile pas (types différents) et, sinon, <b>écraserait</b> la playlist en perdant les publicités. 4) <code>liste.liste.rechercher(titre)</code> : <code>rechercher</code> est une méthode <b>statique de PlayList</b>, pas de l'ArrayList → <code>PlayList.rechercher(titre)</code>.</div>
+          </div></div>
+        </div>
+
+        <!-- ================= DS 2014-2015 ================= -->
+        <div class="qa-item" id="an-2014">
+          <button class="qa-q" onclick="toggleQA(this)" aria-expanded="false">
+            <span class="qa-num">DS 2014</span>
+            <span class="qa-text">Réservation de voyages en train : compléter le diagramme (Passager, Train, Wagon…), classe Voyage, main avec Scanner et SimpleDateFormat, formulaire Swing.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <p><b>Q1 — Diagramme complété :</b></p>
+            <div class="tbl-wrap"><table class="tbl">
+              <thead><tr><th>Classe</th><th>Attributs</th><th>Relations (verbe, multiplicités)</th></tr></thead>
+              <tbody>
+                <tr><td>Voyage</td><td>- retour, direct : boolean ; - nb_passagers, confort : int ; - dateAller, dateRetour : Date ; - heureAller, heureRetour : int</td><td>« réservé par » * — 1 Personne ; « transporte » 1 — 1..* Passager ; « part de » * — 1 Gare ; « arrive à » * — 1 Gare</td></tr>
+                <tr><td>Passager <code>extends Personne</code></td><td>- trancheAge, carteAbonnement, programmeFidelite : String</td><td>héritage : un passager EST une personne (et la personne qui réserve peut être un passager)</td></tr>
+                <tr><td>Train</td><td>- numero : int ; - type : String (TGV, idTGV, Corail)</td><td>« stationne dans » * — 1 Gare ; « est composé de » ◆ 1 — 1..* Wagon (composition)</td></tr>
+                <tr><td><i>Wagon</i> (abstraite)</td><td># numero : int</td><td>mère de WagonNormal (- nbSieges), WagonLit (- nbLits), WagonBar</td></tr>
+              </tbody>
+            </table></div>
+            <p><b>Questions :</b> les 3 wagons sont liés à Wagon par <b>héritage</b> (spécialisation) ; WagonBar, sans attribut propre, n'est utile que si le programme la distingue (sinon un attribut <code>categorie</code> suffirait). Une classe qui existe mais n'est jamais instanciée se modélise en <b>classe abstraite</b> (nom en <i>italique</i>) : elle factorise les attributs communs (<code>numero</code>) et permet de manipuler « un wagon » quel que soit son type (polymorphisme).</p>
+<pre class="code"><span class="kw">import</span> java.util.<span class="cls">Date</span>;
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Voyage</span> {
+    <span class="kw">private</span> <span class="kw">boolean</span> retour, direct;
+    <span class="kw">private</span> <span class="kw">int</span> nb_passagers, confort;
+    <span class="kw">private</span> <span class="cls">Date</span> dateAller, dateRetour;
+    <span class="kw">private</span> <span class="kw">int</span> heureAller, heureRetour;
+    <span class="kw">private</span> <span class="cls">Personne</span> reservePar;
+    <span class="kw">private</span> <span class="cls">Passager</span>[] passagers;
+    <span class="kw">private</span> <span class="cls">Gare</span> depart, arrivee;
+
+    <span class="kw">public</span> <span class="fn">Voyage</span>() {                                    <span class="cmt">// pas de retour, direct, 1 passager, 2e classe</span>
+        <span class="kw">this</span>(<span class="kw">false</span>, <span class="kw">true</span>, <span class="num">1</span>, <span class="num">2</span>);
+    }
+
+    <span class="kw">public</span> <span class="fn">Voyage</span>(<span class="kw">boolean</span> retour, <span class="kw">boolean</span> direct, <span class="kw">int</span> nb_passagers, <span class="kw">int</span> confort) {
+        <span class="kw">this</span>.retour = retour;
+        <span class="kw">this</span>.direct = direct;
+        <span class="kw">this</span>.nb_passagers = nb_passagers;
+        <span class="kw">this</span>.confort = confort;
+    }
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">aller</span>(<span class="cls">Gare</span> depart, <span class="cls">Gare</span> arrivee, <span class="cls">Date</span> date, <span class="kw">int</span> heure) {
+        <span class="kw">this</span>.depart = depart;
+        <span class="kw">this</span>.arrivee = arrivee;
+        <span class="kw">this</span>.dateAller = date;
+        <span class="kw">this</span>.heureAller = heure;
+    }
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">revenir</span>(<span class="cls">Date</span> date, <span class="kw">int</span> heure) {
+        <span class="kw">this</span>.dateRetour = date;
+        <span class="kw">this</span>.heureRetour = heure;
+    }
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">reserver</span>(<span class="cls">Personne</span> p, <span class="kw">int</span> nb_passagers) {
+        <span class="kw">this</span>.reservePar = p;
+        <span class="kw">this</span>.nb_passagers = nb_passagers;
+        <span class="kw">this</span>.passagers = <span class="kw">new</span> <span class="cls">Passager</span>[nb_passagers];     <span class="cmt">// cases à null : les passagers seront créés ensuite</span>
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">toString</span>() {
+        <span class="kw">return</span> depart.<span class="fn">getNom</span>() + <span class="str">" -&gt; "</span> + arrivee.<span class="fn">getNom</span>() + <span class="str">" le "</span> + dateAller + <span class="str">" à "</span> + heureAller + <span class="str">"h, "</span>
+                + nb_passagers + <span class="str">" passager(s), classe "</span> + confort + (retour ? <span class="str">", retour le "</span> + dateRetour : <span class="str">""</span>);
+    }
+}</pre>
+<pre class="code"><span class="kw">import</span> java.text.<span class="cls">SimpleDateFormat</span>;
+<span class="kw">import</span> java.util.<span class="cls">Date</span>;
+<span class="kw">import</span> java.util.<span class="cls">Scanner</span>;
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Reservation</span> {
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">main</span>(<span class="cls">String</span>[] args) {
+        <span class="cls">Scanner</span> sc = <span class="kw">new</span> <span class="fn">Scanner</span>(<span class="cls">System</span>.in);
+        <span class="cls">SimpleDateFormat</span> format = <span class="kw">new</span> <span class="fn">SimpleDateFormat</span>(<span class="str">"dd-MM-yyyy"</span>);
+        format.<span class="fn">setLenient</span>(<span class="kw">false</span>);                          <span class="cmt">// refuse 32-13-2015</span>
+        <span class="kw">try</span> {
+            <span class="cls">System</span>.out.<span class="fn">print</span>(<span class="str">"Retour (true/false) ? "</span>);  <span class="kw">boolean</span> retour = sc.<span class="fn">nextBoolean</span>();
+            <span class="cls">System</span>.out.<span class="fn">print</span>(<span class="str">"Direct (true/false) ? "</span>);  <span class="kw">boolean</span> direct = sc.<span class="fn">nextBoolean</span>();
+            <span class="cls">System</span>.out.<span class="fn">print</span>(<span class="str">"Gare de départ ? "</span>);       <span class="cls">String</span> gDep = sc.<span class="fn">next</span>();
+            <span class="cls">System</span>.out.<span class="fn">print</span>(<span class="str">"Gare d'arrivée ? "</span>);       <span class="cls">String</span> gArr = sc.<span class="fn">next</span>();
+            <span class="cls">System</span>.out.<span class="fn">print</span>(<span class="str">"Date aller (dd-MM-yyyy) ? "</span>); <span class="cls">Date</span> dAller = format.<span class="fn">parse</span>(sc.<span class="fn">next</span>());
+            <span class="cls">System</span>.out.<span class="fn">print</span>(<span class="str">"Heure aller ? "</span>);          <span class="kw">int</span> hAller = sc.<span class="fn">nextInt</span>();
+            <span class="cls">System</span>.out.<span class="fn">print</span>(<span class="str">"Nombre de passagers ? "</span>);  <span class="kw">int</span> nb = sc.<span class="fn">nextInt</span>();
+            <span class="cls">System</span>.out.<span class="fn">print</span>(<span class="str">"Classe (1 ou 2) ? "</span>);      <span class="kw">int</span> confort = sc.<span class="fn">nextInt</span>();
+            <span class="cls">Date</span> dRetour = <span class="kw">null</span>; <span class="kw">int</span> hRetour = <span class="num">0</span>;
+            <span class="kw">if</span> (retour) {
+                <span class="cls">System</span>.out.<span class="fn">print</span>(<span class="str">"Date retour ? "</span>);      dRetour = format.<span class="fn">parse</span>(sc.<span class="fn">next</span>());
+                <span class="cls">System</span>.out.<span class="fn">print</span>(<span class="str">"Heure retour ? "</span>);     hRetour = sc.<span class="fn">nextInt</span>();
+            }
+
+            <span class="cls">Personne</span> client = <span class="kw">new</span> <span class="fn">Personne</span>();
+            <span class="cls">Gare</span> depart = <span class="kw">new</span> <span class="fn">Gare</span>(gDep), arrivee = <span class="kw">new</span> <span class="fn">Gare</span>(gArr);
+            <span class="cls">Voyage</span> v = <span class="kw">new</span> <span class="fn">Voyage</span>(retour, direct, nb, confort);
+            v.<span class="fn">aller</span>(depart, arrivee, dAller, hAller);
+            <span class="kw">if</span> (retour) v.<span class="fn">revenir</span>(dRetour, hRetour);
+            v.<span class="fn">reserver</span>(client, nb);
+            <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"\nRéservé : "</span> + v);
+        } <span class="kw">catch</span> (<span class="cls">Exception</span> e) {                           <span class="cmt">// InputMismatchException ou ParseException</span>
+            <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"\nErreur de saisie : "</span> + e);
+        }
+    }
+}</pre>
+            <p><b>Tests :</b> saisie valide → « Réservé : Paris -> Lyon … 2 passager(s), classe 2, retour … » ; « x » au lieu d'un booléen → <code>InputMismatchException</code> attrapée ; date « 32-13-2015 » → <code>ParseException</code> attrapée (grâce à <code>setLenient(false)</code> ; sinon Java « corrige » la date en février 2016 sans rien dire !).</p>
+<pre class="code"><span class="kw">import</span> javax.swing.*;
+<span class="kw">import</span> java.awt.*;
+<span class="kw">import</span> java.awt.event.<span class="cls">ActionEvent</span>;
+<span class="kw">import</span> java.awt.event.<span class="cls">ActionListener</span>;
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">FormulaireReservation</span> <span class="kw">extends</span> <span class="cls">JFrame</span> <span class="kw">implements</span> <span class="cls">ActionListener</span> {
+    <span class="kw">private</span> <span class="cls">JTextField</span> depart, arrivee, dateAller;
+    <span class="kw">private</span> <span class="cls">JRadioButton</span> allerSimple, allerRetour;
+    <span class="kw">private</span> <span class="cls">JCheckBox</span> direct;
+    <span class="kw">private</span> <span class="cls">JButton</span> reservez;
+
+    <span class="kw">public</span> <span class="fn">FormulaireReservation</span>() {                     <span class="cmt">// instancie les composants avec leurs valeurs par défaut</span>
+        depart = <span class="kw">new</span> <span class="fn">JTextField</span>(<span class="str">"Paris"</span>);
+        arrivee = <span class="kw">new</span> <span class="fn">JTextField</span>(<span class="str">"Lyon"</span>);
+        dateAller = <span class="kw">new</span> <span class="fn">JTextField</span>(<span class="str">"15-05-2015"</span>);
+        allerSimple = <span class="kw">new</span> <span class="fn">JRadioButton</span>(<span class="str">"Aller simple"</span>, <span class="kw">true</span>);
+        allerRetour = <span class="kw">new</span> <span class="fn">JRadioButton</span>(<span class="str">"Aller-retour"</span>, <span class="kw">false</span>);
+        direct = <span class="kw">new</span> <span class="fn">JCheckBox</span>(<span class="str">"Trajet direct"</span>, <span class="kw">true</span>);
+        reservez = <span class="kw">new</span> <span class="fn">JButton</span>(<span class="str">"Réservez"</span>);
+        <span class="fn">miseEnPage</span>();
+        <span class="fn">dessiner</span>();
+    }
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">dessiner</span>() {
+        <span class="fn">setTitle</span>(<span class="str">"Réservation"</span>);
+        <span class="fn">setSize</span>(<span class="num">360</span>, <span class="num">260</span>);
+        <span class="fn">setDefaultCloseOperation</span>(<span class="cls">JFrame</span>.<span class="cls">EXIT_ON_CLOSE</span>);
+        <span class="fn">setVisible</span>(<span class="kw">true</span>);
+    }
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">miseEnPage</span>() {
+        <span class="cls">ButtonGroup</span> groupe = <span class="kw">new</span> <span class="fn">ButtonGroup</span>();          <span class="cmt">// un seul bouton radio coché à la fois</span>
+        groupe.<span class="fn">add</span>(allerSimple);
+        groupe.<span class="fn">add</span>(allerRetour);
+        <span class="cls">Container</span> c = <span class="fn">getContentPane</span>();
+        c.<span class="fn">setLayout</span>(<span class="kw">new</span> <span class="fn">GridLayout</span>(<span class="num">0</span>, <span class="num">2</span>, <span class="num">6</span>, <span class="num">6</span>));
+        c.<span class="fn">add</span>(<span class="kw">new</span> <span class="fn">JLabel</span>(<span class="str">"Départ"</span>));   c.<span class="fn">add</span>(depart);
+        c.<span class="fn">add</span>(<span class="kw">new</span> <span class="fn">JLabel</span>(<span class="str">"Arrivée"</span>));  c.<span class="fn">add</span>(arrivee);
+        c.<span class="fn">add</span>(<span class="kw">new</span> <span class="fn">JLabel</span>(<span class="str">"Date aller"</span>)); c.<span class="fn">add</span>(dateAller);
+        c.<span class="fn">add</span>(allerSimple);            c.<span class="fn">add</span>(allerRetour);
+        c.<span class="fn">add</span>(direct);                 c.<span class="fn">add</span>(reservez);
+        reservez.<span class="fn">addActionListener</span>(<span class="kw">this</span>);                <span class="cmt">// seul « Réservez » est écouté</span>
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">actionPerformed</span>(<span class="cls">ActionEvent</span> e) {
+        <span class="kw">if</span> (e.<span class="fn">getSource</span>() == reservez) <span class="fn">dispose</span>();         <span class="cmt">// ferme la fenêtre</span>
+    }
+
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">main</span>(<span class="cls">String</span>[] args) {
+        <span class="cls">SwingUtilities</span>.<span class="fn">invokeLater</span>(<span class="cls">FormulaireReservation</span>::<span class="kw">new</span>);
+    }
+}</pre>
+          </div></div>
+        </div>
+
+        <!-- ================= DS 2013-2014 ================= -->
+        <div class="qa-item" id="an-2013">
+          <button class="qa-q" onclick="toggleQA(this)" aria-expanded="false">
+            <span class="qa-num">DS 2013</span>
+            <span class="qa-text">Générateur [0, 1000] (Swing) puis la Poste : files d'attente en tableau, FilePleineException, GuichetVideException, BureauImplemente, main avec arguments de ligne de commande.</span>
+            <span class="qa-chevron">▾</span>
+          </button>
+          <div class="qa-a"><div class="qa-a-in">
+            <p><b>Partie 1</b> : même exercice que le DS 2015 (intervalle [0, 1000], <code>Math.round(Math.random()*VMAX)</code>). Commentaires des lignes clés : <code>super("Generateur aleatoire")</code> appelle le constructeur de JFrame avec le titre ; <code>nombreTire.setText(… .toString())</code> affiche le premier tirage (conversion <code>long</code> → String) ; <code>add(nombreTire, "North")</code> place le champ en haut du BorderLayout ; <code>ga.setVisible(true)</code> affiche la fenêtre. Le listener est identique au DS 2015.</p>
+            <p><b>2.1 Diagramme :</b> <code>Poste</code> ⇢ <code>BureauImplemente</code> (« utilise », dans le main) ; <code>BureauImplemente</code> ⋯▷ <code>«interface» Bureau</code> (« réalise ») ; <code>BureauImplemente</code> ◆ 1 — 1..5 <code>Guichet</code> (« gère ») ; les deux exceptions ▷ <code>Exception</code>. Guichet : + file : int[], + tailleLimite : int, + longueur : int.</p>
+<pre class="code"><span class="kw">public</span> <span class="kw">class</span> <span class="cls">Guichet</span> {
+    <span class="kw">public</span> <span class="kw">int</span>[] file;           <span class="cmt">// numéros d'usagers en attente</span>
+    <span class="kw">public</span> <span class="kw">int</span> tailleLimite;
+    <span class="kw">public</span> <span class="kw">int</span> longueur = <span class="num">0</span>;     <span class="cmt">// nombre d'usagers actuellement dans la file</span>
+    <span class="kw">public</span> <span class="kw">int</span> numero;           <span class="cmt">// numéro du guichet (pour l'affichage)</span>
+
+    <span class="kw">public</span> <span class="fn">Guichet</span>(<span class="kw">int</span> tailleLimite) {
+        <span class="kw">this</span>.tailleLimite = tailleLimite;
+        file = <span class="kw">new</span> <span class="kw">int</span>[tailleLimite];
+    }
+    <span class="kw">public</span> <span class="kw">boolean</span> <span class="fn">estPleine</span>() { <span class="kw">return</span> longueur == tailleLimite; }
+}</pre>
+<pre class="code"><span class="kw">public</span> <span class="kw">class</span> <span class="cls">BureauImplemente</span> <span class="kw">implements</span> <span class="cls">Bureau</span> {
+    <span class="kw">public</span> <span class="kw">int</span> nbGuichets;
+    <span class="kw">public</span> <span class="cls">Guichet</span>[] guichets;
+    <span class="kw">private</span> <span class="kw">int</span> nbOuverts = <span class="num">0</span>;
+
+    <span class="kw">public</span> <span class="fn">BureauImplemente</span>(<span class="kw">int</span> nbGuichets) {
+        <span class="kw">this</span>.nbGuichets = nbGuichets;
+        guichets = <span class="kw">new</span> <span class="cls">Guichet</span>[nbGuichets];
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="cls">Guichet</span> <span class="fn">ouvrirNouveauGuichet</span>(<span class="kw">int</span> taille) {
+        <span class="cls">Guichet</span> g = <span class="kw">new</span> <span class="fn">Guichet</span>(taille);
+        g.numero = nbOuverts + <span class="num">1</span>;
+        guichets[nbOuverts++] = g;
+        <span class="kw">return</span> g;
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">ajouterUsager</span>(<span class="kw">int</span> numero) <span class="kw">throws</span> <span class="cls">FilePleineException</span> {
+        <span class="cls">Guichet</span> min = <span class="kw">null</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; nbOuverts; i++) {
+            <span class="cls">Guichet</span> g = guichets[i];
+            <span class="kw">if</span> (!g.<span class="fn">estPleine</span>() &amp;&amp; (min == <span class="kw">null</span> || g.longueur &lt; min.longueur)) min = g;
+        }
+        <span class="kw">if</span> (min == <span class="kw">null</span>) <span class="kw">throw</span> <span class="kw">new</span> <span class="fn">FilePleineException</span>();
+        min.file[min.longueur] = numero;     <span class="cmt">// ajout en FIN de file</span>
+        min.longueur++;
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"usager "</span> + numero + <span class="str">" -&gt; guichet "</span> + min.numero
+                + <span class="str">" (longueur "</span> + min.longueur + <span class="str">"/"</span> + min.tailleLimite + <span class="str">")"</span>);
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="kw">int</span> <span class="fn">retirerPremierUsager</span>(<span class="cls">Guichet</span> g) <span class="kw">throws</span> <span class="cls">GuichetVideException</span> {
+        <span class="kw">if</span> (g.longueur == <span class="num">0</span>) <span class="kw">throw</span> <span class="kw">new</span> <span class="fn">GuichetVideException</span>(g.numero);
+        <span class="kw">int</span> premier = g.file[<span class="num">0</span>];
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i &lt; g.longueur; i++) g.file[i - <span class="num">1</span>] = g.file[i];   <span class="cmt">// décaler vers la gauche</span>
+        g.longueur--;
+        <span class="kw">return</span> premier;
+    }
+}</pre>
+<pre class="code"><span class="kw">import</span> java.util.<span class="cls">Random</span>;
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Poste</span> {
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">main</span>(<span class="cls">String</span> args[]) {
+        <span class="kw">int</span> nbUsagers, nbGuichets;
+        <span class="kw">try</span> {
+            <span class="kw">if</span> (args.length != <span class="num">2</span>) <span class="kw">throw</span> <span class="kw">new</span> <span class="fn">IllegalArgumentException</span>(<span class="str">"il faut 2 arguments"</span>);
+            nbUsagers = <span class="cls">Integer</span>.<span class="fn">parseInt</span>(args[<span class="num">0</span>]);        <span class="cmt">// NumberFormatException si "abc"</span>
+            nbGuichets = <span class="cls">Integer</span>.<span class="fn">parseInt</span>(args[<span class="num">1</span>]);
+            <span class="kw">if</span> (nbUsagers &lt; <span class="num">200</span> || nbUsagers &gt; <span class="num">300</span> || nbGuichets &lt; <span class="num">1</span> || nbGuichets &gt; <span class="num">5</span>)
+                <span class="kw">throw</span> <span class="kw">new</span> <span class="fn">IllegalArgumentException</span>(<span class="str">"valeurs hors bornes"</span>);
+        } <span class="kw">catch</span> (<span class="cls">NumberFormatException</span> e) {
+            <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Erreur de format : "</span> + e.<span class="fn">getMessage</span>());
+            <span class="kw">return</span>;
+        } <span class="kw">catch</span> (<span class="cls">IllegalArgumentException</span> e) {
+            <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Erreur d'arguments : "</span> + e.<span class="fn">getMessage</span>());
+            <span class="kw">return</span>;
+        }
+
+        <span class="cls">Random</span> r = <span class="kw">new</span> <span class="fn">Random</span>();
+        <span class="cls">BureauImplemente</span> bureau = <span class="kw">new</span> <span class="fn">BureauImplemente</span>(nbGuichets);
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; nbGuichets; i++) bureau.<span class="fn">ouvrirNouveauGuichet</span>(r.<span class="fn">nextInt</span>(<span class="num">16</span>) + <span class="num">15</span>);   <span class="cmt">// 15..30</span>
+
+        <span class="kw">for</span> (<span class="kw">int</span> numero = <span class="num">1</span>; numero &lt;= nbUsagers; numero++) {
+            <span class="kw">try</span> {
+                bureau.<span class="fn">ajouterUsager</span>(numero);
+            } <span class="kw">catch</span> (<span class="cls">FilePleineException</span> e) {
+                numero--;                                    <span class="cmt">// on retentera ce même usager</span>
+                <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; nbGuichets; i++) {
+                    <span class="kw">try</span> {
+                        <span class="kw">int</span> servi = bureau.<span class="fn">retirerPremierUsager</span>(bureau.guichets[i]);
+                        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"guichet "</span> + (i + <span class="num">1</span>) + <span class="str">" sert l'usager "</span> + servi);
+                    } <span class="kw">catch</span> (<span class="cls">GuichetVideException</span> ex) {
+                        <span class="cls">System</span>.out.<span class="fn">println</span>(ex.<span class="fn">getMessage</span>());
+                    }
+                }
+            }
+        }
+    }
+}</pre>
+            <p><b>Tests des arguments :</b> <code>Poste 100 2</code> → « valeurs hors bornes » ; <code>Poste abc 2</code> → « Erreur de format » ; <code>Poste</code> seul → « il faut 2 arguments » ; <code>Poste 250 2</code> → ajouts, et dès que les files sont pleines, chaque guichet sert son premier usager.</p>
+            <div class="tip"><b>Retirer le premier d'un tableau</b>Il faut <b>décaler</b> tous les éléments d'une case vers la gauche (boucle), puis décrémenter la longueur. C'est précisément ce que <code>ArrayList.remove(0)</code> fait pour toi — d'où l'intérêt des collections.</div>
+          </div></div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    POO Java — Ing2 Gr02 · corrigés rédigés et vérifiés (javac 21) · code complet dans le dossier <a href="code/">code/</a> du dépôt.
+  </div>
+</footer>
+<script src="js/app.js"></script>
+<script src="js/corriges.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "POO Java — Ing2 (ECE)",
+  "short_name": "POO Java",
+  "description": "Cours semaine par semaine, exercices, TP et annales corrigés, QCM.",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#161211",
+  "theme_color": "#b45a1e",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "assets/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

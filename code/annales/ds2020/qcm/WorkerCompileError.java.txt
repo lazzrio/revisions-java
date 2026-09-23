@@ -1,0 +1,16 @@
+// Q5 telle qu'écrite dans le sujet : NE COMPILE PAS
+import java.io.*;
+public class WorkerCompileError {
+    public int work() {
+        try {
+            FileInputStream dis = new FileInputStream("Hello.txt");
+            return 0;
+            System.out.println("File found");   // error: unreachable statement
+        } catch (FileNotFoundException fne) {
+            System.out.println("No such file found");
+            return -1;
+        } finally {
+            System.out.println("Doing finally");
+        }
+    }
+}
