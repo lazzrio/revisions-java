@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Éval écrite semaine 40 — POO Java Ing2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<meta name="description" content="Tout ce qu'il faut savoir pour l'évaluation écrite de POO Java (semaine 40, 1 h sur feuille) : cours 1 à 4, TP1 à TP4, code à savoir écrire, pièges et 16 questions corrigées.">
+<meta name="theme-color" content="#b45a1e" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161211" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:title" content="POO Java — Éval écrite semaine 40">
+<meta property="og:description" content="Cours 1 à 4 et TP1 à TP4 : l'essentiel, le code à savoir écrire à la main, les pièges et 16 questions corrigées.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="ev-page">
+<a class="skip" href="#contenu">Aller au contenu</a>
+<div class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="index.html" aria-label="Accueil" style="text-decoration:none">
+      <span class="mug">☕</span>
+      <span>POO Java · Ing2</span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="index.html#accueil">Accueil</a>
+      <a class="nav-ev active" href="eval-s40.html" aria-current="page">📝 Éval S40</a>
+      <a href="index.html#s1" title="Semaine 1 — bases de la POO">S1</a>
+      <a href="index.html#s2" title="Semaine 2 — UML et relations">S2</a>
+      <a href="index.html#s3" title="Semaine 3 — concepts de base">S3</a>
+      <a href="index.html#s4" title="Semaine 4 — polymorphisme, interfaces, collections">S4</a>
+      <a href="index.html#s5" title="Semaine 5 — exceptions, fichiers, sérialisation">S5</a>
+      <a href="index.html#s6" title="Semaine 6 — Swing, layouts, listeners">S6</a>
+      <a href="index.html#s7" title="Semaine 7 — pattern MVC">S7</a>
+      <a href="index.html#methodes">Méthodes</a>
+      <a class="nav-cx" href="corriges.html">✅ Corrigés</a>
+      <a href="index.html#qcm">QCM</a>
+      <a href="index.html#livre">Exo Livre</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Changer de thème">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</div>
+
+<main id="contenu">
+  <div class="hero ev-hero">
+    <div class="hero-grid"></div>
+    <div class="hero-in">
+      <div>
+        <div class="eyebrow">📝 Évaluation écrite · semaine 40 · 1 h sur feuille</div>
+        <h1>Éval écrite Java : <em>tout ce qu'il faut savoir</em>.</h1>
+        <p class="lead">Programme annoncé : tous les cours, exercices et TP précédents, donc les semaines 1 à 4 et les TP1 à TP4. Ici : l'essentiel, le code à savoir écrire sans IDE, les pièges et 16 questions corrigées dans le style des sujets du prof.</p>
+        <div class="ev-prog"><span>S1 Bases</span><span>S2 UML et héritage</span><span>S3 Concepts de base</span><span>S4 Abstraction, interfaces, collections</span><span>TP1 à TP4</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap ev-wrap">
+<nav class="ev-toc" aria-label="Sections de la fiche">
+  <a href="#essentiel">L'essentiel</a>
+  <a href="#s1">Bases (S1)</a>
+  <a href="#s2">UML et héritage (S2)</a>
+  <a href="#s3">Concepts (S3)</a>
+  <a href="#s4">Polymorphisme (S4)</a>
+  <a href="#tp">TP1 à TP4</a>
+  <a href="#modeles">Code à savoir écrire</a>
+  <a href="#pieges">Pièges</a>
+  <a href="#entrainement">Entraînement</a>
+  <a href="#memo">Mémo de la veille</a>
+</nav>
+
+<!-- ================= ESSENTIEL ================= -->
+<section id="essentiel">
+  <div class="section-head">
+    <div class="eyebrow">À lire en premier</div>
+    <h2>L'essentiel</h2>
+    <p>Une heure, sur feuille, sans IntelliJ : pas d'autocomplétion, pas de soulignement rouge. Ce qui compte, c'est d'écrire du Java qui <b>compilerait</b>, et de savoir <b>justifier</b> en une phrase.</p>
+  </div>
+  <ol class="ev-must">
+    <li><b>Classe, objet, <code>new</code></b> : une classe est un plan, un objet est créé par <code>new</code> qui appelle un constructeur. Un constructeur porte le nom de la classe et n'a <b>aucun type de retour</b>.</li>
+    <li><b>Encapsulation</b> : attributs <code>private</code>, accès par des getters/setters <code>public</code>. Savoir écrire une classe complète de tête (voir <a href="#modeles">Code à savoir écrire</a>).</li>
+    <li><b><code>this</code></b> a 3 usages : <code>this.x = x</code> (attribut vs paramètre), <code>this(...)</code> (autre constructeur, 1<sup>re</sup> ligne), <code>return this</code>.</li>
+    <li><b>Héritage</b> : <code>extends</code> (une seule mère), <code>super(...)</code> en 1<sup>re</sup> ligne du constructeur fille, <code>protected</code> visible dans les filles, <code>@Override</code> pour redéfinir.</li>
+    <li><b>Les 6 relations UML et leur code</b> : héritage → <code>extends</code> ; réalisation → <code>implements</code> ; association/agrégation → un <b>attribut</b> ; composition → attribut <b>créé dans le constructeur</b> ; dépendance → un <b>paramètre</b>. Cardinalité &gt; 1 → tableau ou <code>ArrayList</code>.</li>
+    <li><b>Références</b> : <code>a = b</code> copie l'adresse, pas l'objet. <code>==</code> compare les adresses, <code>equals()</code> le contenu (s'il est redéfini). Toujours <code>.equals()</code> pour les <code>String</code>.</li>
+    <li><b><code>static</code></b> : une seule copie partagée par la classe ; on y accède par <code>NomClasse.membre</code>. Une méthode <code>static</code> ne peut pas utiliser <code>this</code> ni un attribut d'instance.</li>
+    <li><b>Classe abstraite</b> : <code>abstract</code>, non instanciable, peut avoir attributs, constructeurs, méthodes concrètes et abstraites (sans corps, terminées par <code>;</code>). <b>Interface</b> : un contrat de méthodes, <code>implements</code>, plusieurs possibles.</li>
+    <li><b>Polymorphisme</b> : <code>Mere m = new Fille();</code> puis <code>m.methode()</code> exécute la version de la <b>classe réelle</b> (liaison dynamique). Le compilateur, lui, ne regarde que le type déclaré.</li>
+    <li><b>Collections</b> : <code>ArrayList&lt;T&gt;</code> (<code>add</code>, <code>get(i)</code>, <code>size()</code>, <code>remove</code>), <code>HashMap&lt;K,V&gt;</code> (<code>put</code>, <code>get</code>, <code>containsKey</code>, <code>keySet()</code>, <code>entrySet()</code>), tri avec <code>Comparable</code> / <code>Comparator</code> et <code>Collections.sort</code>.</li>
+  </ol>
+
+  <h3 class="ev-h3">Comment se passe l'épreuve</h3>
+  <div class="ev-grid">
+    <div class="ev-card"><h4>Le format</h4><p>Évaluation individuelle d'<b>1 heure sur feuilles</b>, pendant la 2<sup>e</sup> séance de la semaine du 28 septembre. Programme : <b>tous les cours, exercices et TP précédents</b>, donc les semaines 1 à 4 et les TP1 à TP4.</p></div>
+    <div class="ev-card"><h4>Ce que le prof demande d'habitude</h4><p>D'après ses sujets sur papier (2020, 2023) : <b>questions de cours</b> courtes (« dans quel contexte utilise-t-on <code>super</code> ? »), <b>lire un programme et écrire sa sortie</b> en justifiant, <b>écrire des classes</b> à partir d'un énoncé ou d'un diagramme UML (classe abstraite, fille, constructeurs, setter, <code>ArrayList</code>, <code>main</code>).</p></div>
+    <div class="ev-card"><h4>Stratégie sur 1 heure</h4><p>Lire tout le sujet (2 min). Faire d'abord les questions de cours et les sorties de programme (rapides et sûres). Garder la moitié du temps pour le code. Dans le code : déclaration de classe, attributs, constructeurs, puis méthodes. Relire les <code>;</code>, les accolades et les types de retour.</p></div>
+  </div>
+
+  <h3 class="ev-h3">Plan de révision</h3>
+  <div class="ev-plan">
+    <div><b>J-3 · Semaines 1 et 3</b><ul><li>Relire S1 et S3 ci-dessous.</li><li>Écrire <b>à la main</b> la classe <code>CompteBancaire</code> (entraînement Q9) sans regarder.</li><li>Faire les sorties de programme Q4, Q5 et Q7.</li></ul></div>
+    <div><b>J-2 · Semaines 2 et 4</b><ul><li>Relations UML et leur traduction en Java.</li><li>Classe abstraite, interface, polymorphisme, collections.</li><li>Écrire Q10 (abstraite + filles + <code>ArrayList</code>) et Q13 (UML → Java).</li></ul></div>
+    <div><b>J-1 · Entraînement</b><ul><li>Faire tout l'<a href="#entrainement">entraînement</a> en temps limité, sur papier.</li><li>Relire les <a href="#pieges">pièges</a> et le <a href="#memo">mémo</a>.</li><li>Refaire le sujet 2023 du prof sur la page <a href="corriges.html#annales">Corrigés</a> (Exercice 3, Personnage/Magicien).</li></ul></div>
+  </div>
+</section>
+
+<!-- ================= S1 ================= -->
+<section id="s1">
+  <div class="section-head">
+    <div class="eyebrow">Semaine 1 · Cours 1 et TP1</div>
+    <h2>Les bases : classe, objet, tableaux, String, Scanner</h2>
+  </div>
+  <div class="ev-grid">
+    <div class="ev-card"><h4>Vocabulaire à savoir définir</h4><ul>
+      <li><b>Classe</b> : modèle qui décrit des attributs (données) et des méthodes (comportements).</li>
+      <li><b>Objet / instance</b> : exemplaire concret créé en mémoire par <code>new</code>.</li>
+      <li><b>Référence</b> : variable qui contient l'adresse d'un objet (<code>null</code> si aucun objet).</li>
+      <li><b>Message</b> : appel de méthode sur un objet, <code>objet.methode(args)</code>.</li>
+      <li><b>Constructeur</b> : méthode spéciale appelée par <code>new</code>, même nom que la classe, sans type de retour. Si on n'en écrit aucun, Java fournit un constructeur par défaut sans paramètre ; dès qu'on en écrit un, celui par défaut disparaît.</li>
+    </ul></div>
+    <div class="ev-card"><h4>Types primitifs et objets</h4><ul>
+      <li>Primitifs : <code>int</code>, <code>double</code>, <code>float</code>, <code>char</code>, <code>boolean</code>, <code>long</code>… stockent directement la valeur.</li>
+      <li>Objets : <code>String</code>, tableaux, toutes les classes : la variable contient une <b>référence</b>.</li>
+      <li>Valeurs par défaut des attributs : 0, <code>false</code>, <code>null</code>. Une variable <b>locale</b> doit être initialisée avant usage.</li>
+      <li><code>final</code> : constante, impossible à réaffecter.</li>
+    </ul></div>
+  </div>
+<pre class="code"><span class="kw">int</span>[] a = <span class="kw">new</span> <span class="kw">int</span>[<span class="num">5</span>];              <span class="cmt">// 5 cases à 0 : allocation OBLIGATOIRE</span>
+<span class="kw">int</span>[] b = {<span class="num">1</span>, <span class="num">40</span>, <span class="num">3</span>};              <span class="cmt">// taille déduite : 3</span>
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; a.length; i++) <span class="cmt">// length SANS parenthèses (attribut)</span>
+    a[i] = i * i;
+<span class="kw">int</span>[][] m = <span class="kw">new</span> <span class="kw">int</span>[<span class="num">3</span>][<span class="num">4</span>];         <span class="cmt">// 3 lignes, 4 colonnes</span>
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; m.length; i++)
+    <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j &lt; m[i].length; j++)
+        m[i][j] = (<span class="kw">int</span>) (<span class="cls">Math</span>.<span class="fn">random</span>() * <span class="num">10</span>);   <span class="cmt">// entier de 0 à 9</span>
+
+<span class="cls">String</span> s = <span class="str">"Java"</span>;
+s.<span class="fn">length</span>();                        <span class="cmt">// méthode : AVEC parenthèses -&gt; 4</span>
+s.<span class="fn">charAt</span>(<span class="num">0</span>);                       <span class="cmt">// 'J'</span>
+s.<span class="fn">equals</span>(<span class="str">"Java"</span>);                  <span class="cmt">// true : compare le contenu</span>
+<span class="kw">int</span> n = <span class="cls">Integer</span>.<span class="fn">parseInt</span>(<span class="str">"42"</span>);    <span class="cmt">// String -&gt; int</span>
+<span class="cls">String</span> t = <span class="cls">String</span>.<span class="fn">valueOf</span>(<span class="num">3.5</span>);    <span class="cmt">// nombre -&gt; String</span>
+
+<span class="cls">Scanner</span> clavier = <span class="kw">new</span> <span class="cls">Scanner</span>(<span class="cls">System</span>.in);   <span class="cmt">// import java.util.Scanner;</span>
+<span class="kw">int</span> age = clavier.<span class="fn">nextInt</span>();
+<span class="kw">double</span> note = clavier.<span class="fn">nextDouble</span>();         <span class="cmt">// en français : taper 15,5</span>
+<span class="cls">String</span> ligne = clavier.<span class="fn">nextLine</span>();
+clavier.<span class="fn">close</span>();</pre>
+  <div class="ev-grid">
+    <div class="ev-card"><h4><code>static</code> ou pas</h4><p>Un attribut <code>static</code> existe en <b>un seul exemplaire</b> pour toute la classe (ex. un compteur d'objets). Sans <code>static</code>, chaque objet a sa copie. <code>main</code> est <code>static</code> : il s'exécute sans objet, donc il ne peut pas appeler directement une méthode d'instance ; il faut d'abord créer un objet.</p></div>
+    <div class="ev-card"><h4>Passage de paramètres</h4><p>Java passe <b>toujours une copie</b>. Pour un <code>int</code>, la méthode modifie sa copie : la variable de l'appelant ne change pas. Pour un objet ou un tableau, c'est une copie de la <b>référence</b> : la méthode peut modifier l'objet pointé (voir Q4 et Q7).</p></div>
+  </div>
+</section>
+
+<!-- ================= S2 ================= -->
+<section id="s2">
+  <div class="section-head">
+    <div class="eyebrow">Semaine 2 · Cours 2 et TP2</div>
+    <h2>Diagrammes UML, relations et héritage</h2>
+    <p>Les 3 diagrammes : <b>cas d'utilisation</b> (à QUOI sert le système : acteurs, cas, <code>«include»</code> toujours déclenché, <code>«extend»</code> optionnel), <b>classes</b> (QUI : structure et liens), <b>séquences</b> (COMMENT : messages entre objets dans le temps, synchrones en flèche pleine, retours en pointillés).</p>
+  </div>
+  <figure class="ev-fig">
+    <svg viewBox="0 0 380 290" role="img" aria-label="Les six relations UML : héritage, réalisation, association, agrégation, composition, dépendance">
+      <g class="ev-uml">
+        <rect x="8" y="12" width="44" height="24"/><rect x="128" y="12" width="44" height="24"/>
+        <path class="l" d="M52 24 H118"/><path class="h" d="M128 24 l-12 -7 v14z"/>
+        <text x="22" y="29">A</text><text x="142" y="29">B</text><text class="d" x="186" y="29">A extends B</text>
+        <rect x="8" y="60" width="44" height="24"/><rect x="128" y="60" width="44" height="24"/>
+        <path class="l dash" d="M52 72 H118"/><path class="h" d="M128 72 l-12 -7 v14z"/>
+        <text x="22" y="77">A</text><text x="142" y="77">I</text><text class="d" x="186" y="77">A implements I</text>
+        <rect x="8" y="108" width="44" height="24"/><rect x="128" y="108" width="44" height="24"/>
+        <path class="l" d="M52 120 H128"/><text class="c" x="56" y="114">1</text><text class="c" x="100" y="114">0..*</text>
+        <text x="22" y="125">A</text><text x="142" y="125">B</text><text class="d" x="186" y="125">association : attribut</text>
+        <rect x="8" y="156" width="44" height="24"/><rect x="128" y="156" width="44" height="24"/>
+        <path class="l" d="M76 168 H128"/><path class="h" d="M52 168 l12 -6 l12 6 l-12 6z"/>
+        <text x="22" y="173">A</text><text x="142" y="173">B</text><text class="d" x="186" y="173">agrégation : B survit</text>
+        <rect x="8" y="204" width="44" height="24"/><rect x="128" y="204" width="44" height="24"/>
+        <path class="l" d="M76 216 H128"/><path class="f" d="M52 216 l12 -6 l12 6 l-12 6z"/>
+        <text x="22" y="221">A</text><text x="142" y="221">B</text><text class="d" x="186" y="221">composition : A crée B</text>
+        <rect x="8" y="252" width="44" height="24"/><rect x="128" y="252" width="44" height="24"/>
+        <path class="l dash" d="M52 264 H127"/><path class="l" d="M117 258 L128 264 L117 270"/>
+        <text x="22" y="269">A</text><text x="142" y="269">B</text><text class="d" x="186" y="269">dépendance : paramètre</text>
+      </g>
+    </svg>
+    <figcaption>Le losange est toujours du côté du <b>tout</b> (A contient B) ; le triangle pointe vers la <b>mère</b> ou l'interface.</figcaption>
+  </figure>
+  <div class="tbl-wrap ev-stack"><table class="tbl">
+    <thead><tr><th>Relation</th><th>Phrase test</th><th>En Java</th></tr></thead>
+    <tbody>
+      <tr><td data-l="Relation">Héritage</td><td data-l="Phrase test">« A <b>est un</b> B »</td><td data-l="En Java"><code>class A extends B</code></td></tr>
+      <tr><td data-l="Relation">Association</td><td data-l="Phrase test">« A <b>connaît</b> B » (lien durable)</td><td data-l="En Java">attribut <code>private B b;</code> (ou <code>ArrayList&lt;B&gt;</code> si 0..*)</td></tr>
+      <tr><td data-l="Relation">Agrégation</td><td data-l="Phrase test">« A <b>a des</b> B », B survit à A</td><td data-l="En Java">attribut reçu de l'extérieur : <code>this.b = b;</code></td></tr>
+      <tr><td data-l="Relation">Composition</td><td data-l="Phrase test">B <b>meurt avec</b> A</td><td data-l="En Java">attribut créé dedans : <code>this.b = new B();</code></td></tr>
+      <tr><td data-l="Relation">Dépendance</td><td data-l="Phrase test">« A <b>utilise</b> B » ponctuellement</td><td data-l="En Java">paramètre : <code>void manger(Os unOs)</code>, rien de stocké</td></tr>
+      <tr><td data-l="Relation">Classe-association</td><td data-l="Phrase test">le lien a ses propres données</td><td data-l="En Java">classe qui référence les deux : <code>class Mariage { Homme h; Femme f; String date; }</code></td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li><b>Cardinalités</b> : <code>1</code> ou <code>0..1</code> → un attribut simple (qui peut valoir <code>null</code> pour 0..1) ; <code>0..*</code>, <code>1..*</code> → tableau ou <code>ArrayList</code>.</li>
+    <li><b>Navigabilité</b> : une flèche sur l'association = un seul sens. Seule la classe d'où part la flèche a l'attribut (la bibliothèque connaît ses livres, pas l'inverse).</li>
+    <li><b>Dans un diagramme de classes</b> : 3 compartiments (nom, attributs, méthodes) ; <code>-</code> private, <code>+</code> public, <code>#</code> protected ; classe abstraite et méthode abstraite en <i>italique</i> ; <code>«interface»</code> au-dessus du nom.</li>
+  </ul>
+  <h3 class="ev-h3">Héritage : ce qu'il faut savoir écrire et expliquer</h3>
+<pre class="code"><span class="kw">public</span> <span class="kw">class</span> <span class="cls">Villain</span> {
+    <span class="kw">protected</span> <span class="kw">int</span> force;                   <span class="cmt">// visible dans les classes filles</span>
+    <span class="kw">public</span> <span class="cls">Villain</span>(<span class="kw">int</span> force) { <span class="kw">this</span>.force = force; }
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">afficher</span>() { <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Villain "</span> + force); }
+}
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Orc</span> <span class="kw">extends</span> <span class="cls">Villain</span> {         <span class="cmt">// une seule classe mère</span>
+    <span class="kw">private</span> <span class="kw">int</span> rage;
+    <span class="kw">public</span> <span class="cls">Orc</span>(<span class="kw">int</span> force, <span class="kw">int</span> rage) {
+        <span class="kw">super</span>(force);                      <span class="cmt">// constructeur de la mère : 1re ligne</span>
+        <span class="kw">this</span>.rage = rage;
+    }
+    <span class="kw">@Override</span>                              <span class="cmt">// le compilateur vérifie la signature</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">afficher</span>() {
+        <span class="kw">super</span>.<span class="fn">afficher</span>();                  <span class="cmt">// réutilise la version de la mère</span>
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Orc, rage "</span> + rage + <span class="str">", force "</span> + force);
+    }
+}</pre>
+  <ul>
+    <li>Les constructeurs <b>ne s'héritent pas</b>. Si la fille n'appelle pas <code>super(...)</code>, Java insère <code>super()</code> : erreur si la mère n'a pas de constructeur sans paramètre.</li>
+    <li><code>this(...)</code> et <code>super(...)</code> ne peuvent pas être tous les deux dans le même constructeur (chacun veut la 1<sup>re</sup> ligne).</li>
+    <li>À la construction d'une fille, le constructeur de la mère s'exécute <b>en premier</b> (voir Q5).</li>
+    <li><b>Upcasting</b> implicite : <code>Personne p = new Homme();</code>. <b>Downcasting</b> explicite : <code>Homme h = (Homme) p;</code> ; il compile toujours, mais lève <code>ClassCastException</code> si l'objet n'est pas vraiment un <code>Homme</code>. On teste avant avec <code>instanceof</code>.</li>
+  </ul>
+</section>
+
+<!-- ================= S3 ================= -->
+<section id="s3">
+  <div class="section-head">
+    <div class="eyebrow">Semaine 3 · Cours 3 et TP3</div>
+    <h2>Concepts de base : encapsulation, this, surcharge, equals</h2>
+  </div>
+  <div class="tbl-wrap ev-stack"><table class="tbl">
+    <thead><tr><th>Visibilité</th><th>Classe</th><th>Package</th><th>Sous-classe</th><th>Partout</th></tr></thead>
+    <tbody>
+      <tr><td data-l="Visibilité"><code>private</code></td><td data-l="Classe">oui</td><td data-l="Package">non</td><td data-l="Sous-classe">non</td><td data-l="Partout">non</td></tr>
+      <tr><td data-l="Visibilité">(rien)</td><td data-l="Classe">oui</td><td data-l="Package">oui</td><td data-l="Sous-classe">si même package</td><td data-l="Partout">non</td></tr>
+      <tr><td data-l="Visibilité"><code>protected</code></td><td data-l="Classe">oui</td><td data-l="Package">oui</td><td data-l="Sous-classe">oui</td><td data-l="Partout">non</td></tr>
+      <tr><td data-l="Visibilité"><code>public</code></td><td data-l="Classe">oui</td><td data-l="Package">oui</td><td data-l="Sous-classe">oui</td><td data-l="Partout">oui</td></tr>
+    </tbody>
+  </table></div>
+  <div class="ev-grid">
+    <div class="ev-card"><h4>Encapsulation</h4><p>Cacher les données (<code>private</code>) et n'exposer que des méthodes. Le setter peut <b>contrôler</b> la valeur (refuser un âge négatif) : c'est tout l'intérêt par rapport à un attribut public. Getter : <code>public int getAge() { return age; }</code> ; setter : <code>public void setAge(int age) { if (age &gt;= 0) this.age = age; }</code>.</p></div>
+    <div class="ev-card"><h4>Surcharge (overloading)</h4><p>Même nom, <b>paramètres différents</b> (nombre ou types) dans la même classe : plusieurs constructeurs <code>Point()</code>, <code>Point(int, int)</code>, <code>Point(int, int, String)</code>. Choisie à la <b>compilation</b> selon les arguments. Le type de retour seul ne suffit pas à surcharger.</p></div>
+    <div class="ev-card"><h4>Redéfinition (overriding)</h4><p>Même signature dans une classe <b>fille</b> (ou pour une méthode héritée d'<code>Object</code> : <code>toString</code>, <code>equals</code>). Choisie à l'<b>exécution</b> selon l'objet réel. Visibilité au moins aussi large que dans la mère.</p></div>
+    <div class="ev-card"><h4>Affectation et comparaison</h4><p><code>a = b;</code> : <code>a</code> désigne désormais le même objet que <code>b</code> ; l'ancien objet de <code>a</code>, s'il n'est plus référencé, est détruit plus tard par le <b>ramasse-miettes</b> (garbage collector). <code>a == b</code> : même adresse ? <code>a.equals(b)</code> : même contenu, seulement si <code>equals</code> est redéfini (sinon il fait comme <code>==</code>).</p></div>
+  </div>
+<pre class="code"><span class="kw">public</span> <span class="kw">class</span> <span class="cls">Point</span> {
+    <span class="kw">private</span> <span class="kw">int</span> x, y;
+    <span class="kw">private</span> <span class="cls">String</span> nom;
+
+    <span class="kw">public</span> <span class="cls">Point</span>() { <span class="kw">this</span>(<span class="num">0</span>, <span class="num">0</span>); }                  <span class="cmt">// chaîne vers Point(int, int)</span>
+    <span class="kw">public</span> <span class="cls">Point</span>(<span class="kw">int</span> x, <span class="kw">int</span> y) { <span class="kw">this</span>(x, y, <span class="str">"sans nom"</span>); }
+    <span class="kw">public</span> <span class="cls">Point</span>(<span class="kw">int</span> x, <span class="kw">int</span> y, <span class="cls">String</span> nom) {
+        <span class="kw">this</span>.x = x; <span class="kw">this</span>.y = y; <span class="kw">this</span>.nom = nom;     <span class="cmt">// this.x : l'attribut</span>
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">toString</span>() {                      <span class="cmt">// appelé par println(p)</span>
+        <span class="kw">return</span> nom + <span class="str">" ("</span> + x + <span class="str">", "</span> + y + <span class="str">")"</span>;
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="kw">boolean</span> <span class="fn">equals</span>(<span class="cls">Object</span> o) {               <span class="cmt">// paramètre de type Object !</span>
+        <span class="kw">if</span> (o == <span class="kw">null</span> || <span class="fn">getClass</span>() != o.<span class="fn">getClass</span>()) <span class="kw">return</span> <span class="kw">false</span>;
+        <span class="cls">Point</span> p = (<span class="cls">Point</span>) o;                        <span class="cmt">// downcast</span>
+        <span class="kw">return</span> x == p.x &amp;&amp; y == p.y;                <span class="cmt">// comparer le contenu</span>
+    }
+}</pre>
+  <p><b>Packages</b> : <code>package transport;</code> en 1<sup>re</sup> ligne du fichier ; <code>import transport.*;</code> pour utiliser ses classes publiques ailleurs. Intérêt : ranger les classes par rôle, éviter les conflits de noms.</p>
+</section>
+
+<!-- ================= S4 ================= -->
+<section id="s4">
+  <div class="section-head">
+    <div class="eyebrow">Semaine 4 · Cours 4 et TP4</div>
+    <h2>Classes abstraites, interfaces, polymorphisme, collections</h2>
+  </div>
+  <div class="tbl-wrap ev-stack"><table class="tbl">
+    <thead><tr><th>Critère</th><th>Classe abstraite</th><th>Interface</th></tr></thead>
+    <tbody>
+      <tr><td data-l="Critère">Mot-clé</td><td data-l="Classe abstraite"><code>abstract class</code> + <code>extends</code></td><td data-l="Interface"><code>interface</code> + <code>implements</code></td></tr>
+      <tr><td data-l="Critère">Combien pour une classe ?</td><td data-l="Classe abstraite">une seule mère</td><td data-l="Interface">autant qu'on veut (<code>implements A, B</code>)</td></tr>
+      <tr><td data-l="Critère">Contenu</td><td data-l="Classe abstraite">attributs, constructeurs, méthodes concrètes et abstraites</td><td data-l="Interface">signatures de méthodes (<code>public abstract</code> implicite), constantes</td></tr>
+      <tr><td data-l="Critère">Instanciable ?</td><td data-l="Classe abstraite">non, mais sert de type</td><td data-l="Interface">non, mais sert de type</td></tr>
+      <tr><td data-l="Critère">Quand ?</td><td data-l="Classe abstraite">du code ou des données à partager entre filles</td><td data-l="Interface">un rôle / un contrat commun à des classes sans lien</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li>Une classe concrète qui hérite d'une classe abstraite ou implémente une interface doit écrire <b>toutes</b> les méthodes abstraites (en <code>public</code> pour une interface), sinon elle doit être déclarée <code>abstract</code> elle-même.</li>
+    <li>Sur une variable du type abstrait (ou interface), on ne peut appeler <b>que les méthodes déclarées dans ce type</b> : pour une méthode propre à la fille, il faut <code>instanceof</code> puis un downcast.</li>
+    <li><b>Polymorphisme</b> : un même appel <code>forme.aire()</code> exécute le code de la classe réelle (<code>Cercle</code>, <code>Carre</code>…). Intérêt : une seule méthode <code>tune(Instrument i)</code> au lieu d'une surcharge par sous-classe, et ajouter une sous-classe ne demande aucune modification.</li>
+  </ul>
+  <div class="ev-grid">
+    <div class="ev-card"><h4><code>ArrayList&lt;T&gt;</code></h4>
+<pre class="code"><span class="cls">ArrayList</span>&lt;<span class="cls">Integer</span>&gt; v = <span class="kw">new</span> <span class="cls">ArrayList</span>&lt;&gt;();
+v.<span class="fn">add</span>(<span class="num">12</span>);          <span class="cmt">// ajoute à la fin</span>
+v.<span class="fn">add</span>(<span class="num">0</span>, <span class="num">5</span>);        <span class="cmt">// insère à l'indice 0</span>
+v.<span class="fn">get</span>(<span class="num">1</span>);           <span class="cmt">// 12</span>
+v.<span class="fn">set</span>(<span class="num">1</span>, <span class="num">20</span>);       <span class="cmt">// remplace</span>
+v.<span class="fn">remove</span>(<span class="num">0</span>);        <span class="cmt">// retire l'indice 0</span>
+v.<span class="fn">size</span>();           <span class="cmt">// nombre d'éléments</span>
+v.<span class="fn">isEmpty</span>(); v.<span class="fn">contains</span>(<span class="num">20</span>);
+<span class="kw">for</span> (<span class="kw">int</span> x : v) <span class="cls">System</span>.out.<span class="fn">println</span>(x);</pre>
+      <p class="ev-small">Uniquement des objets : <code>int</code> devient <code>Integer</code> automatiquement (autoboxing). Taille dynamique, contrairement au tableau.</p></div>
+    <div class="ev-card"><h4><code>HashMap&lt;K,V&gt;</code></h4>
+<pre class="code"><span class="cls">HashMap</span>&lt;<span class="cls">String</span>, <span class="cls">Integer</span>&gt; m = <span class="kw">new</span> <span class="cls">HashMap</span>&lt;&gt;();
+m.<span class="fn">put</span>(<span class="str">"pizza"</span>, <span class="num">12</span>);     <span class="cmt">// ajoute</span>
+m.<span class="fn">put</span>(<span class="str">"pizza"</span>, <span class="num">10</span>);     <span class="cmt">// même clé : REMPLACE</span>
+m.<span class="fn">get</span>(<span class="str">"sushi"</span>);         <span class="cmt">// null si absent</span>
+m.<span class="fn">containsKey</span>(<span class="str">"pizza"</span>); <span class="cmt">// true</span>
+m.<span class="fn">remove</span>(<span class="str">"pizza"</span>);
+<span class="kw">for</span> (<span class="cls">String</span> k : m.<span class="fn">keySet</span>())
+    <span class="cls">System</span>.out.<span class="fn">println</span>(k + <span class="str">" "</span> + m.<span class="fn">get</span>(k));
+<span class="kw">for</span> (<span class="cls">Map</span>.<span class="cls">Entry</span>&lt;<span class="cls">String</span>, <span class="cls">Integer</span>&gt; e : m.<span class="fn">entrySet</span>())
+    <span class="cls">System</span>.out.<span class="fn">println</span>(e.<span class="fn">getKey</span>() + e.<span class="fn">getValue</span>());</pre>
+      <p class="ev-small">Clés uniques, aucun ordre garanti ; <code>new TreeMap&lt;&gt;(m)</code> pour des clés triées.</p></div>
+  </div>
+  <div class="tbl-wrap ev-stack"><table class="tbl">
+    <thead><tr><th>Tri</th><th><code>Comparable&lt;T&gt;</code></th><th><code>Comparator&lt;T&gt;</code></th></tr></thead>
+    <tbody>
+      <tr><td data-l="Tri">Où ?</td><td data-l="Comparable">dans la classe triée (<code>implements</code>)</td><td data-l="Comparator">à l'extérieur (souvent classe anonyme)</td></tr>
+      <tr><td data-l="Tri">Méthode</td><td data-l="Comparable"><code>int compareTo(T autre)</code></td><td data-l="Comparator"><code>int compare(T a, T b)</code></td></tr>
+      <tr><td data-l="Tri">Résultat</td><td data-l="Comparable" colspan="2">négatif si le premier passe avant, 0 si égaux, positif sinon</td></tr>
+      <tr><td data-l="Tri">Appel</td><td data-l="Comparable"><code>Collections.sort(liste)</code></td><td data-l="Comparator"><code>Collections.sort(liste, comparateur)</code></td></tr>
+    </tbody>
+  </table></div>
+  <div class="trap"><b>Deux erreurs de conception du cours (p. 9)</b>Des sous-classes selon deux critères différents (Salarié, Libéral, Sportif) : on ne peut plus être salarié <i>et</i> sportif → garder un seul critère d'héritage, le reste en association. Et « une Voiture <i>est un</i> ModèleDeVoiture » est faux : une voiture <i>est d'</i>un modèle → association, pas héritage.</div>
+</section>
+
+<!-- ================= TP ================= -->
+<section id="tp">
+  <div class="section-head">
+    <div class="eyebrow">TP1 à TP4</div>
+    <h2>Ce que les TP t'ont fait pratiquer</h2>
+    <p>Le sujet peut reprendre un morceau de TP : il faut savoir refaire la démarche, pas réciter ton thème. Corrigés complets sur la page <a href="corriges.html#tp">Corrigés</a>.</p>
+  </div>
+  <div class="ev-grid">
+    <div class="ev-card"><h4>TP1 · Etudiant2026</h4><p>Classe avec attributs <code>private</code>, saisies contrôlées au <code>Scanner</code> (boucle <code>while</code> tant que la valeur est hors bornes), tableau de notes alloué avec <code>new</code>, moyenne. Questions de réflexion : le <code>main</code> est dans une autre classe pour <b>séparer les responsabilités</b> ; on ne peut pas afficher <code>eleve.nom</code> depuis <code>Main</code> car l'attribut est <code>private</code> → passer par des méthodes publiques.</p></div>
+    <div class="ev-card"><h4>TP2 · Diagrammes UML</h4><p>Cas d'utilisation (acteurs, généralisation entre acteurs, <code>«include»</code>, <code>«extend»</code>), diagramme de classes (≥ 4 classes, héritage, relations avec cardinalités), diagrammes de séquences. Méthode : les acteurs sont les sujets, les cas sont les verbes, les classes sont les noms qui portent des données.</p></div>
+    <div class="ev-card"><h4>TP3 · Du diagramme au code</h4><p>Traduire son diagramme : chaque classe avec ses attributs <code>private</code>, constructeurs (surchargés), getters/setters, <code>toString()</code> ; chaque relation selon le tableau de la <a href="#s2">semaine 2</a> ; l'héritage avec <code>extends</code> et <code>super(...)</code>.</p></div>
+    <div class="ev-card"><h4>TP4 · Abstraction et collections</h4><p>Introduire dans son modèle une classe abstraite (la mère « générale » qu'on n'instancie jamais), une interface (un rôle partagé), une méthode polymorphe appelée sur une liste, une <code>ArrayList</code> ou une <code>HashMap</code> d'objets, et un tri avec <code>Comparable</code>/<code>Comparator</code>.</p></div>
+  </div>
+</section>
+
+<!-- ================= MODELES ================= -->
+<section id="modeles">
+  <div class="section-head">
+    <div class="eyebrow">À savoir écrire les yeux fermés</div>
+    <h2>Code à savoir écrire à la main</h2>
+    <p>Ces squelettes reviennent dans tous les sujets du prof. Entraîne-toi à les recopier de mémoire sur une feuille, puis compare.</p>
+  </div>
+  <h3 class="ev-h3">1. Classe abstraite, fille, méthode abstraite</h3>
+<pre class="code"><span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> <span class="cls">Personnage</span> {
+    <span class="kw">protected</span> <span class="kw">int</span> pointVie, pointDefense;
+
+    <span class="kw">public</span> <span class="cls">Personnage</span>() { <span class="kw">this</span>(<span class="num">1</span>, <span class="num">0</span>); }              <span class="cmt">// valeurs par défaut</span>
+    <span class="kw">public</span> <span class="cls">Personnage</span>(<span class="kw">int</span> pointVie, <span class="kw">int</span> pointDefense) {
+        <span class="kw">this</span>.pointVie = pointVie;
+        <span class="kw">this</span>.pointDefense = pointDefense;
+    }
+    <span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">void</span> <span class="fn">actions</span>();                  <span class="cmt">// pas de corps : ;</span>
+}
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Magicien</span> <span class="kw">extends</span> <span class="cls">Personnage</span> {
+    <span class="kw">private</span> <span class="kw">int</span> pointMagie;
+
+    <span class="kw">public</span> <span class="cls">Magicien</span>(<span class="kw">int</span> pointVie, <span class="kw">int</span> pointDefense) {
+        <span class="kw">super</span>(pointVie, pointDefense);               <span class="cmt">// 1re ligne</span>
+        pointMagie = <span class="num">1</span> + (<span class="kw">int</span>) (<span class="cls">Math</span>.<span class="fn">random</span>() * <span class="num">5</span>);  <span class="cmt">// aléatoire de 1 à 5</span>
+    }
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">setPointMagie</span>(<span class="kw">int</span> pointMagie) { <span class="kw">this</span>.pointMagie = pointMagie; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">actions</span>() {
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Le magicien lance un sort de "</span> + pointMagie);
+    }
+}</pre>
+  <h3 class="ev-h3">2. Interface et appel polymorphe</h3>
+<pre class="code"><span class="kw">public</span> <span class="kw">interface</span> <span class="cls">Payable</span> {
+    <span class="kw">double</span> <span class="fn">montantAPayer</span>();              <span class="cmt">// public abstract implicite</span>
+}
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Facture</span> <span class="kw">implements</span> <span class="cls">Payable</span> {
+    <span class="kw">private</span> <span class="kw">int</span> quantite; <span class="kw">private</span> <span class="kw">double</span> prix;
+    <span class="kw">public</span> <span class="cls">Facture</span>(<span class="kw">int</span> quantite, <span class="kw">double</span> prix) { <span class="kw">this</span>.quantite = quantite; <span class="kw">this</span>.prix = prix; }
+    <span class="kw">public</span> <span class="kw">double</span> <span class="fn">montantAPayer</span>() { <span class="kw">return</span> quantite * prix; }   <span class="cmt">// public obligatoire</span>
+}
+<span class="cmt">// ailleurs :</span>
+<span class="cls">Payable</span> p = <span class="kw">new</span> <span class="cls">Facture</span>(<span class="num">3</span>, <span class="num">20.5</span>);        <span class="cmt">// type interface, objet concret</span>
+<span class="kw">double</span> total = p.<span class="fn">montantAPayer</span>();</pre>
+  <h3 class="ev-h3">3. ArrayList remplie au hasard, affichée, moyenne</h3>
+<pre class="code"><span class="kw">import</span> java.util.<span class="cls">ArrayList</span>;
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Serie</span> {
+    <span class="kw">private</span> <span class="cls">ArrayList</span>&lt;<span class="cls">Integer</span>&gt; vecteur;
+
+    <span class="kw">public</span> <span class="cls">Serie</span>() { vecteur = <span class="kw">new</span> <span class="cls">ArrayList</span>&lt;&gt;(); }  <span class="cmt">// instancier !</span>
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">remplirAlea</span>(<span class="kw">int</span> n) {
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; n; i++)
+            vecteur.<span class="fn">add</span>((<span class="kw">int</span>) (<span class="cls">Math</span>.<span class="fn">random</span>() * <span class="num">21</span>));  <span class="cmt">// de 0 à 20</span>
+    }
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">afficher</span>() {
+        <span class="kw">for</span> (<span class="kw">int</span> x : vecteur) <span class="cls">System</span>.out.<span class="fn">print</span>(x + <span class="str">" "</span>);
+        <span class="cls">System</span>.out.<span class="fn">println</span>();
+    }
+    <span class="kw">public</span> <span class="kw">float</span> <span class="fn">moyenne</span>() {
+        <span class="kw">float</span> somme = <span class="num">0</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> x : vecteur) somme += x;
+        <span class="kw">return</span> somme / vecteur.<span class="fn">size</span>();
+    }
+}</pre>
+  <h3 class="ev-h3">4. Saisie contrôlée</h3>
+<pre class="code"><span class="cls">Scanner</span> clavier = <span class="kw">new</span> <span class="cls">Scanner</span>(<span class="cls">System</span>.in);
+<span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Âge (18 à 25) ?"</span>);
+<span class="kw">int</span> age = clavier.<span class="fn">nextInt</span>();
+<span class="kw">while</span> (age &lt; <span class="num">18</span> || age &gt; <span class="num">25</span>) {           <span class="cmt">// tant que c'est invalide</span>
+    <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Invalide, recommencer"</span>);
+    age = clavier.<span class="fn">nextInt</span>();
+}</pre>
+  <div class="tip"><b>Réflexe papier</b>Pour chaque classe demandée, écrire dans cet ordre : en-tête (<code>public [abstract] class X [extends Y] [implements Z]</code>), attributs, constructeurs, getters/setters, méthodes, <code>toString()</code>. Puis relire : chaque méthode non <code>void</code> a un <code>return</code>, chaque <code>super(...)</code> est en 1<sup>re</sup> ligne, chaque collection est instanciée.</div>
+</section>
+
+<!-- ================= PIEGES ================= -->
+<section id="pieges">
+  <div class="section-head">
+    <div class="eyebrow">Ce qui fait perdre des points</div>
+    <h2>Pièges</h2>
+  </div>
+  <div class="trap-list">
+    <div class="trap"><b>Constructeur</b>Jamais de type de retour, pas même <code>void</code> (sinon c'est une méthode ordinaire). Écrire un constructeur avec paramètres supprime le constructeur par défaut.</div>
+    <div class="trap"><b><code>length</code></b>Tableau : <code>t.length</code> ; String : <code>s.length()</code> ; ArrayList : <code>l.size()</code>. Dernier indice : <code>t.length - 1</code>.</div>
+    <div class="trap"><b>Comparer</b><code>==</code> sur des objets ou des String compare les adresses. Utiliser <code>equals</code>.</div>
+    <div class="trap"><b>Tableau ou collection non instanciés</b><code>int[] t;</code> puis <code>t[0] = 1;</code> ou une <code>ArrayList</code> jamais créée par <code>new</code> : <code>NullPointerException</code>.</div>
+    <div class="trap"><b><code>super</code> / <code>this</code></b>En 1<sup>re</sup> ligne du constructeur, jamais les deux ensemble. Si la mère n'a pas de constructeur sans paramètre, <code>super(...)</code> est obligatoire.</div>
+    <div class="trap"><b><code>private</code> de la mère</b>Invisible dans la fille : utiliser <code>protected</code> ou un getter.</div>
+    <div class="trap"><b>Paramètre qui masque l'attribut</b><code>public Cercle(double r) { r = r; }</code> ne fait rien : il faut <code>this.r = r;</code>.</div>
+    <div class="trap"><b>Classe abstraite</b><code>new Forme()</code> interdit ; méthode abstraite sans corps ; la fille concrète doit toutes les écrire.</div>
+    <div class="trap"><b>Type déclaré</b>Avec <code>Forme f = new Cercle(2);</code>, <code>f.methodeDeCercle()</code> ne compile pas : caster <code>((Cercle) f)</code> après <code>instanceof</code>.</div>
+    <div class="trap"><b><code>static</code></b>Pas de <code>this</code> ni d'attribut d'instance dans une méthode <code>static</code> ; un attribut <code>static</code> modifié l'est pour tous les objets.</div>
+    <div class="trap"><b>Division entière</b><code>7 / 2</code> vaut 3. Pour une moyenne, au moins un opérande réel : <code>somme / (double) n</code>.</div>
+    <div class="trap"><b>Scanner en français</b><code>nextDouble()</code> attend <code>15,5</code> et plante (<code>InputMismatchException</code>) sur <code>15.5</code>.</div>
+  </div>
+</section>
+
+<!-- ================= ENTRAINEMENT ================= -->
+<section id="entrainement">
+  <div class="section-head">
+    <div class="eyebrow">Sur papier, puis vérifier</div>
+    <h2>Entraînement corrigé</h2>
+    <p>16 questions dans le style du prof. Tous les programmes ont été compilés et exécutés (Java 21) : les sorties données sont les vraies.</p>
+  </div>
+  <div class="qa-list">
+
+    <div class="qa-item" id="q1"><button class="qa-q" onclick="toggleQA(this)" aria-expanded="false"><span class="qa-num">Q1 · cours</span><span class="qa-text">Dans quel contexte utilise-t-on le mot <code>super</code> ?</span><span class="qa-chevron">▾</span></button>
+      <div class="qa-a"><div class="qa-a-in">
+        <p>Dans une classe <b>fille</b>, pour désigner la classe mère : <code>super(...)</code> en 1<sup>re</sup> ligne d'un constructeur appelle le constructeur de la mère (pour initialiser la partie héritée) ; <code>super.methode()</code> appelle la version de la mère d'une méthode redéfinie (pour la compléter au lieu de la remplacer).</p>
+      </div></div></div>
+
+    <div class="qa-item" id="q2"><button class="qa-q" onclick="toggleQA(this)" aria-expanded="false"><span class="qa-num">Q2 · cours</span><span class="qa-text">Quand un objet est déclaré avec une classe abstraite comme type, que ne peut-on pas faire ? Et quelle est la principale caractéristique d'une interface ?</span><span class="qa-chevron">▾</span></button>
+      <div class="qa-a"><div class="qa-a-in">
+        <p>On ne peut pas l'<b>instancier</b> avec <code>new</code> de la classe abstraite, et on ne peut appeler dessus que les méthodes déclarées dans la classe abstraite (pas celles propres à la fille, sauf après un downcast).</p>
+        <p>Une interface ne contient que des <b>signatures de méthodes</b> (un contrat), sans attribut d'état ni constructeur. Elle sert à imposer un comportement commun à des classes, et permet à une classe d'en <code>implements</code> plusieurs (l'équivalent Java de l'héritage multiple).</p>
+      </div></div></div>
+
+    <div class="qa-item" id="q3"><button class="qa-q" onclick="toggleQA(this)" aria-expanded="false"><span class="qa-num">Q3 · cours</span><span class="qa-text">Différence entre surcharge et redéfinition ? Donner un exemple de chaque.</span><span class="qa-chevron">▾</span></button>
+      <div class="qa-a"><div class="qa-a-in">
+        <p><b>Surcharge</b> : même nom, paramètres différents, dans la même classe ; résolue à la compilation. Ex. <code>Point()</code> et <code>Point(int x, int y)</code>.</p>
+        <p><b>Redéfinition</b> : même signature dans une classe fille, marquée <code>@Override</code> ; résolue à l'exécution selon l'objet réel (polymorphisme). Ex. <code>toString()</code> redéfinie dans <code>Point</code>, ou <code>play(int)</code> dans <code>Wind extends Instrument</code>.</p>
+      </div></div></div>
+
+    <div class="qa-item" id="q4"><button class="qa-q" onclick="toggleQA(this)" aria-expanded="false"><span class="qa-num">Q4 · sortie</span><span class="qa-text">Qu'affiche ce programme ? Justifier.</span><span class="qa-chevron">▾</span></button>
+<pre class="code ev-enonce"><span class="kw">public</span> <span class="kw">class</span> <span class="cls">Compteur</span> {
+    <span class="kw">static</span> <span class="kw">int</span> total = <span class="num">0</span>;
+    <span class="kw">int</span> valeur = <span class="num">0</span>;
+    <span class="kw">void</span> <span class="fn">incrementer</span>(<span class="kw">int</span> n) { n++; valeur++; total++; }
+
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">main</span>(<span class="cls">String</span>[] args) {
+        <span class="cls">Compteur</span> a = <span class="kw">new</span> <span class="cls">Compteur</span>();
+        <span class="cls">Compteur</span> b = <span class="kw">new</span> <span class="cls">Compteur</span>();
+        <span class="kw">int</span> x = <span class="num">5</span>;
+        a.<span class="fn">incrementer</span>(x);
+        a.<span class="fn">incrementer</span>(x);
+        b.<span class="fn">incrementer</span>(x);
+        <span class="cls">System</span>.out.<span class="fn">println</span>(x + <span class="str">" "</span> + a.valeur + <span class="str">" "</span> + b.valeur + <span class="str">" "</span> + <span class="cls">Compteur</span>.total);
+    }
+}</pre>
+      <div class="qa-a"><div class="qa-a-in">
+        <p>Sortie : <code>5 2 1 3</code>.</p>
+        <p><code>x</code> vaut toujours 5 : la méthode reçoit une <b>copie</b> de l'entier, <code>n++</code> ne touche que la copie. <code>valeur</code> est un attribut d'instance : 2 pour <code>a</code> (deux appels), 1 pour <code>b</code>. <code>total</code> est <code>static</code>, partagé : 3 appels au total.</p>
+      </div></div></div>
+
+    <div class="qa-item" id="q5"><button class="qa-q" onclick="toggleQA(this)" aria-expanded="false"><span class="qa-num">Q5 · sortie</span><span class="qa-text">Qu'affiche le <code>main</code> ? (constructeurs, <code>this(...)</code>, <code>super(...)</code>)</span><span class="qa-chevron">▾</span></button>
+<pre class="code ev-enonce"><span class="kw">class</span> <span class="cls">A</span> {
+    <span class="cls">A</span>() { <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"A()"</span>); }
+    <span class="cls">A</span>(<span class="kw">int</span> x) { <span class="kw">this</span>(); <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"A("</span> + x + <span class="str">")"</span>); }
+}
+<span class="kw">class</span> <span class="cls">B</span> <span class="kw">extends</span> <span class="cls">A</span> {
+    <span class="cls">B</span>() { <span class="kw">super</span>(<span class="num">3</span>); <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"B()"</span>); }
+    <span class="cls">B</span>(<span class="kw">int</span> y) { <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"B("</span> + y + <span class="str">")"</span>); }
+}
+<span class="cmt">// main :</span>
+<span class="kw">new</span> <span class="cls">B</span>();
+<span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"--"</span>);
+<span class="kw">new</span> <span class="cls">B</span>(<span class="num">7</span>);</pre>
+      <div class="qa-a"><div class="qa-a-in">
+        <p>Sortie, une ligne par affichage : <code>A()</code>, <code>A(3)</code>, <code>B()</code>, <code>--</code>, <code>A()</code>, <code>B(7)</code>.</p>
+        <p><code>new B()</code> : <code>super(3)</code> appelle <code>A(int)</code>, dont la 1<sup>re</sup> ligne <code>this()</code> appelle <code>A()</code> → « A() », puis « A(3) », puis la suite de <code>B()</code>. <code>new B(7)</code> : pas de <code>super(...)</code> écrit, Java insère <code>super()</code> → « A() » d'abord, puis « B(7) ». La mère est toujours construite avant la fille.</p>
+      </div></div></div>
+
+    <div class="qa-item" id="q6"><button class="qa-q" onclick="toggleQA(this)" aria-expanded="false"><span class="qa-num">Q6 · sortie</span><span class="qa-text">Polymorphisme : qu'affiche la boucle ?</span><span class="qa-chevron">▾</span></button>
+<pre class="code ev-enonce"><span class="kw">abstract</span> <span class="kw">class</span> <span class="cls">Animal</span> {
+    <span class="kw">protected</span> <span class="cls">String</span> nom;
+    <span class="cls">Animal</span>(<span class="cls">String</span> nom) { <span class="kw">this</span>.nom = nom; }
+    <span class="kw">abstract</span> <span class="cls">String</span> <span class="fn">cri</span>();
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">toString</span>() { <span class="kw">return</span> nom + <span class="str">" fait "</span> + <span class="fn">cri</span>(); }
+}
+<span class="kw">class</span> <span class="cls">Chien</span> <span class="kw">extends</span> <span class="cls">Animal</span> {
+    <span class="cls">Chien</span>(<span class="cls">String</span> n) { <span class="kw">super</span>(n); }
+    <span class="cls">String</span> <span class="fn">cri</span>() { <span class="kw">return</span> <span class="str">"Wouf"</span>; }
+}
+<span class="kw">class</span> <span class="cls">Chat</span> <span class="kw">extends</span> <span class="cls">Animal</span> {
+    <span class="cls">Chat</span>(<span class="cls">String</span> n) { <span class="kw">super</span>(n); }
+    <span class="cls">String</span> <span class="fn">cri</span>() { <span class="kw">return</span> <span class="str">"Miaou"</span>; }
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">toString</span>() { <span class="kw">return</span> <span class="str">"Le chat "</span> + <span class="kw">super</span>.<span class="fn">toString</span>(); }
+}
+<span class="cmt">// main :</span>
+<span class="cls">ArrayList</span>&lt;<span class="cls">Animal</span>&gt; zoo = <span class="kw">new</span> <span class="cls">ArrayList</span>&lt;&gt;();
+zoo.<span class="fn">add</span>(<span class="kw">new</span> <span class="cls">Chien</span>(<span class="str">"Rex"</span>));
+zoo.<span class="fn">add</span>(<span class="kw">new</span> <span class="cls">Chat</span>(<span class="str">"Tom"</span>));
+<span class="kw">for</span> (<span class="cls">Animal</span> a : zoo) <span class="cls">System</span>.out.<span class="fn">println</span>(a);</pre>
+      <div class="qa-a"><div class="qa-a-in">
+        <p>Sortie : <code>Rex fait Wouf</code> puis <code>Le chat Tom fait Miaou</code>.</p>
+        <p><code>println(a)</code> appelle <code>toString()</code> de la classe <b>réelle</b>. Pour le chien, c'est celle d'<code>Animal</code>, qui appelle <code>cri()</code> : liaison dynamique → la version de <code>Chien</code>. Pour le chat, sa propre <code>toString()</code> ajoute « Le chat » puis appelle <code>super.toString()</code>, qui appelle <code>cri()</code> de <code>Chat</code>.</p>
+      </div></div></div>
+
+    <div class="qa-item" id="q7"><button class="qa-q" onclick="toggleQA(this)" aria-expanded="false"><span class="qa-num">Q7 · sortie</span><span class="qa-text">Références, <code>==</code> et <code>equals</code> : qu'affichent les trois <code>println</code> ?</span><span class="qa-chevron">▾</span></button>
+<pre class="code ev-enonce"><span class="kw">class</span> <span class="cls">Point</span> { <span class="kw">int</span> x, y; <span class="cls">Point</span>(<span class="kw">int</span> x, <span class="kw">int</span> y) { <span class="kw">this</span>.x = x; <span class="kw">this</span>.y = y; } }
+<span class="cmt">// main :</span>
+<span class="cls">Point</span> p1 = <span class="kw">new</span> <span class="cls">Point</span>(<span class="num">1</span>, <span class="num">2</span>);
+<span class="cls">Point</span> p2 = <span class="kw">new</span> <span class="cls">Point</span>(<span class="num">1</span>, <span class="num">2</span>);
+<span class="cls">Point</span> p3 = p1;
+p3.x = <span class="num">10</span>;
+<span class="cls">System</span>.out.<span class="fn">println</span>(p1.x + <span class="str">" "</span> + (p1 == p2) + <span class="str">" "</span> + (p1 == p3) + <span class="str">" "</span> + p1.<span class="fn">equals</span>(p2));
+<span class="cls">String</span> s1 = <span class="str">"java"</span>;
+<span class="cls">String</span> s2 = <span class="kw">new</span> <span class="cls">String</span>(<span class="str">"java"</span>);
+<span class="cls">System</span>.out.<span class="fn">println</span>((s1 == s2) + <span class="str">" "</span> + s1.<span class="fn">equals</span>(s2));
+<span class="kw">int</span>[] t = {<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>};
+<span class="kw">int</span>[] u = t;
+u[<span class="num">0</span>] = <span class="num">99</span>;
+<span class="cls">System</span>.out.<span class="fn">println</span>(t[<span class="num">0</span>] + <span class="str">" "</span> + t.length);</pre>
+      <div class="qa-a"><div class="qa-a-in">
+        <p>Sortie : <code>10 false true false</code>, puis <code>false true</code>, puis <code>99 3</code>.</p>
+        <p><code>p3 = p1</code> copie la référence : modifier <code>p3.x</code> modifie l'objet de <code>p1</code>. <code>p1 == p2</code> : deux objets distincts. <code>equals</code> n'est pas redéfini dans <code>Point</code> : il compare les adresses, donc <code>false</code> malgré le même contenu. <code>String.equals</code> est redéfini : compare les caractères. Même phénomène qu'avec <code>p3</code> pour le tableau <code>u = t</code>.</p>
+      </div></div></div>
+
+    <div class="qa-item" id="q8"><button class="qa-q" onclick="toggleQA(this)" aria-expanded="false"><span class="qa-num">Q8 · erreurs</span><span class="qa-text">Trouver les 4 erreurs de compilation et le bug silencieux.</span><span class="qa-chevron">▾</span></button>
+<pre class="code ev-enonce"><span class="kw">abstract</span> <span class="kw">class</span> <span class="cls">Forme</span> {
+    <span class="kw">private</span> <span class="kw">double</span> x;
+    <span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">double</span> <span class="fn">aire</span>() { <span class="kw">return</span> <span class="num">0</span>; }
+}
+<span class="kw">class</span> <span class="cls">Cercle</span> <span class="kw">extends</span> <span class="cls">Forme</span> {
+    <span class="kw">private</span> <span class="kw">double</span> r;
+    <span class="kw">public</span> <span class="cls">Cercle</span>(<span class="kw">double</span> r) { r = r; }
+    <span class="kw">public</span> <span class="kw">double</span> <span class="fn">aire</span>() { <span class="kw">return</span> <span class="cls">Math</span>.<span class="cls">PI</span> * r * r; }
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">deplacer</span>(<span class="kw">double</span> dx) { x += dx; }
+}
+<span class="cmt">// main :</span>
+<span class="cls">Forme</span> f = <span class="kw">new</span> <span class="cls">Forme</span>();
+<span class="cls">Forme</span> g = <span class="kw">new</span> <span class="cls">Cercle</span>(<span class="num">2</span>);
+g.<span class="fn">deplacer</span>(<span class="num">1</span>);</pre>
+      <div class="qa-a"><div class="qa-a-in">
+        <ol>
+          <li>Une méthode abstraite n'a pas de corps : <code>public abstract double aire();</code>.</li>
+          <li><code>x</code> est <code>private</code> dans <code>Forme</code> : invisible dans <code>Cercle</code> → le mettre <code>protected</code>.</li>
+          <li><code>new Forme()</code> : une classe abstraite ne s'instancie pas.</li>
+          <li><code>g.deplacer(1)</code> : <code>g</code> est déclaré <code>Forme</code>, qui n'a pas <code>deplacer</code> → déclarer <code>Cercle g</code> ou écrire <code>((Cercle) g).deplacer(1)</code>.</li>
+        </ol>
+        <p><b>Bug silencieux</b> : <code>r = r;</code> affecte le paramètre à lui-même ; l'attribut reste à 0. Il faut <code>this.r = r;</code>.</p>
+        <p class="ev-small">Vérifié avec javac : <i>abstract methods cannot have a body</i>, <i>x has private access in Forme</i>, <i>Forme is abstract; cannot be instantiated</i>, <i>cannot find symbol: method deplacer(int)</i>.</p>
+      </div></div></div>
+
+    <div class="qa-item" id="q9"><button class="qa-q" onclick="toggleQA(this)" aria-expanded="false"><span class="qa-num">Q9 · écrire</span><span class="qa-text">Écrire une classe <code>CompteBancaire</code> encapsulée : titulaire, solde, un compteur <code>static</code> du nombre de comptes ; deux constructeurs (le second, avec seulement le titulaire, met le solde à 0 en réutilisant le premier) ; getters ; <code>deposer</code> (montant &gt; 0) ; <code>retirer</code> qui renvoie <code>false</code> si le solde est insuffisant ; <code>toString</code>.</span><span class="qa-chevron">▾</span></button>
+      <div class="qa-a"><div class="qa-a-in">
+<pre class="code"><span class="kw">public</span> <span class="kw">class</span> <span class="cls">CompteBancaire</span> {
+    <span class="kw">private</span> <span class="cls">String</span> titulaire;
+    <span class="kw">private</span> <span class="kw">double</span> solde;
+    <span class="kw">private</span> <span class="kw">static</span> <span class="kw">int</span> nbComptes = <span class="num">0</span>;          <span class="cmt">// partagé par tous les comptes</span>
+
+    <span class="kw">public</span> <span class="cls">CompteBancaire</span>(<span class="cls">String</span> titulaire, <span class="kw">double</span> solde) {
+        <span class="kw">this</span>.titulaire = titulaire;
+        <span class="kw">this</span>.solde = solde;
+        nbComptes++;
+    }
+    <span class="kw">public</span> <span class="cls">CompteBancaire</span>(<span class="cls">String</span> titulaire) {
+        <span class="kw">this</span>(titulaire, <span class="num">0</span>);                    <span class="cmt">// chaînage : 1re ligne</span>
+    }
+
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">getTitulaire</span>() { <span class="kw">return</span> titulaire; }
+    <span class="kw">public</span> <span class="kw">double</span> <span class="fn">getSolde</span>() { <span class="kw">return</span> solde; }
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">int</span> <span class="fn">getNbComptes</span>() { <span class="kw">return</span> nbComptes; }
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">deposer</span>(<span class="kw">double</span> montant) {
+        <span class="kw">if</span> (montant &gt; <span class="num">0</span>) solde += montant;
+    }
+    <span class="kw">public</span> <span class="kw">boolean</span> <span class="fn">retirer</span>(<span class="kw">double</span> montant) {
+        <span class="kw">if</span> (montant &lt;= <span class="num">0</span> || montant &gt; solde) <span class="kw">return</span> <span class="kw">false</span>;
+        solde -= montant;
+        <span class="kw">return</span> <span class="kw">true</span>;
+    }
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">toString</span>() { <span class="kw">return</span> titulaire + <span class="str">" : "</span> + solde + <span class="str">" euros"</span>; }
+}</pre>
+        <p>Test : <code>new CompteBancaire("Alice", 100)</code> puis <code>deposer(50)</code> → « Alice : 150.0 euros » ; <code>new CompteBancaire("Bilal").retirer(20)</code> → <code>false</code> ; <code>getNbComptes()</code> → 2. Pas de setter pour le solde : on ne le modifie que par <code>deposer</code>/<code>retirer</code>, c'est l'intérêt de l'encapsulation.</p>
+      </div></div></div>
+
+    <div class="qa-item" id="q10"><button class="qa-q" onclick="toggleQA(this)" aria-expanded="false"><span class="qa-num">Q10 · écrire</span><span class="qa-text">Classe abstraite <code>Employe</code> (nom, salaire de base, méthode abstraite <code>salaire()</code>), filles <code>Commercial</code> (base + 5 % du chiffre d'affaires) et <code>Technicien</code> (base + 25 € par heure sup). Dans un <code>main</code> : une <code>ArrayList&lt;Employe&gt;</code>, la masse salariale et le mieux payé.</span><span class="qa-chevron">▾</span></button>
+      <div class="qa-a"><div class="qa-a-in">
+<pre class="code"><span class="kw">abstract</span> <span class="kw">class</span> <span class="cls">Employe</span> {
+    <span class="kw">protected</span> <span class="cls">String</span> nom;
+    <span class="kw">protected</span> <span class="kw">double</span> salaireBase;
+    <span class="kw">public</span> <span class="cls">Employe</span>(<span class="cls">String</span> nom, <span class="kw">double</span> salaireBase) {
+        <span class="kw">this</span>.nom = nom;
+        <span class="kw">this</span>.salaireBase = salaireBase;
+    }
+    <span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">double</span> <span class="fn">salaire</span>();
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">toString</span>() { <span class="kw">return</span> nom + <span class="str">" : "</span> + <span class="fn">salaire</span>(); }
+}
+<span class="kw">class</span> <span class="cls">Commercial</span> <span class="kw">extends</span> <span class="cls">Employe</span> {
+    <span class="kw">private</span> <span class="kw">double</span> chiffreAffaires;
+    <span class="kw">public</span> <span class="cls">Commercial</span>(<span class="cls">String</span> nom, <span class="kw">double</span> salaireBase, <span class="kw">double</span> ca) {
+        <span class="kw">super</span>(nom, salaireBase);
+        <span class="kw">this</span>.chiffreAffaires = ca;
+    }
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="kw">double</span> <span class="fn">salaire</span>() { <span class="kw">return</span> salaireBase + <span class="num">0.05</span> * chiffreAffaires; }
+}
+<span class="kw">class</span> <span class="cls">Technicien</span> <span class="kw">extends</span> <span class="cls">Employe</span> {
+    <span class="kw">private</span> <span class="kw">int</span> heuresSup;
+    <span class="kw">public</span> <span class="cls">Technicien</span>(<span class="cls">String</span> nom, <span class="kw">double</span> salaireBase, <span class="kw">int</span> heuresSup) {
+        <span class="kw">super</span>(nom, salaireBase);
+        <span class="kw">this</span>.heuresSup = heuresSup;
+    }
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="kw">double</span> <span class="fn">salaire</span>() { <span class="kw">return</span> salaireBase + <span class="num">25</span> * heuresSup; }
+}
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Entreprise</span> {
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">main</span>(<span class="cls">String</span>[] args) {
+        <span class="cls">ArrayList</span>&lt;<span class="cls">Employe</span>&gt; liste = <span class="kw">new</span> <span class="cls">ArrayList</span>&lt;&gt;();
+        liste.<span class="fn">add</span>(<span class="kw">new</span> <span class="cls">Commercial</span>(<span class="str">"Alice"</span>, <span class="num">2000</span>, <span class="num">10000</span>));
+        liste.<span class="fn">add</span>(<span class="kw">new</span> <span class="cls">Technicien</span>(<span class="str">"Bilal"</span>, <span class="num">1800</span>, <span class="num">12</span>));
+        liste.<span class="fn">add</span>(<span class="kw">new</span> <span class="cls">Technicien</span>(<span class="str">"Chloé"</span>, <span class="num">1900</span>, <span class="num">0</span>));
+        <span class="kw">double</span> total = <span class="num">0</span>;
+        <span class="cls">Employe</span> max = liste.<span class="fn">get</span>(<span class="num">0</span>);
+        <span class="kw">for</span> (<span class="cls">Employe</span> e : liste) {
+            <span class="cls">System</span>.out.<span class="fn">println</span>(e);             <span class="cmt">// salaire() polymorphe</span>
+            total += e.<span class="fn">salaire</span>();
+            <span class="kw">if</span> (e.<span class="fn">salaire</span>() &gt; max.<span class="fn">salaire</span>()) max = e;
+        }
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Masse salariale : "</span> + total);
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Mieux payé : "</span> + max.nom);
+    }
+}</pre>
+        <p>Avec Alice (2000, CA 10 000), Bilal (1800, 12 h) et Chloé (1900, 0 h) : 2500.0, 2100.0, 1900.0, masse 6500.0, mieux payé Alice. <code>max.nom</code> est accessible depuis <code>Entreprise</code> car <code>protected</code> inclut le même package.</p>
+      </div></div></div>
+
+    <div class="qa-item" id="q11"><button class="qa-q" onclick="toggleQA(this)" aria-expanded="false"><span class="qa-num">Q11 · écrire</span><span class="qa-text">Classe <code>Notes</code> avec une <code>ArrayList&lt;Double&gt;</code> : <code>ajouter</code> (refuse hors de 0 à 20), <code>moyenne</code>, <code>max</code>, <code>afficher</code>. <code>main</code> : saisir des notes jusqu'à -1.</span><span class="qa-chevron">▾</span></button>
+      <div class="qa-a"><div class="qa-a-in">
+<pre class="code"><span class="kw">public</span> <span class="kw">class</span> <span class="cls">Notes</span> {
+    <span class="kw">private</span> <span class="cls">ArrayList</span>&lt;<span class="cls">Double</span>&gt; liste;
+    <span class="kw">public</span> <span class="cls">Notes</span>() { liste = <span class="kw">new</span> <span class="cls">ArrayList</span>&lt;&gt;(); }
+
+    <span class="kw">public</span> <span class="kw">boolean</span> <span class="fn">ajouter</span>(<span class="kw">double</span> note) {
+        <span class="kw">if</span> (note &lt; <span class="num">0</span> || note &gt; <span class="num">20</span>) <span class="kw">return</span> <span class="kw">false</span>;
+        liste.<span class="fn">add</span>(note);
+        <span class="kw">return</span> <span class="kw">true</span>;
+    }
+    <span class="kw">public</span> <span class="kw">double</span> <span class="fn">moyenne</span>() {
+        <span class="kw">if</span> (liste.<span class="fn">isEmpty</span>()) <span class="kw">return</span> <span class="num">0</span>;
+        <span class="kw">double</span> somme = <span class="num">0</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; liste.<span class="fn">size</span>(); i++) somme += liste.<span class="fn">get</span>(i);
+        <span class="kw">return</span> somme / liste.<span class="fn">size</span>();
+    }
+    <span class="kw">public</span> <span class="kw">double</span> <span class="fn">max</span>() {
+        <span class="kw">double</span> m = liste.<span class="fn">get</span>(<span class="num">0</span>);
+        <span class="kw">for</span> (<span class="kw">double</span> n : liste) <span class="kw">if</span> (n &gt; m) m = n;
+        <span class="kw">return</span> m;
+    }
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">afficher</span>() {
+        <span class="kw">for</span> (<span class="kw">double</span> n : liste) <span class="cls">System</span>.out.<span class="fn">print</span>(n + <span class="str">" "</span>);
+        <span class="cls">System</span>.out.<span class="fn">println</span>();
+    }
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">main</span>(<span class="cls">String</span>[] args) {
+        <span class="cls">Notes</span> n = <span class="kw">new</span> <span class="cls">Notes</span>();
+        <span class="cls">Scanner</span> clavier = <span class="kw">new</span> <span class="cls">Scanner</span>(<span class="cls">System</span>.in);
+        <span class="kw">double</span> note = clavier.<span class="fn">nextDouble</span>();
+        <span class="kw">while</span> (note != -<span class="num">1</span>) {
+            <span class="kw">if</span> (!n.<span class="fn">ajouter</span>(note)) <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Note invalide"</span>);
+            note = clavier.<span class="fn">nextDouble</span>();
+        }
+        n.<span class="fn">afficher</span>();
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Moyenne : "</span> + n.<span class="fn">moyenne</span>() + <span class="str">" / max : "</span> + n.<span class="fn">max</span>());
+    }
+}</pre>
+        <p>Saisie 12, 25, 15,5, 8, -1 → « Note invalide », puis <code>12.0 15.5 8.0</code> et « Moyenne : 11.833333333333334 / max : 15.5 ». La lecture avant la boucle puis à la fin de chaque tour évite d'ajouter le -1.</p>
+      </div></div></div>
+
+    <div class="qa-item" id="q12"><button class="qa-q" onclick="toggleQA(this)" aria-expanded="false"><span class="qa-num">Q12 · écrire</span><span class="qa-text">Annuaire avec une <code>HashMap</code> nom → numéro : ajouter, chercher (« inconnu » si absent), afficher trié par nom.</span><span class="qa-chevron">▾</span></button>
+      <div class="qa-a"><div class="qa-a-in">
+<pre class="code"><span class="kw">public</span> <span class="kw">class</span> <span class="cls">Annuaire</span> {
+    <span class="kw">private</span> <span class="cls">HashMap</span>&lt;<span class="cls">String</span>, <span class="cls">String</span>&gt; numeros = <span class="kw">new</span> <span class="cls">HashMap</span>&lt;&gt;();
+
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">ajouter</span>(<span class="cls">String</span> nom, <span class="cls">String</span> numero) {
+        numeros.<span class="fn">put</span>(nom, numero);              <span class="cmt">// remplace si le nom existe</span>
+    }
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">chercher</span>(<span class="cls">String</span> nom) {
+        <span class="kw">if</span> (numeros.<span class="fn">containsKey</span>(nom)) <span class="kw">return</span> numeros.<span class="fn">get</span>(nom);
+        <span class="kw">return</span> <span class="str">"inconnu"</span>;
+    }
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">afficherTrie</span>() {
+        <span class="cls">TreeMap</span>&lt;<span class="cls">String</span>, <span class="cls">String</span>&gt; trie = <span class="kw">new</span> <span class="cls">TreeMap</span>&lt;&gt;(numeros);
+        <span class="kw">for</span> (<span class="cls">Map</span>.<span class="cls">Entry</span>&lt;<span class="cls">String</span>, <span class="cls">String</span>&gt; e : trie.<span class="fn">entrySet</span>())
+            <span class="cls">System</span>.out.<span class="fn">println</span>(e.<span class="fn">getKey</span>() + <span class="str">" : "</span> + e.<span class="fn">getValue</span>());
+    }
+}</pre>
+        <p>Avec Zoé/0611, Adam/0622 puis Adam/0633 : <code>chercher("Adam")</code> → 0633 (le 2<sup>e</sup> <code>put</code> a remplacé), <code>chercher("Eve")</code> → inconnu, affichage « Adam : 0633 » puis « Zoé : 0611 ».</p>
+      </div></div></div>
+
+    <div class="qa-item" id="q13"><button class="qa-q" onclick="toggleQA(this)" aria-expanded="false"><span class="qa-num">Q13 · UML → Java</span><span class="qa-text">Traduire : <code>Bibliotheque</code> ◇—— 0..* <code>Livre</code> (agrégation) ; <code>Livre</code> —— 1 <code>Auteur</code>, navigable de Livre vers Auteur ; <code>Lecteur</code> - - &gt; <code>Livre</code> (dépendance : le lecteur lit un livre).</span><span class="qa-chevron">▾</span></button>
+      <div class="qa-a"><div class="qa-a-in">
+<pre class="code"><span class="kw">class</span> <span class="cls">Auteur</span> {
+    <span class="kw">private</span> <span class="cls">String</span> nom;
+    <span class="kw">public</span> <span class="cls">Auteur</span>(<span class="cls">String</span> nom) { <span class="kw">this</span>.nom = nom; }
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">getNom</span>() { <span class="kw">return</span> nom; }
+}
+<span class="kw">class</span> <span class="cls">Livre</span> {
+    <span class="kw">private</span> <span class="cls">String</span> titre;
+    <span class="kw">private</span> <span class="cls">Auteur</span> auteur;                    <span class="cmt">// cardinalité 1 : attribut simple</span>
+    <span class="kw">public</span> <span class="cls">Livre</span>(<span class="cls">String</span> titre, <span class="cls">Auteur</span> auteur) { <span class="kw">this</span>.titre = titre; <span class="kw">this</span>.auteur = auteur; }
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">getTitre</span>() { <span class="kw">return</span> titre; }
+    <span class="kw">public</span> <span class="cls">Auteur</span> <span class="fn">getAuteur</span>() { <span class="kw">return</span> auteur; }
+}
+<span class="kw">class</span> <span class="cls">Bibliotheque</span> {
+    <span class="kw">private</span> <span class="cls">ArrayList</span>&lt;<span class="cls">Livre</span>&gt; livres = <span class="kw">new</span> <span class="cls">ArrayList</span>&lt;&gt;();   <span class="cmt">// 0..* : collection</span>
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">ajouter</span>(<span class="cls">Livre</span> l) { livres.<span class="fn">add</span>(l); }       <span class="cmt">// livre créé à l'extérieur</span>
+}
+<span class="kw">class</span> <span class="cls">Lecteur</span> {
+    <span class="kw">private</span> <span class="cls">String</span> nom;
+    <span class="kw">public</span> <span class="cls">Lecteur</span>(<span class="cls">String</span> nom) { <span class="kw">this</span>.nom = nom; }
+    <span class="kw">public</span> <span class="kw">void</span> <span class="fn">lire</span>(<span class="cls">Livre</span> l) {                <span class="cmt">// dépendance : juste un paramètre</span>
+        <span class="cls">System</span>.out.<span class="fn">println</span>(nom + <span class="str">" lit "</span> + l.<span class="fn">getTitre</span>() + <span class="str">" de "</span> + l.<span class="fn">getAuteur</span>().<span class="fn">getNom</span>());
+    }
+}</pre>
+        <p>Justifications : <b>agrégation</b> car les livres sont créés hors de la bibliothèque et lui sont passés (ils lui survivent) ; <b>navigabilité</b> : <code>Auteur</code> n'a pas d'attribut vers ses livres ; <b>dépendance</b> : <code>Lecteur</code> ne garde pas le livre. Sortie du test : « Corentin lit Les Misérables de Hugo ».</p>
+      </div></div></div>
+
+    <div class="qa-item" id="q14"><button class="qa-q" onclick="toggleQA(this)" aria-expanded="false"><span class="qa-num">Q14 · écrire</span><span class="qa-text">Classe <code>Joueur</code> (nom, score) triable par score croissant (ordre naturel), puis tri par nom avec un <code>Comparator</code>.</span><span class="qa-chevron">▾</span></button>
+      <div class="qa-a"><div class="qa-a-in">
+<pre class="code"><span class="kw">class</span> <span class="cls">Joueur</span> <span class="kw">implements</span> <span class="cls">Comparable</span>&lt;<span class="cls">Joueur</span>&gt; {
+    <span class="kw">private</span> <span class="cls">String</span> nom;
+    <span class="kw">private</span> <span class="kw">int</span> score;
+    <span class="kw">public</span> <span class="cls">Joueur</span>(<span class="cls">String</span> nom, <span class="kw">int</span> score) { <span class="kw">this</span>.nom = nom; <span class="kw">this</span>.score = score; }
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">getNom</span>() { <span class="kw">return</span> nom; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="kw">int</span> <span class="fn">compareTo</span>(<span class="cls">Joueur</span> autre) {       <span class="cmt">// négatif : this passe avant</span>
+        <span class="kw">return</span> <span class="kw">this</span>.score - autre.score;
+    }
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> <span class="cls">String</span> <span class="fn">toString</span>() { <span class="kw">return</span> nom + <span class="str">"("</span> + score + <span class="str">")"</span>; }
+}
+<span class="cmt">// main :</span>
+<span class="cls">Collections</span>.<span class="fn">sort</span>(l);                           <span class="cmt">// ordre naturel (compareTo)</span>
+<span class="cls">Collections</span>.<span class="fn">sort</span>(l, <span class="kw">new</span> <span class="cls">Comparator</span>&lt;<span class="cls">Joueur</span>&gt;() { <span class="cmt">// classe anonyme</span>
+    <span class="kw">public</span> <span class="kw">int</span> <span class="fn">compare</span>(<span class="cls">Joueur</span> a, <span class="cls">Joueur</span> b) {
+        <span class="kw">return</span> a.<span class="fn">getNom</span>().<span class="fn">compareTo</span>(b.<span class="fn">getNom</span>());
+    }
+});</pre>
+        <p>Avec Zoé(12), Adam(30), Lina(5) : <code>[Lina(5), Zoé(12), Adam(30)]</code> puis <code>[Adam(30), Lina(5), Zoé(12)]</code>. <code>String</code> implémente déjà <code>Comparable</code> : on réutilise son <code>compareTo</code>.</p>
+      </div></div></div>
+
+    <div class="qa-item" id="q15"><button class="qa-q" onclick="toggleQA(this)" aria-expanded="false"><span class="qa-num">Q15 · écrire</span><span class="qa-text">Interface <code>Payable</code> (<code>montantAPayer()</code>) implémentée par <code>Facture</code> et <code>Salarie</code>. Parcourir un tableau de <code>Payable</code>, calculer le total, et afficher le nom quand c'est un salarié.</span><span class="qa-chevron">▾</span></button>
+      <div class="qa-a"><div class="qa-a-in">
+<pre class="code"><span class="cls">Payable</span>[] aPayer = { <span class="kw">new</span> <span class="cls">Facture</span>(<span class="num">3</span>, <span class="num">20.5</span>), <span class="kw">new</span> <span class="cls">Salarie</span>(<span class="str">"Lina"</span>, <span class="num">1500</span>) };
+<span class="kw">double</span> total = <span class="num">0</span>;
+<span class="kw">for</span> (<span class="cls">Payable</span> p : aPayer) {
+    total += p.<span class="fn">montantAPayer</span>();                <span class="cmt">// appel polymorphe</span>
+    <span class="kw">if</span> (p <span class="kw">instanceof</span> <span class="cls">Salarie</span>) {
+        <span class="cls">Salarie</span> s = (<span class="cls">Salarie</span>) p;               <span class="cmt">// downcast sûr après instanceof</span>
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Salaire de "</span> + s.<span class="fn">getNom</span>());
+    }
+}
+<span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Total : "</span> + total);</pre>
+        <p>Sortie : « Salaire de Lina » puis « Total : 1561.5 ». <code>getNom()</code> n'existe pas dans <code>Payable</code> : sans downcast, <code>p.getNom()</code> ne compile pas.</p>
+      </div></div></div>
+
+    <div class="qa-item" id="q16"><button class="qa-q" onclick="toggleQA(this)" aria-expanded="false"><span class="qa-num">Q16 · au cas où</span><span class="qa-text">Les exceptions sont au Cours 5, en début de semaine 40. Si le sujet en parle : lire un entier strictement positif, lever une <code>Exception</code> sinon, et redemander tant qu'elle est attrapée.</span><span class="qa-chevron">▾</span></button>
+      <div class="qa-a"><div class="qa-a-in">
+<pre class="code"><span class="kw">public</span> <span class="kw">static</span> <span class="kw">int</span> <span class="fn">lirePositif</span>(<span class="cls">Scanner</span> clavier) <span class="kw">throws</span> <span class="cls">Exception</span> {   <span class="cmt">// propage</span>
+    <span class="kw">int</span> n = clavier.<span class="fn">nextInt</span>();
+    <span class="kw">if</span> (n &lt;= <span class="num">0</span>) <span class="kw">throw</span> <span class="kw">new</span> <span class="cls">Exception</span>(<span class="str">"n doit être &gt; 0"</span>);            <span class="cmt">// lève</span>
+    <span class="kw">return</span> n;
+}
+<span class="cmt">// main :</span>
+<span class="kw">int</span> n = <span class="num">0</span>;
+<span class="kw">boolean</span> ok = <span class="kw">false</span>;
+<span class="kw">while</span> (!ok) {
+    <span class="kw">try</span> {
+        n = <span class="fn">lirePositif</span>(clavier);
+        ok = <span class="kw">true</span>;
+    } <span class="kw">catch</span> (<span class="cls">Exception</span> e) {                                         <span class="cmt">// attrape</span>
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Erreur : "</span> + e.<span class="fn">getMessage</span>());
+    } <span class="kw">finally</span> {
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"tentative terminée"</span>);                   <span class="cmt">// toujours exécuté</span>
+    }
+}</pre>
+        <p>Saisie -2, 0, 4 → deux fois « Erreur : n doit être &gt; 0 » (chacune suivie de « tentative terminée »), puis « tentative terminée » et n = 4. <code>throw</code> lève, <code>throws</code> annonce dans la signature, <code>catch</code> attrape, <code>finally</code> s'exécute dans tous les cas.</p>
+      </div></div></div>
+
+  </div>
+</section>
+
+<!-- ================= MEMO ================= -->
+<section id="memo">
+  <div class="section-head">
+    <div class="eyebrow">À relire la veille</div>
+    <h2>Mémo de la veille</h2>
+  </div>
+<pre class="code"><span class="cmt">// déclarations</span>
+<span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> <span class="cls">Mere</span> { ... }          <span class="kw">public</span> <span class="kw">interface</span> <span class="cls">Contrat</span> { <span class="kw">void</span> <span class="fn">m</span>(); }
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Fille</span> <span class="kw">extends</span> <span class="cls">Mere</span> <span class="kw">implements</span> <span class="cls">Contrat</span>, <span class="cls">Autre</span> { ... }
+<span class="kw">private</span> <span class="kw">int</span> x;  <span class="kw">protected</span> <span class="kw">int</span> y;  <span class="kw">public</span> <span class="kw">static</span> <span class="kw">int</span> nb;  <span class="kw">final</span> <span class="kw">int</span> <span class="cls">MAX</span> = <span class="num">10</span>;
+
+<span class="cmt">// constructeurs</span>
+<span class="kw">public</span> <span class="cls">Fille</span>(<span class="kw">int</span> a, <span class="kw">int</span> b) { <span class="kw">super</span>(a); <span class="kw">this</span>.b = b; }   <span class="cmt">// super : 1re ligne</span>
+<span class="kw">public</span> <span class="cls">Fille</span>() { <span class="kw">this</span>(<span class="num">0</span>, <span class="num">0</span>); }                          <span class="cmt">// this(...) : 1re ligne</span>
+
+<span class="cmt">// redéfinitions classiques</span>
+<span class="kw">@Override</span> <span class="kw">public</span> <span class="cls">String</span> <span class="fn">toString</span>() { <span class="kw">return</span> <span class="str">"..."</span>; }
+<span class="kw">@Override</span> <span class="kw">public</span> <span class="kw">boolean</span> <span class="fn">equals</span>(<span class="cls">Object</span> o) { ... }       <span class="cmt">// null, getClass, cast, champs</span>
+<span class="kw">@Override</span> <span class="kw">public</span> <span class="kw">int</span> <span class="fn">compareTo</span>(<span class="cls">Fille</span> autre) { <span class="kw">return</span> <span class="kw">this</span>.x - autre.x; }
+
+<span class="cmt">// types et transtypage</span>
+<span class="cls">Mere</span> m = <span class="kw">new</span> <span class="cls">Fille</span>();                      <span class="cmt">// upcasting implicite</span>
+<span class="kw">if</span> (m <span class="kw">instanceof</span> <span class="cls">Fille</span>) { <span class="cls">Fille</span> f = (<span class="cls">Fille</span>) m; }        <span class="cmt">// downcasting sûr</span>
+
+<span class="cmt">// tableaux, String, Scanner</span>
+<span class="kw">int</span>[] t = <span class="kw">new</span> <span class="kw">int</span>[n];  t.length;  s.<span class="fn">length</span>();  s.<span class="fn">equals</span>(autre);
+<span class="cls">Scanner</span> sc = <span class="kw">new</span> <span class="cls">Scanner</span>(<span class="cls">System</span>.in);  sc.<span class="fn">nextInt</span>();  sc.<span class="fn">nextLine</span>();
+<span class="kw">int</span> alea = (<span class="kw">int</span>) (<span class="cls">Math</span>.<span class="fn">random</span>() * <span class="num">21</span>);     <span class="cmt">// 0 à 20</span>
+
+<span class="cmt">// collections (import java.util.*;)</span>
+<span class="cls">ArrayList</span>&lt;<span class="cls">T</span>&gt; l = <span class="kw">new</span> <span class="cls">ArrayList</span>&lt;&gt;();  l.<span class="fn">add</span>(e); l.<span class="fn">get</span>(i); l.<span class="fn">size</span>(); l.<span class="fn">remove</span>(i);
+<span class="cls">HashMap</span>&lt;<span class="cls">K</span>, <span class="cls">V</span>&gt; m = <span class="kw">new</span> <span class="cls">HashMap</span>&lt;&gt;();   m.<span class="fn">put</span>(k, v); m.<span class="fn">get</span>(k); m.<span class="fn">containsKey</span>(k); m.<span class="fn">keySet</span>();
+<span class="cls">Collections</span>.<span class="fn">sort</span>(l);  <span class="cls">Collections</span>.<span class="fn">sort</span>(l, comparateur);</pre>
+</section>
+
+    <p class="ev-src">Sources : cours 1 à 4 et exercices (JP Segado), TP1 à TP4, sujets papier 2020 et 2023 du même enseignant (page <a href="corriges.html#annales">Corrigés</a>). Tout le code de cette page a été compilé et exécuté avec Java 21.</p>
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    POO Java — Ing2 Gr02 · fiche de l'évaluation écrite de la semaine 40 · <a href="index.html">retour au site</a>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+<script src="js/eval.js"></script>
+</body>
+</html>
