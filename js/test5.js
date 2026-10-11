@@ -55,7 +55,7 @@
   var BANQUE = [];
   (function () {
     if (typeof T5_RAW === "undefined") return;
-    var blocs = T5_RAW.split(/^## /m).slice(1);
+    var blocs = (T5_RAW + "\n" + (typeof T5_RAW2 !== "undefined" ? T5_RAW2 : "")).split(/^## /m).slice(1);
     blocs.forEach(function (b) {
       var lignes = b.split("\n");
       var tete = lignes.shift().split("|");
