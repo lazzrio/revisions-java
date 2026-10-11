@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Test 5 : exceptions, Swing, MVC — POO Java Ing2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<meta name="description" content="Préparation au Test 5 de POO Java (QCM Safe Exam Browser, 50 questions en 30 min) : exceptions, fichiers et sérialisation, Swing et listeners, MVC. Le code expliqué ligne par ligne et un QCM mélangé.">
+<meta name="theme-color" content="#b45a1e" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161211" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:title" content="POO Java — Test 5 (exceptions, Swing, MVC)">
+<meta property="og:description" content="Le code des semaines 5 à 7 expliqué pas à pas, et un QCM de plus de 120 questions mélangées avec simulation 50 questions / 30 minutes.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="ev-page t5-page">
+<a class="skip" href="#contenu">Aller au contenu</a>
+<div class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="index.html" aria-label="Accueil" style="text-decoration:none">
+      <span class="mug">☕</span>
+      <span>POO Java · Ing2</span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="index.html#accueil">Accueil</a>
+      <a class="nav-ev active" href="test5.html" aria-current="page">🎯 Test 5</a>
+      <a href="eval-s40.html">📝 Éval S40</a>
+      <a href="index.html#s5" title="Semaine 5 — exceptions, fichiers, sérialisation">S5</a>
+      <a href="index.html#s6" title="Semaine 6 — Swing, layouts, listeners">S6</a>
+      <a href="index.html#s7" title="Semaine 7 — pattern MVC">S7</a>
+      <a href="index.html#methodes">Méthodes</a>
+      <a class="nav-cx" href="corriges.html">✅ Corrigés</a>
+      <a href="index.html#qcm">QCM</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Changer de thème">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</div>
+
+<main id="contenu">
+  <div class="hero ev-hero">
+    <div class="hero-grid"></div>
+    <div class="hero-in">
+      <div>
+        <div class="eyebrow">🎯 Test 5 · QCM sous Safe Exam Browser · 2<sup>e</sup> séance de 2 h</div>
+        <h1>Test 5 : <em>comprendre le code</em> des semaines 5, 6 et 7.</h1>
+        <p class="lead"><b>50 questions</b> à réponse unique, <b>30 minutes</b> (environ 35 s par question), une seule tentative, pas de retour en arrière. Tout vient d'une banque tirée au hasard : cours 5 (exceptions, sérialisation), cours 6 (Swing, AWT, listeners) et cours 7 (MVC, avec le TP7).</p>
+        <div class="ev-prog"><span>S5 Exceptions</span><span>S5 Fichiers et sérialisation</span><span>S6 Swing et listeners</span><span>S7 MVC</span></div>
+        <p style="margin-top:18px"><a class="btn btn-primary" href="#qcm5" onclick="t5Aller&&setTimeout(t5Aller,50)"><span>🧠 Aller au QCM (<span class="t5-count">120</span> questions)</span></a></p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap ev-wrap">
+<nav class="ev-toc" aria-label="Sections de la fiche">
+  <a href="#essentiel">Plan</a>
+  <a href="#exc">Exceptions</a>
+  <a href="#fic">Fichiers et sérialisation</a>
+  <a href="#swing">Swing</a>
+  <a href="#mvc">MVC</a>
+  <a href="#pieges">Pièges</a>
+  <a href="#qcm5">QCM</a>
+</nav>
+
+<!-- ================= PLAN ================= -->
+<section id="essentiel">
+  <div class="section-head">
+    <div class="eyebrow">À lire en premier</div>
+    <h2>Comment utiliser cette page</h2>
+    <p>Le test est un QCM, mais beaucoup de questions donnent un <b>extrait de code</b> : « que s'affiche-t-il ? », « ça compile ? », « quelle classe fait quoi ? ». Pour les réussir il ne faut pas apprendre par cœur : il faut savoir <b>dérouler le code dans sa tête</b>. Chaque partie ci-dessous montre donc du vrai code, commenté, avec son déroulé.</p>
+  </div>
+  <div class="ev-plan">
+    <div><b>1 · Lis (≈ 40 min)</b><ul><li>Les 4 parties de code expliqué, dans l'ordre.</li><li>À chaque extrait : cache la réponse, prédis la sortie, puis vérifie.</li><li>Recopie une fois à la main l'exception perso et le MVC du compteur.</li></ul></div>
+    <div><b>2 · Entraîne-toi (≈ 40 min)</b><ul><li>QCM en mode <b>entraînement</b>, filtre « Lecture de code » d'abord.</li><li>Lis chaque explication, même quand tu as juste.</li><li>Refais « Mes erreurs » jusqu'à zéro.</li></ul></div>
+    <div><b>3 · Simule (30 min)</b><ul><li>Une <b>simulation</b> complète : 50 questions, 30 minutes, sans pause.</li><li>Vise au moins 40/50.</li><li>Relis le détail des erreurs.</li></ul></div>
+  </div>
+  <h3 class="ev-h3">Stratégie pendant le test</h3>
+  <ol class="ev-must">
+    <li><b>35 secondes par question.</b> Si tu hésites, élimine d'abord les réponses fausses, choisis la plus probable et avance : on ne peut pas revenir.</li>
+    <li><b>Code : cherche d'abord l'erreur de compilation</b> (ordre des <code>catch</code>, exception vérifiée non traitée, variable non finale dans une lambda, interface non implémentée). Ensuite seulement, déroule l'exécution.</li>
+    <li><b>Mots-pièges :</b> « toujours », « jamais », « seulement ». Un cours Java a rarement des « toujours » (sauf <code>finally</code>… et encore, hors <code>System.exit</code>).</li>
+    <li><b>Les réponses sont mélangées</b> : ne retiens pas la position, retiens la raison.</li>
+  </ol>
+</section>
+
+<!-- ================= EXCEPTIONS ================= -->
+<section id="exc">
+  <div class="section-head">
+    <div class="eyebrow">Semaine 5 · cours 5</div>
+    <h2>Exceptions : comprendre le déroulé</h2>
+    <p>Une exception est un <b>objet</b> qui interrompt l'exécution normale. Il « remonte » la pile d'appels jusqu'au premier <code>catch</code> compatible. S'il n'y en a pas, le programme s'arrête avec la trace.</p>
+  </div>
+
+  <h3 class="ev-h3">1. La hiérarchie à connaître</h3>
+<pre class="code hl">Throwable
+├── Error                         // erreurs graves de la JVM : on ne les traite pas (StackOverflowError, OutOfMemoryError)
+└── Exception                     // à traiter
+    ├── RuntimeException          // NON vérifiées : erreurs de programmation, aucune obligation
+    │     NullPointerException, ArithmeticException, ArrayIndexOutOfBoundsException,
+    │     ClassCastException, NumberFormatException (⊂ IllegalArgumentException), IllegalStateException
+    └── toutes les autres         // VÉRIFIÉES : try/catch ou throws OBLIGATOIRE
+          IOException ⊃ FileNotFoundException, ClassNotFoundException, tes propres « extends Exception »</pre>
+  <p class="ev-small">Question type : « laquelle est non vérifiée ? » → celle qui passe par <code>RuntimeException</code>.</p>
+
+  <h3 class="ev-h3">2. Une exception personnalisée, ligne par ligne</h3>
+<pre class="code hl">class SoldeInsuffisantException extends Exception {        // (1) extends Exception → VÉRIFIÉE
+    public SoldeInsuffisantException(double manque) {
+        super("Il manque " + manque + " EUR");              // (2) le message va au parent → getMessage() le renverra
+    }
+}
+
+class Compte {
+    private double solde;
+    public void retirer(double m) throws SoldeInsuffisantException {   // (3) on DÉCLARE ce qui peut sortir
+        if (m > solde)
+            throw new SoldeInsuffisantException(m - solde);            // (4) on LANCE : la méthode s'arrête ici
+        solde -= m;                                                    // (5) jamais atteint si on a lancé
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Compte c = new Compte();
+        try {                                                // (6) zone surveillée
+            c.retirer(50);
+            System.out.println("Retrait OK");                // sauté si l'exception est lancée
+        } catch (SoldeInsuffisantException e) {              // (7) traitement
+            System.out.println(e.getMessage());              // → Il manque 50.0 EUR
+        } finally {                                          // (8) toujours exécuté
+            System.out.println("Fin de l'opération");
+        }
+    }
+}</pre>
+  <div class="ev-grid">
+    <div class="ev-card"><h4>À retenir</h4><ul>
+      <li><b>(1)</b> vérifiée ⇒ <b>(3)</b> <code>throws</code> obligatoire dans la méthode qui lance.</li>
+      <li><b>(2)</b> sans <code>super(message)</code>, <code>getMessage()</code> renvoie <code>null</code>.</li>
+      <li><b>(4)</b> <code>throw</code> = instruction qui lance un <b>objet</b>.</li>
+      <li><b>(7)</b> sans le <code>try/catch</code> (ou un <code>throws</code> sur <code>main</code>), l'appel <code>c.retirer(50)</code> ne compile pas.</li>
+    </ul></div>
+    <div class="ev-card"><h4>Sortie ici</h4><p>Le solde vaut 0, on retire 50 : <code>m &gt; solde</code>, on lance. Rien n'affiche « Retrait OK ».</p>
+<pre class="code">Il manque 50.0 EUR
+Fin de l'opération</pre></div>
+  </div>
+
+  <h3 class="ev-h3">3. Suivre l'exécution : la pile d'appels</h3>
+<pre class="code hl">static void a() { System.out.println("a1"); b(); System.out.println("a2"); }
+static void b() { System.out.println("b1"); throw new IllegalStateException("boum"); }
+public static void main(String[] args) {
+    try { a(); }
+    catch (RuntimeException e) { System.out.println("main:" + e.getMessage()); }
+}</pre>
+  <div class="tbl-wrap ev-stack"><table class="tbl">
+    <thead><tr><th>Étape</th><th>Pile d'appels</th><th>Affichage</th></tr></thead>
+    <tbody>
+      <tr><td data-l="Étape">main entre dans le <code>try</code>, appelle <code>a()</code></td><td data-l="Pile">main → a</td><td data-l="Affichage"></td></tr>
+      <tr><td data-l="Étape"><code>a</code> affiche, appelle <code>b()</code></td><td data-l="Pile">main → a → b</td><td data-l="Affichage"><code>a1</code></td></tr>
+      <tr><td data-l="Étape"><code>b</code> affiche puis lance l'exception</td><td data-l="Pile">main → a → b</td><td data-l="Affichage"><code>b1</code></td></tr>
+      <tr><td data-l="Étape"><code>b</code> n'a pas de <code>catch</code> : on dépile, <code>a</code> non plus (<code>a2</code> est sauté)</td><td data-l="Pile">main</td><td data-l="Affichage"></td></tr>
+      <tr><td data-l="Étape"><code>main</code> a un <code>catch</code> compatible (<code>IllegalStateException ⊂ RuntimeException</code>)</td><td data-l="Pile">main</td><td data-l="Affichage"><code>main:boum</code></td></tr>
+    </tbody></table></div>
+  <p class="ev-small">Une <b>non vérifiée</b> (<code>RuntimeException</code>) n'a pas besoin de <code>throws</code> : c'est pour cela que <code>b</code> et <code>a</code> compilent sans rien déclarer.</p>
+
+  <h3 class="ev-h3">4. finally : les cas qui piègent</h3>
+  <div class="ev-grid">
+    <div class="ev-card"><h4>return dans le try</h4>
+<pre class="code hl">static int f() {
+    try { return 1; }
+    finally { System.out.println("F"); }
+}
+// println(f()) → F puis 1</pre>
+    <p>La valeur est préparée, le <code>finally</code> s'exécute, puis la méthode se termine.</p></div>
+    <div class="ev-card"><h4>return dans le finally</h4>
+<pre class="code hl">static int g() {
+    try { return 1; }
+    finally { return 2; }
+}
+// g() → 2</pre>
+    <p>Le <code>return</code> du <code>finally</code> écrase celui du <code>try</code>.</p></div>
+    <div class="ev-card"><h4>variable modifiée dans finally</h4>
+<pre class="code hl">static int h() {
+    int x = 1;
+    try { return x; }
+    finally { x = 99; }
+}
+// h() → 1</pre>
+    <p>La valeur renvoyée est <b>copiée</b> avant le <code>finally</code>.</p></div>
+    <div class="ev-card"><h4>continue dans une boucle</h4>
+<pre class="code hl">for (int i = 0; i &lt; 3; i++) {
+    try {
+        if (i == 1) continue;
+        System.out.println("i=" + i);
+    } finally { System.out.println("f" + i); }
+}
+// i=0 f0 f1 i=2 f2</pre>
+    <p><code>finally</code> s'exécute à chaque tour, même quand on saute avec <code>continue</code>.</p></div>
+  </div>
+
+  <h3 class="ev-h3">5. Quand le compilateur refuse</h3>
+  <div class="tbl-wrap ev-stack"><table class="tbl">
+    <thead><tr><th>Code</th><th>Problème</th><th>Message</th></tr></thead>
+    <tbody>
+      <tr><td data-l="Code"><code>catch (Exception e)</code> puis <code>catch (IOException e)</code></td><td data-l="Problème">Mère avant fille</td><td data-l="Message">exception IOException has already been caught</td></tr>
+      <tr><td data-l="Code">appel de <code>new FileReader(f)</code> sans <code>try</code> ni <code>throws</code></td><td data-l="Problème">Exception vérifiée non traitée</td><td data-l="Message">unreported exception FileNotFoundException; must be caught or declared to be thrown</td></tr>
+      <tr><td data-l="Code"><code>catch (IOException e)</code> alors que le <code>try</code> ne peut pas en lancer</td><td data-l="Problème">Catch inutile d'une vérifiée</td><td data-l="Message">exception IOException is never thrown in body of corresponding try statement</td></tr>
+      <tr><td data-l="Code"><code>throw ...;</code> suivi d'une instruction dans le même bloc</td><td data-l="Problème">Code inatteignable</td><td data-l="Message">unreachable statement</td></tr>
+      <tr><td data-l="Code"><code>catch (IOException | FileNotFoundException e)</code></td><td data-l="Problème">Types liés par héritage</td><td data-l="Message">Alternatives in a multi-catch statement cannot be related by subclassing</td></tr>
+      <tr><td data-l="Code">redéfinir <code>void m()</code> par <code>void m() throws IOException</code></td><td data-l="Problème">Exception plus large que la mère</td><td data-l="Message">overridden method does not throw IOException</td></tr>
+    </tbody></table></div>
+
+  <h3 class="ev-h3">6. try-with-resources</h3>
+<pre class="code hl">try (R a = new R("A"); R b = new R("B")) {     // ressources déclarées entre parenthèses
+    System.out.println("body");
+}                                               // fermeture automatique dans l'ordre INVERSE
+// open A / open B / body / close B / close A</pre>
+  <p class="ev-small">Condition : la classe implémente <code>AutoCloseable</code> (<code>FileReader</code>, <code>Scanner</code>, <code>PrintWriter</code>, <code>ObjectOutputStream</code> le font). On ne ferme plus à la main.</p>
+</section>
+
+<!-- ================= FICHIERS ================= -->
+<section id="fic">
+  <div class="section-head">
+    <div class="eyebrow">Semaine 5 · cours 5 · TP5</div>
+    <h2>Fichiers texte et sérialisation : comprendre le code</h2>
+    <p>Deux façons de sauvegarder : en <b>texte</b> (une ligne par objet, champs séparés par <code>;</code>) ou en <b>binaire</b> (on sérialise des objets entiers).</p>
+  </div>
+
+  <h3 class="ev-h3">1. Fichier texte : écrire puis relire</h3>
+<pre class="code hl">// ÉCRITURE
+try (PrintWriter out = new PrintWriter(new FileWriter("notes.txt"))) {   // FileWriter(nom) ÉCRASE ; (nom, true) AJOUTE
+    out.println("Alice;20;15.5");                                       // une ligne par objet
+    out.println("Bilal;21;12.0");
+} catch (IOException e) {                                               // l'ouverture peut échouer
+    System.out.println("Écriture impossible : " + e.getMessage());
+}                                                                       // close() automatique → tampon vidé
+
+// LECTURE
+try {
+    Scanner sc = new Scanner(new File("notes.txt"));    // lance FileNotFoundException (vérifiée)
+    while (sc.hasNextLine()) {                           // tant qu'il reste une ligne
+        String[] champs = sc.nextLine().split(";");      // {"Alice", "20", "15.5"} : des String !
+        String nom = champs[0];
+        int age = Integer.parseInt(champs[1]);           // String → int
+        double moy = Double.parseDouble(champs[2]);      // String → double
+        System.out.println(nom + " a " + age + " ans, moyenne " + moy);
+    }
+    sc.close();
+} catch (FileNotFoundException e) {                      // fichier absent
+    System.out.println("Fichier introuvable : " + e.getMessage());
+}</pre>
+  <div class="ev-grid">
+    <div class="ev-card"><h4>Les quatre pièges</h4><ul>
+      <li><code>new File("x")</code> représente un <b>chemin</b>, il ne crée pas le fichier.</li>
+      <li><code>split(";")</code> donne des <code>String</code> ; <code>"a;b;;".split(";").length</code> vaut <b>2</b> (vides finales supprimées).</li>
+      <li>Sans <code>close()</code> (ou try-with-resources), l'écriture peut ne jamais arriver dans le fichier.</li>
+      <li><code>FileNotFoundException</code> avant <code>IOException</code> dans les <code>catch</code>.</li>
+    </ul></div>
+    <div class="ev-card"><h4>Lire / écrire : qui est qui ?</h4><ul>
+      <li><b>Lire du texte</b> : <code>Scanner</code> (+ <code>File</code>), <code>BufferedReader.readLine()</code> (renvoie <code>null</code> à la fin).</li>
+      <li><b>Écrire du texte</b> : <code>PrintWriter</code>, <code>FileWriter</code>, <code>BufferedWriter</code>.</li>
+      <li><b>Octets</b> : <code>FileInputStream</code> / <code>FileOutputStream</code>.</li>
+      <li><b>Objets</b> : <code>ObjectInputStream</code> / <code>ObjectOutputStream</code>.</li>
+    </ul></div>
+  </div>
+
+  <h3 class="ev-h3">2. Sérialisation : sauver et recharger une liste</h3>
+<pre class="code hl">public class Etu implements Serializable {                   // (1) marqueur : aucune méthode à écrire
+    private static final long serialVersionUID = 1L;         // (2) numéro de version de la classe
+    private String nom;
+    private double moyenne;
+    private transient String motDePasse;                     // (3) NON sauvegardé
+
+    // constructeur, toString ...
+
+    static void sauver(List&lt;Etu&gt; liste, String fichier) throws IOException {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fichier))) {  // (4) flux d'objets AUTOUR d'un flux d'octets
+            out.writeObject(liste);                          // (5) toute la liste (et ses éléments) en un appel
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    static List&lt;Etu&gt; charger(String fichier) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(fichier))) {
+            return (List&lt;Etu&gt;) in.readObject();              // (6) readObject() renvoie Object → CAST
+        }
+    }
+}</pre>
+  <div class="ev-grid">
+    <div class="ev-card"><h4>Que se passe-t-il à la relecture ?</h4>
+<pre class="code">// écrit : Alice 15.5 "secret"
+// relu  : Alice 15.5 null</pre>
+      <p><code>motDePasse</code> est <code>transient</code> : il revient à la valeur par défaut (<code>null</code> pour un objet, <code>0</code> pour un <code>int</code>, <code>false</code> pour un <code>boolean</code>). <b>Aucun constructeur n'est rappelé.</b></p></div>
+    <div class="ev-card"><h4>Ce que la sérialisation ne sauve pas</h4><ul>
+      <li>Les attributs <code>transient</code>.</li>
+      <li>Les attributs <code>static</code> (ils appartiennent à la classe).</li>
+      <li>Si un attribut est d'une classe <b>non sérialisable</b> : <code>NotSerializableException</code> à l'exécution.</li>
+    </ul></div>
+    <div class="ev-card"><h4>Détails qui tombent au QCM</h4><ul>
+      <li>On relit dans le <b>même ordre</b> qu'on a écrit.</li>
+      <li>Un objet référencé deux fois dans le flux reste <b>un seul objet</b> après relecture.</li>
+      <li>Fin des objets : <code>EOFException</code>.</li>
+      <li><code>Serializable</code> s'hérite : <code>JFrame</code> est sérialisable, d'où l'avertissement <code>serialVersionUID</code>.</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ================= SWING ================= -->
+<section id="swing">
+  <div class="section-head">
+    <div class="eyebrow">Semaine 6 · cours 6</div>
+    <h2>Swing, layouts et listeners : comprendre le code</h2>
+    <p>Une interface = des <b>composants</b> placés dans des <b>conteneurs</b> par des <b>layouts</b>, plus des <b>listeners</b> qui réagissent aux événements (clic, clavier, souris).</p>
+  </div>
+
+  <h3 class="ev-h3">1. Une fenêtre minimale</h3>
+<pre class="code hl">public class IHMTel extends JFrame {                         // la fenêtre EST une JFrame
+    public void affiche() {
+        JTextField textField = new JTextField(" ", 25);       // champ de 25 colonnes
+        textField.setEditable(false);                         // lecture seule
+        JButton buttonOk = new JButton("OK");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // fermer la fenêtre = arrêter le programme
+        setLayout(new BorderLayout());                        // (déjà le layout par défaut d'une JFrame)
+        add("North", textField);                              // en haut
+        add("Center", buttonOk);                              // au milieu
+        Cadran cadran = new Cadran(textField, buttonOk);      // le pavé (JPanel) reçoit les composants qu'il doit piloter
+        add("South", cadran);                                 // en bas
+        pack();                                               // taille = taille préférée du contenu
+        setVisible(true);                                     // sans ça : fenêtre invisible
+    }
+}
+public class Utilisation {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -&gt; new IHMTel().affiche());   // l'IHM se construit dans le thread de Swing (EDT)
+    }
+}</pre>
+
+  <h3 class="ev-h3">2. Les layouts en dessin</h3>
+  <div class="t5-lays">
+    <figure class="t5-lay"><div class="lay-border"><span style="grid-area:n">NORTH</span><span style="grid-area:w">WEST</span><span style="grid-area:c">CENTER</span><span style="grid-area:e">EAST</span><span style="grid-area:s">SOUTH</span></div>
+      <figcaption><b>BorderLayout</b> : défaut de <code>JFrame</code>. 5 zones, <b>un seul</b> composant par zone (le dernier ajouté gagne). <code>add(c)</code> sans zone = <code>CENTER</code>.</figcaption></figure>
+    <figure class="t5-lay"><div class="lay-grid"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+      <figcaption><b>GridLayout(3, 3)</b> : cases de même taille, remplies ligne par ligne. Avec <code>GridLayout(2, 3)</code> et 7 composants : 2 lignes, donc <b>4 colonnes</b> (les colonnes sont recalculées).</figcaption></figure>
+    <figure class="t5-lay"><div class="lay-flow"><span>OK</span><span>Annuler</span><span>Aide</span><span>Quitter</span><span>Suite</span></div>
+      <figcaption><b>FlowLayout</b> : défaut de <code>JPanel</code>. Composants à la suite, retour à la ligne s'il manque de la place.</figcaption></figure>
+  </div>
+
+  <h3 class="ev-h3">3. Un listener, trois écritures équivalentes</h3>
+<pre class="code hl">class Ecouteur implements ActionListener {                    // (A) classe interne
+    public void actionPerformed(ActionEvent e) { incr(); }
+}
+b1.addActionListener(new Ecouteur());
+
+b2.addActionListener(new ActionListener() {                   // (B) classe anonyme
+    public void actionPerformed(ActionEvent e) { incr(); }
+});
+
+b3.addActionListener(e -&gt; incr());                            // (C) lambda : seulement pour UNE méthode abstraite</pre>
+  <div class="ev-grid">
+    <div class="ev-card"><h4>Les interfaces d'écoute</h4><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Interface</th><th>Méthodes</th></tr></thead><tbody>
+      <tr><td><code>ActionListener</code></td><td>1 : <code>actionPerformed</code> (lambda possible)</td></tr>
+      <tr><td><code>MouseListener</code></td><td>5 : clicked, pressed, released, entered, exited</td></tr>
+      <tr><td><code>KeyListener</code></td><td>3 : keyTyped, keyPressed, keyReleased</td></tr>
+      <tr><td><code>WindowListener</code></td><td>7 dont <code>windowClosing</code></td></tr>
+    </tbody></table></div><p class="ev-small">Pour éviter d'écrire les méthodes inutiles : <code>MouseAdapter</code>, <code>KeyAdapter</code>, <code>WindowAdapter</code>.</p></div>
+    <div class="ev-card"><h4>Pièges de lambda</h4>
+<pre class="code hl">int c = 0;
+bouton.addActionListener(e -&gt; c++);   // ERREUR de compilation
+// variable locale utilisée dans une lambda
+// → doit être (effectivement) final</pre>
+      <p>Remède : <code>c</code> devient un <b>attribut</b> de la classe.</p></div>
+  </div>
+
+  <h3 class="ev-h3">4. Le Cadran du TP, ligne par ligne</h3>
+<pre class="code hl">public class Cadran extends JPanel implements ActionListener {   // un JPanel qui s'écoute lui-même
+    JTextField textfield;  JButton buttonOk;
+    JButton buttons[] = new JButton[9];                          // les touches 1 à 9
+    JButton buttonBis = new JButton("Bis"), buttonZero = new JButton("0"), buttonReset = new JButton("Reset");
+    private String numeroValide = "";                            // mémoire pour « Bis »
+
+    Cadran(JTextField t, JButton ok) {
+        this.textfield = t;  this.buttonOk = ok;
+        setLayout(new GridLayout(4, 3));                         // 4 lignes × 3 colonnes = 12 touches
+        for (int i = 0; i &lt; buttons.length; i++) {
+            add(buttons[i] = new JButton("" + (i + 1)));         // crée, ajoute, mémorise
+            buttons[i].addActionListener(this);                  // CE panneau reçoit les clics
+        }
+        add(buttonBis); add(buttonZero); add(buttonReset);
+        buttonZero.addActionListener(this);  buttonBis.addActionListener(this);
+        buttonReset.addActionListener(this); buttonOk.addActionListener(this);   // OK appartient à IHMTel mais est écouté ici
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {                 // UNE méthode pour tous les boutons
+        Object source = e.getSource();                           // qui a été cliqué ?
+        String affiche = textfield.getText();
+        if (source == buttonReset)        textfield.setText("");              // vider
+        else if (source == buttonOk)      numeroValide = affiche;             // mémoriser
+        else if (source == buttonBis)     textfield.setText(numeroValide);    // rappeler
+        else if (affiche.length() &lt; 8)    textfield.setText(affiche + ((JButton) source).getText());   // ajouter un chiffre
+    }
+}</pre>
+  <div class="tbl-wrap ev-stack"><table class="tbl">
+    <thead><tr><th>Clic</th><th>Branche exécutée</th><th>Champ</th><th>numeroValide</th></tr></thead>
+    <tbody>
+      <tr><td data-l="Clic"><code>1</code></td><td data-l="Branche">dernier <code>else if</code> : on ajoute « 1 »</td><td data-l="Champ"><code>1</code></td><td data-l="numeroValide">vide</td></tr>
+      <tr><td data-l="Clic"><code>2</code></td><td data-l="Branche">on ajoute « 2 »</td><td data-l="Champ"><code>12</code></td><td data-l="numeroValide">vide</td></tr>
+      <tr><td data-l="Clic"><code>OK</code></td><td data-l="Branche"><code>source == buttonOk</code></td><td data-l="Champ"><code>12</code></td><td data-l="numeroValide"><code>12</code></td></tr>
+      <tr><td data-l="Clic"><code>Reset</code></td><td data-l="Branche"><code>source == buttonReset</code></td><td data-l="Champ">vide</td><td data-l="numeroValide"><code>12</code></td></tr>
+      <tr><td data-l="Clic"><code>Bis</code></td><td data-l="Branche"><code>source == buttonBis</code></td><td data-l="Champ"><code>12</code></td><td data-l="numeroValide"><code>12</code></td></tr>
+    </tbody></table></div>
+  <p class="ev-small">Avec 8 chiffres affichés, un 9<sup>e</sup> clic ne fait rien : <code>8 &lt; 8</code> est faux.</p>
+
+  <h3 class="ev-h3">5. Composants et méthodes à reconnaître</h3>
+  <div class="tbl-wrap ev-stack"><table class="tbl">
+    <thead><tr><th>Besoin</th><th>Composant</th><th>Méthode clé</th></tr></thead>
+    <tbody>
+      <tr><td data-l="Besoin">Texte non modifiable</td><td data-l="Composant"><code>JLabel</code></td><td data-l="Méthode"><code>setText</code></td></tr>
+      <tr><td data-l="Besoin">Saisie sur une ligne</td><td data-l="Composant"><code>JTextField</code></td><td data-l="Méthode"><code>getText</code> (toujours une <code>String</code>), <code>setEditable(false)</code></td></tr>
+      <tr><td data-l="Besoin">Saisie sur plusieurs lignes</td><td data-l="Composant"><code>JTextArea</code> dans un <code>JScrollPane</code></td><td data-l="Méthode"><code>append</code>, <code>setText</code></td></tr>
+      <tr><td data-l="Besoin">Case à cocher</td><td data-l="Composant"><code>JCheckBox</code></td><td data-l="Méthode"><code>isSelected()</code></td></tr>
+      <tr><td data-l="Besoin">Un seul choix parmi plusieurs</td><td data-l="Composant"><code>JRadioButton</code> + <code>ButtonGroup</code></td><td data-l="Méthode"><code>isSelected()</code></td></tr>
+      <tr><td data-l="Besoin">Liste déroulante</td><td data-l="Composant"><code>JComboBox</code></td><td data-l="Méthode"><code>getSelectedItem()</code></td></tr>
+      <tr><td data-l="Besoin">Menu</td><td data-l="Composant"><code>JMenuItem</code> ⊂ <code>JMenu</code> ⊂ <code>JMenuBar</code></td><td data-l="Méthode"><code>frame.setJMenuBar(...)</code></td></tr>
+      <tr><td data-l="Besoin">Pop-up</td><td data-l="Composant"><code>JOptionPane</code></td><td data-l="Méthode"><code>showMessageDialog</code>, <code>showInputDialog</code></td></tr>
+      <tr><td data-l="Besoin">Dessiner</td><td data-l="Composant"><code>JPanel</code> + <code>paintComponent(Graphics g)</code></td><td data-l="Méthode"><code>super.paintComponent(g)</code>, puis <code>repaint()</code> pour redessiner</td></tr>
+    </tbody></table></div>
+</section>
+
+<!-- ================= MVC ================= -->
+<section id="mvc">
+  <div class="section-head">
+    <div class="eyebrow">Semaine 7 · cours 7 · TP7</div>
+    <h2>MVC : comprendre qui fait quoi</h2>
+    <p>Trois rôles. Le <b>modèle</b> sait calculer, la <b>vue</b> sait afficher, le <b>contrôleur</b> sait réagir. Aucun ne fait le travail d'un autre.</p>
+  </div>
+
+  <figure class="ev-fig">
+    <svg viewBox="0 0 560 250" role="img" aria-label="Schéma MVC : l'utilisateur agit sur la vue, le contrôleur appelle le modèle, le modèle notifie la vue" class="ev-uml">
+      <defs><marker id="ar" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+      <rect x="20" y="95" width="130" height="60"/><text x="85" y="130" text-anchor="middle">VUE</text>
+      <rect x="215" y="10" width="130" height="60"/><text x="280" y="45" text-anchor="middle">CONTRÔLEUR</text>
+      <rect x="410" y="95" width="130" height="60"/><text x="475" y="130" text-anchor="middle">MODÈLE</text>
+      <path class="l" d="M60 95 L215 50" marker-end="url(#ar)" style="color:var(--ink)"/><text class="c" x="95" y="65" text-anchor="middle">1 · clic</text>
+      <path class="l" d="M345 45 L470 95" marker-end="url(#ar)" style="color:var(--ink)"/><text class="c" x="450" y="62" text-anchor="middle">2 · appelle</text>
+      <path class="l dash" d="M410 140 L152 140" marker-end="url(#ar)" style="color:var(--ink)"/><text class="c" x="280" y="160" text-anchor="middle">3 · notifie (Observer)</text>
+      <text class="d" x="280" y="210" text-anchor="middle">le modèle ne connaît ni la vue ni le contrôleur,</text>
+      <text class="d" x="280" y="232" text-anchor="middle">seulement une interface d'abonnés</text>
+    </svg>
+    <figcaption>Le cycle d'un clic. Trait plein : appel direct. Trait pointillé : notification par l'interface Listener.</figcaption>
+  </figure>
+
+  <h3 class="ev-h3">Le compteur MVC, en 4 classes, expliqué</h3>
+<pre class="code hl">// ===== MODÈLE : données + règles. AUCUN import javax.swing =====
+public interface CompteurListener { void compteurModifie(CompteurModele m); }     // contrat des observateurs
+
+public class CompteurModele {
+    private int valeur = 0;
+    private final int max;
+    private final List&lt;CompteurListener&gt; abonnes = new ArrayList&lt;&gt;();       // il ne connaît que l'INTERFACE
+    public CompteurModele(int max) { this.max = max; }
+    public int getValeur() { return valeur; }
+    public void ajouterAbonne(CompteurListener l) { abonnes.add(l); }
+    public void incrementer() {
+        if (valeur &gt;= max) throw new IllegalStateException("Maximum " + max + " atteint");   // règle MÉTIER → exception
+        valeur++;
+        prevenir();                                                      // (3) notification, après le changement
+    }
+    public void remettreAZero() { valeur = 0; prevenir(); }
+    private void prevenir() { for (CompteurListener l : abonnes) l.compteurModifie(this); }
+}</pre>
+<pre class="code hl">// ===== VUE : affichage seulement =====
+public class CompteurVue extends JFrame implements CompteurListener {       // elle observe le modèle
+    private final JLabel affichage = new JLabel("0");
+    private final JLabel erreur = new JLabel(" ");
+    final JButton plus = new JButton("+1");
+    final JButton raz = new JButton("RAZ");
+    public CompteurVue() { /* layout, add(...), EXIT_ON_CLOSE, pack() */ }
+    public void ecouter(ActionListener l) { plus.addActionListener(l); raz.addActionListener(l); }   // le contrôleur s'abonne ici
+    public void afficherErreur(String msg) { erreur.setText(msg); }
+    @Override public void compteurModifie(CompteurModele m) {                // appelée PAR LE MODÈLE
+        affichage.setText(String.valueOf(m.getValeur()));
+        erreur.setText(" ");                                                 // un changement réussi efface l'erreur
+    }
+}
+
+// ===== CONTRÔLEUR : clic → appel du modèle =====
+public class CompteurControleur implements ActionListener {
+    private final CompteurModele modele;
+    private final CompteurVue vue;
+    public CompteurControleur(CompteurModele m, CompteurVue v) { modele = m; vue = v; v.ecouter(this); }   // (1) s'abonne aux boutons
+    @Override public void actionPerformed(ActionEvent e) {
+        try {
+            if (e.getSource() == vue.plus) modele.incrementer();             // (2) appelle le modèle
+            else if (e.getSource() == vue.raz) modele.remettreAZero();
+        } catch (IllegalStateException ex) {
+            vue.afficherErreur(ex.getMessage());                             // erreur métier → message pour l'utilisateur
+        }
+    }
+}
+
+// ===== MAIN : crée et relie =====
+SwingUtilities.invokeLater(() -&gt; {
+    CompteurModele m = new CompteurModele(5);
+    CompteurVue v = new CompteurVue();
+    m.ajouterAbonne(v);                  // la vue observe le modèle
+    new CompteurControleur(m, v);        // le contrôleur écoute la vue
+    v.setVisible(true);
+});</pre>
+  <div class="tbl-wrap ev-stack"><table class="tbl">
+    <thead><tr><th>Action</th><th>Ce qui se passe</th><th>Affichage</th></tr></thead>
+    <tbody>
+      <tr><td data-l="Action">Clic « +1 » (valeur 2, max 5)</td><td data-l="Passe">contrôleur → <code>incrementer()</code> → <code>valeur = 3</code> → <code>prevenir()</code> → vue <code>compteurModifie</code></td><td data-l="Affichage"><code>3</code></td></tr>
+      <tr><td data-l="Action">6<sup>e</sup> clic « +1 » (valeur 5)</td><td data-l="Passe"><code>valeur &gt;= max</code> : l'exception est lancée <b>avant</b> <code>valeur++</code> et <code>prevenir()</code> ; le contrôleur l'attrape</td><td data-l="Affichage"><code>5</code> + « Maximum 5 atteint »</td></tr>
+      <tr><td data-l="Action">Clic « RAZ » ensuite</td><td data-l="Passe"><code>valeur = 0</code> → <code>prevenir()</code> → la vue remet le chiffre <b>et efface l'erreur</b></td><td data-l="Affichage"><code>0</code></td></tr>
+    </tbody></table></div>
+  <div class="ev-grid">
+    <div class="ev-card"><h4>Qui connaît qui ?</h4><ul>
+      <li><b>Contrôleur</b> : connaît la vue <b>et</b> le modèle.</li>
+      <li><b>Vue</b> : lit le modèle (ou seulement l'interface) pour s'afficher.</li>
+      <li><b>Modèle</b> : ne connaît personne, juste une liste de <code>CompteurListener</code>.</li>
+    </ul></div>
+    <div class="ev-card"><h4>Les questions classiques</h4><ul>
+      <li>Où va la règle « pas plus de 5 » ? <b>Modèle.</b></li>
+      <li>Où va le <code>JLabel</code> ? <b>Vue.</b></li>
+      <li>Qui implémente <code>ActionListener</code> ? <b>Contrôleur.</b></li>
+      <li>Qui convertit le texte du <code>JTextField</code> en <code>int</code> ? <b>Contrôleur.</b></li>
+      <li>Quel patron relie modèle et vue ? <b>Observateur.</b></li>
+      <li>Comment tester le modèle ? Dans un <code>main</code> <b>console</b>, sans fenêtre.</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ================= PIÈGES ================= -->
+<section id="pieges">
+  <div class="section-head">
+    <div class="eyebrow">À relire la veille</div>
+    <h2>Les 20 pièges du Test 5</h2>
+  </div>
+  <div class="trap-list">
+    <div class="trap"><b>1 · Ordre des catch</b>Fille avant mère. Mère avant fille = erreur de compilation.</div>
+    <div class="trap"><b>2 · finally et return</b>Le <code>finally</code> s'exécute avant que la méthode ne rende la main ; un <code>return</code> dedans écrase l'autre.</div>
+    <div class="trap"><b>3 · System.exit</b>Seul cas où <code>finally</code> ne s'exécute pas.</div>
+    <div class="trap"><b>4 · RuntimeException</b>Jamais obligatoire à traiter ; tout le reste de <code>Exception</code> l'est.</div>
+    <div class="trap"><b>5 · super(message)</b>Oublié : <code>getMessage()</code> renvoie <code>null</code>.</div>
+    <div class="trap"><b>6 · Entier / 0</b>Exception pour <code>int</code>, <code>Infinity</code> pour <code>double</code>.</div>
+    <div class="trap"><b>7 · Redéfinition et throws</b>Une fille ne peut pas déclarer plus large que la mère.</div>
+    <div class="trap"><b>8 · transient</b>Valeur par défaut après relecture ; aucun constructeur rappelé.</div>
+    <div class="trap"><b>9 · static</b>Jamais sérialisé.</div>
+    <div class="trap"><b>10 · readObject</b>Renvoie <code>Object</code> (cast) ; lance <code>IOException</code> et <code>ClassNotFoundException</code>.</div>
+    <div class="trap"><b>11 · FileWriter</b>Écrase par défaut ; <code>true</code> pour ajouter.</div>
+    <div class="trap"><b>12 · split</b>Tableau de <code>String</code> ; vides finales supprimées.</div>
+    <div class="trap"><b>13 · Layouts par défaut</b><code>JFrame</code> : Border ; <code>JPanel</code> : Flow.</div>
+    <div class="trap"><b>14 · BorderLayout</b>Deux composants dans la même zone : seul le dernier reste.</div>
+    <div class="trap"><b>15 · GridLayout(2,3)</b>Avec 7 composants : 4 colonnes (lignes prioritaires).</div>
+    <div class="trap"><b>16 · Lambda</b>Seulement <code>ActionListener</code> (1 méthode) ; variable locale = effectivement finale.</div>
+    <div class="trap"><b>17 · Listener oublié</b>Pas de <code>addActionListener</code> = le clic ne fait rien.</div>
+    <div class="trap"><b>18 · EXIT_ON_CLOSE</b>Sans lui, la fenêtre se ferme mais le programme tourne encore.</div>
+    <div class="trap"><b>19 · MVC</b>Le modèle n'importe jamais Swing et n'appelle jamais un composant.</div>
+    <div class="trap"><b>20 · Exception métier</b>Lancée par le modèle, attrapée par le contrôleur, affichée par la vue.</div>
+  </div>
+</section>
+
+<!-- ================= QCM ================= -->
+<section id="qcm5">
+  <div class="section-head">
+    <div class="eyebrow">Auto-évaluation</div>
+    <h2>QCM Test 5 : <span class="t5-count">120</span> questions mélangées</h2>
+    <p>L'ordre des questions et des réponses est tiré au hasard à chaque partie. L'entraînement explique chaque correction ; la simulation reproduit les conditions du test. Tes erreurs sont mémorisées sur cet appareil pour les rejouer.</p>
+  </div>
+  <div class="qcm-wrap" id="t5App"></div>
+</section>
+
+    <p class="ev-src">Sources : cours 5, 6 et 7 (J.-P. Segado), TP5 à TP7, corrigés du site. Les sorties des extraits de code de cette page et du QCM ont été obtenues en les compilant et en les exécutant avec Java 21 (les questions Swing ont été vérifiées sur les règles de la documentation Java).</p>
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    POO Java — Ing2 · préparation du Test 5 · <a href="index.html">retour au site</a>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+<script src="js/test5-data.js"></script>
+<script src="js/test5.js"></script>
+<script src="js/eval.js"></script>
+</body>
+</html>

@@ -70,7 +70,7 @@
   /* ---------- Jalons (emploi du temps officiel) ---------- */
   var JALONS = [
     { d: "2026-09-28T08:00:00+02:00", t: "Évaluation écrite de la semaine 5", s: "1 h sur feuille, semaine du 28 septembre · cours et TP des semaines 1 à 4" },
-    { d: "2026-10-12T08:00:00+02:00", t: "Test 5 (QCM Safe Exam Browser)", s: "50 questions en 20 min, semaine du 12 octobre · semaines 5, 6 et 7" },
+    { d: "2026-10-12T08:00:00+02:00", t: "Test 5 (QCM Safe Exam Browser)", s: "50 questions en 30 min, semaine du 12 octobre · semaines 5, 6 et 7 · fiche : test5.html" },
     { d: "2026-11-07T11:00:00+01:00", t: "Évaluation finale POO Java", s: "samedi 7 novembre, 11 h 00 – 12 h 30 · tout le programme" }
   ];
   var now = new Date();

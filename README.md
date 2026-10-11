@@ -14,6 +14,7 @@ statique et sans dépendance : il fonctionne tel quel sur GitHub Pages, sur ordi
 | **S1 → S7** | Une page par semaine : notions clés, vocabulaire, code annoté, **réponses détaillées aux exercices du PDF**, pièges, checklist |
 | **✅ Corrigés** (`corriges.html`) | Index des 50 exercices des PDF de cours (+ 4 d'entraînement MVC), **TP 1 à 7** (corrigé type FastBite) et **annales** 2013 → 2025 (QCM 2025, DS 2023, 2020, 2016, 2015, 2014, 2013), avec méthode, code compilé et erreurs des corrigés officiels signalées |
 | **Méthodes** | Table de décision, 6 exos types déroulés, débogage, kit Java « à côté », rédaction sur papier |
+| **🎯 Test 5** (`test5.html`) | Préparation du Test 5 (S5 à S7) : exceptions, fichiers et sérialisation, Swing, MVC, **code expliqué ligne par ligne**, 20 pièges, **QCM de plus de 120 questions mélangées** (entraînement corrigé, simulation 50 q / 30 min, rejeu des erreurs) |
 | **QCM** | 116 questions (S1 à S7 + méthodes), filtre par semaine, mélange, **mode test** 20 questions / 15 min |
 | **Exo Livre** | Écrire une classe complète : énoncé, squelette, corrigé commenté |
 
