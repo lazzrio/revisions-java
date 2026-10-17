@@ -511,3 +511,23 @@ pre.code.ev-enonce{margin:0 18px 14px;font-size:12.5px}
 .lay-flow{display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;height:130px;max-width:230px}
 .lay-flow span{padding:6px 10px}
 @media(max-width:560px){.t5-th{grid-template-columns:1fr 1fr auto}.qcm-card{padding:22px 16px}.t5-q{font-size:16px}}
+
+/* ===== Page QCM final ===== */
+.fin-bar{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:space-between;align-items:center;margin-bottom:10px;font-family:var(--f-mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.fin-titre{color:var(--accent);font-weight:600}
+#finChrono{font-weight:700;color:var(--ink);font-size:15px}
+#finChrono.urgent{color:var(--bad)}
+.fin-grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(34px,1fr));gap:5px;margin-bottom:16px;max-height:132px;overflow-y:auto;padding:2px}
+.fin-n{font-family:var(--f-mono);font-size:12px;padding:6px 0;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:6px;cursor:pointer;position:relative}
+.fin-n.ans{background:var(--teal-soft);border-color:var(--accent2);color:var(--ink)}
+.fin-n.flag::after{content:"⚑";position:absolute;top:-6px;right:-3px;font-size:10px;color:var(--bad)}
+.fin-n.cur{outline:2px solid var(--accent);outline-offset:1px;font-weight:700}
+.fin-nav{display:flex;gap:8px;flex-wrap:wrap}
+.fin-keys{text-align:center;margin-top:10px}
+.fin-opt{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--muted);line-height:1.4}
+.fin-opt input{margin-top:3px}
+.fin-hist{display:grid;gap:6px;max-width:440px;margin:0 auto}
+.fin-hist div{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;font-size:13.5px;border-bottom:1px solid var(--line2);padding:5px 0}
+.fin-wrap{max-width:860px}
+.fin-page .t5-mode .qcm-filter{justify-content:flex-start;margin:4px 0}
+@media(max-width:560px){.fin-hist div{grid-template-columns:1fr auto}.fin-hist div span:nth-child(2){display:none}.fin-grille{grid-template-columns:repeat(auto-fill,minmax(32px,1fr))}}

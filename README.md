@@ -15,6 +15,7 @@ statique et sans dépendance : il fonctionne tel quel sur GitHub Pages, sur ordi
 | **✅ Corrigés** (`corriges.html`) | Index des 50 exercices des PDF de cours (+ 4 d'entraînement MVC), **TP 1 à 7** (corrigé type FastBite) et **annales** 2013 → 2025 (QCM 2025, DS 2023, 2020, 2016, 2015, 2014, 2013), avec méthode, code compilé et erreurs des corrigés officiels signalées |
 | **Méthodes** | Table de décision, 6 exos types déroulés, débogage, kit Java « à côté », rédaction sur papier |
 | **🎯 Test 5** (`test5.html`) | Préparation du Test 5 (S5 à S7) : exceptions, fichiers et sérialisation, Swing, MVC, **code expliqué ligne par ligne**, 20 pièges, **QCM de plus de 120 questions mélangées** (entraînement corrigé, simulation 50 q / 30 min, rejeu des erreurs) |
+| **🏁 QCM final** (`final.html`) | Entraînement à l'évaluation finale : examen blanc de **80 questions à points négatifs en 1 h 30** (grille numérotée, repères, chrono), **annale 2025** réelle (+0,8 / −0,4), entraînement par chapitre, fiche des pièges S1 à S4, banque de plus de 450 questions (S1 à S7) |
 | **QCM** | 116 questions (S1 à S7 + méthodes), filtre par semaine, mélange, **mode test** 20 questions / 15 min |
 | **Exo Livre** | Écrire une classe complète : énoncé, squelette, corrigé commenté |
 

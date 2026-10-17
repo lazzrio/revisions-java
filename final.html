@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QCM d'évaluation finale — POO Java Ing2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<meta name="description" content="Entraînement à l'évaluation finale de POO Java : QCM de 80 questions à points négatifs en 1 h 30, sur tous les chapitres, dans le style des DS de J.-P. Segado, avec l'annale 2025 et plus de 450 questions corrigées.">
+<meta name="theme-color" content="#b45a1e" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161211" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:title" content="POO Java — QCM de l'évaluation finale">
+<meta property="og:description" content="Examen blanc de 80 questions à points négatifs, annale 2025 et entraînement par chapitre.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="ev-page t5-page fin-page">
+<a class="skip" href="#contenu">Aller au contenu</a>
+<div class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="index.html" aria-label="Accueil" style="text-decoration:none">
+      <span class="mug">☕</span>
+      <span>POO Java · Ing2</span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="index.html#accueil">Accueil</a>
+      <a class="nav-ev active" href="final.html" aria-current="page">🏁 QCM final</a>
+      <a href="test5.html">🎯 Test 5</a>
+      <a href="eval-s40.html">📝 Éval S40</a>
+      <a href="index.html#s5" title="Semaine 5 — exceptions, fichiers, sérialisation">S5</a>
+      <a href="index.html#s6" title="Semaine 6 — Swing, layouts, listeners">S6</a>
+      <a href="index.html#s7" title="Semaine 7 — pattern MVC">S7</a>
+      <a href="index.html#methodes">Méthodes</a>
+      <a class="nav-cx" href="corriges.html">✅ Corrigés</a>
+      <a href="index.html#qcm">QCM</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Changer de thème">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</div>
+
+<main id="contenu">
+  <div class="hero ev-hero">
+    <div class="hero-grid"></div>
+    <div class="hero-in">
+      <div>
+        <div class="eyebrow">🏁 Évaluation finale · QCM · tous les chapitres</div>
+        <h1>QCM final : <em>80 questions</em> à points négatifs.</h1>
+        <p class="lead">Même style que l'annale 2025 de J.-P. Segado : une seule bonne réponse sur quatre, du code à lire, des affirmations à juger vraies ou fausses, un barème qui sanctionne les erreurs. Ici : un examen blanc de 80 questions en 1 h 30 tiré d'une banque de plus de <span class="fin-count">450</span> questions sur les chapitres 1 à 7, plus l'annale 2025 réelle.</p>
+        <div class="ev-prog"><span>S1 Bases</span><span>S2 UML et héritage</span><span>S3 Concepts</span><span>S4 Abstraction, collections</span><span>S5 Exceptions</span><span>S6 Swing</span><span>S7 MVC</span></div>
+        <p style="margin-top:18px"><a class="btn btn-primary" href="#qcmfin"><span>🧠 Lancer un examen blanc</span></a></p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap ev-wrap">
+<nav class="ev-toc" aria-label="Sections de la page">
+  <a href="#strategie">Stratégie</a>
+  <a href="#pieges">Pièges S1 à S4</a>
+  <a href="#qcmfin">QCM</a>
+</nav>
+
+<section id="strategie">
+  <div class="section-head">
+    <div class="eyebrow">À lire en premier</div>
+    <h2>Gagner des points avec un barème négatif</h2>
+    <p>Dans l'annale 2025, une bonne réponse vaut <b>+0,8</b> et une mauvaise réponse, plusieurs réponses ou <b>l'absence de réponse</b> valent <b>−0,4</b>. Le barème de ton évaluation (80 questions) n'est pas connu : l'examen blanc applique le même rapport 2 pour 1 et te laisse choisir si une case vide est pénalisée.</p>
+  </div>
+  <div class="ev-grid">
+    <div class="ev-card"><h4>Si le vide est pénalisé</h4><p>Une case vide coûte autant qu'une erreur : <b>réponds toujours</b>, même au hasard. Un tirage au hasard sur 4 réponses a une espérance de −0,125 point, mais laisser vide coûte −0,5 : répondre est toujours meilleur.</p></div>
+    <div class="ev-card"><h4>Si le vide vaut 0</h4><p>Gain moyen par question (rapport 2 pour 1) selon le nombre de réponses encore possibles :</p>
+      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Possibles</th><th>Espérance</th><th>Décision</th></tr></thead><tbody>
+        <tr><td>4 (au hasard)</td><td>−0,125</td><td>laisser vide</td></tr>
+        <tr><td>3</td><td>0</td><td>indifférent</td></tr>
+        <tr><td>2</td><td>+0,25</td><td>répondre</td></tr>
+        <tr><td>1 (sûr)</td><td>+1</td><td>répondre</td></tr>
+      </tbody></table></div></div>
+    <div class="ev-card"><h4>Le temps : 67 secondes par question</h4><p>1 h 30 pour 80 questions. <b>Premier passage</b> : réponds en 45 secondes maximum, marque ⚑ ce qui demande une trace. <b>Second passage</b> : reprends les questions marquées avec le temps gagné.</p></div>
+  </div>
+  <h3 class="ev-h3">Méthode pour les questions de code</h3>
+  <ol class="ev-must">
+    <li><b>Compile-t-il ?</b> Cherche d'abord l'erreur de compilation : variable non initialisée, <code>static</code> qui utilise un attribut, classe abstraite instanciée, interface à moitié implémentée, ordre des <code>catch</code>, <code>super(...)</code> pas en première ligne.</li>
+    <li><b>Quel type pour le compilateur, quel type pour l'exécution ?</b> Le <b>type déclaré</b> décide des méthodes autorisées, des attributs lus et du choix entre surcharges. Le <b>type réel</b> décide des méthodes <b>redéfinies</b> exécutées.</li>
+    <li><b>Trace sur le brouillon :</b> note les variables et les affichages pas à pas. Un constructeur appelle toujours celui de la mère d'abord.</li>
+    <li><b>Mots-pièges :</b> « toujours », « jamais », « seulement », « uniquement ». Ils rendent souvent une affirmation fausse.</li>
+  </ol>
+</section>
+
+<section id="pieges">
+  <div class="section-head">
+    <div class="eyebrow">À relire la veille</div>
+    <h2>Les pièges des chapitres 1 à 4</h2>
+    <p>Pour les chapitres 5 à 7, voir la page <a href="test5.html#pieges">Test 5</a> (20 pièges).</p>
+  </div>
+  <div class="trap-list">
+    <div class="trap"><b>String</b><code>==</code> compare les adresses, <code>equals</code> le contenu. Les méthodes renvoient une nouvelle chaîne : <code>s.toUpperCase();</code> seul ne change pas <code>s</code>.</div>
+    <div class="trap"><b>Division</b><code>7 / 2</code> vaut 3 ; <code>1 / 2 + 1 / 2.0</code> vaut 0.5. <code>(int)</code> tronque.</div>
+    <div class="trap"><b>Addition et texte</b><code>10 + 20 + "x"</code> donne <code>30x</code> ; <code>'a' + 1</code> donne 98.</div>
+    <div class="trap"><b>Tableaux</b><code>length</code> sans parenthèses ; cases à <code>0</code>, <code>false</code>, <code>null</code> ; <code>b = a</code> copie la référence.</div>
+    <div class="trap"><b>Passage par valeur</b>Un objet ou un tableau passé en paramètre : on modifie le contenu, mais <code>p = new ...</code> ne change pas la variable de l'appelant.</div>
+    <div class="trap"><b>static</b>Pas de <code>this</code>, pas d'attribut d'instance. Les méthodes statiques sont masquées, jamais redéfinies : résolution sur le type déclaré.</div>
+    <div class="trap"><b>Constructeurs</b>Pas hérités. Dès qu'on en écrit un, celui par défaut disparaît. <code>super(...)</code> / <code>this(...)</code> en 1<sup>re</sup> ligne. Pas de type de retour (<code>void A()</code> est une méthode).</div>
+    <div class="trap"><b>Ordre d'exécution</b>Constructeur de la mère, puis de la fille. Une méthode redéfinie appelée dans le constructeur de la mère voit les attributs de la fille encore à 0.</div>
+    <div class="trap"><b>Attributs et polymorphisme</b>Seules les <b>méthodes</b> sont polymorphes. <code>Mere m = new Fille(); m.x</code> lit l'attribut de <code>Mere</code>.</div>
+    <div class="trap"><b>Surcharge et type déclaré</b><code>m(Figure)</code> / <code>m(Cercle)</code> avec <code>Figure f = new Cercle()</code> : <code>m(f)</code> appelle <code>m(Figure)</code>.</div>
+    <div class="trap"><b>Surcharge ≠ redéfinition</b><code>f(double)</code> dans la fille n'est pas une redéfinition de <code>f(int)</code>. Le type de retour seul ne différencie pas deux méthodes.</div>
+    <div class="trap"><b>equals</b>Redéfinir <code>equals(Object o)</code>, pas <code>equals(Point p)</code>. Redéfinie avec <code>hashCode</code> pour <code>HashSet</code> / <code>HashMap</code>.</div>
+    <div class="trap"><b>Visibilité</b><code>private</code> &lt; défaut (package) &lt; <code>protected</code> (package + filles) &lt; <code>public</code>. Une redéfinition ne peut pas réduire la visibilité.</div>
+    <div class="trap"><b>Transtypage</b>Montée implicite, descente explicite. Le compilateur accepte une descente plausible, l'exécution lance <code>ClassCastException</code> si le type réel ne convient pas.</div>
+    <div class="trap"><b>abstract</b>Pas de <code>new</code>. Peut avoir constructeurs, attributs, méthodes concrètes. Une fille concrète implémente toutes les méthodes abstraites.</div>
+    <div class="trap"><b>Interface</b>Méthodes <code>public abstract</code>, attributs <code>public static final</code>, plusieurs <code>implements</code>, un seul <code>extends</code>. L'implémentation doit être <code>public</code>.</div>
+    <div class="trap"><b>ArrayList</b><code>remove(1)</code> supprime l'indice 1, <code>remove(Integer.valueOf(1))</code> l'objet. <code>get</code> hors liste : exception ; <code>HashMap.get</code> absent : <code>null</code>.</div>
+    <div class="trap"><b>Parcours et suppression</b>Supprimer dans un <code>for-each</code> : <code>ConcurrentModificationException</code>. Utiliser <code>Iterator.remove()</code>.</div>
+    <div class="trap"><b>Collections</b><code>HashSet</code> : pas de doublons (via <code>equals</code> et <code>hashCode</code>). <code>HashMap</code> : clé unique, pas d'ordre garanti. Pas de <code>List&lt;int&gt;</code>.</div>
+    <div class="trap"><b>Comparable / Comparator</b><code>compareTo</code> négatif : <code>this</code> avant l'autre. <code>sort</code> sans ordre naturel : erreur de compilation. Comparateur inversé : <code>(x, y) -&gt; y.compareTo(x)</code>.</div>
+  </div>
+</section>
+
+<section id="qcmfin">
+  <div class="section-head">
+    <div class="eyebrow">Entraînement</div>
+    <h2>QCM d'évaluation finale</h2>
+    <p>Choisis un mode. En <b>examen blanc</b>, tu réponds sur une grille numérotée : tu peux revenir sur une question, la marquer et corriger une réponse avant de terminer. Le score tient compte des points négatifs.</p>
+  </div>
+  <div class="qcm-wrap fin-wrap" id="finApp"></div>
+</section>
+
+    <p class="ev-src">Banque : questions du site (chapitres 1 à 7), 24 questions de l'annale 2025 avec la clé officielle (corrigée à la question 18) et plus de 130 questions écrites pour cette page. Les sorties et les erreurs de compilation des extraits de code ont été obtenues en les compilant et en les exécutant avec Java 21.</p>
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    POO Java — Ing2 · préparation de l'évaluation finale · <a href="index.html">retour au site</a>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+<script src="js/qcm-data.js"></script>
+<script src="js/test5-data.js"></script>
+<script src="js/test5-data2.js"></script>
+<script src="js/final-s1.js"></script>
+<script src="js/final-s2.js"></script>
+<script src="js/final-s3.js"></script>
+<script src="js/final-s4.js"></script>
+<script src="js/final-ann.js"></script>
+<script src="js/final.js"></script>
+<script src="js/eval.js"></script>
+</body>
+</html>

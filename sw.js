@@ -1,6 +1,6 @@
 /* Hors ligne : le réseau d'abord (contenu toujours à jour), la copie locale si pas de connexion. */
-const CACHE = "poo-java-v5";
-const CORE = ["./", "index.html", "corriges.html", "eval-s40.html", "test5.html", "css/style.css", "js/app.js", "js/qcm-data.js", "js/corriges.js", "js/eval.js", "js/test5.js", "js/test5-data.js", "js/test5-data2.js",
+const CACHE = "poo-java-v6";
+const CORE = ["./", "index.html", "corriges.html", "eval-s40.html", "test5.html", "final.html", "css/style.css", "js/app.js", "js/qcm-data.js", "js/corriges.js", "js/eval.js", "js/test5.js", "js/test5-data.js", "js/test5-data2.js", "js/final-s1.js", "js/final-s2.js", "js/final-s3.js", "js/final-s4.js", "js/final-ann.js", "js/final.js",
   "assets/favicon.svg", "assets/icon-192.png", "manifest.webmanifest"];
 
 self.addEventListener("install", (e) => {
