@@ -84,7 +84,19 @@ public static void main(String[] a) {
 - Affiche ~1~ puis ~F~
 - Affiche seulement ~1~
 - Affiche seulement ~F~
-? Le ~return 1~ prépare la valeur, le ~finally~ s'exécute (affiche ~F~), puis la méthode rend ~1~, que ~main~ affiche : ~F~ puis ~1~.
+? Suis les étapes dans l'ordre :
+
+**1.** ~main~ appelle ~f()~ **à l'intérieur** de ~System.out.println(...)~. Java doit d'abord obtenir la valeur de ~f()~, ensuite seulement il affichera.
+
+**2.** Dans ~f()~, on entre dans le ~try~ : ~return 1~ prépare la valeur de retour (1) mais la méthode n'est pas encore terminée.
+
+**3.** Avant de sortir, Java exécute **obligatoirement** le bloc ~finally~ : il affiche ~F~.
+
+**4.** ~f()~ rend alors la valeur 1 à ~main~.
+
+**5.** ~println~ reçoit 1 et l'affiche.
+
+Affichage : ~F~ **puis** ~1~. Le ~F~ sort avant le ~1~ parce que le ~finally~ a lieu pendant le calcul de ~f()~, avant le ~println~ du ~main~.
 
 ## exc | Lecture de code : return dans finally
 Que vaut ~g()~ ?
@@ -113,7 +125,17 @@ static int h() {
 - ~99~
 - ~100~
 - Erreur de compilation
-? La valeur de ~x~ (1) est copiée au moment du ~return~. Le ~finally~ modifie la variable locale, pas la valeur déjà préparée pour le retour.
+? Le ~return~ ne renvoie pas « la variable », il renvoie **la valeur qu'elle a au moment du ~return~**.
+
+**1.** ~x = 1~.
+
+**2.** ~return x~ : Java **copie la valeur 1** pour la renvoyer.
+
+**3.** Le ~finally~ s'exécute : ~x = 99~ modifie la variable locale ~x~, mais la valeur déjà copiée (1) ne change pas.
+
+**4.** La méthode renvoie 1.
+
+Contraste : si on renvoyait un **objet** (par exemple un ~StringBuilder~), la copie serait celle de la **référence** : le ~finally~ pourrait modifier l'objet, et l'appelant verrait le changement.
 
 ## exc | Lecture de code : flux normal
 Quelle est la sortie ?

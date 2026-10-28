@@ -15,7 +15,17 @@ public class Main {
 - ~CBA~
 - ~C~
 - ~ACB~
-? Un constructeur commence par appeler celui de la mère (~super()~ implicite) : on remonte jusqu'à ~A~, puis on exécute les corps en descendant : ~A~, ~B~, ~C~.
+? Lis le programme **dans l'ordre où Java l'exécute**, pas dans l'ordre où il est écrit.
+
+**Étape 1.** ~new C()~ appelle le constructeur ~C()~. Avant d'exécuter la moindre ligne de son corps, Java exécute ~super()~ (écrit ou non). On saute donc dans ~B()~.
+
+**Étape 2.** ~B()~ fait pareil : avant son corps, il appelle ~A()~.
+
+**Étape 3.** ~A()~ n'a pas d'autre mère que ~Object~ : son corps s'exécute en premier et affiche ~A~.
+
+**Étape 4.** On « remonte » : le corps de ~B()~ affiche ~B~, puis le corps de ~C()~ affiche ~C~.
+
+Résultat : ~ABC~. **Règle : on construit toujours de la racine vers la classe la plus basse** (la mère avant la fille). Pour ~CBA~ il aurait fallu l'ordre inverse, ce qui n'existe pas en Java.
 
 ## s2 | super() implicite impossible
 Que se passe-t-il à la compilation ?
@@ -28,7 +38,11 @@ class B extends A { B() { } }
 - Aucune erreur
 - Erreur : ~B~ ne peut pas avoir de constructeur
 - Aucune erreur, ~x~ vaut 0
-? Dès qu'une classe définit un constructeur, le constructeur par défaut disparaît. ~B()~ appelle implicitement ~super()~ qui n'existe pas : il faut écrire ~super(5);~ par exemple.
+? **Ce que le compilateur fait.** Dans ~B()~, aucune ligne ne commence par ~super(...)~ ni ~this(...)~. Le compilateur ajoute donc tout seul ~super();~ en première ligne (appel au constructeur **sans paramètre** de ~A~).
+
+**Où ça casse.** ~A~ a écrit un constructeur ~A(int x)~. Quand une classe écrit **au moins un** constructeur, Java ne fabrique plus le constructeur par défaut sans paramètre. Donc ~A()~ n'existe pas : le ~super()~ automatique de ~B~ ne trouve rien à appeler. D'où l'erreur de compilation.
+
+**Les deux façons de corriger :** écrire dans ~B()~ la ligne ~super(5);~ (n'importe quelle valeur), ou ajouter dans ~A~ un constructeur ~A() { }~.
 
 ## s2 | super.methode()
 Qu'affiche ce programme ?
@@ -46,7 +60,15 @@ public class Main {
 - ~B~
 - ~BA~
 - ~A~
-? ~B.f()~ commence par ~super.f()~ (affiche ~A~) puis affiche ~B~.
+? Suis les appels :
+
+**1.** ~new B().f()~ : l'objet est un ~B~, donc on exécute ~B.f()~.
+
+**2.** La 1<sup>re</sup> ligne de ~B.f()~ est ~super.f()~ : le mot ~super~ force l'appel de la version de la **classe mère**. On exécute ~A.f()~ qui affiche ~A~.
+
+**3.** ~A.f()~ se termine, on revient dans ~B.f()~ qui affiche ~B~.
+
+Résultat ~AB~. Sans le mot ~super~, ~f()~ dans ~B.f()~ s'appellerait elle-même sans fin (récursion infinie).
 
 ## s2 | Transtypage descendant
 Que se passe-t-il ?
@@ -67,7 +89,13 @@ public class Main {
 - Erreur de compilation
 - Affiche ~fin~
 - ~NullPointerException~
-? Le compilateur accepte ~(Chat) a~ (un ~Animal~ peut être un ~Chat~), mais l'objet réel est un ~Chien~ : refus à l'exécution. ~instanceof~ permet de tester avant.
+? Il y a deux « moments » différents : la compilation et l'exécution.
+
+**À la compilation.** ~a~ est déclaré ~Animal~. Le cast ~(Chat) a~ est **accepté**, car un ~Animal~ peut très bien être un ~Chat~ (~Chat~ hérite d'~Animal~). Le compilateur ne regarde pas ce que contient réellement ~a~.
+
+**À l'exécution.** On regarde l'objet réel : ~new Chien()~, donc un ~Chien~. Un ~Chien~ n'est pas un ~Chat~ (frères, aucun lien d'héritage entre eux). Java refuse : **~ClassCastException~**. Le ~println("fin")~ n'est jamais atteint.
+
+**Règle** : la montée (~Animal a = new Chien()~) est automatique et toujours sûre ; la descente (~(Chat) a~) demande un cast et peut échouer. Pour être prudent : ~if (a instanceof Chat) { Chat c = (Chat) a; }~.
 
 ## s2 | instanceof
 Qu'affiche ce code ?
@@ -87,7 +115,17 @@ public class Main {
 - ~true false false~
 - ~true true true~
 - ~false true false~
-? L'objet est un ~Chien~, donc aussi un ~Animal~ (héritage), mais pas un ~Chat~.
+? Chaque test pose la question : « l'objet **réel** est-il de ce type, ou d'un type qui en hérite ? »
+
+L'objet réel est ~new Chien()~.
+
+**~a instanceof Chien~** : oui, c'est un ~Chien~ → ~true~.
+
+**~a instanceof Animal~** : oui, un ~Chien~ **est un** ~Animal~ (il en hérite) → ~true~.
+
+**~a instanceof Chat~** : non, ~Chien~ et ~Chat~ sont deux classes sœurs → ~false~.
+
+La variable ~a~ est déclarée ~Animal~, mais ~instanceof~ regarde l'objet, pas la variable.
 
 ## s2 | Surcharge, pas redéfinition
 Qu'affiche ce programme ?
@@ -103,7 +141,16 @@ public class Main {
 - ~B.double~
 - ~A.int B.double~
 - Erreur de compilation
-? ~B.f(double)~ a une signature **différente** : c'est une surcharge, pas une redéfinition. ~B~ possède donc ~f(int)~ (héritée) et ~f(double)~ ; l'appel avec un ~int~ choisit ~f(int)~.
+? Il faut d'abord savoir **ce que ~B~ contient** :
+
+| méthode | origine |
+|---|---|
+| ~f(int x)~ | héritée de ~A~ |
+| ~f(double x)~ | écrite dans ~B~ |
+
+~f(double)~ n'a pas la même liste de paramètres que ~f(int)~ : ce n'est **pas** une redéfinition (qui exige exactement la même signature), c'est une **surcharge** : ~B~ a maintenant deux méthodes ~f~.
+
+**L'appel ~f(3)~.** ~3~ est un ~int~. Java choisit la méthode dont le paramètre correspond le mieux : ~f(int)~, donc celle de ~A~. Affichage : ~A.int~. (~f(double)~ ne serait appelée que pour ~f(3.5)~.)
 
 ## s2 | Méthodes statiques
 Qu'affiche ce programme ?
@@ -122,7 +169,15 @@ public class Main {
 - ~B~
 - ~AB~
 - Erreur de compilation
-? Les méthodes ~static~ ne sont **pas redéfinies** (elles sont « masquées ») : l'appel est résolu avec le type **déclaré** de la variable (~A~), sans polymorphisme.
+? Retiens la règle : **une méthode ~static~ n'est pas polymorphe**.
+
+**1.** La variable ~a~ est déclarée de type ~A~, l'objet réel est un ~B~.
+
+**2.** ~a.s()~ appelle une méthode ~static~. Pour un appel statique, Java **ne regarde pas l'objet** : il regarde le **type déclaré de la variable** (~A~) et appelle ~A.s()~.
+
+**3.** Affichage : ~A~.
+
+Pour une méthode d'instance normale (~void f()~), c'est l'inverse : on regarde l'objet réel, donc la version de ~B~. C'est la différence entre **masquage** (static) et **redéfinition** (instance).
 
 ## s2 | Attributs et polymorphisme
 Qu'affiche ce programme ?
@@ -141,7 +196,15 @@ public class Main {
 - ~2 2~
 - ~1 1~
 - ~2 1~
-? Le polymorphisme ne concerne que les **méthodes**. Un attribut est résolu avec le type **déclaré** : ~a.x~ (type ~A~) vaut 1 ; après le cast en ~B~, on lit l'attribut de ~B~ : 2.
+? **Le polymorphisme ne concerne que les méthodes d'instance.** Pour un attribut, Java regarde le **type déclaré** de la variable.
+
+L'objet ~new B()~ contient en fait **deux** attributs ~x~ : celui de ~A~ (valeur 1) et celui de ~B~ (valeur 2, qui « masque » l'autre).
+
+**~a.x~** : ~a~ est déclaré ~A~ → on lit le ~x~ de ~A~ → **1**.
+
+**~((B) a).x~** : le cast fait voir l'objet comme un ~B~ → on lit le ~x~ de ~B~ → **2**.
+
+Résultat ~1 2~. Même objet, deux réponses : c'est le type de la variable qui décide, pas celui de l'objet.
 
 ## s2 | Appel d'une méthode redéfinie dans un constructeur
 Qu'affiche ce programme ?
@@ -164,7 +227,21 @@ public class Main {
 - ~A5~
 - ~B55~
 - ~AB5~
-? ~new B()~ → ~A()~ → ~init()~ est celle de ~B~ (polymorphisme) mais les attributs de ~B~ ne sont pas encore initialisés : ~v~ vaut 0, d'où ~B0~. Ensuite ~v = 5~ puis le constructeur de ~B~ affiche ~5~. Piège : ne jamais appeler une méthode redéfinissable dans un constructeur.
+? C'est l'ordre d'exécution qui compte ; déroule ~new B()~ :
+
+**1.** Java réserve la mémoire de l'objet ~B~. Tous ses attributs valent déjà leur valeur par défaut : **~v = 0~**. Le ~= 5~ n'est pas encore exécuté.
+
+**2.** Le constructeur ~B()~ commence par ~super()~ : on saute dans ~A()~.
+
+**3.** ~A()~ appelle ~init()~. Quelle version ? L'objet en construction est un **~B~**, donc Java choisit ~B.init()~ (polymorphisme). ~A.init()~ n'est jamais appelée : elle est redéfinie.
+
+**4.** ~B.init()~ affiche ~"B" + v~. Or ~v~ vaut encore **0** (voir l'étape 1) : affichage ~B0~.
+
+**5.** ~A()~ est terminé. De retour dans ~B()~, **maintenant seulement** l'initialisation ~v = 5~ s'exécute.
+
+**6.** La ligne suivante du constructeur affiche ~v~ : ~5~.
+
+Total : ~B0~ puis ~5~ = **~B05~**. ~AB5~ et ~A5~ supposent que ~A.init()~ s'exécute : c'est faux dès qu'elle est redéfinie. **Piège à retenir :** ne jamais appeler une méthode redéfinissable depuis un constructeur, car elle peut s'exécuter avant l'initialisation des attributs de la fille.
 
 ## s2 | Classe finale
 Que se passe-t-il à la compilation ?
@@ -394,7 +471,15 @@ Lequel de ces codes est correct (~Triangle~ hérite de ~Figure~) ?
 - ~Figure y = new Figure(); Triangle x = (Triangle) y; Figure z = x;~ (sans erreur à l'exécution)
 - ~Triangle x = new Triangle(); Object y = (Object) x; Triangle z = y;~
 - ~Figure y = new Figure(); Triangle z = y;~
-? Le 1<sup>er</sup> est correct : l'objet est réellement un ~Triangle~. Le 2<sup>e</sup> compile mais lance ~ClassCastException~ (l'objet est une ~Figure~). Les deux derniers ne compilent pas (descente sans cast).
+? Pour chaque ligne, pose deux questions : **(1) ça compile ? (2) à l'exécution, l'objet est-il du bon type ?**
+
+**Ligne 1** ~Triangle x = new Triangle(); Figure y = x; Triangle z = (Triangle) y;~ : on crée un vrai ~Triangle~. Le monter en ~Figure~ est automatique ; le redescendre en ~Triangle~ avec un cast est valide, car l'objet **est réellement** un ~Triangle~. Correct.
+
+**Ligne 2** ~Figure y = new Figure(); Triangle x = (Triangle) y;~ : compile, mais l'objet est une simple ~Figure~, pas un ~Triangle~ : ~ClassCastException~ à l'exécution.
+
+**Ligne 3** ~Triangle x = new Triangle(); Object y = (Object) x; Triangle z = y;~ : ne compile pas, descendre de ~Object~ vers ~Triangle~ exige un cast explicite.
+
+**Ligne 4** ~Figure y = new Figure(); Triangle z = y;~ : ne compile pas non plus (descente sans cast).
 
 ## s2 | toString par défaut
 Qu'affiche ~System.out.println(new Object());~ ?

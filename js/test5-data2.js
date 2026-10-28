@@ -55,7 +55,16 @@ System.out.println(n);
 - ~33~
 - ~3~
 - ~13~
-? Tours i=0, 1, 2 : on ajoute ~i~ puis 10, soit 10, 21, 33. Au tour i=3 : ~break~ sort du ~try~ mais le ~finally~ s'exécute quand même (+10) : 43. Total 0+1+2 + 4×10 = 43.
+? Suis ~n~ tour par tour. À chaque tour, le ~finally~ ajoute 10 **quoi qu'il arrive** (même sur ~break~).
+
+| ~i~ | dans le ~try~ | ~n~ après le ~try~ | ~n~ après le ~finally~ (+10) |
+|---|---|---|---|
+| 0 | ~n += 0~ | 0 | 10 |
+| 1 | ~n += 1~ | 11 | 21 |
+| 2 | ~n += 2~ | 23 | 33 |
+| 3 | ~break~ (pas d'ajout) | 33 | **43** |
+
+Au tour ~i = 3~, ~break~ sort de la boucle, mais le ~finally~ passe **avant** la sortie : c'est le dernier +10. ~n~ vaut ~43~.
 
 ## exc | Code : récursion et finally
 Quelle est la sortie ?
@@ -74,7 +83,23 @@ public static void main(String[] args) {
 - ~321 fond~
 - ~fond~
 - ~ fond~ puis ~123~
-? ~f(3)~ appelle ~f(2)~ puis ~f(1)~ puis ~f(0)~ qui lance. L'exception remonte : le ~finally~ de ~f(1)~ s'exécute d'abord (affiche ~1~), puis celui de ~f(2)~ (~2~), puis ~f(3)~ (~3~). Le ~catch~ du ~main~ affiche ~ fond~.
+? Il y a deux « phases » : la descente (les appels) puis la remontée (les retours), pendant laquelle les ~finally~ s'exécutent.
+
+**Descente.** ~f(3)~ → ~f(2)~ → ~f(1)~ → ~f(0)~. Chaque appel (sauf le dernier) est dans un ~try~, en attente du retour de l'appel suivant.
+
+**Le fond.** ~f(0)~ lance ~ArithmeticException~ : elle n'a pas de ~try~, elle remonte.
+
+**Remontée.** L'exception traverse les appels en sens inverse. Chaque appel a un ~finally~ qui s'exécute **avant** de laisser passer l'exception :
+
+| appel | ~finally~ affiche |
+|---|---|
+| ~f(1)~ | ~1~ |
+| ~f(2)~ | ~2~ |
+| ~f(3)~ | ~3~ |
+
+**Arrivée.** Le ~catch~ de ~main~ affiche ~ fond~.
+
+Résultat ~123 fond~ : on remonte de 1 vers 3, car le plus profond termine en premier.
 
 ## exc | Code : cast et null
 Quelle est la sortie ?
@@ -110,7 +135,19 @@ try (R r = new R("X")) {          // R affiche "open X" à la création, "close 
 - ~open X~, ~body~, ~catch err~, ~close X~, ~finally~
 - ~open X~, ~body~, ~catch err~, ~finally~, ~close X~
 - ~body~, ~catch err~, ~finally~
-? Avec try-with-resources, la ressource est fermée **avant** l'exécution du ~catch~ et du ~finally~ du même ~try~.
+? Règle : une ressource d'un try-with-resources est **toujours fermée avant** les ~catch~ et ~finally~ du même ~try~.
+
+**1.** ~new R("X")~ s'exécute : affiche ~open X~.
+
+**2.** Le corps du ~try~ : affiche ~body~, puis ~throw~ lance l'exception.
+
+**3.** Avant de chercher un ~catch~, Java ferme la ressource : ~close X~.
+
+**4.** Le ~catch (RuntimeException e)~ attrape et affiche ~catch err~.
+
+**5.** Le ~finally~ affiche ~finally~.
+
+Ordre : ~open X~, ~body~, ~close X~, ~catch err~, ~finally~.
 
 ## exc | Code : parseInt et espace
 Que affiche ce code ?
@@ -625,7 +662,18 @@ void pre() { for (L l : ab) l.modif(this); }
 - ~E 1 6~
 - ~E 0 5~
 - ~E 1 4~
-? ~inc()~ ×3 réussis : 3 notifications. Le 4<sup>e</sup> lance l'exception (affiche ~E~) **avant** ~pre()~ : pas de notification. ~raz()~ : 4. ~inc()~ : 5. Valeur finale 1.
+? Ce qui compte : **la notification est envoyée uniquement quand le changement a réussi**.
+
+| appel | que se passe-t-il | ~v~ | notifications |
+|---|---|---|---|
+| ~inc()~ n°1 | 0 < 3, ~v++~, ~pre()~ | 1 | 1 |
+| ~inc()~ n°2 | idem | 2 | 2 |
+| ~inc()~ n°3 | idem | 3 | 3 |
+| ~inc()~ n°4 | ~v >= max~ : **exception avant ~v++~ et ~pre()~** (affiche ~E~) | 3 | 3 |
+| ~raz()~ | ~v = 0~, ~pre()~ | 0 | 4 |
+| ~inc()~ | ~v++~, ~pre()~ | 1 | 5 |
+
+Affichage : ~E~, puis la valeur finale ~1~ et ~5~ notifications : ~E 1 5~.
 
 ## mvc | Code : deux vues
 Deux vues sont abonnées au même modèle, dans l'ordre V1 puis V2. Que contient le journal après un ~inc()~ (valeur 0 → 1) ?
@@ -653,7 +701,13 @@ m.incBug();     // appel 2  → aff, v
 - Appel 1 : ~aff = "1"~, ~v = 1~ ; appel 2 : ~aff = "2"~, ~v = 2~
 - Appel 1 : ~aff = "0"~, ~v = 0~ ; appel 2 : ~aff = "0"~, ~v = 0~
 - ~aff~ est toujours à ~"0"~
-? La notification doit venir **après** la modification de l'état. Ici, la vue lit l'ancienne valeur.
+? Le modèle prévient la vue **avant** de changer ~v~ : la vue lit donc l'**ancienne** valeur.
+
+**Appel 1.** ~v = 0~. ~pre()~ : la vue lit ~mm.v~ = 0 → ~aff = "0"~. Puis ~v++~ → ~v = 1~.
+
+**Appel 2.** ~v = 1~. ~pre()~ : la vue lit 1 → ~aff = "1"~. Puis ~v = 2~.
+
+À chaque appel, l'affichage a **un coup de retard** sur le modèle. Correction : mettre ~pre()~ **après** ~v++~.
 
 ## mvc | Code : oubli de l'abonnement
 Quelles valeurs de ~aff~ et ~v~ après ~m.inc()~ ?

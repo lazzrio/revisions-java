@@ -29,7 +29,17 @@ System.out.println((a == b) + " " + a.equals(b));
 - ~true true~
 - ~true false~
 - ~false false~
-? ~new String("hi")~ crée un **nouvel objet** : ~==~ compare les adresses (faux), ~equals~ compare le contenu (vrai).
+? Une variable ~String~ ne contient pas le texte : elle contient l'**adresse** d'un objet.
+
+**~a = "hi"~** : Java place ~"hi"~ dans une zone commune (le « pool »).
+
+**~b = new String("hi")~** : le mot ~new~ **force la création d'un second objet**, à une autre adresse, même si le texte est identique.
+
+**~a == b~** compare les **adresses** : elles sont différentes → ~false~.
+
+**~a.equals(b)~** compare les **textes** : ~"hi"~ et ~"hi"~ → ~true~.
+
+D'où la règle : pour comparer des chaînes, toujours ~equals~, jamais ~==~.
 
 ## s1 | Opérateurs entiers
 Qu'affiche ce code ?
@@ -57,7 +67,19 @@ System.out.println(x + " " + y);
 - ~6 11~
 - ~7 11~
 - ~6 12~
-? ~x++~ vaut 5 (puis ~x = 6~), ~++x~ passe ~x~ à 7 et vaut 7. ~y = 5 + 7 = 12~ et ~x = 7~.
+? Évalue l'expression de gauche à droite, en suivant la valeur de ~x~ à chaque étape.
+
+**Départ :** ~x = 5~.
+
+**1.** ~x++~ (post-incrémentation) : la valeur utilisée est **l'ancienne** (5), puis ~x~ devient 6.
+
+**2.** ~++x~ (pré-incrémentation) : ~x~ devient d'abord 7, **puis** la valeur utilisée est 7.
+
+**3.** ~y = 5 + 7 = 12~.
+
+**4.** À la fin, ~x~ vaut 7.
+
+Affichage : ~7 12~. Moyen mnémotechnique : ~x++~ « donne puis augmente », ~++x~ « augmente puis donne ».
 
 ## s1 | Caractères et entiers
 Qu'affiche ce code ?
@@ -194,7 +216,13 @@ public class T {
 - ~10 10~
 - ~1 1~
 - ~10 1~
-? Java passe **toujours** par valeur : ~f~ modifie une copie de ~a~. Pour ~g~, la valeur copiée est la **référence** du tableau : on modifie le même tableau.
+? **Java copie toujours ce qu'on lui passe.**
+
+**~f(a)~** : ~a~ est un ~int~. La méthode reçoit une **copie** du nombre 1. Elle met sa copie à 10, mais ~a~ n'est pas touché → ~a~ reste ~1~.
+
+**~g(b)~** : ~b~ est un tableau (un objet). Ce qui est copié, c'est la **référence** (l'adresse). La copie et l'original pointent vers **le même tableau**. ~t[0] = 10~ modifie ce tableau partagé → ~b[0]~ vaut ~10~.
+
+Affichage ~1 10~. Résumé : on peut modifier **le contenu** d'un objet reçu en paramètre ; on ne peut pas remplacer la variable de l'appelant.
 
 ## s1 | Attribut static
 Qu'affiche ce code ?
@@ -217,7 +245,17 @@ public class C {
 - ~1 3~
 - ~3 1~
 - ~1 1~
-? ~n~ est partagé par toutes les instances (une seule copie) : après trois créations, ~n~ vaut 3. ~id~ est propre à chaque objet : le troisième a ~id = 3~.
+? **~n~ est ~static~** : il n'existe qu'**une seule** copie, partagée par tous les objets ~C~ (elle appartient à la classe). **~id~ est un attribut ordinaire** : chaque objet a le sien.
+
+Déroule les trois ~new C()~ :
+
+| objet créé | ~n++~ donne | ~id = n~ |
+|---|---|---|
+| 1<sup>er</sup> | ~n = 1~ | ~id = 1~ |
+| 2<sup>e</sup> | ~n = 2~ | ~id = 2~ |
+| 3<sup>e</sup> (variable ~c~) | ~n = 3~ | ~id = 3~ |
+
+~c.id~ vaut ~3~ (son propre ~id~), ~C.n~ vaut ~3~ (compteur partagé). Affichage ~3 3~.
 
 ## s1 | Static et instance
 Que se passe-t-il à la compilation ?
@@ -293,7 +331,15 @@ System.out.println((a == b) + " " + (a == c));
 - ~true true~
 - ~false false~
 - ~true false~
-? ~"a" + "b"~ est une constante évaluée à la compilation : ~c~ désigne la même chaîne que ~a~. ~t + "b"~ est calculé à l'exécution : nouvel objet. Dans tous les cas, on compare le **contenu** avec ~equals~.
+? Question : ~a~, ~b~ et ~c~ désignent-ils le même objet ?
+
+**~a = "ab"~** : littéral, placé dans le pool.
+
+**~c = "a" + "b"~** : les deux morceaux sont des constantes connues dès la compilation. Le compilateur les assemble en ~"ab"~ avant l'exécution : c'est **le même littéral que ~a~**, donc le même objet → ~a == c~ vaut ~true~.
+
+**~b = t + "b"~** : ~t~ est une variable. La concaténation se fait **à l'exécution** et fabrique un **nouvel** objet → ~a == b~ vaut ~false~.
+
+Affichage ~false true~. À retenir surtout : ne comptez jamais sur ~==~ pour des chaînes, utilisez ~equals~.
 
 ## s1 | Boucle avec continue et break
 Que vaut ~s~ ?
@@ -312,7 +358,21 @@ System.out.println(s);
 - ~25~
 - ~28~
 - ~12~
-? On ne garde que les impairs : 1 + 3 + 5 + 7 = 16. Pour ~i = 9~, ~break~ sort de la boucle.
+? Suis ~i~ de 1 à 10 :
+
+| ~i~ | pair ? (~continue~) | ~i > 7~ ? (~break~) | ~s~ |
+|---|---|---|---|
+| 1 | non | non | 1 |
+| 2 | oui, on passe | | 1 |
+| 3 | non | non | 4 |
+| 4 | oui | | 4 |
+| 5 | non | non | 9 |
+| 6 | oui | | 9 |
+| 7 | non | non | 16 |
+| 8 | oui | | 16 |
+| 9 | non | **oui : on sort** | 16 |
+
+~continue~ saute le reste du tour, ~break~ sort de la boucle. Résultat ~16~.
 
 ## s1 | switch sans break
 Qu'affiche ce code ?
@@ -365,7 +425,13 @@ public class S {
 - ~double~ puis ~double~
 - ~int~ puis ~int~
 - ~int~ puis une erreur de compilation
-? Java choisit la conversion **la plus proche** : ~char~ → ~int~ pour ~'a'~. Un ~long~ ne peut pas devenir ~int~ implicitement, mais peut devenir ~double~ : ~f(double)~.
+? Java choisit, parmi les méthodes ~f~, celle qui exige **la plus petite conversion** sur l'argument.
+
+**~f('a')~.** ~'a'~ est un ~char~. Conversions possibles : ~char → int~ (proche) ou ~char → double~ (plus loin). On prend ~f(int)~ → ~int~.
+
+**~f(5L)~.** ~5L~ est un ~long~. ~long → int~ est **interdit** sans cast (on perdrait de l'information). ~long → double~ est autorisé. Seule ~f(double)~ convient → ~double~.
+
+Affichage ~int double~.
 
 ## s1 | Point d'entrée
 Quelle signature est celle du point d'entrée d'un programme Java ?
@@ -521,7 +587,15 @@ System.out.println(i);
 - ~6~
 - ~7~
 - ~4~
-? ~i++~ vaut l'ancienne valeur (5) et incrémente ~i~, **puis** l'affectation réécrit ~5~ dans ~i~ : l'incrémentation est perdue.
+? Décompose ~i = i++~ en trois temps (avec ~i = 5~) :
+
+**1.** Java lit la valeur actuelle de ~i~ : **5**. C'est la valeur de l'expression ~i++~.
+
+**2.** Il incrémente ~i~ : ~i~ devient 6.
+
+**3.** **Ensuite** il exécute l'affectation ~i = ...~ avec la valeur de l'étape 1 (5) : ~i~ redevient **5**.
+
+L'incrémentation de l'étape 2 est écrasée. Affichage ~5~. (Avec ~i = ++i~ on obtiendrait 6.)
 
 ## s1 | compareTo
 Qu'affiche ce code ?

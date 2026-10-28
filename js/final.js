@@ -27,8 +27,19 @@
   function inline(s) { return esc(s).replace(/~(.+?)~/g, "<code>$1</code>").replace(/\*\*(.+?)\*\*/g, "<b>$1</b>"); }
   function riche(lignes) {
     var html = "", para = [], code = null;
-    function flush() { if (para.length) { html += "<p>" + inline(para.join(" ")) + "</p>"; para = []; } }
+    var tab = [];
+    function flushTab() {
+      if (!tab.length) return;
+      var rows = tab.filter(function (r) { return !/^\|?\s*:?-{2,}/.test(r.replace(/^\|\s*/, "")); });
+      function cells(r) { return r.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(function (c) { return inline(c.trim()); }); }
+      html += '<div class="tbl-wrap"><table class="tbl"><thead><tr>' + cells(rows[0]).map(function (c) { return "<th>" + c + "</th>"; }).join("") + "</tr></thead><tbody>" +
+        rows.slice(1).map(function (r) { return "<tr>" + cells(r).map(function (c) { return "<td>" + c + "</td>"; }).join("") + "</tr>"; }).join("") + "</tbody></table></div>";
+      tab = [];
+    }
+    function flush() { flushTab(); if (para.length) { html += "<p>" + inline(para.join(" ")) + "</p>"; para = []; } }
     lignes.forEach(function (l) {
+      if (code === null && l.trim().charAt(0) === "|") { if (para.length) { html += "<p>" + inline(para.join(" ")) + "</p>"; para = []; } tab.push(l); return; }
+      if (tab.length) flushTab();
       if (code !== null) {
         if (l.trim() === "]]") { html += '<pre class="code">' + colorier(code.join("\n")) + "</pre>"; code = null; }
         else code.push(l);

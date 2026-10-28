@@ -531,3 +531,6 @@ pre.code.ev-enonce{margin:0 18px 14px;font-size:12.5px}
 .fin-wrap{max-width:860px}
 .fin-page .t5-mode .qcm-filter{justify-content:flex-start;margin:4px 0}
 @media(max-width:560px){.fin-hist div{grid-template-columns:1fr auto}.fin-hist div span:nth-child(2){display:none}.fin-grille{grid-template-columns:repeat(auto-fill,minmax(32px,1fr))}}
+.qcm-fb .tbl-wrap{margin:10px 0}
+.qcm-fb table.tbl td,.qcm-fb table.tbl th{padding:6px 10px;font-size:13.5px}
+.t5-d .tbl-wrap{margin:8px 14px}

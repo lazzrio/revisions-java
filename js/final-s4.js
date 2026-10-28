@@ -158,7 +158,14 @@ public class Main {
 - ~0.0~
 - ~4.0~
 - Erreur de compilation
-? À l'exécution, chaque appel ~f.aire()~ exécute la méthode de la classe **réelle** : 4 pour le carré, 6 pour le rectangle : total 10.0.
+? Le tableau est déclaré ~Figure[]~ mais contient des objets de classes différentes. La boucle appelle ~f.aire()~ ; à **chaque tour**, Java regarde l'objet **réel**.
+
+| tour | objet réel | méthode exécutée | calcul | ~s~ |
+|---|---|---|---|---|
+| 1 | ~Carre(2)~ | ~Carre.aire()~ | 2 × 2 = 4 | 4.0 |
+| 2 | ~Rect(2,3)~ | ~Rect.aire()~ | 2 × 3 = 6 | 10.0 |
+
+~s~ est un ~double~, donc l'affichage est ~10.0~ et non ~10~. C'est l'intérêt du polymorphisme : un seul code (~f.aire()~) pour toutes les formes.
 
 ## s4 | Méthode absente du type déclaré
 Que se passe-t-il à la compilation ?
@@ -199,7 +206,19 @@ public class Main {
 - ~CC~
 - ~FF~
 - ~CF~
-? Le choix **entre surcharges** se fait à la compilation d'après le type **déclaré** : ~f~ est un ~Figure~ → ~m(Figure)~. Le polymorphisme (type réel) ne joue que pour la **redéfinition**.
+? Il y a deux mécanismes différents :
+
+**Redéfinition (une méthode dans la mère ET la fille, même signature)** : choisie à **l'exécution**, d'après l'objet réel.
+
+**Surcharge (plusieurs méthodes ~m~ de signatures différentes)** : choisie à la **compilation**, d'après le **type déclaré** des arguments.
+
+Ici :
+
+**~m(f)~** : ~f~ est déclaré ~Figure~ (même s'il contient un ~Cercle~). À la compilation, le compilateur ne voit qu'un ~Figure~ → ~m(Figure)~ → ~F~.
+
+**~m(new Cercle())~** : l'argument est évidemment un ~Cercle~ → ~m(Cercle)~ → ~C~.
+
+Affichage ~FC~.
 
 ## s4 | Polymorphisme et toString
 Qu'affiche ce programme ?
@@ -268,7 +287,17 @@ public class Main {
 - ~30 10 20~
 - ~30 20 10~
 - Erreur : ~sort~ nécessite un ~Comparator~
-? ~Collections.sort(l)~ utilise l'**ordre naturel** défini par ~compareTo~. Résultat négatif : ~this~ avant l'autre.
+? **~compareTo~ dit à ~sort~ qui passe avant qui.** ~age - o.age~ est négatif quand ~this~ est plus jeune que ~o~ : donc ~this~ passe **avant**. Ordre croissant des âges.
+
+Tri de ~[30, 10, 20]~ :
+
+- 10 est le plus petit → en premier ;
+- puis 20 ;
+- puis 30.
+
+Résultat affiché ~10 20 30~.
+
+Si ~P~ n'implémentait pas ~Comparable~, ~Collections.sort(l)~ ne compilerait pas : il ne saurait pas comparer deux ~P~.
 
 ## s4 | Comparator
 Qu'affiche ce programme ?
@@ -323,7 +352,18 @@ public class Main {
 - ~[10, 30]~
 - ~[20, 30]~
 - ~[]~
-? ~remove(1)~ avec un ~int~ supprime l'**élément d'indice 1** (20). ~remove(Integer.valueOf(10))~ supprime l'**objet** 10. Reste ~[30]~.
+? ~remove~ existe en **deux versions** pour une ~List<Integer>~ :
+
+- ~remove(int index)~ : supprime l'élément **à cet indice** ;
+- ~remove(Object o)~ : supprime **cet objet**.
+
+Départ : ~[10, 20, 30]~ (indices 0, 1, 2).
+
+**~l.remove(1)~** : l'argument est un ~int~ → c'est un **indice** → on retire l'élément d'indice 1, qui est 20 → ~[10, 30]~.
+
+**~l.remove(Integer.valueOf(10))~** : l'argument est un objet ~Integer~ → on retire **l'objet 10** → ~[30]~.
+
+Affichage ~[30]~. Piège : ~l.remove(10)~ chercherait l'indice 10 et lancerait une exception.
 
 ## s4 | Méthodes d'ArrayList
 Qu'affiche ce programme ?
@@ -381,7 +421,15 @@ public class Main {
 - Affiche ~[a, c, d]~
 - Affiche ~[a, b, c, d]~
 - Erreur de compilation
-? Modifier une liste pendant un ~for-each~ invalide l'itérateur. Pour supprimer en parcourant : utiliser un ~Iterator~ et ~it.remove()~, ou une boucle avec indice.
+? Le ~for-each~ utilise en coulisse un **itérateur** qui compte les modifications de la liste. Si la liste est modifiée **sans passer par lui**, au prochain tour il s'en aperçoit et lance ~ConcurrentModificationException~.
+
+**1.** La liste est ~[a, b, c, d]~. Tour 1 : ~s = "a"~, rien.
+
+**2.** Tour 2 : ~s = "b"~, ~l.remove(s)~ modifie la liste directement.
+
+**3.** Au tour 3, l'itérateur constate que la liste a changé → exception.
+
+Pour supprimer en parcourant : ~it.remove()~ avec un ~Iterator~, ou une boucle ~for (int i...)~ en gérant les indices.
 
 ## s4 | Iterator.remove
 Qu'affiche ce programme ?
@@ -467,7 +515,13 @@ public class Main {
 - ~1~
 - ~0~
 - Erreur de compilation
-? Sans ~equals~ et ~hashCode~ redéfinies, deux objets distincts sont toujours différents : l'ensemble en contient deux. Avec ces deux méthodes redéfinies sur ~x~, le résultat serait 1.
+? Un ~HashSet~ garde un seul exemplaire de deux éléments « égaux ». Il décide de l'égalité avec ~hashCode()~ puis ~equals()~.
+
+La classe ~P~ ne redéfinit ni l'un ni l'autre : elle utilise ceux d'~Object~, qui comparent les **adresses**.
+
+~new P(1)~ et ~new P(1)~ sont deux objets, donc deux adresses différentes → l'ensemble les considère comme **différents** → il en contient **2**.
+
+Pour que ce soit 1, il faudrait redéfinir ~equals~ **et** ~hashCode~ pour comparer ~x~.
 
 ## s4 | contains et equals
 Qu'affiche ce programme ?
@@ -628,7 +682,13 @@ public class Main {
 - ~4 true~
 - ~4.0 false~
 - Erreur de compilation
-? Une interface est un type valide pour une variable ; l'objet réel est un ~Carre~. ~aire()~ renvoie un ~double~ : ~4.0~.
+? **~Forme f = new Carre();~** est permis : ~Carre~ implémente ~Forme~, donc un ~Carre~ **est une** ~Forme~. ~f~ est déclaré ~Forme~ mais l'objet réel est un ~Carre~.
+
+**~f.aire()~** : ~aire()~ existe dans ~Forme~ → compile. À l'exécution, c'est ~Carre.aire()~ qui renvoie ~4~. Le type de retour est ~double~, donc l'affichage est ~4.0~.
+
+**~f instanceof Carre~** : l'objet réel est un ~Carre~ → ~true~.
+
+Affichage ~4.0 true~.
 
 ## s4 | Classe et interface
 Quelle déclaration est correcte ?

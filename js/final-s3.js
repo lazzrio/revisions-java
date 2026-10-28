@@ -19,7 +19,17 @@ public class Main {
 - ~1 3~
 - ~9 9~
 - ~1 1~
-? ~p2 = p1~ copie la référence : modifier ~p2.x~ modifie le même objet que ~p1~ (9). Puis ~p2 = new Point(3)~ fait pointer ~p2~ vers un **autre** objet ; ~p1~ ne bouge pas.
+? Dessine deux flèches : une variable objet est une **flèche** vers un objet, pas l'objet lui-même.
+
+**~Point p1 = new Point(1);~** : un objet ~Point(x=1)~ ; ~p1~ pointe dessus.
+
+**~Point p2 = p1;~** : ~p2~ reçoit la même flèche. **Un seul objet**, deux flèches.
+
+**~p2.x = 9;~** : on suit la flèche et on modifie l'objet (partagé) : ~x = 9~, vu aussi par ~p1~.
+
+**~p2 = new Point(3);~** : ~p2~ reçoit une **nouvelle flèche**, vers un nouvel objet ~Point(3)~. ~p1~ n'a pas bougé.
+
+Donc ~p1.x = 9~ et ~p2.x = 3~. Affichage ~9 3~.
 
 ## s3 | equals non redéfinie
 Qu'affiche ce code ?
@@ -63,7 +73,13 @@ public class Main {
 - ~true true~
 - ~false false~
 - ~false true~
-? ~equals~ redéfinie compare les valeurs (vrai). ~==~ compare toujours les adresses : ~a~ et ~b~ sont deux objets (faux).
+? Ne mélange pas les deux comparaisons.
+
+**~a.equals(b)~** appelle l'~equals~ redéfinie. Elle : (1) renvoie ~true~ si c'est le même objet ; (2) renvoie ~false~ si ~o~ est ~null~ ou d'une autre classe ; (3) compare les valeurs ~x~ : 1 et 1 → ~true~.
+
+**~a == b~** compare les **adresses**. ~a~ et ~b~ ont été créés par deux ~new~ : deux objets, deux adresses → ~false~.
+
+Affichage ~true false~. Redéfinir ~equals~ change la notion d'égalité des **valeurs**, jamais celle de ~==~.
 
 ## s3 | equals(Point) n'est pas une redéfinition
 Qu'affiche ce programme ?
@@ -86,7 +102,15 @@ public class Main {
 - ~true true~
 - ~false false~
 - ~false true~
-? ~equals(Point)~ **surcharge** ~equals(Object)~ sans la redéfinir. Avec un argument de type ~Point~, c'est la surcharge qui est choisie (vrai) ; avec un ~Object~ (même s'il contient un ~Point~), c'est ~Object.equals~ (adresses : faux). Il faut écrire ~equals(Object o)~ pour redéfinir.
+? **Le piège :** la méthode d'~Object~ s'appelle ~equals(Object o)~. Ici on a écrit ~equals(Point p)~ : le paramètre est de type ~Point~, pas ~Object~. Ce n'est **pas** une redéfinition mais une **surcharge**. ~Point~ possède donc **deux** méthodes ~equals~.
+
+Java choisit la méthode d'après le **type déclaré** de l'argument.
+
+**~a.equals(new Point(1))~** : l'argument est un ~Point~ → ~equals(Point)~, qui compare les ~x~ (1 et 1) → ~true~.
+
+**~a.equals(o)~** : ~o~ est déclaré ~Object~ (même s'il contient un ~Point~) → c'est ~equals(Object)~ d'~Object~ qui est appelée, et elle compare les **adresses** → ~false~.
+
+Affichage ~true false~. Correction : écrire ~equals(Object o)~ avec ~@Override~ (le compilateur signalerait la faute).
 
 ## s3 | toString et println
 Qu'affiche ce programme ?
@@ -131,7 +155,19 @@ public class Main {
 - ~14~
 - ~7~
 - ~6~
-? ~E(3, 4)~ → ~this(7)~ → ~this()~ : ~x = 2~ ; puis ~x *= 7~ = 14 ; puis ~x -= 1~ = 13.
+? Appelle les constructeurs dans l'ordre : ~this(...)~ **saute** vers un autre constructeur avant de continuer.
+
+**1.** ~new E(3, 4)~ → ~E(int a, int b)~ avec ~a = 3~, ~b = 4~. Première ligne : ~this(a + b)~ = ~this(7)~, on saute dans ~E(int)~.
+
+**2.** ~E(int a)~ avec ~a = 7~. Première ligne : ~this()~, on saute dans ~E()~.
+
+**3.** ~E()~ : ~x = 2~.
+
+**4.** Retour dans ~E(int a)~ : ~x *= 7~ → ~x = 14~.
+
+**5.** Retour dans ~E(int, int)~ : ~x -= 1~ → ~x = 13~.
+
+Affichage ~13~. Les corps s'exécutent **dans l'ordre inverse des appels** : le plus « profond » d'abord.
 
 ## s3 | Constructeur par défaut supprimé
 Que se passe-t-il à la compilation ?
@@ -197,7 +233,11 @@ public class Main {
 - ~5~
 - ~null~
 - Erreur de compilation
-? Dans le constructeur, ~x~ désigne le **paramètre** : ~x = x~ affecte le paramètre à lui-même. L'attribut reste à sa valeur par défaut (0). Il faut ~this.x = x~.
+? Dans le constructeur, il y a **deux** variables nommées ~x~ : l'attribut de l'objet et le paramètre. Quand on écrit simplement ~x~, Java prend **la plus proche** : le **paramètre**.
+
+~x = x;~ signifie donc « mets le paramètre dans le paramètre » : ça ne fait rien. L'attribut ~x~ de l'objet n'est jamais modifié et garde sa valeur par défaut : **0**.
+
+Pour viser l'attribut, on écrit ~this.x = x;~ (« le ~x~ de **cet objet** reçoit le paramètre ~x~ »). Ici affichage ~0~.
 
 ## s3 | getClass
 Qu'affiche ce code ?
@@ -258,7 +298,17 @@ public class Main {
 - ~0~
 - ~1~
 - Erreur de compilation
-? Le segment ne copie pas le point : il garde la **référence** (agrégation). Modifier ~a~ modifie aussi ~s.debut~. Pour un segment indépendant, il faudrait créer une copie du point dans le constructeur.
+? Un ~Segment~ ne fabrique pas de nouveaux points : son constructeur **range les deux flèches** qu'on lui donne.
+
+**1.** ~a = new Point(0)~ : un objet ~Point(0)~.
+
+**2.** ~new Segment(a, new Point(1))~ : ~s.debut~ reçoit la **même flèche** que ~a~ (même objet), ~s.fin~ un autre point.
+
+**3.** ~a.x = 5~ modifie l'objet pointé par ~a~... qui est aussi celui de ~s.debut~.
+
+**4.** ~s.debut.x~ vaut donc ~5~.
+
+Si le segment devait être indépendant, son constructeur devrait **copier** le point : ~debut = new Point(d.x)~.
 
 ## s3 | Objet passé en paramètre
 Qu'affiche ce programme ?
@@ -281,7 +331,13 @@ public class Main {
 - ~1~
 - ~0~
 - Erreur de compilation
-? ~p~ est une copie de la référence : ~p.x = 7~ modifie l'objet de ~a~. Mais ~p = new Point(0)~ change seulement la copie locale, pas ~a~.
+? Dans ~f(a)~, le paramètre ~p~ reçoit **une copie de la flèche** de ~a~ : les deux flèches pointent vers le même objet.
+
+**~p.x = 7;~** : on suit la flèche et on modifie l'objet. ~a~ voit le changement.
+
+**~p = new Point(0);~** : on redirige la flèche **locale** ~p~ vers un nouvel objet. La flèche de ~a~ (dans ~main~) n'est pas modifiée.
+
+À la sortie de ~f~, ~a~ pointe toujours sur l'ancien objet, qui vaut maintenant ~7~. Affichage ~7~.
 
 ## s3 | Attributs par défaut
 Qu'affiche ce programme ?
