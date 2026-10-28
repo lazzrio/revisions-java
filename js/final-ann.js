@@ -32,7 +32,14 @@ public class C extends B {
 - ~10~, ~10~
 - ~20~, ~10~
 - Une erreur
-? ~prn()~ est celle de ~A~, mais ~this.getVal()~ est liée dynamiquement à la classe **réelle** : ~B~ pour ~new B()~, et ~C~ (qui hérite de ~B.getVal~) pour ~new C()~.
+? Retiens : dans ~prn()~, ~this.getVal()~ est choisie **d'après l'objet réel**, pas d'après la classe où ~prn()~ est écrite.
+
+| appel | objet réel | ~getVal()~ exécutée | affichage |
+|---|---|---|---|
+| ~new B().prn()~ | ~B~ | celle de ~B~ | ~20~ |
+| ~new C().prn()~ | ~C~ | ~C~ n'en a pas → celle héritée de ~B~ | ~20~ |
+
+Résultat ~20~, ~20~. Jamais ~10~ : la version de ~A~ est redéfinie dans ~B~ et masquée pour tous les objets ~B~ ou ~C~.
 
 ## ann | Annale 2025 · Q3
 L'interprétation des programmes Java est effectuée par :
@@ -59,7 +66,17 @@ public class Sub extends Base {
 - Remplacer ~/* Un */~ par ~Base(10);~
 - Remplacer ~/* Trois */~ par ~super(10);~
 - Remplacer ~/* Un */~ par ~super(10);~
-? ~super(10);~ appelle ~Base(int)~ et doit être **dans un constructeur** (en 1<sup>re</sup> ligne) : ici ~Sub()~ (emplacement « Deux »). Dans ~main~ ou dans une méthode ordinaire, ~super(...)~ est interdit ; ~Base(10);~ seul n'est pas une instruction valide.
+? On veut que ~"constructeur de base"~ s'affiche : il faut appeler ~Base(int)~ (le seul qui affiche quelque chose).
+
+**Où écrire ~super(10);~ ?** ~super(...)~ n'est autorisé que **dans un constructeur**, en première ligne. Dans ce code, le seul constructeur de ~Sub~ est ~Sub()~ : emplacement « Deux ».
+
+**Pourquoi pas les autres :**
+
+- « Un » est dans ~main~ : ~super~ n'y existe pas.
+- « Trois » est dans une méthode ordinaire ~sub()~ : ~super(...)~ y est interdit.
+- ~Base(10);~ n'est pas une instruction valide (on ne rappelle pas un constructeur comme ça).
+
+Avec la bonne correction, ~new Sub()~ → ~Sub()~ → ~super(10)~ → ~Base(int)~ qui affiche le texte.
 
 ## ann | Annale 2025 · Q5
 Choisissez la définition la plus vraisemblable de ~ioAppel~ :
@@ -80,7 +97,17 @@ public class Test {
 - ~public void ioAppel() { }~
 - ~public void ioAppel() throw IOException { }~
 - ~public void ioAppel throws IOException () { }~
-? Un ~catch (IOException e)~ n'est accepté que si le ~try~ peut lancer une ~IOException~ : ~ioAppel~ doit donc déclarer ~throws IOException~. ~throw~ (sans s) et la dernière syntaxe sont invalides.
+? Le ~try~ appelle ~ioAppel()~ et le ~catch~ attend une ~IOException~.
+
+**Règle :** le compilateur n'accepte un ~catch~ d'une exception **vérifiée** que si le ~try~ peut réellement la lancer. Il faut donc que ~ioAppel()~ **déclare** ~throws IOException~ dans sa signature.
+
+**Les autres propositions :**
+
+- ~public void ioAppel() { }~ : ne déclare rien → le ~catch (IOException)~ est refusé (« exception never thrown »).
+- ~throw IOException~ : faute, c'est ~throws~.
+- ~ioAppel throws IOException ()~ : les mots sont dans le mauvais ordre.
+
+Syntaxe correcte : ~public void ioAppel() throws IOException { }~.
 
 ## ann | Annale 2025 · Q6
 Une classe :
@@ -122,7 +149,13 @@ public class D extends A {
 - ~66~
 - ~18~
 - ~21~
-? ~A.f(2)~ est ~static~ : résolu sur ~A~ → 7. ~a.g(3)~ est une méthode d'instance : liaison dynamique sur l'objet réel ~D~ → 11. Produit : 7 × 11 = 77.
+? **Étape 1 : ~A.f(2)~.** ~f~ est ~static~ et appelée avec ~A.~ : on exécute ~A.f~ → ~2 + 5 = 7~.
+
+**Étape 2 : ~a.g(3)~.** ~g~ est une méthode d'**instance**. ~a~ est déclarée ~A~ mais pointe vers un objet ~D~ (~A a = d~). On exécute la version de l'**objet réel** : ~D.g(3)~ → ~3 + 8 = 11~.
+
+**Étape 3 :** ~7 * 11 = 77~.
+
+**À retenir :** méthode ~static~ = type déclaré ; méthode d'instance = objet réel.
 
 ## ann | Annale 2025 · Q10
 Sachant que ~Triangle~ hérite de ~Figure~, quelle ligne est correcte ?
@@ -146,7 +179,19 @@ public class D {
 - ~1~
 - ~3~
 - ~2~
-? ~D(5, 6)~ → ~this(6)~ → ~this()~ : ~x = 3~ ; puis ~x = 3 + 6 = 9~ ; puis ~x = 9 - 5 = 4~.
+? Suis les constructeurs appelés par ~new D(5, 6)~ :
+
+**1.** ~D(5, 6)~ → première ligne ~this(6)~ (b = 6) : on saute dans ~D(int a)~ avec ~a = 6~.
+
+**2.** ~D(6)~ → première ligne ~this()~ : on saute dans ~D()~.
+
+**3.** ~D()~ : ~x = 3~.
+
+**4.** Retour dans ~D(int a)~ : ~x = 3 + 6 = 9~.
+
+**5.** Retour dans ~D(int a, int b)~ : ~x = 9 - 5 = 4~.
+
+Le corps le plus profond s'exécute d'abord. ~a.x~ vaut ~4~.
 
 ## ann | Annale 2025 · Q12
 Un attribut d'une classe avec la visibilité par défaut est visible par :
@@ -204,7 +249,13 @@ public class Famille {
 - ~MamanMaman~
 - ~MamanFifille~
 - ~FifilleFifille~
-? Le constructeur de ~Maman~ appelle ~this.getVal()~ : pour ~new Fifille()~, ~this~ est une ~Fifille~ donc la version redéfinie (~Fifille~). Pour ~new Maman()~ : ~Maman~.
+? ~new Fifille()~ appelle ~Fifille()~ qui commence par ~super()~, donc ~Maman()~. Dans ~Maman()~, le ~print~ appelle ~this.getVal()~.
+
+**Premier objet : ~new Fifille()~.** ~this~ est une ~Fifille~ → version redéfinie de ~Fifille~ → affiche ~Fifille~.
+
+**Second objet : ~new Maman()~.** ~this~ est une ~Maman~ → affiche ~Maman~.
+
+Affichage ~FifilleMaman~. Même piège que la question de la page « constructeur » : l'appel d'une méthode redéfinie dans un constructeur utilise la version de la classe **réelle**.
 
 ## ann | Annale 2025 · Q17
 Combien de références de type ~String~ sont créées par ~String[] strings = new String[10];~ ?
@@ -266,7 +317,16 @@ A z = new A();
 - Aucune
 - Trois
 - Cinq
-? Deux ~new~, donc deux objets ; les autres variables sont des références.
+? Une **instance** = un objet créé par ~new~. Les autres noms sont des **références**.
+
+| ligne | objets créés | références |
+|---|---|---|
+| ~A x, u, v;~ | 0 | ~x~, ~u~, ~v~ vides |
+| ~x = new A();~ | **1** | ~x~ → objet 1 |
+| ~A y = x;~ | 0 | ~y~ → objet 1 (copie de la flèche) |
+| ~A z = new A();~ | **1** | ~z~ → objet 2 |
+
+Total : **2** instances.
 
 ## ann | Annale 2025 · Q25
 Que sera le résultat si le fichier ~Hello.txt~ est présent ?
@@ -295,5 +355,17 @@ public class Worker {
 - ~File found.0~
 - ~No such file found.Doing finally.-1~
 - ~No such file found.-1~
-? Le fichier existe : ~File found.~ puis ~return 0~ prépare la valeur ; le ~finally~ affiche ~Doing finally.~ ; ensuite ~println~ affiche ~0~.
+? Fichier présent. Suis le déroulé dans ~work()~ :
+
+**1.** ~new FileInputStream("Hello.txt")~ réussit (le fichier existe), on n'entre pas dans le ~catch~.
+
+**2.** ~print("File found.")~ s'affiche.
+
+**3.** ~return 0~ prépare la valeur de retour (0).
+
+**4.** Avant de quitter, le ~finally~ s'exécute : ~Doing finally.~
+
+**5.** ~work()~ rend 0 à ~main~, qui l'affiche avec ~println~ : ~0~.
+
+Affichage ~File found.Doing finally.0~. Si le fichier manquait : ~No such file found.Doing finally.-1~.
 `;

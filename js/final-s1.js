@@ -14,7 +14,15 @@ System.out.println(s);
 - ~ABC~
 - ~abcABC~
 - Une erreur de compilation
-? Les ~String~ sont **immuables** : ~toUpperCase()~ renvoie une **nouvelle** chaîne qu'on n'a pas récupérée. ~s~ n'a pas changé. Il faut écrire ~s = s.toUpperCase();~.
+? Une ~String~ ne change jamais une fois créée : on dit qu'elle est **immuable**.
+
+**1.** ~String s = "abc";~ : ~s~ désigne le texte ~"abc"~.
+
+**2.** ~s.toUpperCase();~ : la méthode **fabrique un nouveau texte** ~"ABC"~ et le renvoie. Ici on ne récupère pas ce résultat : il est perdu tout de suite.
+
+**3.** ~s~ désigne toujours ~"abc"~. Affichage ~abc~.
+
+Pour garder le résultat, il faut l'affecter : ~s = s.toUpperCase();~.
 
 ## s1 | == et equals sur String
 Qu'affiche ce code ?
@@ -52,7 +60,15 @@ System.out.println(7 / 2 + " " + 7 % 2 + " " + 7 / 2.0);
 - ~3.5 1 3.5~
 - ~3 3 3.5~
 - ~4 1 3.5~
-? ~7 / 2~ est une division **entière** (3), ~7 % 2~ est le reste (1), ~7 / 2.0~ est une division réelle (3.5).
+? Trois calculs, chacun avec ses règles de type :
+
+**~7 / 2~** : deux entiers → division **entière**, on jette la virgule → ~3~.
+
+**~7 % 2~** : le **reste** de la division : 7 = 2 × 3 + 1 → ~1~.
+
+**~7 / 2.0~** : un opérande est un réel → division **réelle** → ~3.5~.
+
+Les ~+ " " +~ concatènent les trois résultats : ~3 1 3.5~.
 
 ## s1 | Post et pré-incrémentation
 Quelles valeurs de ~x~ et ~y~ ?
@@ -92,7 +108,13 @@ System.out.println('a' + 1 + "b");
 - ~a1b~
 - ~bb~
 - ~ab~
-? ~'a' + 1~ est une addition **numérique** (le code de ~'a'~ est 97, donc 98) ; ensuite on concatène ~"b"~.
+? Java évalue **de gauche à droite** et le type de chaque résultat décide de la suite.
+
+**1.** ~'a' + 1~ : un ~char~ plus un ~int~ → addition **numérique**. ~'a'~ a pour code 97, donc 98 (un ~int~).
+
+**2.** ~98 + "b"~ : un nombre plus une ~String~ → **concaténation** : ~"98b"~.
+
+Affichage ~98b~. Pour obtenir ~a1b~ il aurait fallu commencer par une chaîne : ~"" + 'a' + 1 + "b"~.
 
 ## s1 | Concaténation et addition
 Qu'affiche ce code ?
@@ -105,7 +127,16 @@ System.out.println(10 + 20 + "x" + 10 + 20);
 - ~30x30~
 - ~10x30~
 - ~102010x20~
-? L'évaluation va de gauche à droite : ~10 + 20~ = 30 (addition), puis ~"30" + "x"~ (concaténation), puis ~"30x" + 10~ = ~"30x10"~ puis ~"30x1020"~.
+? Lis de gauche à droite, un ~+~ à la fois. Tant que les deux côtés sont des nombres, c'est une addition ; dès qu'une ~String~ apparaît, c'est une concaténation.
+
+| étape | calcul | résultat |
+|---|---|---|
+| 1 | ~10 + 20~ | ~30~ (addition) |
+| 2 | ~30 + "x"~ | ~"30x"~ (concaténation) |
+| 3 | ~"30x" + 10~ | ~"30x10"~ |
+| 4 | ~"30x10" + 20~ | ~"30x1020"~ |
+
+Après le ~"x"~, tout est du texte : ~10~ puis ~20~ sont collés, pas additionnés.
 
 ## s1 | Conversion réel vers entier
 Qu'affiche ce code ?
@@ -118,7 +149,15 @@ System.out.println((int) 3.99 + (int) -3.99);
 - ~-1~
 - ~1~
 - ~-7.98~
-? Le transtypage ~(int)~ **tronque** vers zéro (il n'arrondit pas) : ~3 + (-3) = 0~.
+? Le cast ~(int)~ **tronque** : il supprime la partie décimale, il n'arrondit pas.
+
+**~(int) 3.99~** : on garde 3.
+
+**~(int) -3.99~** : on garde -3 (on tronque vers zéro, pas vers le bas).
+
+**Somme :** ~3 + (-3) = 0~.
+
+Piège fréquent : croire que ~(int) -3.99~ donne -4.
 
 ## s1 | Dépassement d'entier
 Qu'affiche ce code ?
@@ -131,7 +170,15 @@ System.out.println(Integer.MAX_VALUE + 1);
 - ~2147483648~
 - Une exception ~ArithmeticException~
 - Une erreur de compilation
-? Les ~int~ « bouclent » en cas de dépassement, sans exception : le plus grand ~int~ plus 1 devient le plus petit.
+? Un ~int~ occupe 32 bits : il va de -2 147 483 648 à 2 147 483 647. Quand on dépasse, Java **ne lance pas d'exception** : le nombre « fait le tour » comme un compteur kilométrique.
+
+**1.** ~Integer.MAX_VALUE~ vaut 2 147 483 647.
+
+**2.** ~+ 1~ dépasse : on retombe tout en bas de l'échelle.
+
+**3.** Résultat : ~-2147483648~.
+
+Pour des calculs plus grands, il faut un ~long~.
 
 ## s1 | Conversions implicites
 Quelle déclaration compile ?
@@ -155,7 +202,15 @@ System.out.println(t[1] + " " + b[0] + " " + s[1]);
 - ~0 true ""~
 - ~null null null~
 - ~0 false ""~
-? Les cases d'un tableau reçoivent la valeur par défaut du type : ~0~, ~false~, ~null~ pour les objets.
+? ~new int[3]~, ~new boolean[2]~ et ~new String[2]~ créent des tableaux dont les cases reçoivent **la valeur par défaut de leur type** :
+
+| type des cases | valeur par défaut |
+|---|---|
+| ~int~ | ~0~ |
+| ~boolean~ | ~false~ |
+| objets (~String~...) | ~null~ |
+
+~t[1]~ → ~0~, ~b[0]~ → ~false~, ~s[1]~ → ~null~. Affichage ~0 false null~. Une case ~String~ n'est pas une chaîne vide : elle ne contient **aucun objet**.
 
 ## s1 | Tableaux et références
 Qu'affiche ce code ?
@@ -171,7 +226,17 @@ System.out.println(a[0]);
 - ~1~
 - ~0~
 - Une erreur de compilation
-? ~b = a~ copie la **référence** : les deux variables désignent le même tableau.
+? Un tableau est un **objet** : la variable ne contient que sa « flèche » (son adresse).
+
+**1.** ~a~ pointe vers le tableau ~{1, 2, 3}~.
+
+**2.** ~int[] b = a;~ copie la **flèche**, pas le tableau : ~a~ et ~b~ pointent vers **le même** tableau.
+
+**3.** ~b[0] = 9;~ modifie ce tableau partagé : il devient ~{9, 2, 3}~.
+
+**4.** ~a[0]~ lit le même tableau : ~9~.
+
+Pour avoir une vraie copie, il faut ~a.clone()~ ou ~Arrays.copyOf(a, a.length)~.
 
 ## s1 | Taille d'un tableau 2D
 Qu'affiche ce code ?
@@ -185,7 +250,15 @@ System.out.println(m.length + " " + m[0].length);
 - ~4 3~
 - ~12 4~
 - ~3 12~
-? ~m.length~ = nombre de lignes (3), ~m[0].length~ = longueur de la première ligne (4 colonnes). ~length~ n'a pas de parenthèses pour un tableau.
+? Un tableau à deux dimensions est un **tableau de tableaux**.
+
+**~new int[3][4]~** : 3 lignes, chacune étant un tableau de 4 cases.
+
+**~m.length~** : nombre de lignes → ~3~.
+
+**~m[0].length~** : longueur de la première ligne → ~4~.
+
+Affichage ~3 4~. Dans les deux cas ~length~ est un attribut : **pas de parenthèses**.
 
 ## s1 | Déclaration valide
 Quelle déclaration de tableau est valide ?
@@ -272,7 +345,13 @@ public class A {
 - Aucune erreur, affiche ~5~
 - Aucune erreur, affiche ~0~
 - Erreur : ~x~ doit être ~final~
-? Une méthode ~static~ n'est liée à aucun objet : elle n'a pas de ~this~, donc pas accès aux attributs d'instance (« non-static variable x cannot be referenced from a static context »).
+? **~f()~ est ~static~** : elle appartient à la classe, elle peut être appelée **sans aucun objet**. Dans ce cas, il n'existe pas d'objet ~A~ et donc pas de ~x~ à lire.
+
+**~x~ est un attribut d'instance** : il n'existe que dans un objet ~A~ précis.
+
+Le compilateur refuse donc ~System.out.println(x)~ dans ~f()~ : « non-static variable x cannot be referenced from a static context ».
+
+Deux corrections : rendre ~x~ ~static~, ou rendre ~f()~ non statique (et l'appeler sur un objet).
 
 ## s1 | final et tableau
 Que se passe-t-il à la compilation ?
@@ -287,7 +366,15 @@ t = new int[3];
 - Erreur sur les deux dernières lignes
 - Erreur sur la ligne ~t[0] = 5;~ seulement
 - Aucune erreur
-? ~final~ interdit de **changer la référence** ~t~, pas de modifier le **contenu** du tableau. ~t[0] = 5~ est permis.
+? Ligne par ligne :
+
+**~final int[] t = {1, 2};~** : ~t~ est une référence qu'on ne pourra **plus changer**.
+
+**~t[0] = 5;~** : on ne change pas ~t~, on change **le contenu** du tableau pointé. C'est autorisé.
+
+**~t = new int[3];~** : on essaie de faire pointer ~t~ ailleurs. Interdit : « cannot assign a value to final variable t ».
+
+~final~ protège la variable, pas l'objet qu'elle désigne.
 
 ## s1 | Méthodes de String
 Qu'affiche ce code ?
@@ -301,7 +388,15 @@ System.out.println(s.length() + s.charAt(1) + s.indexOf("v"));
 - ~4a2~
 - ~42~
 - ~Une erreur de compilation~
-? Ce sont des **nombres** : ~4~ + le code de ~'a'~ (97) + ~2~ (position de ~"v"~) = 103. Aucune concaténation de ~String~ n'intervient.
+? Attention : ce sont des **nombres**, pas du texte, donc ils s'additionnent.
+
+**~s.length()~** : ~"Java"~ a 4 lettres → ~4~.
+
+**~s.charAt(1)~** : la lettre d'indice 1 (la 2<sup>e</sup>) est ~'a'~. Un ~char~ dans une addition devient son code : ~97~.
+
+**~s.indexOf("v")~** : ~"v"~ est à l'indice 2 → ~2~.
+
+**Somme :** ~4 + 97 + 2 = 103~. Aucun ~String~ n'apparaît dans l'expression, donc aucune concaténation.
 
 ## s1 | substring
 Qu'affiche ce code ?
@@ -314,7 +409,17 @@ System.out.println("Hello".substring(1, 3) + "Hello".charAt(4));
 - ~ell~
 - ~ello~
 - ~el4~
-? ~substring(1, 3)~ prend les indices 1 et 2 (le 3 est exclu) : ~"el"~. ~charAt(4)~ est ~'o'~.
+? Les indices d'une chaîne commencent à 0. Pour ~"Hello"~ :
+
+| indice | 0 | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|---|
+| lettre | H | e | l | l | o |
+
+**~substring(1, 3)~** : du caractère d'indice 1 **inclus** à l'indice 3 **exclu** → ~"el"~.
+
+**~charAt(4)~** : ~'o'~.
+
+La concaténation donne ~"el" + 'o'~ = ~elo~.
 
 ## s1 | Constantes de chaînes
 Que valent les deux comparaisons ?
@@ -391,7 +496,15 @@ switch (x) {
 - ~b~
 - ~bcd~
 - ~abc~
-? Sans ~break~, l'exécution **continue** dans le ~case~ suivant : ~b~, puis ~c~, puis ~break~.
+? Un ~switch~ saute au bon ~case~ puis **continue vers le bas** tant qu'il ne rencontre pas ~break~.
+
+**1.** ~x = 2~ : on saute directement à ~case 2~ (on ignore ~case 1~).
+
+**2.** ~case 2~ affiche ~b~, pas de ~break~ : on **tombe** dans le ~case 3~.
+
+**3.** ~case 3~ affiche ~c~, puis ~break~ : on sort.
+
+~default~ n'est jamais atteint. Affichage ~bc~.
 
 ## s1 | Opérateur ternaire
 Qu'affiche ce code ?
@@ -405,7 +518,13 @@ System.out.println((a > b) ? "A" : (a == b) ? "E" : "B");
 - ~A~
 - ~E~
 - ~8~
-? ~a > b~ est faux ; ~a == b~ est faux ; on obtient la dernière valeur : ~"B"~.
+? ~condition ? valeurSiVrai : valeurSiFaux~ se lit comme un ~if/else~ qui renvoie une valeur. Ici deux ternaires sont imbriqués :
+
+**1.** ~a > b~ : ~5 > 8~ est faux → on prend la partie après le ~:~, c'est-à-dire le 2<sup>e</sup> ternaire.
+
+**2.** ~a == b~ : ~5 == 8~ est faux → on prend la partie après le ~:~, c'est-à-dire ~"B"~.
+
+Affichage ~B~.
 
 ## s1 | Surcharge et conversion
 Quelle méthode est appelée par ~f('a')~, puis par ~f(5L)~ ?
@@ -460,7 +579,15 @@ System.out.println(Integer.parseInt("4") + "2" + 1);
 - ~7~
 - ~43~
 - ~61~
-? ~parseInt("4")~ vaut 4 (un ~int~) ; ~4 + "2"~ devient la chaîne ~"42"~ ; puis ~"42" + 1~ = ~"421"~.
+? Suis les types :
+
+**1.** ~Integer.parseInt("4")~ transforme le texte ~"4"~ en **nombre** 4 (un ~int~).
+
+**2.** ~4 + "2"~ : nombre + ~String~ → concaténation : ~"42"~.
+
+**3.** ~"42" + 1~ : encore une concaténation : ~"421"~.
+
+Affichage ~421~. Le résultat n'est pas 7 : on n'additionne jamais un nombre à du texte.
 
 ## s1 | Math.round
 Qu'affiche ce code ?
@@ -473,7 +600,13 @@ System.out.println(Math.round(2.5) + " " + Math.round(-2.5));
 - ~3 -3~
 - ~2 -2~
 - ~2 -3~
-? ~Math.round(x)~ renvoie ~floor(x + 0.5)~ : 3 pour 2.5, et ~floor(-2.0)~ = -2 pour -2.5.
+? ~Math.round(x)~ calcule ~floor(x + 0.5)~, c'est-à-dire « le plus grand entier ≤ x + 0,5 ».
+
+**~Math.round(2.5)~** : ~2.5 + 0.5 = 3.0~ → ~3~.
+
+**~Math.round(-2.5)~** : ~-2.5 + 0.5 = -2.0~ → ~-2~ (on arrondit « vers le haut », pas « loin de zéro »).
+
+Affichage ~3 -2~. Les demi-valeurs sont donc arrondies vers +∞.
 
 ## s1 | Court-circuit
 Qu'affiche ce code ?
@@ -488,7 +621,15 @@ else System.out.print("b");
 - ~a~
 - Une ~ArithmeticException~
 - Rien
-? Avec ~&&~, si le premier opérande est faux, le second n'est **pas évalué** : pas de division par 0. Avec ~&~ on aurait une exception.
+? Avec ~&&~ (ET), si le **premier** côté est faux, le résultat est forcément faux : Java **n'évalue pas** le second côté.
+
+**1.** ~x != 0~ : ~0 != 0~ est faux.
+
+**2.** Le second côté ~10 / x > 1~ (qui diviserait par 0) n'est **jamais exécuté**.
+
+**3.** La condition est fausse → on va dans le ~else~ : ~b~.
+
+Avec ~&~ (un seul symbole), les deux côtés seraient évalués : ~ArithmeticException~.
 
 ## s1 | Variable locale non initialisée
 Que se passe-t-il à la compilation ?
@@ -502,7 +643,13 @@ System.out.println(x);
 - Aucune erreur, affiche ~0~
 - Aucune erreur, affiche ~null~
 - Aucune erreur, mais exception à l'exécution
-? Les variables **locales** n'ont pas de valeur par défaut (contrairement aux attributs et aux cases de tableau).
+? Les **attributs** reçoivent une valeur par défaut, mais les **variables locales** (déclarées dans une méthode) **non**. Le compilateur vérifie que chaque variable a reçu une valeur avant d'être lue.
+
+**~int x;~** : déclarée, sans valeur.
+
+**~System.out.println(x);~** : lecture → « variable x might not have been initialized ».
+
+Correction : ~int x = 0;~.
 
 ## s1 | Portée d'une variable de boucle
 Que se passe-t-il à la compilation ?
@@ -516,7 +663,15 @@ System.out.println(i);
 - Affiche ~3~
 - Affiche ~0~
 - Affiche ~2~
-? Une variable déclarée dans l'en-tête du ~for~ n'existe que dans la boucle.
+? Une variable déclarée **dans l'en-tête du ~for~** n'existe que pendant la boucle : sa **portée** se termine avec l'accolade.
+
+**1.** ~int i~ est créée au début du ~for~.
+
+**2.** À la fin de la boucle, ~i~ est détruite.
+
+**3.** ~System.out.println(i)~ après la boucle cite un ~i~ qui n'existe plus : « cannot find symbol ».
+
+Pour utiliser ~i~ après, il faut le déclarer **avant** le ~for~ : ~int i; for (i = 0; ...)~.
 
 ## s1 | Concaténation avec null
 Qu'affiche ce code ?
@@ -530,7 +685,13 @@ System.out.println(s + "a");
 - ~a~
 - Une ~NullPointerException~
 - Une erreur de compilation
-? Dans une concaténation, une référence ~null~ est convertie en la chaîne ~"null"~. C'est ~s.length()~ qui lancerait une ~NullPointerException~.
+? Dans une concaténation, Java convertit chaque morceau en texte. Pour une référence ~null~, le texte est ~"null"~. Aucune exception ici.
+
+**~s = null;~** : ~s~ ne pointe sur aucun objet.
+
+**~s + "a"~** : ~null~ devient ~"null"~, d'où ~"nulla"~.
+
+Une ~NullPointerException~ n'apparaîtrait que si on **appelait une méthode** sur ~s~ (par exemple ~s.length()~).
 
 ## s1 | Affectation dans un if
 Qu'affiche ce code ?
@@ -545,7 +706,15 @@ else System.out.print("no");
 - ~no~
 - Une erreur de compilation
 - Rien
-? ~b = true~ est une **affectation** qui vaut ~true~ : la condition est vraie. Piège classique (~=~ au lieu de ~==~).
+? Dans ~if (b = true)~ il n'y a qu'**un seul** ~=~ : c'est une **affectation**, pas une comparaison.
+
+**1.** ~b = true~ range ~true~ dans ~b~.
+
+**2.** Une affectation **vaut la valeur affectée** : l'expression vaut ~true~.
+
+**3.** La condition est vraie → on exécute la partie ~if~ : ~yes~.
+
+Pour comparer, il aurait fallu ~b == true~ (ou plus simplement ~if (b)~).
 
 ## s1 | Division entière dans un double
 Que vaut ~d~ ?
@@ -559,7 +728,15 @@ System.out.println(d);
 - ~1.0~
 - ~0.0~
 - ~1~
-? ~1 / 2~ est entier : 0. ~1 / 2.0~ vaut 0.5. Total 0.5, converti en ~double~ à l'affectation.
+? Chaque division est calculée **d'après le type de ses opérandes**, avant d'être rangée dans ~d~.
+
+**~1 / 2~** : deux entiers → division entière → ~0~.
+
+**~1 / 2.0~** : un réel → division réelle → ~0.5~.
+
+**~0 + 0.5 = 0.5~**, rangé dans le ~double~ ~d~.
+
+Le type ~double~ de la variable n'y change rien : la première division est déjà faite en entiers.
 
 ## s1 | Littéral trop grand
 Que se passe-t-il à la compilation ?
@@ -572,7 +749,13 @@ long big = 3000000000;
 - Aucune erreur
 - Aucune erreur, ~big~ est négatif
 - Erreur : ~long~ n'existe pas
-? Un littéral entier sans suffixe est un ~int~ : 3 milliards dépassent ~2147483647~. Avec le suffixe ~L~, c'est un ~long~.
+? Un nombre écrit sans suffixe est un **~int~**. Or ~3000000000~ dépasse la limite des ~int~ (2 147 483 647) : le compilateur refuse avant même de regarder ~long~.
+
+**~long big = 3000000000;~** : « integer number too large ».
+
+**~long big = 3000000000L;~** : avec le suffixe ~L~, le littéral est un ~long~ : correct.
+
+Le type de la variable (~long~) ne change pas le type du littéral.
 
 ## s1 | i = i++
 Qu'affiche ce code ?
@@ -608,7 +791,13 @@ System.out.println("apple".compareTo("banana"));
 - ~1~
 - ~0~
 - ~true~
-? ~compareTo~ renvoie la différence des premiers caractères qui diffèrent : ~'a' - 'b' = -1~. Négatif : ~"apple"~ est **avant** ~"banana"~.
+? ~a.compareTo(b)~ compare deux chaînes **lettre par lettre** (ordre du dictionnaire).
+
+**1.** On compare les premières lettres : ~'a'~ (97) et ~'b'~ (98). Elles sont différentes, on s'arrête.
+
+**2.** Le résultat est la différence : ~97 - 98 = -1~.
+
+**Sens :** négatif → ~"apple"~ vient **avant** ~"banana"~ ; positif → après ; ~0~ → égales.
 
 ## s1 | Scanner
 Avec ~Scanner sc = new Scanner(System.in);~, quelle méthode lit un mot (jusqu'au prochain espace) ?

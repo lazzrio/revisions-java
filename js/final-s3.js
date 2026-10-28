@@ -46,7 +46,15 @@ public class Main {
 - ~true~
 - Erreur de compilation
 - ~NullPointerException~
-? Sans redéfinition, ~equals~ d'~Object~ compare les **adresses** (comme ~==~) : deux objets distincts sont différents même avec les mêmes valeurs.
+? La méthode ~equals~ existe dans toutes les classes (héritée d'~Object~). Sa version d'origine ne fait que **comparer les adresses**, comme ~==~.
+
+**1.** ~new Point(1)~ crée un objet à l'adresse A.
+
+**2.** Le second ~new Point(1)~ crée un **autre** objet à l'adresse B.
+
+**3.** ~equals~ compare A et B : différentes → ~false~, même si les deux ~x~ valent 1.
+
+Pour comparer les valeurs, la classe doit **redéfinir** ~equals(Object o)~.
 
 ## s3 | equals redéfinie
 Qu'affiche ce code ?
@@ -133,7 +141,15 @@ public class Main {
 - ~p=Point@...~
 - ~p=~
 - ~(1,2)~
-? La concaténation d'un objet avec une ~String~ (comme ~println(objet)~) appelle automatiquement sa méthode ~toString()~.
+? Quand on mélange du texte et un objet avec ~+~, Java doit transformer l'objet en texte : il appelle sa méthode ~toString()~.
+
+**1.** ~"p=" + p~ : ~p~ est un objet → Java appelle ~p.toString()~.
+
+**2.** ~toString()~ redéfinie construit ~"(" + 1 + "," + 2 + ")"~ = ~"(1,2)"~.
+
+**3.** Résultat : ~"p=(1,2)"~.
+
+Sans redéfinition, on obtiendrait ~Point@1b6d3586~ (nom de classe et code de hachage).
 
 ## s3 | Chaînage de constructeurs
 Qu'affiche ce programme ?
@@ -182,7 +198,15 @@ public class Main {
 - Aucune erreur
 - Aucune erreur, ~x~ vaut 0
 - Erreur : ~A~ doit être ~abstract~
-? Le constructeur par défaut n'existe que si **aucun** constructeur n'est écrit.
+? Règle : Java fabrique un constructeur sans paramètre **uniquement si la classe n'en écrit aucun**.
+
+**1.** ~A~ écrit ~A(int x)~ : le constructeur par défaut n'est plus créé.
+
+**2.** ~new A()~ cherche un constructeur sans paramètre.
+
+**3.** Il n'y en a pas : erreur de compilation « constructor A in class A cannot be applied to given types ».
+
+Correction : écrire ~new A(5)~, ou ajouter un constructeur ~A() { }~.
 
 ## s3 | Surcharge ambiguë
 Que se passe-t-il à la compilation ?
@@ -198,7 +222,13 @@ public class Main {
 - Affiche ~I~
 - Affiche ~S~
 - ~NullPointerException~
-? ~null~ est compatible avec n'importe quel type objet : le compilateur ne peut pas choisir.
+? Le compilateur choisit la méthode d'après le **type de l'argument**.
+
+**~f(Integer)~** et **~f(String)~** existent. L'argument est ~null~, qui est compatible avec **n'importe quel objet** : ~Integer~ et ~String~ conviennent tous les deux.
+
+Aucune des deux n'est « plus précise » que l'autre : le compilateur ne peut pas trancher → erreur « reference to f is ambiguous ».
+
+Correction : lever l'ambiguïté avec un cast, ~f((String) null)~.
 
 ## s3 | Surcharge par type de retour
 Que se passe-t-il à la compilation ?
@@ -213,7 +243,13 @@ class A {
 - Aucune erreur : c'est une surcharge valide
 - Aucune erreur : c'est une redéfinition valide
 - Erreur : ~f~ doit être ~static~
-? La signature (nom + paramètres) doit différer pour surcharger. Le type de retour ne compte pas.
+? Pour que deux méthodes d'une même classe puissent coexister, elles doivent avoir des **signatures** différentes : **nom + liste des paramètres**. Le type de retour ne fait pas partie de la signature.
+
+**~int f()~** et **~double f()~** ont la même signature ~f()~.
+
+Quand on écrit ~f()~, Java ne saurait pas laquelle appeler. Erreur : « method f() is already defined in class A ».
+
+Pour les différencier, il faut changer les **paramètres** (nombre ou types).
 
 ## s3 | Paramètre qui masque l'attribut
 Qu'affiche ce programme ?
@@ -256,7 +292,13 @@ public class Main {
 - ~Animal~
 - ~Object~
 - ~Class~
-? ~getClass()~ renvoie la classe **réelle** de l'objet, pas le type déclaré de la variable.
+? Il faut distinguer le type **déclaré** (ce qui est écrit à gauche) et le type **réel** (l'objet créé par ~new~).
+
+**~Animal a = new Chien();~** : type déclaré ~Animal~, objet réel ~Chien~.
+
+**~a.getClass()~** interroge l'**objet** : sa classe réelle est ~Chien~.
+
+**~.getSimpleName()~** renvoie le nom court : ~Chien~ (et non ~Animal~).
 
 ## s3 | Tableau d'objets
 Que se passe-t-il ?
@@ -274,7 +316,15 @@ public class Main {
 - ~ArrayIndexOutOfBoundsException~
 - Aucune erreur, ~t[0].x~ vaut 1
 - Erreur de compilation
-? ~new Point[3]~ crée trois références **vides**. Il faut créer chaque objet : ~t[0] = new Point();~.
+? Créer un tableau d'objets ne crée **pas** les objets.
+
+**1.** ~new Point[3]~ crée un tableau de 3 cases, toutes à ~null~ (aucun ~Point~ n'existe encore).
+
+**2.** ~t[0].x = 1~ essaie de suivre la flèche de ~t[0]~... qui ne mène nulle part.
+
+**3.** Appeler un attribut sur ~null~ → ~NullPointerException~.
+
+Il faut créer chaque objet : ~t[0] = new Point();~ avant d'écrire ~t[0].x = 1;~.
 
 ## s3 | Agrégation et références partagées
 Qu'affiche ce programme ?
@@ -360,7 +410,16 @@ public class Main {
 - ~0 "" false 0~
 - ~null null null null~
 - Erreur : les attributs doivent être initialisés
-? Les **attributs** (contrairement aux variables locales) reçoivent une valeur par défaut : ~0~, ~0.0~, ~false~, ~null~.
+? Les attributs d'un objet sont initialisés automatiquement par Java à la création, selon leur type :
+
+| attribut | valeur par défaut |
+|---|---|
+| ~int n~ | ~0~ |
+| ~String s~ | ~null~ |
+| ~boolean b~ | ~false~ |
+| ~double d~ | ~0.0~ |
+
+Affichage ~0 null false 0.0~. C'est une différence avec les variables **locales**, qui n'ont aucune valeur par défaut.
 
 ## s3 | Attribut final non initialisé
 Que se passe-t-il à la compilation ?
@@ -374,7 +433,13 @@ class A {
 - Aucune erreur, ~x~ vaut 0
 - Aucune erreur, ~x~ vaut ~null~
 - Erreur : ~final~ est interdit sur un attribut
-? Un attribut ~final~ doit recevoir sa valeur à la déclaration ou dans **tous** les constructeurs.
+? Un attribut ~final~ ne peut recevoir sa valeur **qu'une seule fois**, et le compilateur exige qu'elle soit donnée **avant la fin de chaque constructeur**.
+
+**~final int x;~** n'a pas de valeur à la déclaration, et la classe n'écrit aucun constructeur qui lui en donne une.
+
+Erreur : « variable x not initialized in the default constructor ».
+
+Corrections : ~final int x = 0;~ ou un constructeur ~A(int x) { this.x = x; }~.
 
 ## s3 | this dans une méthode statique
 Que se passe-t-il à la compilation ?
@@ -389,7 +454,13 @@ class A {
 - Aucune erreur
 - Erreur : ~x~ doit être ~final~
 - Aucune erreur, ~f()~ renvoie 0
-? Une méthode ~static~ appartient à la classe, pas à un objet : pas de ~this~.
+? ~this~ désigne « l'objet courant », celui sur lequel on a appelé la méthode.
+
+**~f()~ est ~static~** : on l'appelle avec ~A.f()~, **sans objet**. Il n'y a donc pas d'objet courant.
+
+**~this.x~** n'a aucun sens → erreur « non-static variable this cannot be referenced from a static context ».
+
+Il faut rendre ~f()~ non statique, ou lui passer l'objet en paramètre.
 
 ## s3 | Méthode sans return
 Que se passe-t-il à la compilation ?
@@ -405,7 +476,15 @@ class A {
 - Aucune erreur, renvoie 0 si ~x <= 0~
 - Aucune erreur, renvoie ~null~ si ~x <= 0~
 - Erreur : ~if~ interdit dans une méthode
-? Toutes les branches d'une méthode non ~void~ doivent se terminer par un ~return~ (ou un ~throw~).
+? Une méthode qui promet un ~int~ doit en renvoyer un **sur tous les chemins possibles**.
+
+**Si ~x > 0~** : ~return 1~, tout va bien.
+
+**Sinon** : on sort du ~if~ et on arrive à la fin de la méthode **sans avoir renvoyé de valeur**.
+
+Le compilateur détecte ce chemin et refuse : « missing return statement ».
+
+Correction : ajouter ~return 0;~ à la fin (ou un ~else~).
 
 ## s3 | Chaînage de méthodes
 Qu'affiche ce code ?
@@ -418,7 +497,13 @@ System.out.println("a".concat("b").toUpperCase());
 - ~ab~
 - ~a~
 - ~B~
-? Chaque méthode de ~String~ renvoie une nouvelle chaîne sur laquelle on appelle la suivante : ~"ab"~ puis ~"AB"~.
+? Chaque méthode de ~String~ **renvoie une nouvelle chaîne** sur laquelle on peut appeler la méthode suivante. On lit de gauche à droite.
+
+**1.** ~"a".concat("b")~ → ~"ab"~
+
+**2.** ~"ab".toUpperCase()~ → ~"AB"~
+
+Affichage ~AB~.
 
 ## s3 | Package et import
 Dans quel ordre écrit-on ces instructions en tête d'un fichier ?
@@ -456,7 +541,16 @@ A z = new A();
 - 0
 - 3
 - 5
-? Seuls les deux ~new A()~ créent des objets. ~x, u, v, y, z~ sont des **références** (~u~ et ~v~ restent vides, ~y~ est une copie de ~x~).
+? Une **instance** est un objet créé par ~new~. Compte les ~new~ :
+
+| ligne | effet |
+|---|---|
+| ~A x, u, v;~ | trois **variables** (références), aucun objet |
+| ~x = new A();~ | **objet n°1**, ~x~ pointe dessus |
+| ~A y = x;~ | ~y~ pointe sur le **même** objet n°1 |
+| ~A z = new A();~ | **objet n°2** |
+
+Deux ~new~ : **2 instances**. ~u~ et ~v~ n'ont jamais reçu de valeur.
 
 ## s3 | Variables locales
 Quelle est la portée d'une variable locale déclarée dans une méthode ?
@@ -500,7 +594,13 @@ public class Main {
 - Affiche ~5~
 - Erreur de compilation
 - Erreur : le constructeur ne peut pas être ~void~ à l'exécution
-? Avec ~void~, ~A()~ est une **méthode** ordinaire que personne n'appelle. Le constructeur par défaut s'exécute et ~x~ reste à 0.
+? Un constructeur a le nom de la classe et **aucun type de retour, pas même ~void~**.
+
+**~void A() { x = 5; }~** a un type de retour : c'est donc une **méthode ordinaire** qui s'appelle simplement ~A~. Le compilateur l'accepte.
+
+**~new A()~** utilise le constructeur par défaut (créé automatiquement) : ~x~ reste à 0. La méthode ~A()~ n'est jamais appelée.
+
+Affichage ~0~.
 
 ## s3 | Garbage collector
 Quand un objet peut-il être récupéré par le ramasse-miettes (garbage collector) ?
@@ -530,5 +630,11 @@ System.out.println((a == b) + " " + (c == d));
 - ~true true~
 - ~false false~
 - ~false true~
-? Les objets ~Integer~ entre -128 et 127 sont mis en cache : ~a == b~ est vrai. Au-delà, ~==~ compare des objets distincts. Pour les wrappers, toujours ~equals~.
+? Quand Java convertit automatiquement un ~int~ en ~Integer~ (autoboxing), il réutilise les **mêmes objets** pour les petites valeurs (de -128 à 127).
+
+**~a = 127, b = 127~** : même objet du cache → ~a == b~ vaut ~true~.
+
+**~c = 128, d = 128~** : hors cache, deux objets distincts → ~c == d~ vaut ~false~.
+
+Affichage ~true false~. Pour comparer des ~Integer~, utilise toujours ~equals~.
 `;

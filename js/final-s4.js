@@ -15,7 +15,11 @@ public class Main {
 - Aucune erreur
 - Erreur : ~aire()~ doit avoir un corps
 - Aucune erreur, mais ~NullPointerException~ à l'exécution
-? ~abstract~ interdit ~new~. On instancie une **classe fille concrète** : ~Figure f = new Carre(2);~ (type déclaré abstrait, objet réel concret).
+? ~abstract~ signifie « incomplète » : la classe peut contenir des méthodes sans corps (comme ~aire()~). On ne peut pas fabriquer un objet à partir d'un plan incomplet.
+
+**~new Figure()~** : refusé par le compilateur (« Figure is abstract; cannot be instantiated »).
+
+Ce qui est permis : ~Figure f = new Carre(2);~, où ~Carre~ est une classe **concrète** qui complète toutes les méthodes abstraites.
 
 ## s4 | Méthode abstraite dans une classe concrète
 Que se passe-t-il à la compilation ?
@@ -29,7 +33,13 @@ class Figure {
 - Aucune erreur
 - Erreur : ~abstract~ interdit sur une méthode
 - Aucune erreur, ~aire()~ renvoie 0
-? Une méthode abstraite (sans corps) force la classe à être abstraite. L'inverse n'est pas vrai : une classe abstraite peut ne contenir aucune méthode abstraite.
+? Une méthode abstraite n'a pas de corps : elle **oblige** les classes filles à l'écrire.
+
+Une classe qui en contient une est donc **incomplète** et doit se déclarer ~abstract~.
+
+**Ici** : ~Figure~ n'est pas déclarée ~abstract~ mais contient ~abstract double aire();~ → erreur de compilation.
+
+Correction : ~abstract class Figure { abstract double aire(); }~.
 
 ## s4 | Méthode abstraite non implémentée
 Que se passe-t-il à la compilation ?
@@ -42,7 +52,15 @@ class Carre extends Figure { }
 - Aucune erreur
 - Erreur : ~Carre~ doit être ~final~
 - Aucune erreur, ~aire()~ est héritée
-? Une classe fille concrète doit **implémenter toutes** les méthodes abstraites de sa mère (sinon elle doit être abstraite elle aussi).
+? Une classe fille d'une classe abstraite a **deux choix** :
+
+**1.** Redéfinir **toutes** les méthodes abstraites de sa mère → elle est concrète et on peut l'instancier.
+
+**2.** Ne pas toutes les redéfinir → elle doit alors être déclarée ~abstract~.
+
+~Carre~ ne redéfinit pas ~aire()~ et n'est pas abstraite → erreur.
+
+Correction : ajouter ~double aire() { ... }~ dans ~Carre~.
 
 ## s4 | Constructeur d'une classe abstraite
 Qu'affiche ce programme ?
@@ -64,7 +82,15 @@ public class Main {
 - ~CF~
 - ~C~
 - Erreur : une classe abstraite n'a pas de constructeur
-? Une classe abstraite **a** des constructeurs (appelés par ~super()~ des filles), mais on ne peut pas faire ~new Figure()~.
+? Une classe abstraite **a** des constructeurs : ils servent aux classes filles. On ne peut simplement pas écrire ~new Figure()~.
+
+**1.** ~new Carre()~ → ~Carre()~ commence par ~super()~ → on saute dans ~Figure()~.
+
+**2.** ~Figure()~ affiche ~F~.
+
+**3.** On revient dans ~Carre()~, qui affiche ~C~.
+
+Affichage ~FC~ (la mère d'abord).
 
 ## s4 | Classe abstraite : vrai ou faux
 Quelle phrase est **vraie** ?
@@ -95,7 +121,13 @@ class Oiseau implements Volant {
 - Aucune erreur
 - Erreur : ~implements~ doit être ~extends~
 - Aucune erreur, mais ~voler()~ n'est jamais appelée
-? Les méthodes d'interface sont implicitement ~public abstract~. L'implémentation doit être ~public~.
+? Les méthodes d'une interface sont **automatiquement ~public~**, même sans le mot-clé. Une classe qui les implémente doit les déclarer ~public~ aussi.
+
+**~void voler()~** (sans modificateur) a la visibilité « package », plus **faible** que ~public~.
+
+Une redéfinition ne peut pas réduire la visibilité : erreur « attempting to assign weaker access privileges; was public ».
+
+Correction : ~public void voler() { }~.
 
 ## s4 | Constante d'interface
 Que se passe-t-il à la compilation ?
@@ -112,7 +144,13 @@ public class Main {
 - Aucune erreur, ~N~ vaut 6
 - Erreur : une interface ne peut pas avoir d'attribut
 - Aucune erreur, ~N~ reste 5
-? Les attributs d'interface sont des **constantes** (~public static final~ implicites).
+? Tout attribut d'une interface est automatiquement ~public static final~ : c'est une **constante**.
+
+**~int N = 5;~** équivaut à ~public static final int N = 5;~.
+
+**~I.N++~** essaie de modifier ~N~ : interdit, ~N~ est ~final~ : « cannot assign a value to final variable N ».
+
+Les constantes servent à regrouper des valeurs partagées (par exemple ~int MAX = 10~).
 
 ## s4 | Interface qui étend une interface
 Que se passe-t-il à la compilation ?
@@ -128,7 +166,11 @@ class C implements B {
 - Aucune erreur
 - Erreur : une interface ne peut pas étendre une autre interface
 - Aucune erreur, ~g()~ est facultative
-? ~B~ hérite de ~f()~ et ajoute ~g()~ : une classe qui implémente ~B~ doit définir **les deux**.
+? Une interface peut **hériter** d'une autre (avec ~extends~). Elle obtient alors ses méthodes en plus des siennes.
+
+**~B extends A~** : ~B~ exige donc ~f()~ (héritée de ~A~) **et** ~g()~ (la sienne).
+
+**~class C implements B~** doit donc définir les **deux**. Ici ~g()~ manque → « C is not abstract and does not override abstract method g() ».
 
 ## s4 | Polymorphisme
 Qu'affiche ce programme ?
@@ -184,7 +226,13 @@ public class Main {
 - Affiche ~1.0~
 - Affiche ~0.0~
 - ~ClassCastException~ à l'exécution
-? Le compilateur ne regarde que le **type déclaré** (~Figure~). Il faudrait un cast : ~((Cercle) f).rayon()~.
+? Le compilateur vérifie les appels d'après le **type déclaré** de la variable, pas d'après l'objet réel.
+
+**~Figure f = new Cercle();~** : le compilateur ne connaît ~f~ que comme une ~Figure~.
+
+**~f.rayon()~** : ~rayon()~ n'existe pas dans ~Figure~ → erreur « cannot find symbol », même si l'objet réel est un ~Cercle~.
+
+Pour l'appeler, il faut descendre : ~((Cercle) f).rayon()~.
 
 ## s4 | Surcharge et type déclaré
 Qu'affiche ce programme ?
@@ -241,7 +289,15 @@ public class Main {
 - ~animal~
 - ~Animal@...~
 - Erreur de compilation
-? ~println(a)~ appelle ~a.toString()~ : liaison dynamique, version de la classe réelle (~Chien~).
+? ~println(a)~ transforme ~a~ en texte avec ~a.toString()~. Quelle version ? Celle de l'objet **réel**.
+
+**1.** ~a~ est déclaré ~Animal~, mais l'objet est un ~Chien~.
+
+**2.** ~toString()~ est redéfinie dans ~Chien~ : liaison dynamique, c'est la version de ~Chien~ qui s'exécute.
+
+**3.** Affichage ~chien~.
+
+C'est le cœur du polymorphisme : le type de la variable ne décide pas de la méthode exécutée.
 
 ## s4 | Méthode de patron (template)
 Qu'affiche ce programme ?
@@ -263,7 +319,15 @@ public class Main {
 - ~eau-~
 - ~-cafe~
 - Erreur de compilation
-? ~preparer()~ (concrète, ~final~) appelle ~eau()~ (concrète) et ~ajout()~ (abstraite, implémentée par ~Cafe~ : polymorphisme).
+? ~preparer()~ fixe les étapes ; deux d'entre elles sont complétées par les filles. Suis l'appel ~new Cafe().preparer()~ :
+
+**1.** ~preparer()~ est héritée de ~Boisson~ et s'exécute pour l'objet ~Cafe~.
+
+**2.** ~eau()~ : définie dans ~Boisson~, non redéfinie → ~"eau"~.
+
+**3.** ~ajout()~ : abstraite dans ~Boisson~, implémentée dans ~Cafe~ → ~"cafe"~.
+
+**4.** On affiche ~"eau" + "-" + "cafe"~ = ~eau-cafe~.
 
 ## s4 | Comparable
 Qu'affiche ce programme ?
@@ -315,7 +379,13 @@ public class Main {
 - ~[a, b, c]~
 - ~[b, c, a]~
 - ~[a, c, b]~
-? Le comparateur inverse l'ordre : ~y.compareTo(x)~ au lieu de ~x.compareTo(y)~. Ordre **décroissant**.
+? Un ~Comparator~ dit à ~sort~ **comment** comparer deux éléments ~x~ et ~y~ : négatif → ~x~ avant ~y~, positif → ~x~ après ~y~.
+
+**~(x, y) -> y.compareTo(x)~** : on compare **à l'envers** (~y~ par rapport à ~x~).
+
+Pour ~"c"~ et ~"a"~ : ~"a".compareTo("c")~ est négatif, donc ~"c"~ passe **avant** ~"a"~. Les grands passent en premier.
+
+Tri de ~[b, c, a]~ : ~[c, b, a]~ (ordre décroissant).
 
 ## s4 | sort sans Comparable
 Que se passe-t-il à la compilation ?
@@ -333,7 +403,13 @@ public class Main {
 - Aucune erreur
 - Aucune erreur, mais ~ClassCastException~ à l'exécution
 - Aucune erreur, l'ordre est celui de la création
-? ~Collections.sort(List<T>)~ exige ~T extends Comparable<T>~ : il faut implémenter ~Comparable~ ou passer un ~Comparator~.
+? Pour trier une liste, Java doit savoir **comparer deux éléments**. Il y a deux possibilités :
+
+**1.** La classe implémente ~Comparable~ (ordre naturel), avec ~compareTo~.
+
+**2.** On fournit un ~Comparator~ à ~sort~.
+
+~Chose~ n'a ni l'un ni l'autre : ~Collections.sort(l)~ est refusé à la compilation (« no suitable method found for sort »).
 
 ## s4 | remove(int) ou remove(Object)
 Qu'affiche ce programme ?
@@ -383,7 +459,19 @@ public class Main {
 - ~[a, x, b] 2 true~
 - ~[z, x, b] 1 false~
 - ~[z, b] 1 false~
-? ~[a,b]~ → ~add(1,"x")~ → ~[a,x,b]~ → ~set(0,"z")~ → ~[z,x,b]~. ~indexOf("b")~ = 2. ~"a"~ n'est plus dans la liste.
+? Suis la liste après chaque instruction :
+
+| instruction | liste |
+|---|---|
+| ~l.add("a"); l.add("b");~ | ~[a, b]~ |
+| ~l.add(1, "x");~ | ~[a, x, b]~ (on insère à l'indice 1, ~b~ est décalé) |
+| ~l.set(0, "z");~ | ~[z, x, b]~ (remplace l'indice 0) |
+
+**~l.indexOf("b")~** : ~b~ est à l'indice 2 → ~2~.
+
+**~l.contains("a")~** : ~a~ a été remplacé par ~z~ → ~false~.
+
+Affichage ~[z, x, b] 2 false~.
 
 ## s4 | Indice hors liste
 Que se passe-t-il ?
@@ -401,7 +489,11 @@ public class Main {
 - Affiche ~null~
 - Affiche ~a~
 - Erreur de compilation
-? La liste n'a qu'un élément (indice 0). ~get(1)~ lance ~IndexOutOfBoundsException~ (contrairement à ~HashMap.get~ qui renvoie ~null~).
+? La liste contient un seul élément : **seul l'indice 0 existe**.
+
+**~l.get(1)~** demande un élément qui n'existe pas → ~IndexOutOfBoundsException~ (« Index 1 out of bounds for length 1 »).
+
+À ne pas confondre : ~HashMap.get("absent")~ ne lance rien, il renvoie ~null~.
 
 ## s4 | Suppression pendant un parcours
 Que se passe-t-il ?
@@ -450,7 +542,15 @@ public class Main {
 - ~[a, b, c, d]~
 - ~[a, d]~
 - Une ~ConcurrentModificationException~
-? ~it.remove()~ supprime **proprement** le dernier élément renvoyé par ~next()~, sans invalider l'itérateur.
+? Un ~Iterator~ parcourt la liste et sait **la modifier proprement**.
+
+**1.** ~it.next()~ avance et renvoie l'élément courant.
+
+**2.** Quand l'élément est ~"b"~, ~it.remove()~ **supprime cet élément** de la liste, et l'itérateur ajuste sa position.
+
+**3.** Le parcours continue avec ~c~ puis ~d~, sans erreur.
+
+Résultat ~[a, c, d]~. Contrairement au ~for-each~ avec ~l.remove~, aucune ~ConcurrentModificationException~.
 
 ## s4 | HashMap
 Qu'affiche ce programme ?
@@ -469,7 +569,20 @@ public class Main {
 - ~2 1 0~
 - ~2 2 null~
 - ~1 2~ suivi d'une exception
-? Une clé est **unique** : le second ~put~ remplace la valeur. ~get~ d'une clé absente renvoie ~null~ (pas d'exception).
+? Une ~Map~ associe une **clé unique** à une valeur.
+
+| instruction | contenu de la map |
+|---|---|
+| ~m.put("a", 1)~ | ~{a=1}~ |
+| ~m.put("a", 2)~ | ~{a=2}~ (même clé : la valeur est **remplacée**) |
+
+**~m.size()~** : 1 clé → ~1~.
+
+**~m.get("a")~** : ~2~.
+
+**~m.get("z")~** : clé absente → ~null~ (pas d'exception).
+
+Affichage ~1 2 null~.
 
 ## s4 | HashMap : ordre
 Que garantit ~HashMap~ sur l'ordre de parcours de ses éléments ?
@@ -495,7 +608,15 @@ public class Main {
 - ~true 2~
 - ~true 1~
 - ~false 2~
-? Un ensemble n'a pas de doublons : ~add~ renvoie ~false~ si l'élément est déjà présent, et la taille reste 1.
+? Un ~Set~ ne contient **jamais deux fois** le même élément.
+
+**1.** ~s.add("a")~ : l'ensemble est vide, ~"a"~ est ajouté. (On ignore le résultat de ce premier ~add~.)
+
+**2.** ~s.add("a")~ dans le ~println~ : ~"a"~ est déjà là → rien n'est ajouté, la méthode renvoie ~false~.
+
+**3.** ~s.size()~ : toujours ~1~.
+
+Affichage ~false 1~.
 
 ## s4 | HashSet et equals/hashCode
 Qu'affiche ce programme ?
@@ -544,7 +665,15 @@ public class Main {
 - ~false -1~
 - ~true 0~
 - ~false 0~
-? ~contains~, ~indexOf~, ~remove(Object)~ utilisent ~equals~. Redéfinie : un ~P(1)~ est trouvé. ~indexOf~ d'un élément absent vaut ~-1~.
+? ~contains~ et ~indexOf~ cherchent dans la liste en appelant ~equals~ sur les éléments.
+
+**1.** La liste contient un ~P(1)~.
+
+**2.** ~l.contains(new P(1))~ : ~equals~ compare avec le ~P(1)~ de la liste : ~x~ vaut 1 des deux côtés → ~true~.
+
+**3.** ~l.indexOf(new P(2))~ : ~equals~ compare ~2~ avec ~1~ → aucun élément ne correspond → ~-1~ (convention « non trouvé »).
+
+Sans la redéfinition de ~equals~, ~contains~ renverrait ~false~ (comparaison d'adresses).
 
 ## s4 | Types génériques
 Que se passe-t-il à la compilation ?
@@ -558,7 +687,11 @@ l.add(5);
 - Aucune erreur : ~5~ est converti en ~"5"~
 - Aucune erreur, mais exception à l'exécution
 - Aucune erreur, l'élément est ignoré
-? Les génériques servent à détecter ces erreurs **à la compilation**.
+? ~List<String>~ est une liste **réservée aux ~String~**. Le compilateur vérifie chaque ajout.
+
+**~l.add(5);~** : ~5~ est un ~int~ (donc un ~Integer~ après autoboxing), pas une ~String~ → erreur « incompatible types ».
+
+C'est tout l'intérêt des génériques : l'erreur est trouvée **à la compilation** et non plus à l'exécution (par un ~ClassCastException~).
 
 ## s4 | Types primitifs et génériques
 Que se passe-t-il à la compilation ?
@@ -571,7 +704,11 @@ List<int> l = new ArrayList<>();
 - Aucune erreur
 - Aucune erreur, mais ~l~ est vide
 - Erreur : ~ArrayList~ n'a pas de constructeur sans paramètre
-? Les collections contiennent des **objets** : ~Integer~, ~Double~, ~Boolean~... (l'autoboxing convertit ~int~ ↔ ~Integer~).
+? Les génériques fonctionnent uniquement avec des **objets**. Les types primitifs (~int~, ~double~, ~boolean~...) ne sont pas des objets.
+
+**~List<int>~** : refusé (« unexpected type; required: reference, found: int »).
+
+On utilise les **classes enveloppes** (~wrappers~) : ~List<Integer>~, ~List<Double>~, ~List<Boolean>~. L'autoboxing convertit tout seul entre ~int~ et ~Integer~.
 
 ## s4 | Autoboxing et null
 Que se passe-t-il ?
@@ -585,7 +722,13 @@ int j = i;
 - ~j~ vaut 0
 - Erreur de compilation
 - ~j~ vaut ~null~
-? Le déballage automatique (~i.intValue()~) sur ~null~ lance une ~NullPointerException~.
+? **~Integer i = null;~** : ~i~ ne désigne aucun objet.
+
+**~int j = i;~** : Java convertit automatiquement l'~Integer~ en ~int~ en appelant en coulisse ~i.intValue()~.
+
+Appeler une méthode sur ~null~ → ~NullPointerException~.
+
+Piège classique avec les collections : ~int x = map.get("absent");~ lance l'exception, car ~get~ renvoie ~null~.
 
 ## s4 | Liste de la classe mère
 Que se passe-t-il à la compilation ?
@@ -605,7 +748,13 @@ public class Main {
 - Erreur sur ~a.add(new Cercle())~
 - Aucune erreur
 - Erreur sur la ligne de ~a~
-? On peut **ajouter** un ~Cercle~ dans une ~List<Figure>~ (polymorphisme sur l'élément), mais les génériques sont **invariants** : ~List<Cercle>~ n'est pas un sous-type de ~List<Figure>~.
+? Examine chaque ligne :
+
+**~List<Figure> a = new ArrayList<Figure>();~** : correct.
+
+**~a.add(new Cercle());~** : correct, un ~Cercle~ **est une** ~Figure~.
+
+**~List<Figure> b = new ArrayList<Cercle>();~** : refusé. Si c'était permis, on pourrait ensuite faire ~b.add(new Carre())~ sur une liste qui ne doit contenir que des ~Cercle~. Les génériques sont **invariants** : ~List<Cercle>~ n'est pas une ~List<Figure>~, même si ~Cercle~ hérite de ~Figure~.
 
 ## s4 | Collections.reverse
 Qu'affiche ce programme ?
@@ -623,7 +772,13 @@ public class Main {
 - ~[1, 2, 3] 3~
 - ~[3, 2, 1] 1~
 - ~[1, 2, 3] 1~
-? ~reverse~ inverse l'ordre ; ~max~ renvoie le plus grand élément (3), quel que soit l'ordre.
+? Deux méthodes de la classe utilitaire ~Collections~ :
+
+**~Collections.reverse(l)~** : **inverse l'ordre** de la liste sur place : ~[1, 2, 3]~ devient ~[3, 2, 1]~.
+
+**~Collections.max(l)~** : renvoie le **plus grand élément**, quel que soit l'ordre des éléments : ~3~.
+
+Affichage ~[3, 2, 1] 3~.
 
 ## s4 | Arrays.toString
 Qu'affiche ce programme ?
@@ -641,7 +796,13 @@ public class Main {
 - ~[3, 1, 2]~
 - ~[I@...~ (adresse du tableau)
 - ~1 2 3~
-? ~Arrays.sort~ trie le tableau sur place ; ~Arrays.toString~ le formate. (~System.out.println(t)~ afficherait ~[I@hash~.)
+? **1.** ~int[] t = {3, 1, 2};~
+
+**2.** ~Arrays.sort(t);~ trie le tableau **sur place** : ~{1, 2, 3}~.
+
+**3.** ~Arrays.toString(t)~ fabrique un texte lisible : ~"[1, 2, 3]"~.
+
+Sans ~Arrays.toString~, ~System.out.println(t)~ afficherait le type et l'adresse du tableau (~[I@6d06d69c~).
 
 ## s4 | Classe anonyme
 Qu'affiche ce programme ?
@@ -661,7 +822,13 @@ public class Main {
 - Erreur : on ne peut pas faire ~new~ sur une interface
 - ~null~
 - Erreur : il manque ~implements~
-? On peut instancier une interface en **fournissant tout de suite** son implémentation dans une classe anonyme.
+? On ne peut pas faire ~new Salut()~ tout court (interface), mais on peut écrire **à la volée** une classe sans nom qui l'implémente :
+
+**~new Salut() { public String dire() { return "coucou"; } }~**
+
+Cette classe anonyme implémente la seule méthode abstraite de l'interface. L'objet obtenu est rangé dans ~s~ (de type ~Salut~).
+
+**~s.dire()~** exécute cette méthode : ~coucou~.
 
 ## s4 | Interface comme type
 Qu'affiche ce programme ?

@@ -19,7 +19,15 @@ public static void main(String[] args) {
 - ~io wrap~
 - ~wrap null~
 - ~io io~
-? Le ~catch~ de ~m~ attrape l'~IOException~ et en lance une **nouvelle** ~Exception~ qui garde l'ancienne comme cause. ~getMessage()~ donne ~wrap~, ~getCause().getMessage()~ donne ~io~.
+? **1.** ~m()~ lance ~new IOException("io")~ dans son ~try~.
+
+**2.** Le ~catch (IOException e)~ l'attrape et lance **une nouvelle exception** : ~new Exception("wrap", e)~. Le 2<sup>e</sup> paramètre ~e~ est la **cause** (l'exception d'origine).
+
+**3.** Dans ~main~, ~e.getMessage()~ est le message de la nouvelle exception : ~wrap~.
+
+**4.** ~e.getCause().getMessage()~ est le message de l'ancienne : ~io~.
+
+Affichage ~wrap io~.
 
 ## exc | Code : exception dans finally
 Quel message affiche ce programme ?
@@ -35,7 +43,15 @@ try {
 - ~A~
 - ~A~ puis ~B~
 - Rien : le programme plante
-? Une exception lancée dans le ~finally~ **remplace** celle qui était en cours : l'exception ~A~ est perdue, le ~catch~ reçoit ~B~.
+? **1.** ~throw new RuntimeException("A")~ dans le ~try~ interne : une exception ~A~ est en cours.
+
+**2.** Avant qu'elle ne sorte, le ~finally~ s'exécute.
+
+**3.** Le ~finally~ lance lui-même ~RuntimeException("B")~. Une seule exception peut remonter : **la plus récente remplace l'ancienne**.
+
+**4.** Le ~catch~ externe reçoit ~B~ (~A~ est perdue).
+
+Affichage ~B~.
 
 ## exc | Code : break et finally
 Que vaut ~n~ à la fin ?
@@ -117,7 +133,15 @@ for (Object o : t) {
 - ~CCE~, ~1~, ~CCE~
 - ~1~, ~1~, ~NPE~
 - ~CCE~, ~1~, ~0~
-? ~1~ est un ~Integer~ : le cast échoue (~CCE~). ~"a"~ : longueur 1. ~null~ : le cast d'un ~null~ réussit, mais ~s.length()~ sur ~null~ lance ~NullPointerException~.
+? Pour chaque élément du tableau :
+
+| ~o~ | ~(String) o~ | ~s.length()~ | affichage |
+|---|---|---|---|
+| ~1~ (un ~Integer~) | **échec** | | ~CCE~ |
+| ~"a"~ | OK | ~1~ | ~1~ |
+| ~null~ | OK (on peut caster ~null~ vers tout) | **~NullPointerException~** | ~NPE~ |
+
+Affichage dans l'ordre : ~CCE~, ~1~, ~NPE~. Les deux ~catch~ correspondent à deux erreurs de nature différente.
 
 ## exc | Code : try-with-resources et exception
 Quelle est la sortie ?
@@ -163,7 +187,13 @@ try {
 - ~ok~
 - Rien
 - Une erreur de compilation
-? ~parseInt~ n'accepte pas d'espace : ~" 12"~ lance ~NumberFormatException~ (message : ~For input string: " 12"~). D'où l'intérêt de ~trim()~ avant de convertir une saisie.
+? ~Integer.parseInt~ est **strict** : le texte doit contenir uniquement des chiffres (avec éventuellement un signe).
+
+**~" 12"~** commence par un espace : le caractère ~' '~ n'est pas un chiffre → ~NumberFormatException~.
+
+Le ~System.out.println("ok")~ est donc sauté, le ~catch~ affiche ~erreur~.
+
+Astuce : ~Integer.parseInt(saisie.trim())~ enlève les espaces avant et après.
 
 ## exc | Code : toString d'une exception
 Que affiche ~System.out.println(new IllegalArgumentException("x"));~ ?
@@ -186,7 +216,15 @@ static void b() {
 - Oui, le second ~catch~ est simplement ignoré
 - Oui, mais avec un avertissement
 - Non : ~NumberFormatException~ n'existe pas
-? ~NumberFormatException~ hérite de ~IllegalArgumentException~. Message du compilateur : « exception NumberFormatException has already been caught ».
+? Hiérarchie : ~NumberFormatException~ **hérite de** ~IllegalArgumentException~.
+
+**1.** Le 1<sup>er</sup> ~catch (IllegalArgumentException)~ attrape déjà tout ce qui hérite d'~IllegalArgumentException~, donc aussi ~NumberFormatException~.
+
+**2.** Le 2<sup>e</sup> ~catch (NumberFormatException)~ ne pourrait **jamais** s'exécuter.
+
+**3.** Le compilateur le refuse : « exception NumberFormatException has already been caught ».
+
+Il faut mettre la **fille** (plus précise) **avant** la mère.
 
 ## exc | Code : throw dans main
 Que se passe-t-il à la compilation ?
@@ -199,7 +237,16 @@ public static void main(String[] args) {
 - Aucune erreur ; le programme plante à l'exécution
 - Aucune erreur ; il ne se passe rien
 - Erreur : on ne peut pas utiliser ~throw~ dans ~main~
-? ~Exception~ est vérifiée : ~main~ doit déclarer ~throws Exception~ ou entourer le ~throw~ d'un ~try/catch~. Avec ~new RuntimeException("x")~ ça compilerait.
+? ~Exception~ est une exception **vérifiée** : le compilateur impose de la traiter ou de la déclarer.
+
+**~throw new Exception("x");~** dans ~main~ : ni ~try/catch~, ni ~throws Exception~ → erreur de compilation.
+
+Deux corrections :
+
+- ~public static void main(String[] args) throws Exception~
+- entourer le ~throw~ d'un ~try { ... } catch (Exception e) { ... }~
+
+(Avec ~RuntimeException~, il n'y aurait aucune erreur de compilation.)
 
 ## exc | Code : catch qui ne correspond pas
 Que se passe-t-il à la compilation ?
@@ -213,7 +260,13 @@ static void a() {
 - Aucune erreur : ~RuntimeException~ attrape toutes les exceptions
 - Erreur : ~catch~ ne peut pas attraper ~RuntimeException~
 - Aucune erreur, l'exception est simplement ignorée
-? ~Exception~ n'est pas une ~RuntimeException~ : le ~catch~ ne la couvre pas. Il faut un ~catch (Exception e)~ ou un ~throws Exception~.
+? Le ~try~ lance une ~Exception~ ; le ~catch~ attend une ~RuntimeException~.
+
+**Relation :** ~RuntimeException~ est une **fille** d'~Exception~. Un ~catch~ pour la fille n'attrape pas les objets de la mère.
+
+L'~Exception~ lancée n'est donc pas attrapée. Comme elle est vérifiée et que ~a()~ ne la déclare pas → erreur « unreported exception Exception ».
+
+Correction : ~catch (Exception e)~, ou ~void a() throws Exception~.
 
 ## exc | Code : sortie standard et exception
 Que s'affiche-t-il sur la **sortie standard** (hors trace d'erreur) ?
@@ -227,7 +280,15 @@ System.out.println("B");
 - ~A~ puis ~B~
 - ~B~ seulement
 - Rien
-? ~t[1]~ est hors du tableau (seul l'indice 0 existe) : ~ArrayIndexOutOfBoundsException~, non attrapée. Le programme s'arrête, la trace va sur la sortie d'erreur, ~B~ n'est jamais affiché.
+? **1.** ~println("A")~ s'exécute : ~A~ sort sur la **sortie standard**.
+
+**2.** ~new int[1]~ n'a que l'indice 0. ~t[1] = 0~ lance ~ArrayIndexOutOfBoundsException~, non attrapée.
+
+**3.** Le programme s'arrête **immédiatement**. La trace d'erreur sort sur la **sortie d'erreur**, pas la sortie standard.
+
+**4.** ~println("B")~ n'est jamais atteint.
+
+Sortie standard : ~A~ seulement.
 
 ## exc | Code : return d'une référence
 Que affiche ~System.out.println(g());~ ?
@@ -242,7 +303,17 @@ static StringBuilder g() {
 - ~a~
 - ~b~
 - ~null~
-? Le ~return~ renvoie la **référence** à l'objet. Le ~finally~ modifie cet objet : l'appelant voit ~ab~. Contraste avec un ~int~ (copié avant le ~finally~).
+? Retour d'un **objet** : on renvoie la **référence** (la flèche), pas une copie de l'objet.
+
+**1.** ~sb~ pointe vers un ~StringBuilder~ qui contient ~"a"~.
+
+**2.** ~return sb;~ prépare la référence.
+
+**3.** Le ~finally~ exécute ~sb.append("b")~ : l'objet **pointé** devient ~"ab"~.
+
+**4.** L'appelant reçoit la référence vers l'objet maintenant modifié : ~ab~.
+
+Contraste avec un ~int~ (copié avant le ~finally~) : pour un objet, le ~finally~ peut changer ce que voit l'appelant.
 
 ## exc | Code : calcul avec catch
 Que vaut ~x~ à la fin ?
@@ -256,7 +327,13 @@ System.out.println(x);
 - ~5~
 - ~10~
 - Le programme s'arrête avec une exception
-? ~x - 5~ vaut 0, la division entière par 0 lance ~ArithmeticException~ avant que ~x~ soit modifiée, puis le ~catch~ affecte ~-1~.
+? **1.** ~x = 5~.
+
+**2.** ~x - 5~ vaut 0, donc ~10 / 0~ : division entière par 0 → ~ArithmeticException~. L'affectation ~x = ...~ n'a pas lieu.
+
+**3.** Le ~catch~ exécute ~x = -1~.
+
+**4.** ~println(x)~ affiche ~-1~.
 
 ## exc | Code : catch hors de portée
 Quel message est affiché ?
@@ -273,7 +350,11 @@ try {
 - ~ex~
 - ~io~
 - ~io~ puis ~ex~
-? Un ~catch~ d'une exception vérifiée que le ~try~ ne peut pas lancer est refusé par le compilateur (« exception IOException is never thrown in body of corresponding try statement »), même si un ~catch (Exception e)~ suit.
+? Le ~try~ ne contient qu'un ~throw~ d'~IllegalStateException~ (non vérifiée).
+
+**~catch (IOException e)~** : le compilateur vérifie que le ~try~ **peut** lancer une ~IOException~ (car elle est vérifiée). Ce n'est pas le cas → erreur « exception IOException is never thrown in body of corresponding try statement ».
+
+Le ~catch (Exception e)~ qui suit n'y change rien : l'erreur est sur le premier ~catch~, qui doit être supprimé.
 
 ## fic | Code : classe mère non sérialisable
 Quelles valeurs affiche ce programme après écriture puis relecture d'un ~Fils~ ?
@@ -290,7 +371,16 @@ System.out.println(y.b + " " + y.f);
 - ~100 3~
 - ~5 3~
 - ~0 0~
-? Les attributs de ~Fils~ sont restaurés (~f = 3~). Pour la partie **non sérialisable** (~Base~), Java appelle son constructeur sans argument : ~b~ prend ~5~ puis ~7~, la valeur ~100~ est perdue.
+? Pour reconstruire un objet, Java traite deux parties différentes :
+
+| partie | traitement à la lecture |
+|---|---|
+| ~Fils~ (sérialisable) | attributs **restaurés** depuis les octets : ~f = 3~ |
+| ~Base~ (non sérialisable) | pas d'octets pour elle : Java appelle son **constructeur sans paramètre** |
+
+**Base()** : l'attribut vaut d'abord ~5~ (initialisation), puis ~b = 7~ dans le constructeur. La valeur ~100~ de ~x.b~ n'a pas été sauvegardée.
+
+Affichage ~7 3~.
 
 ## fic | Code : ordre de lecture
 Que se passe-t-il ?
@@ -304,7 +394,16 @@ Integer n = (Integer) ois.readObject();   // première lecture
 - ~n~ vaut ~42~
 - ~n~ vaut ~0~
 - ~EOFException~
-? On relit dans le **même ordre** qu'à l'écriture. Le premier ~readObject()~ rend ~"a"~ ; le caster en ~Integer~ échoue.
+? Un flux d'objets est une **file** : on relit dans l'ordre exact de l'écriture.
+
+| ordre d'écriture | contenu |
+|---|---|
+| 1<sup>er</sup> ~writeObject~ | ~"a"~ (une ~String~) |
+| 2<sup>e</sup> ~writeObject~ | ~42~ (un ~Integer~) |
+
+Le 1<sup>er</sup> ~readObject()~ renvoie donc ~"a"~. Le cast ~(Integer)~ d'une ~String~ → ~ClassCastException~.
+
+Il fallait caster en ~String~ pour le premier, puis en ~Integer~ pour le second.
 
 ## fic | Code : static et constructeur
 Que affiche ce code ?
@@ -323,7 +422,11 @@ System.out.println(Etu.nb + " " + lr.size());
 - ~4 2~
 - ~2 0~
 - ~0 2~
-? À la relecture, le constructeur de ~Etu~ n'est **pas** rappelé : ~nb~ reste à 2. La liste relue contient 2 élèves.
+? **Avant la sauvegarde :** deux ~new Etu~ → le constructeur est exécuté deux fois → ~nb = 2~.
+
+**À la lecture :** les objets sont reconstruits depuis les octets, **sans appeler le constructeur**. ~nb~ n'est donc pas augmenté. De toute façon, ~nb~ est ~static~ : il n'a jamais été sauvegardé avec les objets.
+
+**Résultat :** ~Etu.nb~ vaut ~2~, et la liste relue contient ~2~ éléments (~lr.size()~).
 
 ## fic | Code : même objet écrit deux fois
 Que affiche ce programme ?
@@ -339,7 +442,17 @@ System.out.println(((P) ois.readObject()).nom + " " + ((P) ois.readObject()).nom
 - ~a b~
 - ~b b~
 - ~b a~
-? Dans un même flux, un objet déjà écrit n'est pas réécrit : la 2<sup>e</sup> écriture n'est qu'une **référence** vers la première. La modification ~p.nom = "b"~ est ignorée. (Remède : ~oos.reset()~ ou un nouvel objet.)
+? Un flux de sérialisation retient les objets déjà écrits pour ne pas les répéter.
+
+**1.** ~writeObject(p)~ : ~p~ (~nom = "a"~) est écrit en entier.
+
+**2.** ~p.nom = "b"~ modifie l'objet en mémoire.
+
+**3.** ~writeObject(p)~ : Java reconnaît **le même objet** et n'écrit qu'un petit « renvoi vers l'objet n°1 ». La modification n'est pas enregistrée.
+
+**4.** À la lecture, les deux ~readObject~ renvoient l'objet n°1, avec ~nom = "a"~.
+
+Affichage ~a a~. Remède : ~oos.reset()~ entre les deux écritures.
 
 ## fic | Code : split et champ vide
 Que se passe-t-il ?
@@ -352,7 +465,17 @@ int age = Integer.parseInt(ch[1]);
 - Affiche ~2~, puis ~age = 12~
 - Affiche ~3~, puis ~age = 12~
 - Affiche ~3~, puis ~age = 0~
-? ~split~ garde les champs vides **au milieu** : ~{"Bob", "", "12"}~ (3 éléments). ~Integer.parseInt("")~ lance ~NumberFormatException~ (~For input string: ""~).
+? ~"Bob;;12".split(";")~ coupe aux deux ~;~. Entre eux, il n'y a **rien** : ça donne une chaîne vide.
+
+| indice | 0 | 1 | 2 |
+|---|---|---|---|
+| contenu | ~"Bob"~ | ~""~ | ~"12"~ |
+
+**1.** ~ch.length~ vaut 3 → affiche ~3~.
+
+**2.** ~Integer.parseInt(ch[1])~ : on convertit ~""~ → ~NumberFormatException~ (aucun chiffre).
+
+Les champs vides **au milieu** sont conservés ; seuls ceux **à la fin** sont supprimés.
 
 ## fic | Code : nextInt puis nextLine
 Que affiche ce code, sachant que le texte lu est ~12~, retour à la ligne, ~abc~ ?
@@ -367,7 +490,15 @@ System.out.println(a + "[" + l1 + "][" + l2 + "]");
 - ~12[abc][]~
 - ~12[12][abc]~
 - ~12[abc][abc]~
-? Piège classique : ~nextInt()~ lit ~12~ mais laisse le retour à la ligne. Le premier ~nextLine()~ renvoie donc le reste de la ligne (chaîne **vide**), le second lit ~abc~.
+? Le texte contient : ~12~, un saut de ligne, ~abc~, un saut de ligne.
+
+| appel | ce qui est lu | reste à lire |
+|---|---|---|
+| ~nextInt()~ | ~12~ | ~\nabc\n~ (le saut de ligne n'est **pas** consommé) |
+| ~nextLine()~ #1 | la fin de la 1<sup>re</sup> ligne : **chaîne vide** | ~abc\n~ |
+| ~nextLine()~ #2 | ~abc~ | |
+
+Affichage ~12[][abc]~. Piège classique : après un ~nextInt()~, appeler un ~nextLine()~ « à vide » pour avaler le saut de ligne.
 
 ## fic | Code : lignes vides
 Combien de lignes compte cette boucle sur le texte ~a~, ligne vide, ~b~ (soit ~"a\n\nb"~) ?
@@ -381,7 +512,16 @@ System.out.println(c);
 - ~2~
 - ~1~
 - ~0~
-? ~readLine()~ renvoie ~"a"~, puis ~""~ (la ligne vide existe, elle est non ~null~), puis ~"b"~, puis ~null~.
+? ~readLine()~ lit une ligne à la fois, et renvoie ~null~ **seulement** à la fin du fichier. Une ligne vide est une ligne comme une autre.
+
+| appel | valeur | compte |
+|---|---|---|
+| 1 | ~"a"~ | 1 |
+| 2 | ~""~ (ligne vide, mais ce n'est pas ~null~) | 2 |
+| 3 | ~"b"~ | 3 |
+| 4 | ~null~ : fin → la boucle s'arrête | |
+
+~c~ vaut ~3~.
 
 ## fic | Code : FileWriter écrase ou ajoute
 Quel est le contenu du fichier après chaque étape ?
@@ -394,7 +534,15 @@ try (FileWriter w = new FileWriter(f))       { w.write("C"); }   // étape 3
 - ~A~, puis ~AB~, puis ~ABC~
 - ~A~, puis ~B~, puis ~C~
 - ~A~, puis ~AB~, puis ~CAB~
-? ~FileWriter(f)~ **écrase** le fichier. ~FileWriter(f, true)~ **ajoute** à la fin. L'étape 3 efface tout et écrit ~C~.
+? Le 2<sup>e</sup> argument de ~FileWriter~ décide si on **ajoute** (~true~) ou si on **écrase** (absent ou ~false~).
+
+| étape | ouverture | contenu du fichier |
+|---|---|---|
+| 1 | ~new FileWriter(f)~ : écrase, écrit ~A~ | ~A~ |
+| 2 | ~new FileWriter(f, true)~ : **ajoute** ~B~ à la fin | ~AB~ |
+| 3 | ~new FileWriter(f)~ : **écrase** tout, écrit ~C~ | ~C~ |
+
+L'ouverture sans ~true~ efface le contenu précédent dès l'ouverture.
 
 ## fic | Code : copie par sérialisation
 Que affiche ce code ?
@@ -409,7 +557,15 @@ System.out.println(r.size() + " " + l.size());
 - ~3 3~
 - ~2 2~
 - ~3 2~
-? La sérialisation a figé l'état de la liste au moment de l'écriture. ~r~ est une **copie indépendante** : elle ne voit pas le ~add~ ultérieur.
+? Sérialiser puis désérialiser fabrique une **copie** indépendante.
+
+**1.** ~l = [a, b]~ ; ~serialiser(l)~ convertit la liste en octets : le contenu **à cet instant** est figé.
+
+**2.** ~l.add("c")~ modifie la liste d'origine : ~l~ a 3 éléments. Les octets déjà fabriqués ne changent pas.
+
+**3.** ~deserialiser(octets)~ reconstruit une **nouvelle** liste ~[a, b]~ : ~r.size() = 2~.
+
+Affichage ~2 3~.
 
 ## fic | Code : flux sans gestion d'exception
 Que se passe-t-il à la compilation ?
@@ -422,7 +578,15 @@ static void c() {
 - Aucune erreur
 - Erreur : ~ObjectOutputStream~ est abstraite
 - Erreur : il manque ~implements Serializable~
-? ~new FileOutputStream("f")~ peut lancer ~FileNotFoundException~, le constructeur d'~ObjectOutputStream~ une ~IOException~. Il faut un ~try/catch~ (ou ~throws IOException~).
+? Examine ce que peut lancer chaque appel :
+
+**~new FileOutputStream("f")~** : ouvre le fichier → peut lancer ~FileNotFoundException~ (vérifiée).
+
+**~new ObjectOutputStream(...)~** : écrit un en-tête → peut lancer ~IOException~ (vérifiée).
+
+Ni ~try/catch~ ni ~throws~ dans ~c()~ → le compilateur affiche **deux** erreurs « unreported exception ».
+
+Correction : ~static void c() throws IOException { ... }~ (~FileNotFoundException~ est une ~IOException~).
 
 ## fic | Code : attribut non sérialisable
 Que se passe-t-il à l'écriture ?
@@ -438,7 +602,13 @@ oos.writeObject(new Menu());
 - Rien : ~sc~ est ignoré
 - Erreur de compilation
 - ~sc~ vaut ~null~ après relecture
-? ~Scanner~ n'est pas ~Serializable~. Solution : déclarer ~sc~ en ~transient~ (ou ne pas en faire un attribut).
+? **1.** ~Menu~ implémente ~Serializable~ : OK.
+
+**2.** Elle contient ~Scanner sc~. Pour sérialiser ~Menu~, Java doit sérialiser ~sc~ aussi.
+
+**3.** ~Scanner~ n'implémente pas ~Serializable~ → ~NotSerializableException: java.util.Scanner~ à l'exécution.
+
+Normal : un ~Scanner~ lit le clavier, il n'a pas de sens une fois sauvegardé. On le marque ~transient~ ou on le crée localement.
 
 ## fic | Code : transient et initialisation
 Que affiche ce code après écriture puis relecture de ~H~ ?
@@ -454,7 +624,13 @@ System.out.println(h.hist + " " + h.nom);
 - ~[] n~
 - ~[] null~
 - ~null null~
-? L'initialisation ~new ArrayList<>()~ ne se rejoue pas (aucun constructeur appelé) : l'attribut ~transient~ vaut ~null~. Un ~h.hist.add(...)~ provoquerait une ~NullPointerException~.
+? **1.** À l'écriture, ~hist~ (~transient~) est ignoré ; ~nom~ est sauvé.
+
+**2.** À la lecture, **aucun constructeur n'est appelé** : l'initialisation ~new ArrayList<>()~ (qui fait partie de la construction) n'est **pas** rejouée.
+
+**3.** ~hist~ garde donc sa valeur par défaut : ~null~. ~nom~ est restauré : ~"n"~.
+
+Affichage ~null n~. Un ~h.hist.add(...)~ juste après la lecture lancerait une ~NullPointerException~.
 
 ## swing | Code : compteur de clics
 Que vaut ~c[0]~ après trois clics sur le bouton ?
@@ -466,7 +642,13 @@ bouton.addActionListener(e -> c[0]++);
 - ~0~
 - ~1~
 - Erreur de compilation
-? Contrairement à ~int c~, la **référence** du tableau ~c~ est finale : on peut en modifier le contenu depuis la lambda. Chaque clic déclenche ~actionPerformed~, donc +1.
+? **~c[0]++~** est exécuté à chaque clic, car la lambda est enregistrée comme listener.
+
+**1.** ~int[] c = {0}~ : ~c[0]~ vaut 0.
+
+**2.** 1<sup>er</sup> clic : ~c[0] = 1~. 2<sup>e</sup> : 2. 3<sup>e</sup> : 3.
+
+Pourquoi ça compile alors que ~int c; c++~ ne compilerait pas : la **variable** ~c~ (la référence du tableau) n'est jamais réaffectée ; on modifie seulement le **contenu** du tableau.
 
 ## swing | Code : lire un champ au clic
 Quel texte contient le champ après deux clics sur le bouton ?
@@ -479,7 +661,14 @@ b.addActionListener(e -> t.setText("" + (Integer.parseInt(t.getText()) * 2)));
 - ~10~
 - ~55~
 - ~5~
-? 1<sup>er</sup> clic : 5 × 2 = 10. 2<sup>e</sup> clic : le champ contient ~"10"~, 10 × 2 = 20. ~getText()~ renvoie une ~String~ qu'on convertit avec ~parseInt~.
+? Le listener lit ~getText()~ (un texte), le convertit, multiplie par 2, et remet le résultat dans le champ.
+
+| clic | texte lu | calcul | nouveau texte |
+|---|---|---|---|
+| 1 | ~"5"~ | 5 × 2 | ~"10"~ |
+| 2 | ~"10"~ | 10 × 2 | ~"20"~ |
+
+Le champ contient ~20~. Remarque : ~getText()~ renvoie toujours une ~String~, d'où le ~Integer.parseInt~.
 
 ## swing | Code : GridLayout avec 0 ligne
 Où se trouve le 7<sup>e</sup> bouton (indice 6) ?
@@ -491,7 +680,19 @@ for (int i = 0; i < 7; i++) p.add(new JButton("b" + i));
 - Première colonne de la 4<sup>e</sup> ligne
 - Troisième colonne de la 2<sup>e</sup> ligne
 - Il n'est pas affiché
-? ~GridLayout(0, 3)~ : 3 colonnes, nombre de lignes libre = ⌈7/3⌉ = 3. Remplissage ligne par ligne : b0 b1 b2 / b3 b4 b5 / b6. (Vérifié : sur un panneau 300×300, ~b6~ est en x = 0, y = 200.)
+? ~GridLayout(0, 3)~ : le nombre de colonnes est **fixé à 3**, le nombre de lignes **s'adapte**.
+
+**1.** 7 composants, 3 par ligne → ⌈7 / 3⌉ = **3 lignes**.
+
+**2.** Remplissage ligne par ligne :
+
+| | colonne 1 | colonne 2 | colonne 3 |
+|---|---|---|---|
+| ligne 1 | b0 | b1 | b2 |
+| ligne 2 | b3 | b4 | b5 |
+| ligne 3 | **b6** | | |
+
+~b6~ est en 1<sup>re</sup> colonne de la 3<sup>e</sup> ligne.
 
 ## swing | Code : un listener, deux boutons
 Que affiche ce programme quand on clique d'abord sur ~b2~ puis sur ~b1~ ?
@@ -505,7 +706,13 @@ b2.addActionListener(al);
 - ~b1~ puis ~b2~
 - ~?~ deux fois
 - ~b1~ deux fois
-? Le même listener reçoit les deux événements ; ~getSource()~ renvoie le bouton cliqué.
+? Un même listener peut servir à plusieurs boutons : ~e.getSource()~ dit **lequel** a été cliqué.
+
+**1.** Clic sur ~b2~ : ~e.getSource() == b1~ ? non. ~e.getSource() == b2~ ? oui → ~"b2"~.
+
+**2.** Clic sur ~b1~ : ~e.getSource() == b1~ ? oui → ~"b1"~.
+
+Affichage ~b2~ puis ~b1~ (l'ordre des clics).
 
 ## swing | Code : getActionCommand
 Que affiche ~e.getActionCommand()~ au 1<sup>er</sup> puis au 2<sup>e</sup> clic ?
@@ -520,7 +727,15 @@ b.setActionCommand("x");
 - ~x~ puis ~x~
 - ~Go~ puis ~Go~
 - ~null~ puis ~x~
-? Par défaut, la commande d'action est le **texte** du bouton ; ~setActionCommand~ la remplace.
+? Le **texte de la commande** d'un bouton est, par défaut, son libellé.
+
+**1.** ~new JButton("Go")~ : commande par défaut ~"Go"~. 1<sup>er</sup> clic → ~Go~.
+
+**2.** ~b.setActionCommand("x")~ remplace la commande.
+
+**3.** 2<sup>e</sup> clic → ~x~. Le libellé affiché du bouton ne change pas ; seule la commande interne change.
+
+Utile pour distinguer plusieurs boutons de même texte.
 
 ## swing | Code : case à cocher
 Que valent successivement ~isSelected()~ après un clic, puis un second clic sur une ~JCheckBox~ initialement décochée ?
@@ -542,7 +757,15 @@ r2.doClick();                 // clic sur r2
 - ~true~ et ~true~
 - ~true~ et ~false~
 - ~false~ et ~false~
-? Dans un ~ButtonGroup~, un seul bouton peut être sélectionné : choisir ~r2~ désélectionne ~r1~. Sans le groupe, les deux resteraient cochés.
+? Un ~ButtonGroup~ garantit qu'**un seul** bouton du groupe est sélectionné.
+
+**1.** ~g.add(r1); g.add(r2);~ : les deux boutons sont dans le même groupe.
+
+**2.** ~r1.setSelected(true)~ : ~r1~ est sélectionné.
+
+**3.** ~r2.doClick()~ sélectionne ~r2~ ; le groupe **désélectionne automatiquement** ~r1~.
+
+Résultat : ~r1.isSelected()~ = ~false~, ~r2.isSelected()~ = ~true~. Sans le groupe, les deux seraient cochés.
 
 ## swing | Code : JComboBox
 Que affichent ces deux lignes ?
@@ -556,7 +779,15 @@ System.out.println(cb.getSelectedItem());
 - ~A1~ puis ~B~
 - ~null~ puis ~B~
 - ~B0~ puis ~A~
-? Par défaut, le **premier** élément (indice 0) est sélectionné. ~setSelectedIndex(1)~ choisit ~"B"~.
+? Une liste déroulante sélectionne par défaut **le premier élément**.
+
+**1.** ~new JComboBox<>({"A", "B"})~ : élément sélectionné ~"A"~, indice 0.
+
+**2.** Première ligne : ~getSelectedItem()~ = ~"A"~ et ~getSelectedIndex()~ = ~0~ → ~A0~.
+
+**3.** ~setSelectedIndex(1)~ choisit ~"B"~.
+
+**4.** ~getSelectedItem()~ = ~B~.
 
 ## swing | Code : setText et listener
 Quelles valeurs de ~c[0]~ sont affichées ?
@@ -573,7 +804,13 @@ System.out.print(c[0]);
 - ~1~ puis ~1~
 - ~0~ puis ~0~
 - ~1~ puis ~2~
-? ~setText~ ne déclenche **pas** l'~ActionListener~ d'un ~JTextField~ : seulement la touche Entrée (ici simulée).
+? Un ~ActionListener~ sur un ~JTextField~ réagit à **l'action de l'utilisateur** (touche Entrée), pas aux modifications faites par le programme.
+
+**1.** ~t.setText("abc")~ : change le texte, mais **ne déclenche pas** le listener → ~c[0]~ reste ~0~ (affiche ~0~).
+
+**2.** ~t.postActionEvent()~ simule la touche Entrée → le listener s'exécute → ~c[0] = 1~ (affiche ~1~).
+
+Les deux affichages se suivent : ~01~.
 
 ## swing | Code : méthode mal orthographiée
 Que se passe-t-il à la compilation ?
@@ -586,7 +823,13 @@ b.addActionListener(new ActionListener() {
 - Aucune erreur, mais rien ne se passe au clic
 - Erreur à l'exécution seulement
 - Aucune erreur, et ~actionPerform~ est appelée au clic
-? ~actionPerform~ (sans ~ed~) est une **autre** méthode. ~@Override~ aurait aussi signalé l'erreur.
+? L'interface ~ActionListener~ **impose** une méthode : ~actionPerformed(ActionEvent e)~.
+
+La classe anonyme définit ~actionPerform(...)~ (sans ~ed~) : c'est une **autre** méthode, que l'interface n'utilise pas.
+
+Résultat : la classe anonyme n'implémente pas ~actionPerformed~ → erreur « is not abstract and does not override abstract method actionPerformed(ActionEvent) ».
+
+Avec ~@Override~ devant la méthode, l'erreur serait signalée plus clairement.
 
 ## swing | Code : lambda sans paramètre
 Que se passe-t-il à la compilation ?
@@ -597,7 +840,13 @@ b.addActionListener(() -> System.out.println("x"));
 - Aucune erreur
 - Erreur : les lambdas sont interdites avec ~addActionListener~
 - Aucune erreur, mais ~x~ n'est jamais affiché
-? La signature de la lambda doit correspondre à celle de l'unique méthode de l'interface : ~(ActionEvent e)~, donc ~e -> ...~ ou ~(e) -> ...~.
+? Une lambda remplace **la seule méthode abstraite** de l'interface : elle doit avoir la **même liste de paramètres**.
+
+**~actionPerformed(ActionEvent e)~** : un paramètre.
+
+**~() -> ...~** : zéro paramètre → incompatible → erreur « incompatible parameter types in lambda expression ».
+
+Écritures correctes : ~e -> System.out.println("x")~ ou ~(e) -> ...~ (le nom ~e~ n'a pas besoin d'être utilisé).
 
 ## swing | Code : interface incomplète
 Que se passe-t-il à la compilation ?
@@ -610,7 +859,13 @@ public class C3 implements MouseListener {
 - Aucune erreur
 - Erreur : ~mouseClicked~ doit être ~static~
 - Aucune erreur, les autres méthodes sont facultatives
-? Une classe qui implémente une interface doit définir **toutes** ses méthodes (5 pour ~MouseListener~), ou être abstraite. Avec ~extends MouseAdapter~, une seule suffit.
+? **~implements MouseListener~** est un engagement : la classe doit fournir **les 5 méthodes** de l'interface :
+
+~mouseClicked~, ~mousePressed~, ~mouseReleased~, ~mouseEntered~, ~mouseExited~.
+
+Ici, seule ~mouseClicked~ est écrite → erreur « is not abstract and does not override abstract method mouseExited(MouseEvent) ».
+
+Trois solutions : écrire les 5 méthodes, déclarer la classe ~abstract~, ou **étendre ~MouseAdapter~** (qui les définit toutes vides) et redéfinir seulement celle qui nous intéresse.
 
 ## swing | Code : import manquant
 Que se passe-t-il à la compilation (seul ~import javax.swing.*;~ est présent) ?
@@ -623,7 +878,17 @@ public class C4 extends JFrame {
 - Aucune erreur
 - Erreur : ~JFrame~ ne peut pas utiliser ~add~
 - Erreur : il manque ~setVisible(true)~
-? Les composants sont dans ~javax.swing~, mais les **layouts** et les événements sont dans ~java.awt~ et ~java.awt.event~ : ~import java.awt.*;~ et ~import java.awt.event.*;~.
+? Où se trouvent les classes ?
+
+| classe | package |
+|---|---|
+| ~JFrame~, ~JButton~ | ~javax.swing~ |
+| ~BorderLayout~, ~FlowLayout~, ~Color~ | ~java.awt~ |
+| ~ActionEvent~, ~ActionListener~ | ~java.awt.event~ |
+
+Le fichier n'importe que ~javax.swing.*~ : ~JFrame~ et ~JButton~ sont connus, mais ~BorderLayout~ non → « cannot find symbol: variable BorderLayout ».
+
+Correction : ajouter ~import java.awt.*;~.
 
 ## swing | Code : composant jamais créé
 Que se passe-t-il à l'exécution ?
@@ -636,7 +901,13 @@ p.add(l);
 - Rien : le panneau ignore le ~null~
 - Un label vide est ajouté
 - Erreur de compilation
-? Ajouter une référence ~null~ à un conteneur lance une ~NullPointerException~. Oubli classique : déclarer le composant sans ~new JLabel(...)~.
+? **1.** ~JLabel l = null;~ : ~l~ est une variable qui ne désigne aucun objet.
+
+**2.** ~p.add(l)~ : on demande au panneau d'ajouter un composant qui n'existe pas.
+
+**3.** ~add~ accède à ce composant → ~NullPointerException~.
+
+Il manquait ~new JLabel("texte")~. Oubli très fréquent : déclarer le composant sans le créer.
 
 ## swing | Code : zone de BorderLayout mal écrite
 Que se passe-t-il à l'exécution ?
@@ -649,7 +920,13 @@ p.add(new JButton("b"), "north");
 - Les deux boutons sont placés en haut
 - ~b~ est placé au centre
 - Erreur de compilation
-? Les constantes sont sensibles à la casse : ~"North"~, ~"South"~, ~"East"~, ~"West"~, ~"Center"~. Mieux : ~BorderLayout.NORTH~, qui évite la faute de frappe. L'erreur n'apparaît qu'à l'exécution car la zone est une simple ~String~.
+? Les zones de ~BorderLayout~ sont des **textes** : ~"North"~, ~"South"~, ~"East"~, ~"West"~, ~"Center"~. La casse compte.
+
+**1.** ~p.add(b1, "North")~ : zone valide.
+
+**2.** ~p.add(b2, "north")~ (minuscule) : zone inconnue → ~IllegalArgumentException: cannot add to layout: unknown constraint: north~.
+
+Comme la zone est une simple ~String~, le compilateur ne voit pas la faute : l'erreur apparaît à l'exécution. Avec ~BorderLayout.NORTH~, la faute serait détectée à la compilation.
 
 ## mvc | Code : notifications du modèle
 Le modèle (max 3) a un seul abonné qui compte les notifications. On fait quatre ~inc()~ (les erreurs sont attrapées et affichent ~E~), puis ~raz()~, puis ~inc()~. Que affiche le programme (valeur finale, nombre de notifications) ?
@@ -686,7 +963,15 @@ m.inc();
 - ~V2:1 V1:1~
 - ~V1:0 V2:0~
 - ~V1:1~ seulement
-? Le modèle parcourt sa liste d'abonnés dans l'ordre d'ajout et chacun est prévenu après le changement. Plusieurs vues d'un même modèle = l'intérêt de l'Observateur.
+? Le modèle garde la liste de **tous** ses abonnés et les prévient un par un.
+
+**1.** ~m.inc()~ : ~v = 1~, puis ~pre()~.
+
+**2.** ~pre()~ parcourt la liste dans l'ordre d'inscription : d'abord V1 → écrit ~V1:1~, puis V2 → écrit ~V2:1~.
+
+Les deux vues voient la **nouvelle** valeur (1) car la notification est envoyée après le changement.
+
+Journal : ~V1:1 V2:1~.
 
 ## mvc | Code : notification trop tôt
 Quelles valeurs de la vue (~aff~) et du modèle (~v~) après chaque appel ?
@@ -722,7 +1007,15 @@ System.out.println(aff[0] + " " + m.v);
 - ~1 1~
 - ~0 0~
 - Exception : aucun abonné
-? Sans ~ajouterAbonne~, la liste d'abonnés est vide : ~prevenir()~ ne fait rien. C'est un des bugs MVC les plus fréquents au TP : « le modèle est bon mais la fenêtre ne bouge pas ».
+? La vue est mise à jour **uniquement** si elle est inscrite chez le modèle.
+
+**1.** ~m.inc()~ : ~v = 1~, puis ~pre()~ qui parcourt la liste des abonnés.
+
+**2.** Personne n'a appelé ~ajouterAbonne~ : la liste est **vide**, ~pre()~ ne fait rien.
+
+**3.** ~aff[0]~ n'est pas modifié : ~"0"~. Le modèle, lui, a bien changé : ~m.v = 1~.
+
+Affichage ~0 1~. Symptôme classique : « le modèle est bon mais la fenêtre ne se met pas à jour ».
 
 ## mvc | Code : exceptions métier
 Que affiche ce programme (solde initial 100) ?
@@ -745,7 +1038,15 @@ System.out.println(c.solde);
 - ~ok ok ok 0~
 - ~ok KO KO 30~
 - ~ok KO ok 30~
-? 70 : solde 30. 50 > 30 : exception, solde **inchangé** (30). 30 ≤ 30 : solde 0. L'exception est lancée avant ~solde -= m~, donc le modèle reste cohérent.
+? Le solde initial est ~100~. Suis chaque retrait :
+
+| montant | ~m > solde~ ? | résultat | ~solde~ |
+|---|---|---|---|
+| ~70~ | 70 > 100 : non | ~solde -= 70~ → affiche ~ok~ | 30 |
+| ~50~ | 50 > 30 : **oui** | exception **avant** ~solde -= m~ → affiche ~KO~ | 30 (inchangé) |
+| ~30~ | 30 > 30 : non | ~solde -= 30~ → affiche ~ok~ | 0 |
+
+Affichage ~ok KO ok 0~. L'exception protège le modèle : un retrait refusé ne modifie rien.
 
 ## mvc | Code : contrôleur et saisie invalide
 Que affiche la vue si l'utilisateur saisit ~abc~ ?
@@ -765,7 +1066,15 @@ public void actionPerformed(ActionEvent e) {
 - ~solde insuffisant~
 - ~For input string: "abc"~
 - Rien, l'exception remonte
-? ~parseInt("abc")~ lance ~NumberFormatException~, attrapée par le **premier** ~catch~. Le modèle n'est même pas appelé. La conversion de la saisie est bien une tâche du **contrôleur**.
+? Le contrôleur fait deux choses : **convertir** la saisie, puis **appeler** le modèle.
+
+**1.** ~Integer.parseInt("abc")~ lance ~NumberFormatException~ **avant** d'atteindre ~modele.retirer~.
+
+**2.** Le 1<sup>er</sup> ~catch~ (~NumberFormatException~) correspond → ~vue.afficherErreur("Nombre invalide")~.
+
+**3.** Le modèle n'a même pas été appelé.
+
+Le 2<sup>e</sup> ~catch~ (~IllegalArgumentException~) sert aux erreurs du modèle, comme « solde insuffisant ».
 
 ## mvc | Code : ordre des catch dans le contrôleur
 Que se passe-t-il si on **inverse** les deux ~catch~ du contrôleur précédent (~IllegalArgumentException~ d'abord) ?
@@ -787,6 +1096,9 @@ try {
 - Aucune erreur : ~multi~ est affiché
 - Erreur : un multi-catch doit contenir exactement deux types
 - Aucune erreur, mais ~multi~ n'est jamais affiché
-? Chaque type d'un multi-catch est contrôlé séparément : une exception **vérifiée** qui ne peut pas être lancée dans le ~try~ est refusée, même associée à ~RuntimeException~.
+? Un multi-catch ~catch (A | B e)~ traite chaque type séparément. Pour chaque type **vérifié**, le compilateur vérifie que le ~try~ peut le lancer.
 
+**~IOException~** est vérifiée et le ~try~ ne contient qu'un ~throw~ d'~IllegalStateException~ : aucune ~IOException~ n'est possible → erreur « exception IOException is never thrown in body of corresponding try statement ».
+
+**~RuntimeException~** (non vérifiée) n'aurait posé aucun problème. Correction : retirer ~IOException~ du multi-catch.
 `;

@@ -51,7 +51,13 @@ try {
 - Affiche ~A~ si ~lire()~ lance une ~IOException~
 - Affiche ~B~ si ~lire()~ lance une ~IOException~
 - Compile avec un simple avertissement
-? Les ~catch~ s'écrivent du plus **précis** au plus **général**. Un ~catch~ de la classe mère placé avant celui de la fille rend le second inatteignable : erreur « exception IOException has already been caught ».
+? Java essaie les ~catch~ **dans l'ordre d'écriture** et prend le premier qui convient.
+
+**~catch (Exception e)~** attrape **toutes** les exceptions, y compris les ~IOException~ (qui héritent d'~Exception~).
+
+Donc le ~catch (IOException e)~ écrit **après** ne pourrait **jamais** s'exécuter : le compilateur le signale comme une erreur (« exception IOException has already been caught »).
+
+Règle : du plus précis au plus général. Ici il fallait mettre ~IOException~ **d'abord**, ~Exception~ ensuite.
 
 ## exc | finally
 Que se passe-t-il pour le bloc ~finally~ quand le ~try~ contient un ~return~ ?
@@ -110,7 +116,15 @@ static int g() {
 - ~1~
 - ~3~
 - Erreur de compilation
-? Un ~return~ dans le ~finally~ **écrase** celui du ~try~. Ça compile (avec un avertissement), mais c'est une mauvaise pratique.
+? Un ~return~ dans le ~finally~ **remplace** celui du ~try~.
+
+**1.** ~return 1;~ dans le ~try~ : valeur 1 préparée.
+
+**2.** Le ~finally~ s'exécute : ~return 2;~ **termine la méthode immédiatement avec 2**. L'ancienne valeur est jetée.
+
+**3.** La méthode renvoie ~2~.
+
+C'est considéré comme une très mauvaise pratique (le ~try~ devient inutile). Le compilateur affiche un avertissement mais compile.
 
 ## exc | Lecture de code : valeur évaluée avant finally
 Que vaut ~h()~ ?
@@ -155,7 +169,17 @@ System.out.println("E");
 - ~A B C D E~
 - ~A D E~
 - ~A C E~
-? ~5 / 0~ sur des entiers lance ~ArithmeticException~ : on saute ~B~, on passe dans le ~catch~ (~C~), le ~finally~ (~D~), puis la suite normale du programme (~E~).
+? Suis les lignes **dans l'ordre d'exécution** :
+
+| ligne exécutée | affichage |
+|---|---|
+| ~print("A")~ | ~A~ |
+| ~5 / 0~ → ~ArithmeticException~ : on saute le reste du ~try~ (**~B~ n'est pas affiché**) | |
+| ~catch (ArithmeticException)~ | ~C~ |
+| ~finally~ | ~D~ |
+| après le bloc ~try~ | ~E~ |
+
+Affichage ~A C D E~ (une lettre par ligne). Le ~finally~ passe **avant** la suite du programme.
 
 ## exc | Lecture de code : propagation
 Quelle est la sortie ?
@@ -178,7 +202,18 @@ public static void main(String[] args) {
 - ~a1~, ~b1~, ~a2~, ~main:boum~
 - ~a1~, ~main:boum~
 - ~b1~, ~main:boum~
-? Dans ~b~, le ~throw~ interrompt tout. Aucune des méthodes ne l'attrape : l'exception **remonte la pile** (~b~ puis ~a~) jusqu'au ~catch~ du ~main~. ~a2~ n'est jamais affiché. ~IllegalStateException~ est une ~RuntimeException~, donc pas besoin de ~throws~.
+? Une exception non attrapée **remonte** d'appel en appel.
+
+| étape | pile des appels | affichage |
+|---|---|---|
+| ~main~ entre dans le ~try~ et appelle ~a()~ | main → a | |
+| ~a~ affiche | main → a | ~a1~ |
+| ~a~ appelle ~b()~, ~b~ affiche | main → a → b | ~b1~ |
+| ~b~ lance l'exception (aucun ~catch~) | | |
+| ~a~ est abandonnée (**~a2~ n'est jamais affiché**) | main | |
+| le ~catch~ de ~main~ l'attrape | main | ~main:boum~ |
+
+Résultat ~a1~, ~b1~, ~main:boum~.
 
 ## exc | Lecture de code : try imbriqués
 Quelle est la sortie ?
@@ -197,7 +232,17 @@ try {
 - ~2X~ puis ~1~
 - ~1~ seulement
 - ~2X~ seulement
-? Le ~try~ interne n'a pas de ~catch~ : son ~finally~ s'exécute (~1~), puis l'exception continue vers le ~catch~ externe (~2X~).
+? Le ~try~ interne n'a **pas de ~catch~**, seulement un ~finally~.
+
+**1.** ~throw new Exception("X")~ est lancée dans le ~try~ interne.
+
+**2.** Pas de ~catch~ ici : mais avant de quitter, le ~finally~ s'exécute et affiche ~1~.
+
+**3.** L'exception continue de remonter vers le ~try~ externe.
+
+**4.** Le ~catch (Exception e)~ externe l'attrape et affiche ~"2" + e.getMessage()~ = ~2X~.
+
+Ordre : ~1~ puis ~2X~.
 
 ## exc | Lecture de code : continue et finally
 Quelle est la sortie ?
@@ -215,7 +260,15 @@ for (int i = 0; i < 3; i++) {
 - ~i=0~, ~i=2~, ~f0~, ~f1~, ~f2~
 - ~i=0~, ~f0~, ~i=2~, ~f2~
 - ~i=0~, ~f0~, ~f1~, ~f2~, ~i=2~
-? Même avec ~continue~, le ~finally~ s'exécute à chaque tour : pour ~i=1~ on n'affiche pas ~i=1~ mais on affiche ~f1~.
+? Le ~finally~ s'exécute **à chaque tour**, même quand ~continue~ saute le reste du ~try~.
+
+| ~i~ | dans le ~try~ | dans le ~finally~ |
+|---|---|---|
+| 0 | affiche ~i=0~ | ~f0~ |
+| 1 | ~continue~ : on saute ~println~ | ~f1~ (quand même !) |
+| 2 | affiche ~i=2~ | ~f2~ |
+
+Affichage dans l'ordre : ~i=0~, ~f0~, ~f1~, ~i=2~, ~f2~.
 
 ## exc | Lecture de code : exception personnalisée
 Quelle est la sortie ?
@@ -238,7 +291,15 @@ public static void main(String[] args) {
 - ~ok 5~, ~negatif: -2~ puis arrêt du programme
 - ~ok 5~, ~ok -2~, ~ok 7~
 - Erreur de compilation : ~AgeException~ n'est pas déclarée
-? Le ~try/catch~ est **dans** la boucle : l'exception de ~-2~ est attrapée, le programme continue avec ~7~. ~super(m)~ transmet le message à ~getMessage()~.
+? Le ~try/catch~ est **dans** la boucle : chaque tour est traité séparément.
+
+| ~a~ | ~verifier(a)~ | affichage |
+|---|---|---|
+| ~5~ | ~age < 0~ faux → affiche ~"ok " + age~ | ~ok 5~ |
+| ~-2~ | ~age < 0~ vrai → ~throw~ → attrapé par le ~catch~ | ~negatif: -2~ |
+| ~7~ | pas d'exception | ~ok 7~ |
+
+Le ~catch~ affiche ~e.getMessage()~, qui est le texte passé à ~super(m)~. La boucle continue après l'erreur.
 
 ## exc | Lecture de code : parseInt
 Quelle valeur affiche ce programme ?
@@ -255,7 +316,15 @@ System.out.println(s);
 - ~19~
 - ~112~
 - Le programme s'arrête avec une exception
-? 12 (ok) + 100 (~"x"~ illisible) + 7 = 119.
+? Additionne les contributions de chaque texte :
+
+| ~m~ | ~Integer.parseInt(m)~ | effet sur ~s~ |
+|---|---|---|
+| ~"12"~ | ~12~ | ~s = 0 + 12 = 12~ |
+| ~"x"~ | ~NumberFormatException~ → ~catch~ | ~s = 12 + 100 = 112~ |
+| ~"7"~ | ~7~ | ~s = 112 + 7 = 119~ |
+
+Affichage ~119~. Une erreur dans le ~try~ n'arrête pas la boucle : on passe dans le ~catch~ puis on continue.
 
 ## exc | Lecture de code : ordre des catch valide
 Que donne ce code ?
@@ -269,7 +338,15 @@ catch (Exception e) { System.out.println("autre"); }
 - ~autre~
 - ~idx~ puis ~autre~
 - Erreur de compilation
-? Les indices valides sont 0, 1, 2. ~t[3]~ lance ~ArrayIndexOutOfBoundsException~, attrapée par le premier ~catch~ (un seul ~catch~ s'exécute). L'ordre précis → général est correct.
+? **1.** Les indices valides de ~new int[3]~ sont 0, 1, 2.
+
+**2.** ~t[3] = 1~ lance ~ArrayIndexOutOfBoundsException~.
+
+**3.** Java examine les ~catch~ dans l'ordre : le premier correspond exactement → affiche ~idx~.
+
+**4.** Un seul ~catch~ s'exécute : le second (~Exception~) est ignoré.
+
+Ordre précis → général : correct, donc ça compile.
 
 ## exc | Lecture de code : try-with-resources
 Quelle est la sortie ?
@@ -287,7 +364,17 @@ try (R a = new R("A"); R b = new R("B")) {
 - ~open A~, ~open B~, ~body~, ~close A~, ~close B~
 - ~open A~, ~body~, ~close A~, ~open B~, ~close B~
 - ~body~, ~open A~, ~open B~, ~close B~, ~close A~
-? Les ressources s'ouvrent dans l'ordre de déclaration et se ferment **dans l'ordre inverse**, automatiquement, même en cas d'exception. Il suffit que la classe implémente ~AutoCloseable~.
+? Règle : les ressources sont **ouvertes dans l'ordre de déclaration** et **fermées dans l'ordre inverse**.
+
+| temps | événement | affichage |
+|---|---|---|
+| 1 | création de ~A~ | ~open A~ |
+| 2 | création de ~B~ | ~open B~ |
+| 3 | corps du ~try~ | ~body~ |
+| 4 | fermeture automatique de ~B~ (la dernière ouverte) | ~close B~ |
+| 5 | fermeture de ~A~ | ~close A~ |
+
+Comme une pile d'assiettes : la dernière posée est la première retirée.
 
 ## exc | Lecture de code : finally avec return dans catch
 Que affiche ~System.out.println(calc(0));~ ?
@@ -302,7 +389,17 @@ static int calc(int d) {
 - ~-1~ puis ~fin0~
 - ~fin0~ puis une exception non attrapée
 - ~-1~ seulement
-? ~10 / 0~ lance ~ArithmeticException~ → ~catch~ prépare ~return -1~ → ~finally~ affiche ~fin0~ → la méthode rend ~-1~ → ~main~ l'affiche.
+? **1.** ~calc(0)~ : ~10 / 0~ lance ~ArithmeticException~.
+
+**2.** Le ~catch~ l'attrape : ~return -1~ prépare la valeur -1.
+
+**3.** Avant de quitter, le ~finally~ s'exécute : affiche ~fin0~.
+
+**4.** ~calc~ renvoie ~-1~ à ~main~.
+
+**5.** ~println~ affiche ~-1~.
+
+Ordre à l'écran : ~fin0~ **puis** ~-1~ (le ~finally~ est dans ~calc~, avant le ~println~ du ~main~).
 
 ## exc | Vérifiée non traitée
 Que se passe-t-il ?
@@ -315,7 +412,15 @@ public static void main(String[] args) {
 - Compile, et exception à l'exécution si le fichier est absent
 - Compile sans aucun problème
 - Le fichier est créé s'il n'existe pas
-? ~FileNotFoundException~ est vérifiée : il faut un ~try/catch~ ou un ~throws~ sur ~main~. Le compilateur refuse sinon.
+? **1.** ~new FileReader("a.txt")~ peut lancer ~FileNotFoundException~ (fichier absent).
+
+**2.** Cette exception est **vérifiée** : elle n'hérite pas de ~RuntimeException~.
+
+**3.** Le compilateur exige donc de la **traiter** (~try/catch~) ou de la **déclarer** (~throws~ sur ~main~).
+
+**4.** Aucun des deux ici → « unreported exception FileNotFoundException; must be caught or declared to be thrown ».
+
+Contraste : une ~NullPointerException~ n'oblige à rien.
 
 ## exc | Non vérifiée
 Ce code compile-t-il ?
@@ -331,7 +436,13 @@ public static void main(String[] args) {
 - Non : il manque ~throws ArithmeticException~
 - Non : il manque un ~try/catch~
 - Oui, et il affiche ~Infinity~
-? ~ArithmeticException~ est une ~RuntimeException~ : aucune obligation de la traiter. Pour des entiers ~/ 0~ lance l'exception ; seul le **double** donne ~Infinity~.
+? **~ArithmeticException~** hérite de ~RuntimeException~ : elle est **non vérifiée**. Le compilateur ne demande ni ~try~ ni ~throws~.
+
+**1.** Compilation : OK.
+
+**2.** Exécution : ~div(4, 0)~ divise des entiers par 0 → ~ArithmeticException~, non attrapée → le programme s'arrête avec la trace.
+
+L'affichage ~Infinity~ n'arriverait qu'avec des ~double~ (~4.0 / 0~).
 
 ## exc | Division par zéro
 Que donne ~System.out.println(5.0 / 0);~ ?
@@ -354,7 +465,15 @@ try {
 - Oui, le ~catch~ est simplement ignoré
 - Oui, mais avec une exception à l'exécution
 - Oui, et ~io~ est affiché
-? Le compilateur refuse un ~catch~ d'une exception **vérifiée** que le corps du ~try~ ne peut pas lancer. (Avec ~Exception~ ou une ~RuntimeException~, ça passe.)
+? Le compilateur raisonne : « que peut lancer ce ~try~ ? »
+
+**1.** Le ~try~ ne contient que ~int x = 3;~ : aucune ~IOException~ possible.
+
+**2.** ~IOException~ est **vérifiée** : un ~catch~ pour elle n'est accepté que si le ~try~ peut la lancer.
+
+**3.** Erreur « exception IOException is never thrown in body of corresponding try statement ».
+
+Pour ~Exception~ ou une ~RuntimeException~, ce contrôle n'existe pas.
 
 ## exc | Exception personnalisée
 Pour créer une exception **vérifiée** perso ~MonErreur~ :
@@ -362,7 +481,16 @@ Pour créer une exception **vérifiée** perso ~MonErreur~ :
 - ~class MonErreur extends RuntimeException~
 - ~class MonErreur implements Exception~
 - ~class MonErreur extends Error~
-? ~extends Exception~ → vérifiée. ~extends RuntimeException~ → non vérifiée. ~Exception~ est une classe (donc ~extends~, pas ~implements~).
+? Le type d'une exception personnalisée dépend de sa **classe mère** :
+
+| déclaration | type | conséquence |
+|---|---|---|
+| ~extends Exception~ | **vérifiée** | ~try/catch~ ou ~throws~ **obligatoire** |
+| ~extends RuntimeException~ | non vérifiée | aucune obligation |
+
+Ici on demande une exception **vérifiée** : ~class MonErreur extends Exception~.
+
+~Exception~ est une **classe** : on en hérite avec ~extends~. ~implements~ est réservé aux interfaces ; ~extends Error~ créerait une erreur grave de la JVM, pas une exception du programme.
 
 ## exc | Exception personnalisée
 Que renvoie ~getMessage()~ ici ?
@@ -377,7 +505,15 @@ throw new E("oups");
 - ~"oups"~
 - ~""~ (chaîne vide)
 - Une erreur de compilation
-? Sans ~super(m)~, le constructeur du parent sans argument est appelé implicitement : le message du parent reste ~null~. Il faut écrire ~super(m);~.
+? ~getMessage()~ est une méthode de la classe mère ~Throwable~, qui range le message dans un attribut.
+
+**1.** ~new E("oups")~ → constructeur ~E(String m)~.
+
+**2.** Ce constructeur n'écrit pas ~super(m)~ : Java appelle implicitement ~super()~ **sans** message.
+
+**3.** Le message du parent reste ~null~, la chaîne ~"oups"~ est reçue puis jetée.
+
+Correction : ~E(String m) { super(m); }~.
 
 ## exc | multi-catch
 Quel ~catch~ est refusé par le compilateur ?
@@ -410,7 +546,19 @@ try {
 - Rien n'est affiché, l'exception remonte directement
 - ~f~ n'est affiché que s'il n'y a pas d'exception dans le ~catch~
 - Erreur de compilation
-? Le ~finally~ s'exécute même si le ~catch~ lance une nouvelle exception ; ensuite la nouvelle exception continue sa route.
+? Suis le déroulé :
+
+**1.** ~throw new IllegalArgumentException("a")~ dans le ~try~.
+
+**2.** Le ~catch (IllegalArgumentException)~ l'attrape.
+
+**3.** Dans le ~catch~, un nouveau ~throw~ lance ~RuntimeException("b")~.
+
+**4.** Avant que cette nouvelle exception quitte le bloc, le ~finally~ s'exécute : affiche ~f~.
+
+**5.** L'exception ~b~ remonte.
+
+Le ~finally~ s'exécute **dans tous les cas**.
 
 ## exc | Redéfinition
 Une méthode ~void m()~ de la classe mère est redéfinie dans la fille par ~void m() throws IOException~. Que se passe-t-il ?
@@ -488,7 +636,13 @@ static int f() {
 - Oui, ~après~ sera affiché
 - Oui, mais avec un avertissement
 - Non : ~throw~ est interdit dans une méthode qui renvoie ~int~
-? Après un ~throw~ (ou un ~return~), les instructions suivantes du même bloc sont inatteignables : erreur de compilation.
+? ~throw~ interrompt immédiatement la méthode : rien de ce qui suit, dans le même bloc, ne peut s'exécuter.
+
+**~throw new RuntimeException("x");~** : la méthode s'arrête ici.
+
+**~System.out.println("après");~** : code **inatteignable**. Java refuse de compiler du code mort : « unreachable statement ».
+
+Même règle après un ~return~, un ~break~ ou un ~continue~.
 
 ## exc | throw d'un non-Throwable
 Ce code compile-t-il ? ~throw new String("erreur");~
@@ -577,7 +731,11 @@ System.out.println(q.nom + " " + q.age);
 - ~Bob 30~
 - ~null 0~
 - ~Bob null~
-? ~transient~ exclut l'attribut de la sauvegarde. À la relecture il reçoit la **valeur par défaut** de son type : 0 pour ~int~, ~null~ pour un objet, ~false~ pour ~boolean~.
+? **Écriture :** l'objet ~P("Bob", 30)~ est converti en octets. ~nom~ est écrit. ~age~ est ~transient~ : **ignoré**.
+
+**Lecture :** Java reconstruit l'objet **sans appeler le constructeur**. ~nom~ est restauré (~"Bob"~). ~age~, qui n'a pas été sauvé, reçoit la **valeur par défaut** de son type (0 pour ~int~).
+
+Affichage ~Bob 0~. Utile pour ne pas sauvegarder un mot de passe ou un cache.
 
 ## fic | static et sérialisation
 Un attribut ~static~ est-il sauvegardé par la sérialisation ?
@@ -601,7 +759,15 @@ oos.writeObject(new Voiture());
 - Erreur de compilation
 - Rien, ~m~ sera simplement ignoré
 - ~m~ vaudra ~null~ après relecture
-? Tous les objets référencés (attributs) doivent aussi être sérialisables. Solutions : faire implémenter ~Serializable~ à ~Moteur~, ou déclarer ~m~ en ~transient~.
+? Sérialiser un objet, c'est sérialiser **tout ce qu'il contient**.
+
+**1.** ~Voiture~ implémente ~Serializable~ : OK.
+
+**2.** Elle contient un attribut ~Moteur m~. Java doit donc aussi sérialiser le ~Moteur~.
+
+**3.** ~Moteur~ n'implémente pas ~Serializable~ → ~NotSerializableException~ **à l'exécution** (la compilation passe).
+
+Solutions : faire implémenter ~Serializable~ à ~Moteur~, ou marquer l'attribut ~transient~.
 
 ## fic | Graphe d'objets
 On écrit une liste contenant **deux fois le même objet** ~c~. Après relecture dans ~l2~, que vaut ~l2.get(0) == l2.get(1)~ ?
@@ -701,7 +867,13 @@ String[] champs = ligne.split(";");
 - ~20~ (un ~int~)
 - ~"Alice"~
 - ~"15.5"~
-? ~split(";")~ coupe aux séparateurs : ~{"Alice","20","15.5"}~, indices 0, 1, 2. Les éléments sont des ~String~ : pour avoir un ~int~ → ~Integer.parseInt(champs[1])~.
+? ~"Alice;20;15.5".split(";")~ découpe à chaque ~;~ et renvoie un tableau de ~String~ :
+
+| indice | 0 | 1 | 2 |
+|---|---|---|---|
+| contenu | ~"Alice"~ | ~"20"~ | ~"15.5"~ |
+
+~champs[1]~ est ~"20"~, un **texte**. Pour faire un calcul, il faut le convertir : ~Integer.parseInt(champs[1])~.
 
 ## fic | split et champs vides
 Que vaut ~"a;b;;".split(";").length~ ?
@@ -726,7 +898,14 @@ System.out.println(tot / n);
 - ~27.5~
 - ~15.5~
 - ~12.0~
-? (15.5 + 12.0) / 2 = 13.75. ~ch[2]~ est le 3e champ (la note).
+? La boucle lit chaque ligne et ajoute la note (3<sup>e</sup> champ).
+
+| ligne lue | ~ch[2]~ | ~tot~ | ~n~ |
+|---|---|---|---|
+| ~Alice;20;15.5~ | ~15.5~ | 15.5 | 1 |
+| ~Bilal;21;12.0~ | ~12.0~ | 27.5 | 2 |
+
+Après la boucle : ~tot / n = 27.5 / 2 = 13.75~.
 
 ## fic | Écriture de texte
 Que fait ~new FileWriter("log.txt")~ si ~log.txt~ existe déjà ?
@@ -978,7 +1157,13 @@ bouton.addActionListener(e -> c++);
 - Compile ; ~c~ augmente à chaque clic
 - Compile ; ~c~ reste à 0
 - Exception à l'exécution
-? On ne peut pas modifier une variable **locale** depuis une lambda ou une classe anonyme. Solutions : faire de ~c~ un **attribut** de la classe, ou utiliser un tableau/~AtomicInteger~.
+? Une lambda peut **lire** une variable locale de la méthode qui l'entoure, à condition qu'elle ne soit **jamais modifiée**.
+
+**~int c = 0;~** est modifiée par ~c++~ dans la lambda → elle n'est plus « effectivement finale ». Erreur : « local variables referenced from a lambda expression must be final or effectively final ».
+
+Pourquoi : la lambda peut s'exécuter plus tard, quand la méthode est finie et ~c~ n'existe plus.
+
+Solutions : faire de ~c~ un **attribut** de la classe, ou un tableau ~int[] c = {0}~.
 
 ## swing | getSource
 Dans ~actionPerformed(ActionEvent e)~, ~e.getSource()~ renvoie :
@@ -1013,7 +1198,17 @@ if (source == buttonReset) {
 - Vide
 - ~1~
 - ~21~
-? ~1~ puis ~2~ → ~"12"~. ~OK~ mémorise ~"12"~ dans ~numeroValide~ (le champ ne change pas). ~Reset~ vide le champ. ~Bis~ recopie ~numeroValide~ → ~"12"~.
+? Suis chaque clic dans ~actionPerformed~ (~affiche~ = texte courant du champ) :
+
+| clic | branche | champ | ~numeroValide~ |
+|---|---|---|---|
+| ~1~ | dernier ~else if~ : ajoute ~"1"~ | ~1~ | vide |
+| ~2~ | ajoute ~"2"~ | ~12~ | vide |
+| ~OK~ | ~numeroValide = affiche~ | ~12~ | ~12~ |
+| ~Reset~ | ~setText("")~ | vide | ~12~ |
+| ~Bis~ | ~setText(numeroValide)~ | ~12~ | ~12~ |
+
+À la fin le champ contient ~12~.
 
 ## swing | Lecture de code : Cadran
 Dans le même code, le champ contient ~"12345678"~ et on clique sur ~9~. Que se passe-t-il ?
@@ -1021,7 +1216,15 @@ Dans le même code, le champ contient ~"12345678"~ et on clique sur ~9~. Que se 
 - Le champ devient ~"123456789"~
 - Une exception est lancée
 - Le champ est vidé
-? La condition ~affiche.length() < 8~ est fausse, donc le chiffre n'est pas ajouté.
+? Le champ contient déjà 8 chiffres (~"12345678"~) et on clique sur ~9~.
+
+**1.** ~source~ n'est ni ~buttonReset~, ni ~buttonOk~, ni ~buttonBis~ : on arrive au dernier ~else if~.
+
+**2.** Condition : ~affiche.length() < 8~ → ~8 < 8~ est **faux** (8 n'est pas strictement inférieur à 8).
+
+**3.** Aucune branche ne s'exécute : le champ reste ~"12345678"~.
+
+Le numéro est limité à 8 chiffres : un 9<sup>e</sup> clic est simplement ignoré.
 
 ## swing | JTextField
 Pour lire et modifier le texte d'un ~JTextField~ :
@@ -1245,7 +1448,14 @@ public void incrementer() {
 - Le compteur affiche ~6~
 - Le programme se termine avec une exception
 - Le compteur revient à ~0~
-? Aux clics 1 à 5, ~valeur~ passe de 0 à 5 avec notification. Au 6e clic, ~valeur >= max~ : l'exception est lancée **avant** ~valeur++~ et ~prevenir()~. Le **contrôleur** l'attrape et appelle ~vue.afficherErreur(...)~.
+? Compteur avec ~max = 5~ : suis la valeur.
+
+| clic | ~valeur >= max~ ? | action | ~valeur~ |
+|---|---|---|---|
+| 1 à 5 | non | ~valeur++~, ~prevenir()~ | 1 à 5 |
+| 6 | **oui** (5 >= 5) | ~throw IllegalStateException~ **avant** ~valeur++~ | 5 |
+
+Le **contrôleur** attrape l'exception et demande à la vue d'afficher ~"Maximum 5 atteint"~. Le chiffre reste ~5~ car ~prevenir()~ n'a pas été appelé : rien ne l'a modifié.
 
 ## mvc | Lecture de code : compteur
 Même compteur (max 5) : on clique 6 fois sur ~+1~ (erreur affichée) puis une fois sur ~RAZ~. Que voit-on ?
@@ -1261,7 +1471,15 @@ public void compteurModifie(CompteurModele m) {
 - Le compteur affiche ~0~ mais l'erreur reste
 - Le compteur reste à ~5~
 - Une exception est lancée
-? ~remettreAZero~ appelle ~prevenir()~ → ~compteurModifie~ de la vue, qui met à jour le chiffre **et** efface l'erreur.
+? **1.** Après le 6<sup>e</sup> clic : la valeur est ~5~ et le message d'erreur est affiché.
+
+**2.** Clic sur ~RAZ~ : le contrôleur appelle ~modele.remettreAZero()~ → ~valeur = 0~.
+
+**3.** ~prevenir()~ est appelée : la vue exécute ~compteurModifie~.
+
+**4.** Cette méthode met à jour le chiffre (~"0"~) **et** efface l'erreur (~erreur.setText(" ")~).
+
+Résultat : ~0~, sans message d'erreur.
 
 ## mvc | Lecture de code : compteur
 Dans le compteur MVC, que fait le contrôleur quand le modèle lance l'exception ?
@@ -1279,7 +1497,15 @@ public void actionPerformed(ActionEvent e) {
 - Il laisse l'exception remonter
 - Il affiche une boîte ~JOptionPane~ lui-même
 - Il remet le modèle à zéro
-? L'erreur **métier** (modèle) est transformée en message pour l'utilisateur (vue) par le contrôleur : rôle d'intermédiaire.
+? Le contrôleur est l'**intermédiaire** entre la vue et le modèle.
+
+**1.** ~modele.incrementer()~ peut lancer ~IllegalStateException~ (règle métier du modèle).
+
+**2.** Le contrôleur la met dans un ~try~ et l'attrape.
+
+**3.** Il appelle ~vue.afficherErreur(ex.getMessage())~ : le message de l'exception devient un texte pour l'utilisateur.
+
+Le **modèle** ne sait pas comment afficher une erreur, la **vue** ne connaît pas les règles : le **contrôleur** traduit de l'un à l'autre.
 
 ## mvc | Lecture de code : main MVC
 Que fait chaque ligne ?
@@ -1294,7 +1520,17 @@ v.setVisible(true);
 - Le modèle observe la vue
 - Le contrôleur est créé mais n'est relié à rien
 - La vue écoute le contrôleur
-? ~m.ajouterAbonne(v)~ : la vue est inscrite chez le modèle (notifications). ~new CompteurControleur(m, v)~ : le constructeur appelle ~v.ecouter(this)~, donc le contrôleur s'abonne aux boutons.
+? Chaque ligne crée un lien :
+
+| ligne | rôle |
+|---|---|
+| ~new CompteurModele(5)~ | crée le modèle (max 5) |
+| ~new CompteurVue()~ | crée la vue (la fenêtre) |
+| ~m.ajouterAbonne(v)~ | la **vue** s'inscrit chez le modèle : elle sera prévenue à chaque changement |
+| ~new CompteurControleur(m, v)~ | crée le contrôleur ; son constructeur appelle ~v.ecouter(this)~ : il s'inscrit sur les **boutons** |
+| ~v.setVisible(true)~ | affiche la fenêtre |
+
+Sens des flèches : le modèle prévient la vue ; la vue prévient le contrôleur ; le contrôleur appelle le modèle.
 
 ## mvc | Interface listener
 Pourquoi le modèle déclare-t-il une interface ~CompteurListener~ ?

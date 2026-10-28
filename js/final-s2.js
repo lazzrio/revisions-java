@@ -254,7 +254,13 @@ class B extends A { }
 - Aucune erreur
 - Erreur : ~final~ est interdit devant ~class~
 - Aucune erreur, mais ~B~ ne peut pas être instanciée
-? ~final class~ ne peut pas être étendue (comme ~String~). ~final~ sur une méthode interdit sa redéfinition.
+? ~final~ devant une classe signifie « version définitive : personne ne peut en hériter ».
+
+**~final class A { }~** : ~A~ est verrouillée.
+
+**~class B extends A~** : ~B~ tente d'en hériter → erreur « cannot inherit from final A ».
+
+C'est le cas de ~String~ : on ne peut pas écrire ~class MaString extends String~.
 
 ## s2 | Méthode finale
 Que se passe-t-il à la compilation ?
@@ -267,7 +273,13 @@ class B extends A { void f() { } }
 - Aucune erreur
 - Erreur : ~final~ est interdit sur une méthode
 - Aucune erreur, mais ~B.f()~ n'est jamais appelée
-? Une méthode ~final~ ne peut pas être redéfinie.
+? ~final~ devant une **méthode** interdit aux classes filles de la redéfinir.
+
+**~A.f()~** est ~final~ : sa version est définitive.
+
+**~B~** écrit sa propre ~void f()~ : c'est une redéfinition → erreur « f() in B cannot override f() in A; overridden method is final ».
+
+Intérêt : garantir qu'une étape clé d'un algorithme (comme ~preparer()~ du patron de méthode) ne sera pas modifiée.
 
 ## s2 | Héritage multiple
 Que se passe-t-il à la compilation ?
@@ -281,7 +293,11 @@ class C extends A, B { }
 - Aucune erreur
 - Erreur : il faut écrire ~extends A and B~
 - Aucune erreur, mais ~C~ ne peut pas être instanciée
-? Java n'a pas d'héritage multiple de classes. On peut en revanche **implémenter** plusieurs interfaces.
+? En Java, une classe a **au plus une classe mère** (~extends~ suivi d'**un seul** nom).
+
+**~class C extends A, B~** : deux mères → erreur de syntaxe.
+
+Pourquoi : si ~A~ et ~B~ avaient chacune une méthode ~f()~, laquelle ~C~ hériterait-elle ? Pour combiner plusieurs comportements, on utilise des **interfaces** : ~class C extends A implements I, J~.
 
 ## s2 | Constructeurs non hérités
 Que se passe-t-il à la compilation ?
@@ -297,7 +313,15 @@ public class Main {
 - Aucune erreur : ~B~ hérite du constructeur de ~A~
 - Erreur : ~super(1)~ est interdit
 - Aucune erreur, ~5~ est ignoré
-? Les constructeurs ne s'héritent pas : ~new B(5)~ exige un constructeur ~B(int)~.
+? Les constructeurs **ne sont pas hérités** : chaque classe a seulement ceux qu'elle écrit elle-même.
+
+**1.** ~A~ a ~A(int x)~.
+
+**2.** ~B~ n'écrit que ~B()~ (sans paramètre). Elle n'a **pas** de ~B(int)~, même si sa mère en a un.
+
+**3.** ~new B(5)~ cherche ~B(int)~ → introuvable → erreur de compilation.
+
+Correction : écrire dans ~B~ un constructeur ~B(int x) { super(x); }~.
 
 ## s2 | super en première ligne
 Que se passe-t-il à la compilation ?
@@ -315,7 +339,11 @@ class B extends A {
 - Aucune erreur
 - Erreur : ~println~ est interdit dans un constructeur
 - Aucune erreur, mais ~avant~ est affiché deux fois
-? ~super(...)~ et ~this(...)~ doivent être la **première** instruction du constructeur (et on ne peut pas mettre les deux).
+? Quand ~super(...)~ (ou ~this(...)~) est utilisé, il doit être **la toute première instruction** du constructeur : la mère doit être construite **avant** que la fille fasse quoi que ce soit.
+
+**~System.out.println("avant");~** passe en premier, puis ~super(1);~ → erreur « call to super must be first statement in constructor ».
+
+Correction : mettre ~super(1);~ en première ligne, le ~println~ après.
 
 ## s2 | Membre privé et héritage
 Que se passe-t-il à la compilation ?
@@ -330,7 +358,13 @@ class B extends A {
 - Aucune erreur
 - Aucune erreur, ~g()~ renvoie 0
 - Erreur : ~g()~ doit être ~static~
-? Un membre ~private~ n'est visible que dans sa classe, même par les classes filles. Il faudrait un getter ~public~ ou le rendre ~protected~.
+? ~private~ signifie « visible seulement **dans cette classe** » : les classes filles ne le voient pas.
+
+**~x~ est ~private~ dans ~A~.**
+
+**~B~ essaie de lire ~x~** : pour ~B~, ce nom n'existe pas → erreur « x has private access in A ».
+
+L'objet ~B~ **contient** bien un ~x~, mais ~B~ ne peut pas l'atteindre directement. Solutions : un getter ~public~, ou rendre ~x~ ~protected~.
 
 ## s2 | Accès affaibli à la redéfinition
 Que se passe-t-il à la compilation ?
@@ -343,7 +377,15 @@ class B extends A { void f() { } }
 - Aucune erreur
 - Erreur : il manque ~@Override~
 - Aucune erreur, ~f()~ devient privée
-? Une redéfinition peut **élargir** la visibilité (~protected~ → ~public~) mais jamais la réduire (« attempting to assign weaker access privileges »).
+? Une classe fille doit pouvoir être utilisée **partout où** la mère l'est. Donc elle ne peut pas être plus fermée.
+
+| mère | fille autorisée |
+|---|---|
+| ~public~ | ~public~ seulement |
+| ~protected~ | ~protected~ ou ~public~ |
+| (défaut) | défaut, ~protected~ ou ~public~ |
+
+**~A.f()~ est ~public~** mais **~B.f()~ n'a aucun modificateur** (visibilité « package ») : plus faible → erreur « attempting to assign weaker access privileges; was public ».
 
 ## s2 | @Override
 Que se passe-t-il à la compilation ?
@@ -359,7 +401,13 @@ class B extends A {
 - Aucune erreur
 - Un simple avertissement
 - Erreur : ~@Override~ n'existe pas
-? ~@Override~ fait vérifier au compilateur qu'on redéfinit réellement une méthode : utile pour détecter une faute de frappe dans le nom ou les paramètres.
+? ~@Override~ est une **promesse** que le compilateur vérifie : « cette méthode redéfinit une méthode de la mère ».
+
+**~A~** a ~f()~, **~B~** écrit ~g()~ avec ~@Override~.
+
+~g()~ n'existe pas dans ~A~ : la promesse est fausse → erreur « method does not override or implement a method from a supertype ».
+
+Utile pour détecter une faute de frappe (~tostring~ au lieu de ~toString~) ou un mauvais paramètre.
 
 ## s2 | Visibilité par défaut
 Un attribut sans modificateur de visibilité (visibilité « par défaut ») est visible par :
@@ -507,5 +555,13 @@ public class Main {
 - Erreur : ~x~ est inaccessible
 - Affiche ~0~
 - ~NullPointerException~
-? ~protected~ rend ~x~ accessible aux classes filles : ~B~ lit directement ~x~.
+? ~protected~ ouvre l'accès à **la classe, au package et aux classes filles**.
+
+**1.** ~x~ est ~protected~ dans ~A~, initialisé à 7.
+
+**2.** ~B extends A~ : ~B~ peut lire ~x~ directement dans ~lire()~.
+
+**3.** ~new B().lire()~ renvoie ~7~, ~println~ l'affiche.
+
+Si ~x~ était ~private~, ~B~ n'aurait pas pu écrire ~return x;~.
 `;
