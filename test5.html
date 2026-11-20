@@ -110,6 +110,39 @@
     └── toutes les autres         // VÉRIFIÉES : try/catch ou throws OBLIGATOIRE
           IOException ⊃ FileNotFoundException, ClassNotFoundException, tes propres « extends Exception »</pre>
   <p class="ev-small">Question type : « laquelle est non vérifiée ? » → celle qui passe par <code>RuntimeException</code>.</p>
+<!-- tfig:exc-hierarchie -->
+<figure class="ev-fig tfig">
+<svg viewBox="0 0 330 314" role="img" aria-label="Hiérarchie des exceptions : Throwable se divise en Error et Exception ; RuntimeException n'est pas vérifiée, les autres sous-classes d'Exception le sont">
+<rect class="bx p" x="8" y="6" width="112" height="26" rx="6"/>
+<text x="64" y="23" class="m k" text-anchor="middle">Throwable</text>
+<path class="ln" d="M22 32 L22 115"/>
+<rect class="bx p" x="36" y="42" width="286" height="52" rx="6"/>
+<text x="179" y="58" class="m k" text-anchor="middle">Error</text>
+<text x="179" y="72" class="s" text-anchor="middle">StackOverflowError, OutOfMemoryError</text>
+<text x="179" y="86" class="s" text-anchor="middle">erreurs graves de la JVM : on ne les traite pas</text>
+<path class="ln" d="M22 67 L36 67"/>
+<rect class="bx p" x="36" y="102" width="286" height="26" rx="6"/>
+<text x="179" y="119" class="m k" text-anchor="middle">Exception : à traiter</text>
+<path class="ln" d="M22 115 L36 115"/>
+<path class="ln" d="M50 128 L50 266"/>
+<rect class="bx g" x="64" y="138" width="258" height="80" rx="6"/>
+<text x="193" y="154" class="m k" text-anchor="middle">RuntimeException : non vérifiée</text>
+<text x="193" y="168" class="s" text-anchor="middle">NullPointerException, ArithmeticException,</text>
+<text x="193" y="182" class="s" text-anchor="middle">ArrayIndexOutOfBoundsException,</text>
+<text x="193" y="196" class="s" text-anchor="middle">ClassCastException, NumberFormatException</text>
+<text x="193" y="210" class="s g k" text-anchor="middle">aucune obligation : ni try ni throws</text>
+<path class="ln" d="M50 178 L64 178"/>
+<rect class="bx r" x="64" y="226" width="258" height="80" rx="6"/>
+<text x="193" y="242" class="m k" text-anchor="middle">Toutes les autres : vérifiées</text>
+<text x="193" y="256" class="s" text-anchor="middle">IOException ⊃ FileNotFoundException,</text>
+<text x="193" y="270" class="s" text-anchor="middle">ClassNotFoundException,</text>
+<text x="193" y="284" class="s" text-anchor="middle">tes classes « extends Exception »</text>
+<text x="193" y="298" class="s r k" text-anchor="middle">try/catch ou throws OBLIGATOIRE</text>
+<path class="ln" d="M50 266 L64 266"/>
+</svg>
+<figcaption><b>À retenir :</b> seules les <code>RuntimeException</code> (et les <code>Error</code>) échappent à l'obligation de <code>try/catch</code> ou <code>throws</code>. Tout autre descendant de <code>Exception</code>, y compris les tiennes, est vérifié.</figcaption>
+</figure>
+<!-- /tfig:exc-hierarchie -->
 
   <h3 class="ev-h3">2. Une exception personnalisée, ligne par ligne</h3>
 <pre class="code hl">class SoldeInsuffisantException extends Exception {        // (1) extends Exception → VÉRIFIÉE
@@ -151,6 +184,63 @@ public class Main {
 <pre class="code">Il manque 50.0 EUR
 Fin de l'opération</pre></div>
   </div>
+
+  <!-- tfig:exc-flux -->
+<figure class="ev-fig tfig">
+<svg viewBox="0 0 330 238" role="img" aria-label="Trois chemins d'exécution d'un try/catch/finally : sans exception, exception attrapée, exception non attrapée"><defs><marker id="tm-exc-flux-k" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path class="mk " d="M0 0.5 L8.5 4.5 L0 8.5 z"/></marker></defs>
+<text x="98" y="16" class="k" text-anchor="middle">1 · Aucune</text>
+<text x="98" y="30" class="k" text-anchor="middle">exception</text>
+<text x="188" y="16" class="k" text-anchor="middle">2 · Exception</text>
+<text x="188" y="30" class="k" text-anchor="middle">attrapée</text>
+<text x="278" y="16" class="k" text-anchor="middle">3 · Exception</text>
+<text x="278" y="30" class="k" text-anchor="middle">non attrapée</text>
+<text x="48" y="63" class="m k" text-anchor="end">try</text>
+<rect class="bx g" x="54" y="40" width="88" height="38" rx="6"/>
+<text x="98" y="63" text-anchor="middle">bloc entier</text>
+<rect class="bx a" x="144" y="40" width="88" height="38" rx="6"/>
+<text x="188" y="56.5" text-anchor="middle">arrêt à la ligne</text>
+<text x="188" y="69.5" text-anchor="middle">qui lance</text>
+<rect class="bx a" x="234" y="40" width="88" height="38" rx="6"/>
+<text x="278" y="56.5" text-anchor="middle">arrêt à la ligne</text>
+<text x="278" y="69.5" text-anchor="middle">qui lance</text>
+<text x="48" y="111" class="m k" text-anchor="end">catch</text>
+<rect class="bx s" x="54" y="88" width="88" height="38" rx="6"/>
+<text x="98" y="111" class="s" text-anchor="middle">sauté</text>
+<rect class="bx g" x="144" y="88" width="88" height="38" rx="6"/>
+<text x="188" y="104.5" text-anchor="middle">un seul</text>
+<text x="188" y="117.5" text-anchor="middle">exécuté</text>
+<rect class="bx r" x="234" y="88" width="88" height="38" rx="6"/>
+<text x="278" y="104.5" text-anchor="middle">aucun ne</text>
+<text x="278" y="117.5" text-anchor="middle">convient</text>
+<text x="48" y="155" class="m k" text-anchor="end">finally</text>
+<rect class="bx g" x="54" y="136" width="88" height="30" rx="6"/>
+<text x="98" y="155" text-anchor="middle">exécuté</text>
+<rect class="bx g" x="144" y="136" width="88" height="30" rx="6"/>
+<text x="188" y="155" text-anchor="middle">exécuté</text>
+<rect class="bx g" x="234" y="136" width="88" height="30" rx="6"/>
+<text x="278" y="155" text-anchor="middle">exécuté</text>
+<text x="48" y="206" class="m k" text-anchor="end">suite</text>
+<rect class="bx g" x="54" y="176" width="88" height="52" rx="6"/>
+<text x="98" y="206" text-anchor="middle">exécutée</text>
+<rect class="bx g" x="144" y="176" width="88" height="52" rx="6"/>
+<text x="188" y="206" text-anchor="middle">exécutée</text>
+<rect class="bx r" x="234" y="176" width="88" height="52" rx="6"/>
+<text x="278" y="193" text-anchor="middle">NON exécutée</text>
+<text x="278" y="206" text-anchor="middle">l'exception</text>
+<text x="278" y="219" text-anchor="middle">remonte</text>
+<path class="ln m" d="M98 78 L98 87" marker-end="url(#tm-exc-flux-k)"/>
+<path class="ln m" d="M98 126 L98 135" marker-end="url(#tm-exc-flux-k)"/>
+<path class="ln m" d="M98 166 L98 175" marker-end="url(#tm-exc-flux-k)"/>
+<path class="ln m" d="M188 78 L188 87" marker-end="url(#tm-exc-flux-k)"/>
+<path class="ln m" d="M188 126 L188 135" marker-end="url(#tm-exc-flux-k)"/>
+<path class="ln m" d="M188 166 L188 175" marker-end="url(#tm-exc-flux-k)"/>
+<path class="ln m" d="M278 78 L278 87" marker-end="url(#tm-exc-flux-k)"/>
+<path class="ln m" d="M278 126 L278 135" marker-end="url(#tm-exc-flux-k)"/>
+<path class="ln m" d="M278 166 L278 175" marker-end="url(#tm-exc-flux-k)"/>
+</svg>
+<figcaption><b>À retenir :</b> le <code>finally</code> s'exécute dans les trois cas (sauf <code>System.exit</code>). Un seul <code>catch</code> s'exécute, le premier compatible. Si aucun ne convient, la suite de la méthode est sautée : l'exception remonte à l'appelant.</figcaption>
+</figure>
+<!-- /tfig:exc-flux -->
 
   <h3 class="ev-h3">3. Suivre l'exécution : la pile d'appels</h3>
 <pre class="code hl">static void a() { System.out.println("a1"); b(); System.out.println("a2"); }
@@ -205,6 +295,39 @@ public static void main(String[] args) {
     <p><code>finally</code> s'exécute à chaque tour, même quand on saute avec <code>continue</code>.</p></div>
   </div>
 
+  <!-- tfig:exc-catch-ordre -->
+<figure class="ev-fig tfig">
+<svg viewBox="0 0 330 280" role="img" aria-label="Ordre des blocs catch : du plus précis au plus général ; mère avant fille ne compile pas"><defs><marker id="tm-exc-catch-ordre-k" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path class="mk " d="M0 0.5 L8.5 4.5 L0 8.5 z"/></marker></defs>
+<text x="8" y="14" class="h" text-anchor="start">Bon ordre : fille avant mère</text>
+<circle class="nb" cx="20" cy="37" r="8"/>
+<text class="nt" x="20" y="41" text-anchor="middle">1</text>
+<rect class="bx g" x="36" y="24" width="286" height="26" rx="6"/>
+<text x="179" y="41" class="m" text-anchor="middle">catch (FileNotFoundException e)</text>
+<path class="ln m" d="M179 50 L179 63" marker-end="url(#tm-exc-catch-ordre-k)"/>
+<text x="186" y="60" class="s" text-anchor="start">sinon, on essaie le suivant</text>
+<circle class="nb" cx="20" cy="77" r="8"/>
+<text class="nt" x="20" y="81" text-anchor="middle">2</text>
+<rect class="bx g" x="36" y="64" width="286" height="26" rx="6"/>
+<text x="179" y="81" class="m" text-anchor="middle">catch (IOException e)</text>
+<path class="ln m" d="M179 90 L179 103" marker-end="url(#tm-exc-catch-ordre-k)"/>
+<text x="186" y="100" class="s" text-anchor="start">sinon, on essaie le suivant</text>
+<circle class="nb" cx="20" cy="117" r="8"/>
+<text class="nt" x="20" y="121" text-anchor="middle">3</text>
+<rect class="bx g" x="36" y="104" width="286" height="26" rx="6"/>
+<text x="179" y="121" class="m" text-anchor="middle">catch (Exception e)</text>
+<text x="8" y="156" class="h r" text-anchor="start">Mère avant fille : ne compile pas</text>
+<rect class="bx p" x="36" y="164" width="286" height="26" rx="6"/>
+<text x="179" y="181" class="m" text-anchor="middle">catch (Exception e)</text>
+<rect class="bx r" x="36" y="198" width="286" height="26" rx="6"/>
+<text x="179" y="215" class="m" text-anchor="middle">catch (IOException e)</text>
+<path class="ln r" d="M14 205 L26 217 M14 217 L26 205"/>
+<text x="179" y="242" class="s r" text-anchor="middle">« exception IOException has already been caught »</text>
+<text x="179" y="262" class="s" text-anchor="middle">multi-catch : catch (A | B e) avec A et B sans lien de parenté</text>
+</svg>
+<figcaption><b>À retenir :</b> les <code>catch</code> sont essayés de haut en bas, le premier compatible gagne. Du plus précis au plus général : mettre la mère avant sa fille est une erreur de <b>compilation</b>, pas d'exécution.</figcaption>
+</figure>
+<!-- /tfig:exc-catch-ordre -->
+
   <h3 class="ev-h3">5. Quand le compilateur refuse</h3>
   <div class="tbl-wrap ev-stack"><table class="tbl">
     <thead><tr><th>Code</th><th>Problème</th><th>Message</th></tr></thead>
@@ -223,6 +346,64 @@ public static void main(String[] args) {
 }                                               // fermeture automatique dans l'ordre INVERSE
 // open A / open B / body / close B / close A</pre>
   <p class="ev-small">Condition : la classe implémente <code>AutoCloseable</code> (<code>FileReader</code>, <code>Scanner</code>, <code>PrintWriter</code>, <code>ObjectOutputStream</code> le font). On ne ferme plus à la main.</p>
+<!-- tfig:txt-exc-throwable -->
+<h3 class="ev-h3">7. Ce que sait faire toute exception, et la syntaxe de throws</h3>
+<pre class="code hl">try { Integer.parseInt("abc"); }
+catch (NumberFormatException e) {
+    System.out.println(e.getMessage());   // For input string: "abc"
+    System.out.println(e);                // java.lang.NumberFormatException: For input string: "abc"
+    e.printStackTrace();                  // la pile d'appels, sur System.err : le programme continue
+    System.out.println("suite");          // affiché : on a attrapé l'exception
+}</pre>
+<div class="ev-grid">
+<div class="ev-card"><h4>Les méthodes de Throwable</h4><ul><li><code>getMessage()</code> : le texte passé au constructeur (<code>null</code> s'il n'y en a pas).</li><li><code>toString()</code> : nom complet de la classe, deux-points, message. C'est ce que <code>println(e)</code> affiche.</li><li><code>printStackTrace()</code> : écrit l'exception et la pile d'appels sur <code>System.err</code> ; n'arrête pas le programme.</li><li><code>getCause()</code> : l'exception d'origine quand on en a enveloppé une (<code>new Exception("wrap", e)</code>).</li></ul></div>
+<div class="ev-card"><h4>Écrire throws sans se tromper</h4><ul><li><b>Oui</b> : <code>public void ioAppel() throws IOException { }</code>, avec <code>throws</code> après les parenthèses ; plusieurs exceptions : <code>throws IOException, ClassNotFoundException</code>.</li><li><b>Non</b> : <code>ioAppel() throw IOException</code> : <code>throw</code> est une instruction du corps, pas un mot de signature (« ; expected »).</li><li><b>Non</b> : <code>ioAppel throws IOException ()</code> : les parenthèses viennent avant <code>throws</code> (« ( expected »).</li><li><b>Non</b> : <code>catch (IOException e)</code> autour d'un appel à <code>void ioAppel() { }</code> qui ne déclare rien (« is never thrown in body of corresponding try statement »).</li></ul></div>
+</div>
+<p class="ev-small">Annale 2025, question 5 : « choisissez la définition la plus vraisemblable de <code>ioAppel</code> ». La seule bonne réponse déclare <code>throws IOException</code> après les parenthèses.</p>
+<!-- /tfig:txt-exc-throwable -->
+
+<!-- tfig:txt-exc-divmul -->
+<h3 class="ev-h3">8. L'exemple du cours : DivMul, déroulé complet</h3>
+<p>Exercice 3 du cours 5. Deux exceptions personnalisées vérifiées (<code>DivisionParZeroException</code>, <code>OperationInconnueException</code>), un <code>catch</code> général en dernier, un <code>finally</code>.</p>
+<pre class="code hl">private static int execOperation(int op1, String operation, int op2)
+        throws DivisionParZeroException, OperationInconnueException {   // deux vérifiées déclarées
+    if ("*".equals(operation)) return op1 * op2;
+    if ("/".equals(operation)) {
+        if (op2 == 0) throw new DivisionParZeroException();
+        return op1 / op2;
+    } else throw new OperationInconnueException(operation);
+}
+
+// main : opérandes {3, 56, 33, 25}, opérations {"*", "/", "+", "/"}, opérandes {5, 4, 5, 0}
+for (int n = 0; n &lt; operande1.length; n++) {
+    try {
+        System.out.println("Calcul de " + operande1[n] + operation[n] + operande2[n]);
+        System.out.println("Resultat" + DivMul.execOperation(operande1[n], operation[n], operande2[n]));
+    } catch (DivisionParZeroException e) {
+        System.out.println("Division par zero.");
+    } catch (OperationInconnueException e) {
+        System.out.println("Operation inconnue " + e.getMessage());
+    } catch (Exception e) {
+        System.out.println("une autre exception est survenue.");
+    } finally {
+        System.out.println("clause finally appellee");
+    }
+}</pre>
+<pre class="code">Calcul de 3*5
+Resultat15
+clause finally appellee
+Calcul de 56/4
+Resultat14
+clause finally appellee
+Calcul de 33+5
+Operation inconnue +
+clause finally appellee
+Calcul de 25/0
+Division par zero.
+clause finally appellee</pre>
+<ul><li><b>3 × 5 et 56 / 4</b> : aucune exception, <code>Resultat…</code> est affiché, puis le <code>finally</code>.</li><li><b>33 + 5</b> : la ligne <code>Calcul de 33+5</code> est affichée, mais <b>pas</b> « Resultat » : l'exception est lancée pendant l'évaluation de l'argument du second <code>println</code>, avant qu'il ne s'exécute.</li><li><b>25 / 0</b> : <code>DivisionParZeroException</code> n'a ni message ni constructeur écrit : c'est le <code>catch</code> qui choisit le texte.</li><li>Le <code>finally</code> s'affiche <b>4 fois</b> : à chaque tour, avec ou sans exception.</li><li><code>"*".equals(operation)</code> : constante d'abord, pour éviter une <code>NullPointerException</code> si <code>operation</code> valait <code>null</code>.</li><li>Le <code>catch (Exception e)</code> général est en dernier : le placer avant les autres ne compilerait pas.</li></ul>
+<!-- /tfig:txt-exc-divmul -->
+
 </section>
 
 <!-- ================= FICHIERS ================= -->
@@ -234,6 +415,48 @@ public static void main(String[] args) {
   </div>
 
   <h3 class="ev-h3">1. Fichier texte : écrire puis relire</h3>
+<!-- tfig:fic-chaine-texte -->
+<figure class="ev-fig tfig">
+<svg viewBox="0 0 330 270" role="img" aria-label="Chaîne de flux pour un fichier texte : PrintWriter enveloppe FileWriter pour écrire ; Scanner ou FileReader puis BufferedReader pour lire"><defs><marker id="tm-fic-chaine-texte-k" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path class="mk " d="M0 0.5 L8.5 4.5 L0 8.5 z"/></marker></defs>
+<text x="83" y="14" class="h" text-anchor="middle">ÉCRIRE</text>
+<text x="83" y="28" class="s" text-anchor="middle">données vers le fichier</text>
+<text x="247" y="14" class="h" text-anchor="middle">LIRE</text>
+<text x="247" y="28" class="s" text-anchor="middle">fichier vers les données</text>
+<rect class="bx t" x="8" y="38" width="150" height="40" rx="6"/>
+<text x="83" y="55" class="m k" text-anchor="middle">PrintWriter</text>
+<text x="83" y="69" class="m s" text-anchor="middle">println("Alice;20")</text>
+<path class="ln" d="M83 78 L83 94" marker-end="url(#tm-fic-chaine-texte-k)"/>
+<rect class="bx t" x="8" y="94" width="150" height="54" rx="6"/>
+<text x="83" y="111" class="m k" text-anchor="middle">FileWriter(nom)</text>
+<text x="83" y="125" class="s" text-anchor="middle">(nom) : écrase</text>
+<text x="83" y="139" class="s" text-anchor="middle">(nom, true) : ajoute</text>
+<path class="ln" d="M83 148 L83 164" marker-end="url(#tm-fic-chaine-texte-k)"/>
+<rect class="bx a" x="8" y="164" width="150" height="34" rx="6"/>
+<text x="83" y="185" class="m k" text-anchor="middle">fichier notes.txt</text>
+<rect class="bx p" x="8" y="212" width="150" height="50" rx="6"/>
+<text x="83" y="227" class="s" text-anchor="middle">close() ou try-with-</text>
+<text x="83" y="241" class="s" text-anchor="middle">resources : le tampon</text>
+<text x="83" y="255" class="s" text-anchor="middle">est vidé vers le disque</text>
+<rect class="bx a" x="172" y="38" width="150" height="34" rx="6"/>
+<text x="247" y="59" class="m k" text-anchor="middle">fichier notes.txt</text>
+<path class="ln" d="M247 72 L247 88" marker-end="url(#tm-fic-chaine-texte-k)"/>
+<rect class="bx t" x="172" y="88" width="150" height="54" rx="6"/>
+<text x="247" y="105" class="m k s" text-anchor="middle">Scanner(new File(f))</text>
+<text x="247" y="119" class="m s" text-anchor="middle">ou FileReader(f)</text>
+<text x="247" y="133" class="s r" text-anchor="middle">FileNotFoundException</text>
+<path class="ln" d="M247 142 L247 158" marker-end="url(#tm-fic-chaine-texte-k)"/>
+<rect class="bx t" x="172" y="158" width="150" height="46" rx="6"/>
+<text x="247" y="171" class="m k" text-anchor="middle">BufferedReader</text>
+<text x="247" y="185" class="m s" text-anchor="middle">readLine()</text>
+<text x="247" y="199" class="s" text-anchor="middle">null = fin du fichier</text>
+<path class="ln" d="M247 204 L247 220" marker-end="url(#tm-fic-chaine-texte-k)"/>
+<rect class="bx p" x="172" y="220" width="150" height="42" rx="6"/>
+<text x="247" y="238" class="k" text-anchor="middle">String en main</text>
+<text x="247" y="252" class="m s" text-anchor="middle">split(";"), parseInt…</text>
+</svg>
+<figcaption><b>À retenir :</b> un flux se construit <b>autour</b> d'un autre et on utilise le plus externe (<code>PrintWriter</code>, <code>BufferedReader</code>). Ouvrir un fichier peut échouer : <code>try/catch</code> obligatoire.</figcaption>
+</figure>
+<!-- /tfig:fic-chaine-texte -->
 <pre class="code hl">// ÉCRITURE
 try (PrintWriter out = new PrintWriter(new FileWriter("notes.txt"))) {   // FileWriter(nom) ÉCRASE ; (nom, true) AJOUTE
     out.println("Alice;20;15.5");                                       // une ligne par objet
@@ -272,6 +495,38 @@ try {
   </div>
 
   <h3 class="ev-h3">2. Sérialisation : sauver et recharger une liste</h3>
+<!-- tfig:fic-serial-chaine -->
+<figure class="ev-fig tfig">
+<svg viewBox="0 0 330 270" role="img" aria-label="Sérialisation : un ObjectOutputStream enveloppe un FileOutputStream pour sauver ; un ObjectInputStream enveloppe un FileInputStream pour charger, avec un cast"><defs><marker id="tm-fic-serial-chaine-k" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path class="mk " d="M0 0.5 L8.5 4.5 L0 8.5 z"/></marker></defs>
+<text x="83" y="14" class="h" text-anchor="middle">SAUVER</text>
+<text x="83" y="34" class="m s" text-anchor="middle">out.writeObject(liste)</text>
+<path class="ln" d="M83 40 L83 66" marker-end="url(#tm-fic-serial-chaine-k)"/>
+<rect class="bx t" x="8" y="66" width="150" height="140" rx="6"/>
+<text x="83" y="84" class="m k s" text-anchor="middle">ObjectOutputStream</text>
+<rect class="bx p" x="22" y="94" width="122" height="100" rx="6"/>
+<text x="83" y="110" class="m s" text-anchor="middle">FileOutputStream</text>
+<rect class="bx a" x="36" y="124" width="94" height="56" rx="6"/>
+<text x="83" y="149" class="m k" text-anchor="middle">etu.ser</text>
+<text x="83" y="163" class="s" text-anchor="middle">octets</text>
+<text x="247" y="14" class="h" text-anchor="middle">CHARGER</text>
+<rect class="bx g" x="177" y="20" width="140" height="24" rx="6"/>
+<text x="247" y="36" class="m s" text-anchor="middle">Object, puis cast</text>
+<path class="ln" d="M247 66 L247 45" marker-end="url(#tm-fic-serial-chaine-k)"/>
+<text x="241" y="60" class="m s lb" text-anchor="end">in.readObject()</text>
+<rect class="bx t" x="172" y="66" width="150" height="140" rx="6"/>
+<text x="247" y="84" class="m k s" text-anchor="middle">ObjectInputStream</text>
+<rect class="bx p" x="186" y="94" width="122" height="100" rx="6"/>
+<text x="247" y="110" class="m s" text-anchor="middle">FileInputStream</text>
+<rect class="bx a" x="200" y="124" width="94" height="56" rx="6"/>
+<text x="247" y="149" class="m k" text-anchor="middle">etu.ser</text>
+<text x="247" y="163" class="s" text-anchor="middle">octets</text>
+<rect class="bx p" x="8" y="216" width="314" height="44" rx="6"/>
+<text x="165" y="235" class="s" text-anchor="middle">relire dans le même ordre qu'écrit ; EOFException à la fin</text>
+<text x="165" y="249" class="s" text-anchor="middle">readObject() : IOException + ClassNotFoundException</text>
+</svg>
+<figcaption><b>À retenir :</b> un flux d'<b>objets</b> enveloppe un flux d'<b>octets</b>. À la lecture, <code>readObject()</code> rend un <code>Object</code> : cast obligatoire, et on relit dans l'ordre d'écriture.</figcaption>
+</figure>
+<!-- /tfig:fic-serial-chaine -->
 <pre class="code hl">public class Etu implements Serializable {                   // (1) marqueur : aucune méthode à écrire
     private static final long serialVersionUID = 1L;         // (2) numéro de version de la classe
     private String nom;
@@ -310,6 +565,83 @@ try {
       <li><code>Serializable</code> s'hérite : <code>JFrame</code> est sérialisable, d'où l'avertissement <code>serialVersionUID</code>.</li>
     </ul></div>
   </div>
+<!-- tfig:fic-transient -->
+<figure class="ev-fig tfig">
+<svg viewBox="0 0 330 214" role="img" aria-label="Avant et après sérialisation : nom et moyenne reviennent identiques, le champ transient revient à null, le champ static n'est pas dans le fichier">
+<rect class="bx p" x="8" y="6" width="100" height="24" rx="6"/>
+<text x="58" y="22" class="h" text-anchor="middle">champ</text>
+<rect class="bx p" x="112" y="6" width="90" height="24" rx="6"/>
+<text x="157" y="22" class="h" text-anchor="middle">écrit</text>
+<rect class="bx p" x="204" y="6" width="118" height="24" rx="6"/>
+<text x="263" y="22" class="h" text-anchor="middle">relu</text>
+<rect class="bx p" x="8" y="36" width="100" height="28" rx="6"/>
+<text x="16" y="54" class="m k" text-anchor="start">nom</text>
+<rect class="bx p" x="112" y="36" width="90" height="28" rx="6"/>
+<text x="157" y="54" class="m s" text-anchor="middle">"Alice"</text>
+<rect class="bx g" x="204" y="36" width="118" height="28" rx="6"/>
+<text x="263" y="54" class="m s" text-anchor="middle">"Alice"</text>
+<rect class="bx p" x="8" y="70" width="100" height="28" rx="6"/>
+<text x="16" y="88" class="m k" text-anchor="start">moyenne</text>
+<rect class="bx p" x="112" y="70" width="90" height="28" rx="6"/>
+<text x="157" y="88" class="m s" text-anchor="middle">15.5</text>
+<rect class="bx g" x="204" y="70" width="118" height="28" rx="6"/>
+<text x="263" y="88" class="m s" text-anchor="middle">15.5</text>
+<rect class="bx p" x="8" y="104" width="100" height="40" rx="6"/>
+<text x="16" y="122" class="m k" text-anchor="start">motDePasse</text>
+<text x="16" y="136" class="s" text-anchor="start">transient</text>
+<rect class="bx p" x="112" y="104" width="90" height="40" rx="6"/>
+<text x="157" y="128" class="m s" text-anchor="middle">"secret"</text>
+<rect class="bx r" x="204" y="104" width="118" height="40" rx="6"/>
+<text x="263" y="128" class="m s" text-anchor="middle">null</text>
+<rect class="bx p" x="8" y="150" width="100" height="40" rx="6"/>
+<text x="16" y="168" class="m k" text-anchor="start">compteur</text>
+<text x="16" y="182" class="s" text-anchor="start">static</text>
+<rect class="bx p" x="112" y="150" width="90" height="40" rx="6"/>
+<text x="157" y="174" class="m s" text-anchor="middle">hors fichier</text>
+<rect class="bx r" x="204" y="150" width="118" height="40" rx="6"/>
+<text x="263" y="174" class="s" text-anchor="middle">valeur de la classe</text>
+<text x="165" y="206" class="s" text-anchor="middle">valeurs par défaut : 0, false, null</text>
+</svg>
+<figcaption><b>À retenir :</b> seuls les attributs d'instance non <code>transient</code> sont écrits. Les autres reprennent leur valeur par défaut (<code>null</code>, <code>0</code>, <code>false</code>) et <b>aucun constructeur</b> n'est rappelé.</figcaption>
+</figure>
+<!-- /tfig:fic-transient -->
+
+<!-- tfig:txt-fic-file -->
+<h3 class="ev-h3">3. La classe File, et mélanger primitives et objets</h3>
+<p>Un objet <code>File</code> est un <b>nom de fichier ou de dossier</b>, indépendant du système. Il permet de créer, supprimer, tester et lister, mais pas de lire le contenu.</p>
+<pre class="code hl">File d = new File("demo");                       // un chemin : rien n'est créé sur le disque
+File f = new File(d, "a.txt");                   // le chemin demo/a.txt
+System.out.println(f.exists());                  // false
+d.mkdir();                                       // crée le dossier
+try (PrintWriter out = new PrintWriter(f)) {     // crée le fichier (FileNotFoundException à traiter)
+    out.print("abc");
+}
+System.out.println(f.exists() + " " + f.isFile() + " " + f.length() + " " + f.getName());
+System.out.println(d.isDirectory() + " " + d.isFile());
+for (File x : d.listFiles())                     // File[] : l'ordre n'est pas garanti
+    System.out.println(x.getName());
+System.out.println(f.delete() + " " + f.exists());</pre>
+<pre class="code">false
+true true 3 a.txt
+true false
+a.txt
+true false</pre>
+<div class="ev-grid">
+<div class="ev-card"><h4>Les méthodes de File du cours</h4><ul><li><code>exists()</code>, <code>isFile()</code>, <code>isDirectory()</code> : <code>boolean</code>.</li><li><code>canRead()</code>, <code>canWrite()</code> : <code>boolean</code>, les droits.</li><li><code>length()</code> : <code>long</code>, taille en octets.</li><li><code>getName()</code> : <code>String</code>, le nom sans le chemin.</li><li><code>listFiles()</code> : <code>File[]</code> du contenu d'un dossier ; <code>list()</code> : <code>String[]</code>, seulement les noms.</li><li><code>mkdir()</code>, <code>delete()</code> : <code>boolean</code>, créer un dossier, supprimer.</li><li><code>deleteOnExit()</code> : supprime à la fin de la JVM ; <code>lastModified()</code> : <code>long</code>, date de modification.</li></ul></div>
+<div class="ev-card"><h4>Primitives et objets dans un même flux</h4><pre class="code hl">try (ObjectOutputStream out =
+         new ObjectOutputStream(new FileOutputStream("t.tmp"))) {
+    out.writeInt(10325);
+    out.writeObject("Today");
+}
+try (ObjectInputStream in =
+         new ObjectInputStream(new FileInputStream("t.tmp"))) {
+    int i = in.readInt();                // même ordre
+    String s = (String) in.readObject(); // cast
+    System.out.println(i + " " + s);     // 10325 Today
+}</pre><p class="ev-small"><code>ObjectOutputStream</code> sait aussi écrire les primitives (<code>writeInt</code>, <code>writeDouble</code>…), comme <code>DataOutputStream</code>. Lire d'abord avec <code>readObject()</code> alors qu'un <code>int</code> a été écrit en premier lance une <code>OptionalDataException</code> (une <code>IOException</code>). Extension usuelle : <code>.ser</code>.</p></div>
+</div>
+<!-- /tfig:txt-fic-file -->
+
 </section>
 
 <!-- ================= SWING ================= -->
@@ -342,6 +674,65 @@ public class Utilisation {
     }
 }</pre>
 
+  <!-- tfig:swing-arbre -->
+<figure class="ev-fig tfig">
+<svg viewBox="0 0 330 242" role="img" aria-label="Arbre des composants de la fenêtre IHMTel et son dessin : JTextField au nord, JButton OK au centre, Cadran en GridLayout 4 par 3 au sud">
+<rect class="bx p" x="8" y="6" width="192" height="40" rx="6"/>
+<text x="104" y="23" class="m k" text-anchor="middle">IHMTel extends JFrame</text>
+<text x="104" y="37" class="s" text-anchor="middle">contentPane : BorderLayout</text>
+<path class="ln" d="M22 46 L22 148"/>
+<rect class="bx t" x="36" y="56" width="164" height="26" rx="6"/>
+<text x="118" y="73" class="m" text-anchor="middle">NORTH : JTextField</text>
+<path class="ln" d="M22 69 L36 69"/>
+<rect class="bx a" x="36" y="92" width="164" height="26" rx="6"/>
+<text x="118" y="109" class="m" text-anchor="middle">CENTER : JButton</text>
+<path class="ln" d="M22 105 L36 105"/>
+<rect class="bx p" x="36" y="128" width="164" height="42" rx="6"/>
+<text x="118" y="146" class="m k" text-anchor="middle">SOUTH : Cadran</text>
+<text x="118" y="160" class="s" text-anchor="middle">JPanel, GridLayout(4, 3)</text>
+<path class="ln" d="M22 148 L36 148"/>
+<path class="ln" d="M50 170 L50 212"/>
+<rect class="bx p" x="64" y="190" width="136" height="44" rx="6"/>
+<text x="132" y="209" class="m k" text-anchor="middle">12 × JButton</text>
+<text x="132" y="223" class="s" text-anchor="middle">1 à 9, Bis, 0, Reset</text>
+<path class="ln" d="M50 212 L64 212"/>
+<rect class="bx p" x="210" y="6" width="112" height="228" rx="6"/>
+<rect class="bx p" x="210" y="6" width="112" height="16" rx="6"/>
+<text x="266" y="18" class="s" text-anchor="middle">IHMTel</text>
+<rect class="bx t" x="216" y="28" width="100" height="20" rx="6"/>
+<text x="266" y="42" class="s" text-anchor="middle">NORTH</text>
+<rect class="bx a" x="216" y="52" width="100" height="36" rx="6"/>
+<text x="266" y="74" class="m k" text-anchor="middle">OK</text>
+<rect class="bx p" x="216" y="94" width="100" height="134" rx="6"/>
+<rect class="bx p" x="219" y="99" width="30" height="28" rx="6"/>
+<text x="234" y="117" class="m xs" text-anchor="middle">1</text>
+<rect class="bx p" x="251" y="99" width="30" height="28" rx="6"/>
+<text x="266" y="117" class="m xs" text-anchor="middle">2</text>
+<rect class="bx p" x="283" y="99" width="30" height="28" rx="6"/>
+<text x="298" y="117" class="m xs" text-anchor="middle">3</text>
+<rect class="bx p" x="219" y="131" width="30" height="28" rx="6"/>
+<text x="234" y="149" class="m xs" text-anchor="middle">4</text>
+<rect class="bx p" x="251" y="131" width="30" height="28" rx="6"/>
+<text x="266" y="149" class="m xs" text-anchor="middle">5</text>
+<rect class="bx p" x="283" y="131" width="30" height="28" rx="6"/>
+<text x="298" y="149" class="m xs" text-anchor="middle">6</text>
+<rect class="bx p" x="219" y="163" width="30" height="28" rx="6"/>
+<text x="234" y="181" class="m xs" text-anchor="middle">7</text>
+<rect class="bx p" x="251" y="163" width="30" height="28" rx="6"/>
+<text x="266" y="181" class="m xs" text-anchor="middle">8</text>
+<rect class="bx p" x="283" y="163" width="30" height="28" rx="6"/>
+<text x="298" y="181" class="m xs" text-anchor="middle">9</text>
+<rect class="bx p" x="219" y="195" width="30" height="28" rx="6"/>
+<text x="234" y="213" class="m xs" text-anchor="middle">Bis</text>
+<rect class="bx p" x="251" y="195" width="30" height="28" rx="6"/>
+<text x="266" y="213" class="m xs" text-anchor="middle">0</text>
+<rect class="bx p" x="283" y="195" width="30" height="28" rx="6"/>
+<text x="298" y="213" class="m xs" text-anchor="middle">Reset</text>
+</svg>
+<figcaption><b>À retenir :</b> un conteneur contient des composants et son layout les place ; un <code>JPanel</code> imbriqué peut avoir un autre layout (ici <code>GridLayout</code>). Même couleur = même composant dans l'arbre et dans la fenêtre.</figcaption>
+</figure>
+<!-- /tfig:swing-arbre -->
+
   <h3 class="ev-h3">2. Les layouts en dessin</h3>
   <div class="t5-lays">
     <figure class="t5-lay"><div class="lay-border"><span style="grid-area:n">NORTH</span><span style="grid-area:w">WEST</span><span style="grid-area:c">CENTER</span><span style="grid-area:e">EAST</span><span style="grid-area:s">SOUTH</span></div>
@@ -351,6 +742,46 @@ public class Utilisation {
     <figure class="t5-lay"><div class="lay-flow"><span>OK</span><span>Annuler</span><span>Aide</span><span>Quitter</span><span>Suite</span></div>
       <figcaption><b>FlowLayout</b> : défaut de <code>JPanel</code>. Composants à la suite, retour à la ligne s'il manque de la place.</figcaption></figure>
   </div>
+
+  <!-- tfig:swing-evenement -->
+<figure class="ev-fig tfig">
+<svg viewBox="0 0 330 250" role="img" aria-label="Cycle d'un événement Swing : l'écouteur s'abonne au bouton une fois, puis chaque clic de l'utilisateur appelle actionPerformed"><defs><marker id="tm-swing-evenement-a" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path class="mk a" d="M0 0.5 L8.5 4.5 L0 8.5 z"/></marker><marker id="tm-swing-evenement-k" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path class="mk " d="M0 0.5 L8.5 4.5 L0 8.5 z"/></marker></defs>
+<rect class="bx p" x="4" y="4" width="96" height="34" rx="6"/>
+<text x="52" y="25" class="k" text-anchor="middle">Utilisateur</text>
+<path class="life" d="M52 38 L52 246"/>
+<rect class="bx t" x="117" y="4" width="96" height="34" rx="6"/>
+<text x="165" y="18" class="m k" text-anchor="middle">JButton</text>
+<text x="165" y="32" class="s" text-anchor="middle">la source</text>
+<path class="life" d="M165 38 L165 246"/>
+<rect class="bx a" x="230" y="4" width="96" height="34" rx="6"/>
+<text x="278" y="18" class="k" text-anchor="middle">Écouteur</text>
+<text x="278" y="32" class="s" text-anchor="middle">ActionListener</text>
+<path class="life" d="M278 38 L278 246"/>
+<text x="8" y="54" class="h lb" text-anchor="start">Au démarrage, une seule fois</text>
+<path class="ln d a" d="M278 84 L167 84" marker-end="url(#tm-swing-evenement-a)"/>
+<text x="221" y="78" class="m s lb" text-anchor="middle">addActionListener(l)</text>
+<path class="ln m d" d="M8 100 L322 100"/>
+<text x="8" y="116" class="h lb" text-anchor="start">À chaque clic</text>
+<path class="ln" d="M52 138 L163 138" marker-end="url(#tm-swing-evenement-k)"/>
+<text x="108" y="132" class="k lb" text-anchor="middle">clic</text>
+<rect class="bx a" x="113" y="148" width="104" height="32" rx="6"/>
+<text x="165" y="161" class="m k s" text-anchor="middle">ActionEvent e</text>
+<text x="165" y="175" class="s" text-anchor="middle">créé par la source</text>
+<path class="ln" d="M165 196 L276 196" marker-end="url(#tm-swing-evenement-k)"/>
+<text x="221" y="190" class="m s lb" text-anchor="middle">actionPerformed(e)</text>
+<rect class="bx g" x="230" y="204" width="96" height="36" rx="6"/>
+<text x="278" y="219" class="m k s" text-anchor="middle">e.getSource()</text>
+<text x="278" y="233" class="s" text-anchor="middle">= quel bouton ?</text>
+<circle class="nb" cx="24" cy="84" r="8"/>
+<text class="nt" x="24" y="88" text-anchor="middle">0</text>
+<circle class="nb" cx="24" cy="138" r="8"/>
+<text class="nt" x="24" y="142" text-anchor="middle">1</text>
+<circle class="nb" cx="24" cy="196" r="8"/>
+<text class="nt" x="24" y="200" text-anchor="middle">2</text>
+</svg>
+<figcaption><b>À retenir :</b> sans <code>addActionListener</code>, le clic ne fait rien. La source crée l'événement puis appelle <code>actionPerformed</code> sur chaque écouteur abonné ; <code>e.getSource()</code> dit quel bouton a été cliqué.</figcaption>
+</figure>
+<!-- /tfig:swing-evenement -->
 
   <h3 class="ev-h3">3. Un listener, trois écritures équivalentes</h3>
 <pre class="code hl">class Ecouteur implements ActionListener {                    // (A) classe interne
@@ -432,6 +863,36 @@ bouton.addActionListener(e -&gt; c++);   // ERREUR de compilation
       <tr><td data-l="Besoin">Pop-up</td><td data-l="Composant"><code>JOptionPane</code></td><td data-l="Méthode"><code>showMessageDialog</code>, <code>showInputDialog</code></td></tr>
       <tr><td data-l="Besoin">Dessiner</td><td data-l="Composant"><code>JPanel</code> + <code>paintComponent(Graphics g)</code></td><td data-l="Méthode"><code>super.paintComponent(g)</code>, puis <code>repaint()</code> pour redessiner</td></tr>
     </tbody></table></div>
+<!-- tfig:txt-swing-conteneurs -->
+<h3 class="ev-h3">6. Conteneurs, AWT ou Swing, positionnement absolu, boîtes de dialogue</h3>
+<div class="ev-grid">
+<div class="ev-card"><h4>Conteneurs</h4><ul><li><b>Racine (top-level)</b> : <code>JFrame</code> (fenêtre principale), <code>JDialog</code>, <code>JWindow</code>. Une interface en a au moins un.</li><li><b>Intermédiaires</b> : <code>JPanel</code>, <code>JScrollPane</code>… On les place dans un conteneur racine.</li><li>Chaque conteneur racine a un <b>content pane</b> : <code>frame.getContentPane().add(c)</code> ; <code>frame.add(c)</code> fait la même chose.</li><li>Taille : <code>pack()</code> (taille préférée du contenu), <code>setSize(l, h)</code>, <code>setBounds(x, y, l, h)</code>.</li><li><code>setDefaultCloseOperation</code> : par défaut <code>HIDE_ON_CLOSE</code> (la fenêtre se cache, la JVM continue) ; <code>EXIT_ON_CLOSE</code> appelle <code>System.exit()</code>.</li></ul></div>
+<div class="ev-card"><h4>AWT ou Swing ?</h4><ul><li><b>AWT</b> : <code>java.awt</code> (composants natifs, plus limités, déconseillé) et <code>java.awt.event</code> (événements).</li><li><b>Swing</b> : <code>javax.swing</code>, noms en <code>J…</code>, composants « légers » écrits en Java, portables, look and feel modifiable.</li><li>Les <b>layouts</b>, <code>Color</code> et les <b>événements</b> restent dans <code>java.awt</code> : sans <code>import java.awt.*;</code>, <code>BorderLayout</code> est introuvable.</li><li>Autres composants : <code>JList</code> (<code>getSelectedValue()</code>, <code>getSelectedIndex()</code>), <code>JPopupMenu</code>, <code>JFileChooser</code>.</li></ul></div>
+</div>
+<p><b>Sans layout, c'est à toi de placer chaque composant</b> : on met le layout à <code>null</code>, puis on appelle <code>setBounds</code> sur chaque composant. Sans cet appel sa taille reste 0 × 0 et il est invisible.</p>
+<pre class="code hl">JPanel p = new JPanel(null);              // ou p.setLayout(null) : plus de layout manager
+JButton ok = new JButton("OK");
+p.add(ok);                                // ok.getWidth() × ok.getHeight() vaut 0 × 0 : invisible
+ok.setBounds(20, 30, 100, 25);            // x, y, largeur, hauteur → 100 × 25 en (20, 30)</pre>
+<ul><li><code>BoxLayout</code> : une colonne ou une ligne, avec contrôle des espaces ; l'essentiel de <code>GridBagLayout</code> sans sa complexité.</li><li><code>GridBagLayout</code> : contrôle très fin, très compliqué ; pensé pour les générateurs d'interfaces (GUI builders).</li><li><code>null</code> + <code>setBounds</code> : positionnement absolu en pixels, qui ne s'adapte pas quand on redimensionne la fenêtre.</li><li>Deux composants dans <code>CENTER</code> : le cours dit « ils se superposent » ; en pratique les deux restent dans le conteneur mais seul le dernier est placé (le premier garde une largeur de 0).</li></ul>
+<h3 class="ev-h3">Deux extraits du cours à savoir lire</h3>
+<div class="ev-grid">
+<div class="ev-card"><h4>Choisir un fichier (JFileChooser)</h4><pre class="code hl">JFileChooser choix = new JFileChooser();        // boîte « Ouvrir »
+int reponse = choix.showOpenDialog(null);       // bloque jusqu'à la réponse
+if (reponse == JFileChooser.APPROVE_OPTION) {   // OK, et non « Annuler »
+    File f = choix.getSelectedFile();           // un File : à lire avec Scanner
+}</pre><p class="ev-small"><code>showOpenDialog</code> renvoie un <code>int</code> ; <code>getSelectedFile()</code> un <code>File</code>.</p></div>
+<div class="ev-card"><h4>Un listener qui lit un champ (FactorielleGUI)</h4><pre class="code hl">public void actionPerformed(ActionEvent e) {
+    try {
+        int n = Integer.parseInt(champ.getText());
+        resultat.setText(String.valueOf(factorielle(n)));
+    } catch (NumberFormatException ex) {
+        resultat.setText("Entier attendu");   // champ = "abc"
+    }
+}</pre><p class="ev-small"><code>getText()</code> renvoie toujours une <code>String</code> : <code>parseInt</code> puis <code>String.valueOf</code> pour réafficher. Avec <code>5</code> le label affiche <code>120</code> ; la méthode <code>factorielle</code> est <code>static</code> (appelée sans objet).</p></div>
+</div>
+<!-- /tfig:txt-swing-conteneurs -->
+
 </section>
 
 <!-- ================= MVC ================= -->
@@ -456,6 +917,37 @@ bouton.addActionListener(e -&gt; c++);   // ERREUR de compilation
     </svg>
     <figcaption>Le cycle d'un clic. Trait plein : appel direct. Trait pointillé : notification par l'interface Listener.</figcaption>
   </figure>
+
+  <!-- tfig:mvc-connaissances -->
+<figure class="ev-fig tfig">
+<svg viewBox="0 0 330 252" role="img" aria-label="Qui connaît qui en MVC : le contrôleur connaît la vue et le modèle ; le modèle ne connaît que l'interface CompteurListener que la vue implémente"><defs><marker id="tm-mvc-connaissances-k" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path class="mk " d="M0 0.5 L8.5 4.5 L0 8.5 z"/></marker><marker id="tm-mvc-connaissances-tri" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path class="mk tri" d="M1 1 L9 5 L1 9 z"/></marker></defs>
+<rect class="bx a" x="106" y="6" width="118" height="40" rx="6"/>
+<text x="165" y="23" class="k" text-anchor="middle">CONTRÔLEUR</text>
+<text x="165" y="37" class="m s" text-anchor="middle">ActionListener</text>
+<rect class="bx t" x="6" y="112" width="118" height="46" rx="6"/>
+<text x="65" y="132" class="k" text-anchor="middle">VUE</text>
+<text x="65" y="146" class="m s" text-anchor="middle">JFrame, JLabel…</text>
+<rect class="bx g" x="206" y="112" width="118" height="46" rx="6"/>
+<text x="265" y="132" class="k" text-anchor="middle">MODÈLE</text>
+<text x="265" y="146" class="s" text-anchor="middle">données + règles</text>
+<rect class="bx p" x="108" y="200" width="114" height="44" rx="6"/>
+<text x="165" y="219" class="s" text-anchor="middle">«interface»</text>
+<text x="165" y="233" class="m k s" text-anchor="middle">CompteurListener</text>
+<path class="ln" d="M132 46 L70 112" marker-end="url(#tm-mvc-connaissances-k)"/>
+<text x="76" y="74" class="s lb" text-anchor="middle">connaît</text>
+<path class="ln" d="M198 46 L262 112" marker-end="url(#tm-mvc-connaissances-k)"/>
+<text x="256" y="74" class="s lb" text-anchor="middle">connaît</text>
+<path class="ln d" d="M70 158 L128 200" marker-end="url(#tm-mvc-connaissances-tri)"/>
+<text x="54" y="188" class="s" text-anchor="start">implements</text>
+<path class="ln" d="M262 158 L204 200" marker-end="url(#tm-mvc-connaissances-k)"/>
+<text x="276" y="188" class="s" text-anchor="end">liste d'abonnés</text>
+<path class="ln r d" d="M204 135 L126 135"/>
+<path class="ln r" d="M159 129 L171 141 M159 141 L171 129"/>
+<text x="165" y="155" class="s r k" text-anchor="middle">jamais</text>
+</svg>
+<figcaption><b>À retenir :</b> trait plein = « connaît / appelle ». Le contrôleur connaît la vue et le modèle ; le modèle ne connaît que l'interface <code>CompteurListener</code>, jamais la vue, jamais Swing.</figcaption>
+</figure>
+<!-- /tfig:mvc-connaissances -->
 
   <h3 class="ev-h3">Le compteur MVC, en 4 classes, expliqué</h3>
 <pre class="code hl">// ===== MODÈLE : données + règles. AUCUN import javax.swing =====
@@ -521,6 +1013,47 @@ SwingUtilities.invokeLater(() -&gt; {
       <tr><td data-l="Action">6<sup>e</sup> clic « +1 » (valeur 5)</td><td data-l="Passe"><code>valeur &gt;= max</code> : l'exception est lancée <b>avant</b> <code>valeur++</code> et <code>prevenir()</code> ; le contrôleur l'attrape</td><td data-l="Affichage"><code>5</code> + « Maximum 5 atteint »</td></tr>
       <tr><td data-l="Action">Clic « RAZ » ensuite</td><td data-l="Passe"><code>valeur = 0</code> → <code>prevenir()</code> → la vue remet le chiffre <b>et efface l'erreur</b></td><td data-l="Affichage"><code>0</code></td></tr>
     </tbody></table></div>
+<!-- tfig:mvc-exception -->
+<figure class="ev-fig tfig">
+<svg viewBox="0 0 330 270" role="img" aria-label="Chemin d'une exception métier : la vue envoie le clic au contrôleur, le modèle lance l'exception, le contrôleur l'attrape et demande à la vue d'afficher l'erreur"><defs><marker id="tm-mvc-exception-k" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path class="mk " d="M0 0.5 L8.5 4.5 L0 8.5 z"/></marker><marker id="tm-mvc-exception-r" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path class="mk r" d="M0 0.5 L8.5 4.5 L0 8.5 z"/></marker></defs>
+<rect class="bx t" x="4" y="4" width="96" height="28" rx="6"/>
+<text x="52" y="22" class="k" text-anchor="middle">VUE</text>
+<path class="life" d="M52 32 L52 258"/>
+<rect class="bx a" x="117" y="4" width="96" height="28" rx="6"/>
+<text x="165" y="22" class="k" text-anchor="middle">CONTRÔLEUR</text>
+<path class="life" d="M165 32 L165 258"/>
+<rect class="bx g" x="230" y="4" width="96" height="28" rx="6"/>
+<text x="278" y="22" class="k" text-anchor="middle">MODÈLE</text>
+<path class="life" d="M278 32 L278 258"/>
+<path class="ln" d="M52 62 L163 62" marker-end="url(#tm-mvc-exception-k)"/>
+<text x="108" y="56" class="m s lb" text-anchor="middle">actionPerformed</text>
+<path class="ln" d="M165 96 L276 96" marker-end="url(#tm-mvc-exception-k)"/>
+<text x="221" y="90" class="m s lb" text-anchor="middle">incrementer()</text>
+<rect class="bx r" x="230" y="104" width="96" height="50" rx="6"/>
+<text x="278" y="119" class="m s" text-anchor="middle">valeur &gt;= max</text>
+<text x="278" y="133" class="m s k" text-anchor="middle">→ throw</text>
+<text x="278" y="147" class="s" text-anchor="middle">rien modifié</text>
+<path class="ln d r" d="M274 176 L167 176" marker-end="url(#tm-mvc-exception-r)"/>
+<text x="221" y="170" class="m s lb" text-anchor="middle">IllegalStateException</text>
+<rect class="bx a" x="113" y="186" width="104" height="22" rx="6"/>
+<text x="165" y="201" class="m s" text-anchor="middle">catch (…)</text>
+<path class="ln" d="M165 226 L54 226" marker-end="url(#tm-mvc-exception-k)"/>
+<text x="108" y="220" class="m s lb" text-anchor="middle">afficherErreur(msg)</text>
+<rect class="bx t" x="4" y="240" width="96" height="22" rx="6"/>
+<text x="52" y="255" class="s" text-anchor="middle">affiche l'erreur</text>
+<circle class="nb" cx="24" cy="62" r="8"/>
+<text class="nt" x="24" y="66" text-anchor="middle">1</text>
+<circle class="nb" cx="24" cy="96" r="8"/>
+<text class="nt" x="24" y="100" text-anchor="middle">2</text>
+<circle class="nb" cx="24" cy="176" r="8"/>
+<text class="nt" x="24" y="180" text-anchor="middle">3</text>
+<circle class="nb" cx="24" cy="226" r="8"/>
+<text class="nt" x="24" y="230" text-anchor="middle">4</text>
+</svg>
+<figcaption><b>À retenir :</b> l'exception métier naît dans le <b>modèle</b>, est attrapée par le <b>contrôleur</b>, affichée par la <b>vue</b>. Le <code>throw</code> arrive avant toute modification : le modèle ne prévient pas la vue.</figcaption>
+</figure>
+<!-- /tfig:mvc-exception -->
+
   <div class="ev-grid">
     <div class="ev-card"><h4>Qui connaît qui ?</h4><ul>
       <li><b>Contrôleur</b> : connaît la vue <b>et</b> le modèle.</li>
@@ -536,6 +1069,51 @@ SwingUtilities.invokeLater(() -&gt; {
       <li>Comment tester le modèle ? Dans un <code>main</code> <b>console</b>, sans fenêtre.</li>
     </ul></div>
   </div>
+<!-- tfig:txt-mvc-cadran -->
+<h3 class="ev-h3">Le Cadran du TP6 en MVC (le sujet du TP7)</h3>
+<p>Le TP7 demande de reprendre le cadran de téléphone et de le répartir en trois rôles. Le <code>Cadran</code> du TP6 mélange tout : il affiche, écoute <b>et</b> garde les règles. On le découpe ainsi :</p>
+<div class="tbl-wrap ev-stack"><table class="tbl">
+<thead><tr><th>Élément du TP6</th><th>Rôle MVC</th><th>Pourquoi</th></tr></thead>
+<tbody>
+<tr><td data-l="Élément du TP6">le numéro affiché, <code>numeroValide</code>, la règle « 8 chiffres maximum », les actions Reset, OK, Bis</td><td data-l="Rôle MVC"><b>Modèle</b> <code>CadranModele</code></td><td data-l="Pourquoi">ce sont des données et des règles ; testables sans fenêtre, sans <code>import javax.swing</code></td></tr>
+<tr><td data-l="Élément du TP6"><code>JTextField</code>, 12 <code>JButton</code>, <code>GridLayout</code>, <code>pack()</code></td><td data-l="Rôle MVC"><b>Vue</b> <code>CadranVue</code></td><td data-l="Pourquoi">affichage seulement ; une méthode <code>afficher(String)</code> et une méthode pour s'abonner aux boutons</td></tr>
+<tr><td data-l="Élément du TP6"><code>actionPerformed</code> : <code>e.getSource()</code> puis appel d'une méthode du modèle</td><td data-l="Rôle MVC"><b>Contrôleur</b> <code>CadranControleur</code></td><td data-l="Pourquoi">traduit un clic en appel du modèle, puis demande à la vue de se rafraîchir</td></tr>
+</tbody></table></div>
+<pre class="code hl">public class CadranModele {                                   // aucun import Swing
+    private String saisie = "";
+    private String numeroValide = "";
+    public String getSaisie() { return saisie; }
+    public void ajouterChiffre(String c) { if (saisie.length() &lt; 8) saisie += c; }   // la règle est ICI
+    public void reset()  { saisie = ""; }
+    public void valider() { numeroValide = saisie; }
+    public void bis()    { saisie = numeroValide; }
+}
+
+public class CadranControleur implements ActionListener {
+    private final CadranModele modele;
+    private final CadranVue vue;
+    public CadranControleur(CadranModele m, CadranVue v) { modele = m; vue = v; v.ecouter(this); }
+    @Override public void actionPerformed(ActionEvent e) {
+        Object source = e.getSource();
+        if (source == vue.reset)      modele.reset();
+        else if (source == vue.ok)    modele.valider();
+        else if (source == vue.bis)   modele.bis();
+        else modele.ajouterChiffre(((JButton) source).getText());   // un chiffre
+        vue.afficher(modele.getSaisie());                           // la vue relit le modèle
+    }
+}</pre>
+<p>Le modèle se teste dans un <code>main</code> console, sans aucune fenêtre :</p>
+<pre class="code hl">CadranModele m = new CadranModele();
+m.ajouterChiffre("1"); m.ajouterChiffre("2");
+m.valider(); m.reset();
+System.out.println("[" + m.getSaisie() + "]");     // []
+m.bis();
+System.out.println("[" + m.getSaisie() + "]");     // [12]
+for (int i = 0; i &lt; 9; i++) m.ajouterChiffre("7");
+System.out.println(m.getSaisie());                  // 12777777  (8 chiffres : le 9e est refusé)</pre>
+<p class="ev-small">Ici le contrôleur appelle <code>vue.afficher(...)</code> lui-même ; avec le compteur ci-dessus c'est le modèle qui prévient la vue (observateur). Les deux versions sont acceptables, à condition que le <b>modèle</b> garde les règles.</p>
+<!-- /tfig:txt-mvc-cadran -->
+
 </section>
 
 <!-- ================= PIÈGES ================= -->
@@ -566,6 +1144,18 @@ SwingUtilities.invokeLater(() -&gt; {
     <div class="trap"><b>19 · MVC</b>Le modèle n'importe jamais Swing et n'appelle jamais un composant.</div>
     <div class="trap"><b>20 · Exception métier</b>Lancée par le modèle, attrapée par le contrôleur, affichée par la vue.</div>
   </div>
+<!-- tfig:txt-pieges-plus -->
+<h3 class="ev-h3">Après les 20 pièges : détails du cours qui tombent aussi</h3>
+<ol class="ev-must"><li><span class="ev-small">Tu crois ou tu écris :</span> <code>new File("a.txt")</code> crée le fichier<br><b>En réalité :</b> non : c'est un chemin ; <code>exists()</code> reste <code>false</code> tant que rien n'est écrit</li><li><span class="ev-small">Tu crois ou tu écris :</span> <code>e.printStackTrace()</code> arrête le programme<br><b>En réalité :</b> non : il écrit la pile sur <code>System.err</code> et l'exécution continue après le <code>catch</code></li><li><span class="ev-small">Tu crois ou tu écris :</span> <code>public void m() throw IOException</code><br><b>En réalité :</b> ne compile pas : <code>throws</code>, après les parenthèses (<code>throw</code> lance, dans le corps)</li><li><span class="ev-small">Tu crois ou tu écris :</span> <code>readObject()</code> avant le <code>readInt()</code> écrit en premier<br><b>En réalité :</b> <code>OptionalDataException</code> : on relit dans l'ordre d'écriture</li><li><span class="ev-small">Tu crois ou tu écris :</span> <code>listFiles()</code> renvoie des noms<br><b>En réalité :</b> il renvoie un <code>File[]</code> ; <code>list()</code> renvoie un <code>String[]</code></li><li><span class="ev-small">Tu crois ou tu écris :</span> un bouton ajouté à un panneau sans layout est visible<br><b>En réalité :</b> taille 0 × 0 tant qu'on n'appelle pas <code>setBounds(x, y, l, h)</code></li><li><span class="ev-small">Tu crois ou tu écris :</span> <code>showOpenDialog</code> renvoie le fichier<br><b>En réalité :</b> il renvoie un <code>int</code> à comparer à <code>JFileChooser.APPROVE_OPTION</code> ; le fichier : <code>getSelectedFile()</code></li><li><span class="ev-small">Tu crois ou tu écris :</span> <code>e.getSource()</code> renvoie un <code>JButton</code><br><b>En réalité :</b> il renvoie un <code>Object</code> : <code>((JButton) source).getText()</code></li><li><span class="ev-small">Tu crois ou tu écris :</span> la règle « 8 chiffres » du cadran va dans <code>actionPerformed</code><br><b>En réalité :</b> elle va dans le <b>modèle</b> ; le contrôleur appelle seulement <code>ajouterChiffre</code></li></ol>
+<h3 class="ev-h3">Checklists de relecture</h3>
+<div class="ev-grid">
+<div class="ev-card"><h4>Question d'exception</h4><ul><li>Une vérifiée est-elle lancée sans <code>try</code> ni <code>throws</code> ?</li><li>Les <code>catch</code> vont-ils de la fille à la mère ?</li><li>Quelle ligne lance ? Tout ce qui suit dans le <code>try</code> est sauté.</li><li>Le <code>finally</code> s'exécute-t-il ? Oui, sauf <code>System.exit</code> ; un <code>return</code> dedans écrase l'autre.</li><li>Le message vient-il de <code>super(message)</code> ?</li></ul></div>
+<div class="ev-card"><h4>Question de fichier</h4><ul><li>Texte (<code>Scanner</code>, <code>PrintWriter</code>) ou objets (<code>Object…Stream</code>) ?</li><li><code>FileWriter</code> : écrase ou ajoute (<code>true</code>) ?</li><li>Le flux est-il fermé (<code>close()</code> ou try-with-resources) ?</li><li>Sérialisation : <code>Serializable</code>, <code>transient</code>, <code>static</code>, cast, même ordre.</li><li>Exceptions : <code>FileNotFoundException</code> avant <code>IOException</code>.</li></ul></div>
+<div class="ev-card"><h4>Question Swing</h4><ul><li>Quel layout (JFrame : Border, JPanel : Flow) et quelle zone ?</li><li>Un <code>addActionListener</code> est-il branché sur chaque bouton ?</li><li>Lambda : variable locale effectivement finale, une seule méthode abstraite.</li><li><code>setVisible(true)</code>, <code>pack()</code> et <code>EXIT_ON_CLOSE</code> sont-ils présents ?</li><li><code>getText()</code> donne une <code>String</code> : conversion nécessaire.</li></ul></div>
+<div class="ev-card"><h4>Question MVC</h4><ul><li>Le modèle importe-t-il Swing ? Il ne doit pas.</li><li>Qui connaît qui : contrôleur → vue et modèle ; modèle → seulement une interface.</li><li>Où est la règle métier ? Dans le modèle (exception lancée ici).</li><li>Qui attrape l'exception ? Le contrôleur. Qui affiche ? La vue.</li><li>Peut-on tester le modèle sans fenêtre ? Oui, c'est le but.</li></ul></div>
+</div>
+<!-- /tfig:txt-pieges-plus -->
+
 </section>
 
 <!-- ================= QCM ================= -->

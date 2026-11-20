@@ -99,6 +99,273 @@
     <h2>Les pièges des chapitres 1 à 4</h2>
     <p>Pour les chapitres 5 à 7, voir la page <a href="test5.html#pieges">Test 5</a> (20 pièges).</p>
   </div>
+<!-- tfig:grp-final -->
+<h3 class="ev-h3">Sept schémas à savoir refaire</h3>
+<div class="tfig-grid">
+<!-- tfig:fin-references -->
+<figure class="ev-fig tfig">
+<svg viewBox="0 0 330 262" role="img" aria-label="Références : a et b désignent le même objet, c un autre objet de même contenu ; == compare les adresses, equals le contenu"><defs><marker id="tm-fin-references-k" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path class="mk " d="M0 0.5 L8.5 4.5 L0 8.5 z"/></marker></defs>
+<text x="165" y="14" class="m s" text-anchor="middle">String a = "hi";   String b = a;</text>
+<text x="165" y="30" class="m s" text-anchor="middle">String c = new String("hi");</text>
+<text x="50" y="54" class="s" text-anchor="middle">variables</text>
+<text x="250" y="54" class="s" text-anchor="middle">objets</text>
+<rect class="bx p" x="14" y="62" width="72" height="24" rx="6"/>
+<text x="50" y="78" class="m k" text-anchor="middle">a</text>
+<rect class="bx p" x="14" y="96" width="72" height="24" rx="6"/>
+<text x="50" y="112" class="m k" text-anchor="middle">b</text>
+<rect class="bx p" x="14" y="130" width="72" height="24" rx="6"/>
+<text x="50" y="146" class="m k" text-anchor="middle">c</text>
+<rect class="bx t" x="200" y="66" width="100" height="40" rx="6"/>
+<text x="250" y="83" class="m k" text-anchor="middle">"hi"</text>
+<text x="250" y="97" class="s" text-anchor="middle">objet n°1</text>
+<rect class="bx t" x="200" y="124" width="100" height="40" rx="6"/>
+<text x="250" y="141" class="m k" text-anchor="middle">"hi"</text>
+<text x="250" y="155" class="s" text-anchor="middle">objet n°2</text>
+<path class="ln" d="M86 74 L200 82" marker-end="url(#tm-fin-references-k)"/>
+<path class="ln" d="M86 108 L200 94" marker-end="url(#tm-fin-references-k)"/>
+<path class="ln" d="M86 142 L200 144" marker-end="url(#tm-fin-references-k)"/>
+<rect class="bx g" x="8" y="180" width="314" height="24" rx="6"/>
+<text x="18" y="196" class="m k" text-anchor="start">a == b</text>
+<text x="312" y="196" class="k g" text-anchor="end">true : même objet</text>
+<rect class="bx r" x="8" y="208" width="314" height="24" rx="6"/>
+<text x="18" y="224" class="m k" text-anchor="start">a == c</text>
+<text x="312" y="224" class="k r" text-anchor="end">false : deux objets</text>
+<rect class="bx g" x="8" y="236" width="314" height="24" rx="6"/>
+<text x="18" y="252" class="m k" text-anchor="start">a.equals(c)</text>
+<text x="312" y="252" class="k g" text-anchor="end">true : même contenu</text>
+</svg>
+<figcaption><b>À retenir :</b> une variable objet contient une <b>adresse</b>. <code>b = a</code> copie l'adresse (un seul objet), <code>==</code> compare les adresses, <code>equals</code> compare le contenu.</figcaption>
+</figure>
+<!-- /tfig:fin-references -->
+<!-- tfig:fin-passage-valeur -->
+<figure class="ev-fig tfig">
+<svg viewBox="0 0 330 284" role="img" aria-label="Passage par valeur : la méthode reçoit une copie de la référence ; modifier l'objet est visible chez l'appelant, réaffecter le paramètre ne l'est pas"><defs><marker id="tm-fin-passage-valeur-a" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path class="mk a" d="M0 0.5 L8.5 4.5 L0 8.5 z"/></marker><marker id="tm-fin-passage-valeur-k" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path class="mk " d="M0 0.5 L8.5 4.5 L0 8.5 z"/></marker></defs>
+<text x="165" y="16" class="m s" text-anchor="middle">void m(Point p) { p.x = 9;  p = new Point(); }</text>
+<rect class="bx p" x="8" y="30" width="314" height="108" rx="6"/>
+<text x="18" y="46" class="h" text-anchor="start">1 · p.x = 9 : on modifie l'objet</text>
+<rect class="bx p" x="8" y="146" width="314" height="112" rx="6"/>
+<text x="18" y="162" class="h" text-anchor="start">2 · p = new Point() : on change p seulement</text>
+<rect class="bx t" x="18" y="62" width="92" height="24" rx="6"/>
+<text x="64" y="78" class="m s" text-anchor="middle">pt (appelant)</text>
+<rect class="bx t" x="18" y="94" width="92" height="24" rx="6"/>
+<text x="64" y="110" class="m s" text-anchor="middle">p (copie)</text>
+<rect class="bx a" x="210" y="68" width="100" height="44" rx="6"/>
+<text x="260" y="87" class="m k" text-anchor="middle">Point</text>
+<text x="260" y="101" class="m" text-anchor="middle">x = 9</text>
+<path class="ln" d="M110 74 L210 82" marker-end="url(#tm-fin-passage-valeur-k)"/>
+<path class="ln" d="M110 106 L210 98" marker-end="url(#tm-fin-passage-valeur-k)"/>
+<text x="165" y="132" class="s g k" text-anchor="middle">même objet : visible chez l'appelant</text>
+<rect class="bx t" x="18" y="180" width="92" height="24" rx="6"/>
+<text x="64" y="196" class="m s" text-anchor="middle">pt (appelant)</text>
+<rect class="bx t" x="18" y="214" width="92" height="24" rx="6"/>
+<text x="64" y="230" class="m s" text-anchor="middle">p (copie)</text>
+<rect class="bx a" x="210" y="168" width="100" height="34" rx="6"/>
+<text x="260" y="183" class="m k s" text-anchor="middle">Point</text>
+<text x="260" y="195" class="m s" text-anchor="middle">x = 9</text>
+<rect class="bx p" x="210" y="212" width="100" height="34" rx="6"/>
+<text x="260" y="227" class="m k s" text-anchor="middle">nouveau Point</text>
+<text x="260" y="239" class="m s" text-anchor="middle">x = 0</text>
+<path class="ln" d="M110 190 L210 186" marker-end="url(#tm-fin-passage-valeur-k)"/>
+<path class="ln a" d="M110 226 L210 229" marker-end="url(#tm-fin-passage-valeur-a)"/>
+<text x="165" y="266" class="s r k" text-anchor="middle">seul p est redirigé : pt ne bouge pas</text>
+</svg>
+<figcaption><b>À retenir :</b> la méthode reçoit une <b>copie</b> de la référence. Elle peut modifier l'objet pointé, mais réaffecter son paramètre ne change pas la variable de l'appelant (et un <code>int</code> est copié : l'original ne bouge jamais).</figcaption>
+</figure>
+<!-- /tfig:fin-passage-valeur -->
+<!-- tfig:fin-deux-regards -->
+<figure class="ev-fig tfig">
+<svg viewBox="0 0 330 282" role="img" aria-label="Type déclaré et type réel : Mere m = new Fille() ; le compilateur regarde le type déclaré, l'exécution regarde le type réel pour les méthodes redéfinies"><defs><marker id="tm-fin-deux-regards-k" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path class="mk " d="M0 0.5 L8.5 4.5 L0 8.5 z"/></marker></defs>
+<rect class="bx t" x="8" y="8" width="112" height="42" rx="6"/>
+<text x="64" y="26" class="m k" text-anchor="middle">Mere m</text>
+<text x="64" y="40" class="s" text-anchor="middle">type déclaré</text>
+<path class="ln" d="M120 29 L200 29" marker-end="url(#tm-fin-deux-regards-k)"/>
+<rect class="bx g" x="200" y="8" width="122" height="42" rx="6"/>
+<text x="261" y="26" class="m k" text-anchor="middle">new Fille()</text>
+<text x="261" y="40" class="s" text-anchor="middle">type réel</text>
+<rect class="bx t" x="8" y="64" width="70" height="38" rx="6"/>
+<text x="43" y="87" class="k" text-anchor="middle">déclaré</text>
+<rect class="bx p" x="84" y="64" width="238" height="38" rx="6"/>
+<text x="92" y="80" text-anchor="start">Ça compile ? Seules les méthodes</text>
+<text x="92" y="94" text-anchor="start">de Mere sont permises sur m</text>
+<rect class="bx g" x="8" y="108" width="70" height="38" rx="6"/>
+<text x="43" y="131" class="k" text-anchor="middle">réel</text>
+<rect class="bx p" x="84" y="108" width="238" height="38" rx="6"/>
+<text x="92" y="124" text-anchor="start">Méthode redéfinie : on exécute</text>
+<text x="92" y="138" text-anchor="start">la version de Fille</text>
+<rect class="bx t" x="8" y="152" width="70" height="38" rx="6"/>
+<text x="43" y="175" class="k" text-anchor="middle">déclaré</text>
+<rect class="bx p" x="84" y="152" width="238" height="38" rx="6"/>
+<text x="92" y="168" text-anchor="start">Surcharge m(Figure) / m(Cercle) :</text>
+<text x="92" y="182" text-anchor="start">choisie à la compilation</text>
+<rect class="bx t" x="8" y="196" width="70" height="38" rx="6"/>
+<text x="43" y="219" class="k" text-anchor="middle">déclaré</text>
+<rect class="bx p" x="84" y="196" width="238" height="38" rx="6"/>
+<text x="92" y="212" text-anchor="start">Attribut m.x, méthode static :</text>
+<text x="92" y="226" text-anchor="start">ceux de Mere, jamais polymorphes</text>
+<rect class="bx g" x="8" y="240" width="70" height="38" rx="6"/>
+<text x="43" y="263" class="k" text-anchor="middle">réel</text>
+<rect class="bx p" x="84" y="240" width="238" height="38" rx="6"/>
+<text x="92" y="256" text-anchor="start">instanceof, getClass(), cast :</text>
+<text x="92" y="270" text-anchor="start">testés sur l'objet réel</text>
+</svg>
+<figcaption><b>À retenir :</b> le compilateur ne regarde que le type <b>déclaré</b> à gauche. À l'exécution, seule une méthode <b>redéfinie</b> (non <code>static</code>) suit le type <b>réel</b> de l'objet.</figcaption>
+</figure>
+<!-- /tfig:fin-deux-regards -->
+<!-- tfig:fin-construction -->
+<figure class="ev-fig tfig">
+<svg viewBox="0 0 330 330" role="img" aria-label="Ordre d'exécution : new Fifille() appelle d'abord le constructeur de Maman, qui appelle getVal() de Fifille ; la sortie est FifilleMaman"><defs><marker id="tm-fin-construction-k" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path class="mk " d="M0 0.5 L8.5 4.5 L0 8.5 z"/></marker></defs>
+<text x="165" y="14" class="m s" text-anchor="middle">new Fifille();   new Maman();</text>
+<rect class="bx p" x="8" y="24" width="200" height="30" rx="6"/>
+<text x="16" y="43" text-anchor="start">1 · new Fifille()</text>
+<rect class="bx p" x="28" y="62" width="224" height="30" rx="6"/>
+<text x="36" y="81" text-anchor="start">2 · Fifille() débute par super()</text>
+<rect class="bx p" x="48" y="100" width="250" height="30" rx="6"/>
+<text x="56" y="119" text-anchor="start">3 · Maman() : print(this.getVal())</text>
+<rect class="bx g" x="48" y="138" width="274" height="46" rx="6"/>
+<text x="56" y="158" text-anchor="start">4 · this est un Fifille : c'est le</text>
+<text x="56" y="172" text-anchor="start">getVal() de Fifille qui affiche « Fifille »</text>
+<rect class="bx p" x="28" y="192" width="224" height="30" rx="6"/>
+<text x="36" y="211" text-anchor="start">5 · fin du constructeur Fifille()</text>
+<rect class="bx t" x="8" y="236" width="314" height="44" rx="6"/>
+<text x="16" y="255" text-anchor="start">6 · new Maman() : getVal() de Maman</text>
+<text x="16" y="269" text-anchor="start">affiche « Maman »</text>
+<path class="ln" d="M60 54 L60 61" marker-end="url(#tm-fin-construction-k)"/>
+<path class="ln" d="M60 92 L60 99" marker-end="url(#tm-fin-construction-k)"/>
+<path class="ln" d="M60 130 L60 137" marker-end="url(#tm-fin-construction-k)"/>
+<path class="ln m d" d="M60 184 L60 191" marker-end="url(#tm-fin-construction-k)"/>
+<rect class="bx a" x="8" y="290" width="314" height="30" rx="6"/>
+<text x="165" y="309" class="m k" text-anchor="middle">Sortie : FifilleMaman</text>
+</svg>
+<figcaption><b>À retenir :</b> le constructeur de la mère s'exécute avant celui de la fille, et un appel à une méthode redéfinie y atteint déjà la version de la fille (annale 2025, question 16). Les attributs de la fille valent encore 0 ou <code>null</code>.</figcaption>
+</figure>
+<!-- /tfig:fin-construction -->
+<!-- tfig:fin-static -->
+<figure class="ev-fig tfig">
+<svg viewBox="0 0 330 272" role="img" aria-label="static : un attribut static existe une seule fois dans la classe, chaque objet garde sa propre copie des attributs d'instance"><defs><marker id="tm-fin-static-k" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path class="mk " d="M0 0.5 L8.5 4.5 L0 8.5 z"/></marker></defs>
+<rect class="bx a" x="8" y="8" width="314" height="54" rx="6"/>
+<text x="165" y="32" class="m k" text-anchor="middle">class Compteur</text>
+<text x="165" y="46" class="s" text-anchor="middle">static int nb = 3 : une seule copie, dans la classe</text>
+<rect class="bx t" x="8" y="110" width="96" height="46" rx="6"/>
+<text x="56" y="130" class="m k" text-anchor="middle">objet a</text>
+<text x="56" y="144" class="m s" text-anchor="middle">int id = 1</text>
+<path class="ln m d" d="M56 110 L56 63" marker-end="url(#tm-fin-static-k)"/>
+<rect class="bx t" x="117" y="110" width="96" height="46" rx="6"/>
+<text x="165" y="130" class="m k" text-anchor="middle">objet b</text>
+<text x="165" y="144" class="m s" text-anchor="middle">int id = 2</text>
+<path class="ln m d" d="M165 110 L165 63" marker-end="url(#tm-fin-static-k)"/>
+<rect class="bx t" x="226" y="110" width="96" height="46" rx="6"/>
+<text x="274" y="130" class="m k" text-anchor="middle">objet c</text>
+<text x="274" y="144" class="m s" text-anchor="middle">int id = 3</text>
+<path class="ln m d" d="M274 110 L274 63" marker-end="url(#tm-fin-static-k)"/>
+<text x="165" y="92" class="s lb" text-anchor="middle">tous lisent le même nb</text>
+<rect class="bx p" x="8" y="172" width="314" height="38" rx="6"/>
+<text x="165" y="188" class="m s" text-anchor="middle">Compteur() { nb++; id = nb; }</text>
+<text x="165" y="202" class="m s" text-anchor="middle">Compteur.nb → 3 ;  a.id → 1 ;  c.id → 3</text>
+<rect class="bx r" x="8" y="222" width="314" height="40" rx="6"/>
+<text x="165" y="239" class="m s" text-anchor="middle">static int f() { return id; }</text>
+<text x="165" y="253" class="s r k" text-anchor="middle">erreur : id est un attribut d'instance</text>
+</svg>
+<figcaption><b>À retenir :</b> un attribut <code>static</code> existe une fois pour toute la classe ; chaque objet a sa propre copie des attributs d'instance. Une méthode <code>static</code> n'a pas de <code>this</code> : elle ne voit pas <code>id</code>.</figcaption>
+</figure>
+<!-- /tfig:fin-static -->
+<!-- tfig:fin-abstrait-interface -->
+<figure class="ev-fig tfig">
+<svg viewBox="0 0 330 326" role="img" aria-label="Classe abstraite et interface : Forme abstraite héritée par Cercle et Carre, Cercle implémente aussi Dessinable ; new Forme() est interdit"><defs><marker id="tm-fin-abstrait-interface-tri" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path class="mk tri" d="M1 1 L9 5 L1 9 z"/></marker></defs>
+<rect class="bx a" x="8" y="8" width="156" height="68" rx="6"/>
+<text x="86" y="32" class="m k" text-anchor="middle">abstract Forme</text>
+<text x="86" y="46" class="m s" text-anchor="middle">abstract double aire();</text>
+<text x="86" y="60" class="m s" text-anchor="middle">getNom() concret</text>
+<rect class="bx t" x="206" y="8" width="116" height="56" rx="6"/>
+<text x="264" y="26" class="s" text-anchor="middle">«interface»</text>
+<text x="264" y="40" class="m k" text-anchor="middle">Dessinable</text>
+<text x="264" y="54" class="m s" text-anchor="middle">dessiner()</text>
+<rect class="bx p" x="8" y="130" width="100" height="34" rx="6"/>
+<text x="58" y="151" class="m k" text-anchor="middle">Carre</text>
+<rect class="bx p" x="190" y="130" width="132" height="34" rx="6"/>
+<text x="256" y="151" class="m k" text-anchor="middle">Cercle</text>
+<path class="ln" d="M58 130 L58 77" marker-end="url(#tm-fin-abstrait-interface-tri)"/>
+<path class="ln" d="M200 130 L140 77" marker-end="url(#tm-fin-abstrait-interface-tri)"/>
+<path class="ln d" d="M264 130 L264 65" marker-end="url(#tm-fin-abstrait-interface-tri)"/>
+<text x="70" y="108" class="s" text-anchor="start">extends</text>
+<text x="272" y="100" class="s" text-anchor="start">implements</text>
+<rect class="bx r" x="8" y="186" width="314" height="28" rx="6"/>
+<text x="16" y="204" class="m s" text-anchor="start">new Forme()</text>
+<text x="314" y="204" class="s k r" text-anchor="end">interdit : classe abstraite</text>
+<rect class="bx g" x="8" y="220" width="314" height="28" rx="6"/>
+<text x="16" y="238" class="m s" text-anchor="start">Forme f = new Cercle();</text>
+<text x="314" y="238" class="s k g" text-anchor="end">OK : f.aire() de Cercle</text>
+<rect class="bx r" x="8" y="254" width="314" height="28" rx="6"/>
+<text x="16" y="272" class="m s" text-anchor="start">class X extends A, B</text>
+<text x="314" y="272" class="s k r" text-anchor="end">interdit : une seule mère</text>
+<rect class="bx g" x="8" y="288" width="314" height="28" rx="6"/>
+<text x="16" y="306" class="m s" text-anchor="start">class X implements I, J</text>
+<text x="314" y="306" class="s k g" text-anchor="end">OK : plusieurs interfaces</text>
+</svg>
+<figcaption><b>À retenir :</b> on n'instancie ni une classe abstraite ni une interface, mais on peut s'en servir comme type de variable. Une seule mère avec <code>extends</code>, autant d'interfaces que l'on veut avec <code>implements</code>.</figcaption>
+</figure>
+<!-- /tfig:fin-abstrait-interface -->
+<!-- tfig:fin-visibilite -->
+<figure class="ev-fig tfig">
+<svg viewBox="0 0 330 206" role="img" aria-label="Visibilité : private visible dans la classe seulement ; sans mot-clé dans le package ; protected dans le package et les classes filles ; public partout">
+<rect class="bx p" x="92" y="6" width="56" height="34" rx="6"/>
+<text x="120" y="21" class="xs k" text-anchor="middle">même</text>
+<text x="120" y="33" class="xs k" text-anchor="middle">classe</text>
+<rect class="bx p" x="152" y="6" width="56" height="34" rx="6"/>
+<text x="180" y="21" class="xs k" text-anchor="middle">même</text>
+<text x="180" y="33" class="xs k" text-anchor="middle">package</text>
+<rect class="bx p" x="212" y="6" width="56" height="34" rx="6"/>
+<text x="240" y="21" class="xs k" text-anchor="middle">fille hors</text>
+<text x="240" y="33" class="xs k" text-anchor="middle">package</text>
+<rect class="bx p" x="272" y="6" width="56" height="34" rx="6"/>
+<text x="300" y="27" class="xs k" text-anchor="middle">ailleurs</text>
+<rect class="bx p" x="8" y="46" width="80" height="30" rx="6"/>
+<text x="48" y="65" class="m k" text-anchor="middle">private</text>
+<rect class="bx g" x="92" y="46" width="56" height="30" rx="6"/>
+<text x="120" y="65" class="k g" text-anchor="middle">oui</text>
+<rect class="bx r" x="152" y="46" width="56" height="30" rx="6"/>
+<text x="180" y="65" class="k r" text-anchor="middle">non</text>
+<rect class="bx r" x="212" y="46" width="56" height="30" rx="6"/>
+<text x="240" y="65" class="k r" text-anchor="middle">non</text>
+<rect class="bx r" x="272" y="46" width="56" height="30" rx="6"/>
+<text x="300" y="65" class="k r" text-anchor="middle">non</text>
+<rect class="bx p" x="8" y="82" width="80" height="30" rx="6"/>
+<text x="48" y="101" class="m k" text-anchor="middle">(rien)</text>
+<rect class="bx g" x="92" y="82" width="56" height="30" rx="6"/>
+<text x="120" y="101" class="k g" text-anchor="middle">oui</text>
+<rect class="bx g" x="152" y="82" width="56" height="30" rx="6"/>
+<text x="180" y="101" class="k g" text-anchor="middle">oui</text>
+<rect class="bx r" x="212" y="82" width="56" height="30" rx="6"/>
+<text x="240" y="101" class="k r" text-anchor="middle">non</text>
+<rect class="bx r" x="272" y="82" width="56" height="30" rx="6"/>
+<text x="300" y="101" class="k r" text-anchor="middle">non</text>
+<rect class="bx p" x="8" y="118" width="80" height="30" rx="6"/>
+<text x="48" y="137" class="m k" text-anchor="middle">protected</text>
+<rect class="bx g" x="92" y="118" width="56" height="30" rx="6"/>
+<text x="120" y="137" class="k g" text-anchor="middle">oui</text>
+<rect class="bx g" x="152" y="118" width="56" height="30" rx="6"/>
+<text x="180" y="137" class="k g" text-anchor="middle">oui</text>
+<rect class="bx g" x="212" y="118" width="56" height="30" rx="6"/>
+<text x="240" y="137" class="k g" text-anchor="middle">oui</text>
+<rect class="bx r" x="272" y="118" width="56" height="30" rx="6"/>
+<text x="300" y="137" class="k r" text-anchor="middle">non</text>
+<rect class="bx p" x="8" y="154" width="80" height="30" rx="6"/>
+<text x="48" y="173" class="m k" text-anchor="middle">public</text>
+<rect class="bx g" x="92" y="154" width="56" height="30" rx="6"/>
+<text x="120" y="173" class="k g" text-anchor="middle">oui</text>
+<rect class="bx g" x="152" y="154" width="56" height="30" rx="6"/>
+<text x="180" y="173" class="k g" text-anchor="middle">oui</text>
+<rect class="bx g" x="212" y="154" width="56" height="30" rx="6"/>
+<text x="240" y="173" class="k g" text-anchor="middle">oui</text>
+<rect class="bx g" x="272" y="154" width="56" height="30" rx="6"/>
+<text x="300" y="173" class="k g" text-anchor="middle">oui</text>
+</svg>
+<figcaption><b>À retenir :</b> <code>protected</code> = package + classes filles (même hors package). Sans mot-clé, une fille d'un autre package ne voit rien. Une redéfinition ne peut jamais être moins visible que la méthode de la mère.</figcaption>
+</figure>
+<!-- /tfig:fin-visibilite -->
+</div>
+<h3 class="ev-h3">Les pièges en une ligne</h3>
+<!-- /tfig:grp-final -->
+
   <div class="trap-list">
     <div class="trap"><b>String</b><code>==</code> compare les adresses, <code>equals</code> le contenu. Les méthodes renvoient une nouvelle chaîne : <code>s.toUpperCase();</code> seul ne change pas <code>s</code>.</div>
     <div class="trap"><b>Division</b><code>7 / 2</code> vaut 3 ; <code>1 / 2 + 1 / 2.0</code> vaut 0.5. <code>(int)</code> tronque.</div>
@@ -120,7 +387,24 @@
     <div class="trap"><b>Parcours et suppression</b>Supprimer dans un <code>for-each</code> : <code>ConcurrentModificationException</code>. Utiliser <code>Iterator.remove()</code>.</div>
     <div class="trap"><b>Collections</b><code>HashSet</code> : pas de doublons (via <code>equals</code> et <code>hashCode</code>). <code>HashMap</code> : clé unique, pas d'ordre garanti. Pas de <code>List&lt;int&gt;</code>.</div>
     <div class="trap"><b>Comparable / Comparator</b><code>compareTo</code> négatif : <code>this</code> avant l'autre. <code>sort</code> sans ordre naturel : erreur de compilation. Comparateur inversé : <code>(x, y) -&gt; y.compareTo(x)</code>.</div>
+<!-- tfig:txt-final-pieges -->
+<div class="trap"><b>Packages et imports</b><code>package</code> en 1<sup>re</sup> ligne, puis les <code>import</code>. <code>java.lang</code> (<code>String</code>, <code>Math</code>, <code>System</code>, <code>Object</code>) est importé tout seul ; <code>java.util</code>, <code>java.io</code>, <code>javax.swing</code> non.</div>
+<div class="trap"><b>Mots-clés</b><code>void</code>, <code>int</code>, <code>class</code> sont des mots-clés ; <code>String</code> n'en est pas un : c'est une classe.</div>
+<div class="trap"><b>throws</b><code>public void m() throws IOException { }</code> : après les parenthèses. <code>throw</code> est l'instruction qui lance. Un <code>catch (IOException e)</code> sans méthode qui la déclare ne compile pas.</div>
+<div class="trap"><b>Tableau d'objets</b><code>new String[10]</code> crée 10 cases valant <code>null</code> et <b>aucun</b> objet <code>String</code> : <code>t[0].length()</code> lance <code>NullPointerException</code>.</div>
+<div class="trap"><b>Object</b>Toute classe hérite d'<code>Object</code>, la seule sans mère. <code>toString()</code> par défaut : <code>Bidon@1b6d3586</code> ; <code>equals</code> par défaut compare les adresses. <code>new Bidon(3)</code> ne compile pas si la classe n'a que le constructeur par défaut.</div>
+<div class="trap"><b>Compter les objets</b>Seul <code>new</code> crée un objet. <code>A y = x;</code> copie une référence ; <code>A u;</code> ne crée rien.</div>
+<div class="trap"><b>Constructeurs chaînés</b>Suivre les <code>this(...)</code> jusqu'au bout avant de calculer. <code>D(5, 6)</code> → <code>this(6)</code> → <code>this()</code> : <code>x = 3</code>, puis <code>+ 6</code> = 9, puis <code>− 5</code> = 4.</div>
+<div class="trap"><b>Interface</b>Une interface ne s'instancie pas, mais peut être le <b>type</b> d'une référence : <code>Payable p = new Facture();</code> est correct.</div>
+<!-- /tfig:txt-final-pieges -->
+
   </div>
+<!-- tfig:txt-final-table -->
+<h3 class="ev-h3">Ce que tu crois, ce qui se passe</h3>
+<p>Dix résultats à connaître par cœur. Chaque ligne a été exécutée avec Java 21.</p>
+<ol class="ev-must"><li><code>String s = "abc"; s.toUpperCase(); System.out.println(s);</code><br><span class="ev-small">Tu crois : <code>ABC</code></span><br><b>En réalité :</b> <code>abc</code> : la méthode renvoie une nouvelle chaîne, perdue ici</li><li><code>10 + 20 + "x"</code> et <code>"x" + 10 + 20</code><br><span class="ev-small">Tu crois : <code>1020x</code> et <code>x30</code></span><br><b>En réalité :</b> <code>30x</code> et <code>x1020</code> : on lit de gauche à droite</li><li><code>(double) (7 / 2)</code><br><span class="ev-small">Tu crois : <code>3.5</code></span><br><b>En réalité :</b> <code>3.0</code> : la division entière a lieu avant le cast</li><li><code>1 / 2 + 1 / 2.0</code><br><span class="ev-small">Tu crois : <code>1.0</code></span><br><b>En réalité :</b> <code>0.5</code> : <code>0</code> + <code>0.5</code></li><li><code>char c = 'a'; System.out.println(c + 1);</code><br><span class="ev-small">Tu crois : <code>b</code></span><br><b>En réalité :</b> <code>98</code> ; <code>(char) (c + 1)</code> donne <code>b</code></li><li><code>l.remove(1)</code> avec <code>l = [10, 20, 30, 1]</code><br><span class="ev-small">Tu crois : retire la valeur 1</span><br><b>En réalité :</b> retire l'<b>indice</b> 1 : <code>[10, 30, 1]</code> ; <code>l.remove(Integer.valueOf(1))</code> donne <code>[10, 20, 30]</code></li><li><code>int[] u = t; u[0] = 9;</code> puis <code>t[0]</code><br><span class="ev-small">Tu crois : inchangé</span><br><b>En réalité :</b> <code>9</code> : <code>u</code> et <code>t</code> désignent le même tableau</li><li><code>Mere m = new Fille();</code> puis <code>m.x</code><br><span class="ev-small">Tu crois : l'attribut de <code>Fille</code></span><br><b>En réalité :</b> celui de <code>Mere</code> (<code>1</code> ici, <code>((Fille) m).x</code> donne <code>2</code>)</li><li><code>A.f(2) * a.g(3)</code> avec <code>f</code> statique (+5 dans <code>A</code>, +4 dans <code>D</code>), <code>g</code> redéfinie (3 / <code>x + 8</code>), <code>A a = new D()</code><br><span class="ev-small">Tu crois : <code>6 × 11 = 66</code></span><br><b>En réalité :</b> <code>77</code> : <code>A.f(2) = 7</code> (statique, type déclaré) et <code>g</code> de <code>D</code> = 11 (annale 2025, questions 9 et 23)</li><li><code>new Fifille();</code> avec <code>getVal()</code> redéfinie, appelée dans <code>Maman()</code><br><span class="ev-small">Tu crois : <code>Maman</code></span><br><b>En réalité :</b> <code>Fifille</code> : le constructeur de la mère appelle la version de la fille (figure ci-dessus)</li></ol>
+<!-- /tfig:txt-final-table -->
+
 </section>
 
 <section id="qcmfin">

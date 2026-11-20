@@ -34,6 +34,7 @@ revisions-java-site/
 ├── js/qcm-data.js        # banque de questions
 ├── js/corriges.js        # « fait », recherche, filtres
 ├── code/                 # sources Java des corrigés (compilées avec javac 21)
+├── tools/gen_java_figs.py # génère les 25 schémas SVG (blocs <!-- jfig:nom -->) et les compléments (<!-- jadd:nom -->) dans index.html ; relançable
 ├── assets/               # favicon + icônes
 ├── manifest.webmanifest, sw.js, 404.html, .nojekyll
 ```

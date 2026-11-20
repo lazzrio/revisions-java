@@ -12,6 +12,7 @@ sans affichage par des clics simulés).
 | `s4ex4/`, `s4ex7/` | Semaine 4 : interface Animal, HashMap d'étudiants |
 | `s5ex4/` | Semaine 5 : écriture puis lecture d'un fichier texte |
 | `s6ex7/` | Semaine 6 : écouteur du cadran de téléphone (+ test avec `doClick()`) |
+| `complements/` | Compléments de cours (pile/tas et passage de paramètres, pièges héritage/static/surcharge, Set et equals/hashCode) : `Memoire`, `Pieges`, `Ensembles` |
 
 Compiler un dossier : `javac -encoding UTF-8 -d out $(find . -name "*.java")` puis `java -cp out NomDeLaClasse`
 (pour FastBite : `java -cp out fastbite.app.DemoTP5`, `java -cp out fastbite.mvc.AppMVC`).

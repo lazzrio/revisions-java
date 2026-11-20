@@ -1101,4 +1101,165 @@ try {
 **~IOException~** est vérifiée et le ~try~ ne contient qu'un ~throw~ d'~IllegalStateException~ : aucune ~IOException~ n'est possible → erreur « exception IOException is never thrown in body of corresponding try statement ».
 
 **~RuntimeException~** (non vérifiée) n'aurait posé aucun problème. Correction : retirer ~IOException~ du multi-catch.
+
+## exc | Code : syntaxe de throws
+Quelle définition de ~ioAppel~ permet à ce code de compiler ?
+[[
+import java.io.*;
+public class Test {
+    public void uneMethode() {
+        try { ioAppel(); }
+        catch (IOException e) { System.out.println("erreur"); }
+    }
+}
+]]
+= ~public void ioAppel() throws IOException { }~
+- ~public void ioAppel() { }~
+- ~public void ioAppel() throw IOException { }~
+- ~public void ioAppel throws IOException () { }~
+? **1.** Le ~catch (IOException e)~ n'est accepté que si le ~try~ peut lancer une ~IOException~ : ~ioAppel~ doit donc la **déclarer**.
+
+**2.** On déclare avec ~throws~, placé **après les parenthèses** et avant l'accolade : ~public void ioAppel() throws IOException { }~.
+
+**3.** ~public void ioAppel() { }~ ne déclare rien : « exception IOException is never thrown in body of corresponding try statement ».
+
+**4.** ~throw~ (sans s) est l'instruction qui lance, dans le corps de la méthode : « ; expected » dans une signature. Et ~ioAppel throws IOException ()~ place les parenthèses après ~throws~ : « ( expected ».
+
+## fic | Code : relire dans le désordre
+Un fichier est écrit ainsi, puis relu avec un ~ObjectInputStream in~ dont le premier appel est ~Object o = in.readObject();~. Que se passe-t-il ?
+[[
+out.writeInt(10325);
+out.writeObject("Today");
+]]
+= Une ~OptionalDataException~ (sous-classe d'~IOException~) : la première donnée du flux est un ~int~, pas un objet
+- ~o~ vaut ~10325~ (un ~Integer~) : Java convertit la primitive
+- ~o~ vaut ~"Today"~ : Java saute les primitives
+- ~ClassNotFoundException~
+? On relit **dans l'ordre d'écriture**, avec la méthode qui correspond : ~readInt()~ pour le ~writeInt~, puis ~readObject()~ pour le ~writeObject~.
+
+**1.** Le premier élément écrit est l'entier ~10325~.
+
+**2.** ~readObject()~ attend un objet sérialisé. Trouvant une donnée primitive, il lance une ~OptionalDataException~ (testé avec Java 21).
+
+Correction : ~int i = in.readInt(); String s = (String) in.readObject();~.
+
+## fic | listFiles ou list
+Quel est le type renvoyé par ~new File(".").listFiles()~ ?
+= ~File[]~
+- ~String[]~
+- ~ArrayList<File>~
+- ~File~
+? ~listFiles()~ renvoie un **tableau de ~File~** : on peut ensuite appeler ~isFile()~, ~isDirectory()~, ~length()~ sur chaque élément. C'est ~list()~ qui renvoie un ~String[]~ de noms. Dans les deux cas, l'ordre n'est pas garanti.
+
+## swing | Conteneur racine
+Lequel de ces composants est un **conteneur racine** (top-level), capable de contenir toute une interface ?
+= ~JFrame~
+- ~JPanel~
+- ~JButton~
+- ~JTextField~
+? Une interface Swing a **au moins un conteneur racine** : ~JFrame~ (fenêtre principale), ~JDialog~ ou ~JWindow~. Un ~JPanel~ est un conteneur **intermédiaire** : on le place dans un conteneur racine. ~JButton~ et ~JTextField~ sont des composants simples.
+
+## swing | JFileChooser
+Par quoi remplacer ~___~ pour traiter le cas où l'utilisateur a validé son choix ?
+[[
+JFileChooser choix = new JFileChooser();
+int reponse = choix.showOpenDialog(null);
+if (reponse == ___) {
+    File f = choix.getSelectedFile();
+}
+]]
+= ~JFileChooser.APPROVE_OPTION~
+- ~JFileChooser.OK_OPTION~
+- ~true~
+- ~"OK"~
+? ~showOpenDialog~ renvoie un **~int~**, à comparer à la constante ~JFileChooser.APPROVE_OPTION~ (l'autre cas est ~CANCEL_OPTION~).
+
+~JFileChooser.OK_OPTION~ n'existe pas (« cannot find symbol »), et comparer un ~int~ à ~true~ ou à ~"OK"~ est une erreur de compilation (« incomparable types »). Le fichier choisi s'obtient ensuite avec ~getSelectedFile()~ : un ~File~.
+
+## swing | Code : listener et saisie invalide
+Le champ ~champ~ contient ~abc~. Que contient le label ~resultat~ après le clic ?
+[[
+public void actionPerformed(ActionEvent e) {
+    try {
+        int n = Integer.parseInt(champ.getText());
+        resultat.setText(String.valueOf(factorielle(n)));
+    } catch (NumberFormatException ex) {
+        resultat.setText("Entier attendu");
+    }
+}
+]]
+= ~Entier attendu~
+- ~0~
+- ~120~
+- Rien : l'exception arrête le programme
+? **1.** ~champ.getText()~ renvoie la ~String~ ~"abc"~.
+
+**2.** ~Integer.parseInt("abc")~ lance une ~NumberFormatException~ : la ligne suivante, ~factorielle~, n'est jamais exécutée.
+
+**3.** Le ~catch~ attrape l'exception : le label affiche ~Entier attendu~ et le programme continue. Avec ~5~ dans le champ, il afficherait ~120~.
+
+## mvc | Cadran en MVC : où va la règle des 8 chiffres
+Dans le TP7 (le cadran de téléphone du TP6 réorganisé en MVC), où place-t-on la règle « 8 chiffres au maximum » ?
+= Dans le **modèle**, dans la méthode qui ajoute un chiffre
+- Dans la **vue**, en limitant la taille du ~JTextField~
+- Dans le **contrôleur**, au début de ~actionPerformed~
+- Dans le ~main~, avant de créer la fenêtre
+? Une règle sur les **données** appartient au modèle : elle reste vraie quelle que soit l'interface, et on peut la tester dans un ~main~ console sans fenêtre.
+
+La vue ne fait qu'afficher ; le contrôleur traduit un clic en appel du modèle (~modele.ajouterChiffre(...)~, qui ignore le 9<sup>e</sup> chiffre) puis demande à la vue de se rafraîchir.
+
+## exc | Code : exemple du cours DivMul (opération inconnue)
+~execOperation~ déclare ~throws DivisionParZeroException, OperationInconnueException~ et lance ~OperationInconnueException~ pour toute opération autre que ~"*"~ et ~"/"~. Qu'affiche ce code pour ~a = 33~, ~op = "+"~, ~b = 5~ ?
+[[
+try {
+    System.out.println("Calcul de " + a + op + b);
+    System.out.println("Resultat" + execOperation(a, op, b));
+} catch (DivisionParZeroException e) {
+    System.out.println("Division par zero.");
+} catch (OperationInconnueException e) {
+    System.out.println("Operation inconnue " + e.getMessage());
+} finally {
+    System.out.println("clause finally appellee");
+}
+]]
+= ~Calcul de 33+5~, puis ~Operation inconnue +~, puis ~clause finally appellee~
+- ~Calcul de 33+5~, puis ~Resultat~, puis ~Operation inconnue +~, puis ~clause finally appellee~
+- ~Calcul de 33+5~, puis ~Operation inconnue +~ (le ~finally~ n'est pas exécuté après un ~catch~)
+- ~Operation inconnue +~, puis ~clause finally appellee~ (la 1<sup>re</sup> ligne n'est pas affichée)
+? **1.** Le 1<sup>er</sup> ~println~ s'exécute normalement : ~Calcul de 33+5~.
+
+**2.** Pour le 2<sup>e</sup>, Java doit d'abord **évaluer l'argument** ~"Resultat" + execOperation(...)~. L'appel lance ~OperationInconnueException~ : le ~println~ n'est jamais appelé, donc « Resultat » n'apparaît pas.
+
+**3.** Le 2<sup>e</sup> ~catch~ correspond : ~Operation inconnue +~ (le message vient de ~super(s)~ dans le constructeur de l'exception).
+
+**4.** Le ~finally~ s'exécute après le ~catch~, comme dans tous les cas : ~clause finally appellee~.
+
+## exc | Code : continue dans un catch et finally
+La variable ~str~ vaut ~"abc"~. Qu'affiche ce corps de boucle ?
+[[
+try {
+    int age = Integer.parseInt(str);
+    if (age > 130) throw new AgeOver(age + "ans trop grand");
+} catch (AgeOver e) {
+    System.out.println(e.getMessage());
+    continue;
+} catch (NumberFormatException nbe) {
+    System.out.println("il faut saisir une valeur entière !");
+    continue;
+} finally {
+    System.out.println("Saisie effectuée");
+}
+System.out.println("OK");
+]]
+= ~il faut saisir une valeur entière !~ puis ~Saisie effectuée~
+- ~il faut saisir une valeur entière !~ seulement : ~continue~ saute le ~finally~
+- ~il faut saisir une valeur entière !~, ~Saisie effectuée~ puis ~OK~
+- ~Saisie effectuée~ puis ~OK~
+? **1.** ~Integer.parseInt("abc")~ lance une ~NumberFormatException~ (ce n'est pas un ~AgeOver~).
+
+**2.** Le 2<sup>e</sup> ~catch~ affiche ~il faut saisir une valeur entière !~, puis ~continue~ demande de passer au tour suivant.
+
+**3.** Mais le ~finally~ s'exécute **toujours avant** de quitter le bloc, même sur ~continue~ : ~Saisie effectuée~.
+
+**4.** ~System.out.println("OK")~ est sauté par le ~continue~. (Avec ~"20"~, aucune exception : ~Saisie effectuée~ puis ~OK~.)
 `;

@@ -285,6 +285,40 @@
         <h2>Code annoté</h2>
       </div>
 
+      <!-- jfig:s1-classe-objet -->
+      <figure class="jfig" id="jfig-s1-classe-objet">
+<svg viewBox="0 0 360 214" role="img" aria-labelledby="jfig-s1-classe-objet-t jfig-s1-classe-objet-d" focusable="false"><title id="jfig-s1-classe-objet-t">Classe et objets</title><desc id="jfig-s1-classe-objet-d">Une classe Etudiant sert de plan ; deux objets e1 et e2 créés avec new ont chacun leurs valeurs.</desc>
+<text class="jf-s c-m" x="10" y="16">La classe (le plan)</text>
+<text class="jf-s c-m" x="204" y="16">Les objets (en mémoire)</text>
+<rect class="jf-box f-a c-a" x="10" y="24" width="150" height="85" rx="3"/>
+<path class="jf-ln c-a" d="M10 48 H160"/>
+<path class="jf-ln c-a" d="M10 86 H160"/>
+<text class="jf-t jf-b" x="85" y="40" text-anchor="middle">Etudiant</text>
+<text class="jf-m" x="17" y="61">- nom : String</text>
+<text class="jf-m" x="17" y="76">- age : int</text>
+<text class="jf-m" x="17" y="99">+ getAge() : int</text>
+<rect class="jf-box f-2 c-2" x="204" y="24" width="146" height="58" rx="3"/>
+<text class="jf-t jf-u" x="277" y="39" text-anchor="middle">e1 : Etudiant</text>
+<text class="jf-m" x="212" y="57">nom = "Lea"</text>
+<text class="jf-m" x="212" y="72">age = 19</text>
+<rect class="jf-box f-2 c-2" x="204" y="108" width="146" height="58" rx="3"/>
+<text class="jf-t jf-u" x="277" y="123" text-anchor="middle">e2 : Etudiant</text>
+<text class="jf-m" x="212" y="141">nom = "Tom"</text>
+<text class="jf-m" x="212" y="156">age = 21</text>
+<path class="jf-ln   jf-d" d="M160 52 L204 52"/>
+<path class="jf-ln " d="M195.0 57.0 L204.0 52.0 L195.0 47.0"/>
+<path class="jf-ln   jf-d" d="M160 90 L204 132"/>
+<path class="jf-ln " d="M194.0 129.4 L204.0 132.0 L200.9 122.2"/>
+<text class="jf-m c-a" x="182" y="44" text-anchor="middle">new</text>
+<text class="jf-m c-a" x="188" y="108" text-anchor="middle">new</text>
+<text class="jf-s" x="10" y="150">Un seul plan, écrit une fois :</text>
+<text class="jf-s" x="10" y="165">attributs + méthodes.</text>
+<text class="jf-s" x="204" y="186">Un objet par new,</text>
+<text class="jf-s" x="204" y="201">valeurs propres à chacun.</text>
+</svg>
+      <figcaption><b>Classe = plan, objet = réalisation.</b> La classe décrit une seule fois les attributs et les méthodes ; chaque <code>new</code> fabrique un objet distinct, avec ses propres valeurs.</figcaption>
+      </figure>
+      <!-- /jfig:s1-classe-objet -->
       <h3 style="font-size:17px;margin-bottom:8px">Une classe minimale complète</h3>
 <pre class="code"><span class="cmt">// Etudiant2026 — synthèse de la semaine</span>
 <span class="kw">import</span> java.util.Scanner;
@@ -322,6 +356,31 @@
     }
 }</pre>
 
+      <!-- jfig:s1-static-instance -->
+      <figure class="jfig" id="jfig-s1-static-instance">
+<svg viewBox="0 0 360 226" role="img" aria-labelledby="jfig-s1-static-instance-t jfig-s1-static-instance-d" focusable="false"><title id="jfig-s1-static-instance-t">static contre instance</title><desc id="jfig-s1-static-instance-d">L'attribut static i existe en un seul exemplaire dans la classe ; chaque objet a sa propre copie de j.</desc>
+<rect class="jf-box f-a c-a" x="30" y="10" width="300" height="62" rx="5"/>
+<text class="jf-t jf-b" x="180" y="28" text-anchor="middle">classe StaticTest</text>
+<rect class="jf-box f-sf c-a" x="66" y="38" width="228" height="26" rx="4"/>
+<text class="jf-m" x="180" y="55" text-anchor="middle">static int i = 11</text>
+<rect class="jf-box f-2 c-2" x="14" y="122" width="150" height="43" rx="3"/>
+<text class="jf-t jf-u" x="89" y="137" text-anchor="middle">s1 : StaticTest</text>
+<text class="jf-m" x="22" y="155">j = 21</text>
+<rect class="jf-box f-2 c-2" x="196" y="122" width="150" height="43" rx="3"/>
+<text class="jf-t jf-u" x="271" y="137" text-anchor="middle">s2 : StaticTest</text>
+<text class="jf-m" x="204" y="155">j = 20</text>
+<path class="jf-ln  c-a jf-d" d="M110 122 L118.594 73.8754"/>
+<path class="jf-hf c-a" d="M120.0 66.0 L123.0 74.7 L114.2 73.1 Z"/>
+<path class="jf-ln  c-a jf-d" d="M250 122 L241.406 73.8754"/>
+<path class="jf-hf c-a" d="M240.0 66.0 L245.8 73.1 L237.0 74.7 Z"/>
+<text class="jf-m jf-halo c-a" x="98" y="98" text-anchor="middle">s1.i</text>
+<text class="jf-m jf-halo c-a" x="262" y="98" text-anchor="middle">s2.i</text>
+<text class="jf-s" x="14" y="196"><tspan class="jf-m">s2.i++;</tspan>  la case commune passe à 11 pour tous</text>
+<text class="jf-s" x="14" y="213"><tspan class="jf-m">s1.j++;</tspan>  seul <tspan class="jf-m">s1</tspan> change (20 devient 21)</text>
+</svg>
+      <figcaption><b>static = une case pour la classe, partagée.</b> <code>s2.i++</code> change la case commune (11 pour tous) ; <code>s1.j++</code> ne change que la copie de <code>s1</code>.</figcaption>
+      </figure>
+      <!-- /jfig:s1-static-instance -->
       <h3 style="font-size:17px;margin:24px 0 8px">static — l'exemple à comprendre</h3>
 <pre class="code"><span class="kw">public class</span> <span class="cls">StaticTest</span> {
     <span class="kw">public static int</span> i = <span class="num">10</span>;  <span class="cmt">// UNE SEULE copie partagée</span>
@@ -622,6 +681,66 @@ clavier.<span class="fn">close</span>();                              <span clas
           <div class="example">public void manger(Os unOs) { }</div>
         </div>
       </div>
+      <!-- jfig:s2-relations-code -->
+      <figure class="jfig" id="jfig-s2-relations-code">
+<svg viewBox="0 0 360 304" role="img" aria-labelledby="jfig-s2-relations-code-t jfig-s2-relations-code-d" focusable="false"><title id="jfig-s2-relations-code-t">Des relations UML au code Java</title><desc id="jfig-s2-relations-code-d">Six relations UML avec leur flèche et la ligne Java correspondante : héritage, implémentation, association, agrégation, composition, dépendance.</desc>
+<rect class="jf-box f-sf" x="2" y="15" width="68" height="26" rx="4"/>
+<text class="jf-s" x="36" y="32.3" text-anchor="middle">Chien</text>
+<rect class="jf-box f-sf" x="96" y="15" width="68" height="26" rx="4"/>
+<text class="jf-s" x="130" y="32.3" text-anchor="middle">Mammifere</text>
+<path class="jf-ln" d="M70 28 L85 28"/>
+<path class="jf-ho " d="M96.0 28.0 L85.0 34.5 L85.0 21.5 Z"/>
+<text class="jf-m" x="174" y="25">class Chien extends Mammifere</text>
+<text class="jf-s c-m" x="174" y="41">Héritage : « est un », reçoit tout</text>
+<path class="jf-ln  c-l" d="M4 52 L356 52"/>
+<rect class="jf-box f-sf" x="2" y="65" width="68" height="26" rx="4"/>
+<text class="jf-s" x="36" y="82.3" text-anchor="middle">Chien</text>
+<rect class="jf-box f-sf" x="96" y="65" width="68" height="26" rx="4"/>
+<text class="jf-s" x="130" y="82.3" text-anchor="middle">Animal</text>
+<path class="jf-ln   jf-d" d="M70 78 L85 78"/>
+<path class="jf-ho " d="M96.0 78.0 L85.0 84.5 L85.0 71.5 Z"/>
+<text class="jf-m" x="174" y="75">class Chien implements Animal</text>
+<text class="jf-s c-m" x="174" y="91">Interface : contrat à remplir</text>
+<path class="jf-ln  c-l" d="M4 102 L356 102"/>
+<rect class="jf-box f-sf" x="2" y="115" width="68" height="26" rx="4"/>
+<text class="jf-s" x="36" y="132.3" text-anchor="middle">Client</text>
+<rect class="jf-box f-sf" x="96" y="115" width="68" height="26" rx="4"/>
+<text class="jf-s" x="130" y="132.3" text-anchor="middle">Adresse</text>
+<path class="jf-ln" d="M70 128 L96 128"/>
+<path class="jf-ln " d="M87.0 133.0 L96.0 128.0 L87.0 123.0"/>
+<text class="jf-m" x="174" y="125">private Adresse adresse;</text>
+<text class="jf-s c-m" x="174" y="141">Association : attribut de ce type</text>
+<path class="jf-ln  c-l" d="M4 152 L356 152"/>
+<rect class="jf-box f-sf" x="2" y="165" width="68" height="26" rx="4"/>
+<text class="jf-s" x="36" y="182.3" text-anchor="middle">Commande</text>
+<rect class="jf-box f-sf" x="96" y="165" width="68" height="26" rx="4"/>
+<text class="jf-s" x="130" y="182.3" text-anchor="middle">Plat</text>
+<path class="jf-ln" d="M84 178 L96 178"/>
+<path class="jf-ho " d="M70.0 178.0 L77.0 173.0 L84.0 178.0 L77.0 183.0 Z"/>
+<text class="jf-m" x="174" y="175">List&lt;Plat&gt; plats;</text>
+<text class="jf-s c-m" x="174" y="191">Agrégation : Plat existe seul</text>
+<path class="jf-ln  c-l" d="M4 202 L356 202"/>
+<rect class="jf-box f-sf" x="2" y="215" width="68" height="26" rx="4"/>
+<text class="jf-s" x="36" y="232.3" text-anchor="middle">Commande</text>
+<rect class="jf-box f-sf" x="96" y="215" width="68" height="26" rx="4"/>
+<text class="jf-s" x="130" y="232.3" text-anchor="middle">Livraison</text>
+<path class="jf-ln" d="M84 228 L96 228"/>
+<path class="jf-hf " d="M70.0 228.0 L77.0 223.0 L84.0 228.0 L77.0 233.0 Z"/>
+<text class="jf-m" x="174" y="225">l = new Livraison();</text>
+<text class="jf-s c-m" x="174" y="241">Composition : meurt avec la mère</text>
+<path class="jf-ln  c-l" d="M4 252 L356 252"/>
+<rect class="jf-box f-sf" x="2" y="265" width="68" height="26" rx="4"/>
+<text class="jf-s" x="36" y="282.3" text-anchor="middle">Chien</text>
+<rect class="jf-box f-sf" x="96" y="265" width="68" height="26" rx="4"/>
+<text class="jf-s" x="130" y="282.3" text-anchor="middle">Os</text>
+<path class="jf-ln   jf-d" d="M70 278 L96 278"/>
+<path class="jf-ln " d="M87.0 283.0 L96.0 278.0 L87.0 273.0"/>
+<text class="jf-m" x="174" y="275">void manger(Os o) { }</text>
+<text class="jf-s c-m" x="174" y="291">Dépendance : paramètre, rien stocké</text>
+</svg>
+      <figcaption><b>Chaque flèche UML a sa ligne Java.</b> Hériter ou implémenter se lit dans l'en-tête de la classe ; association, agrégation et composition sont des <i>attributs</i> ; la dépendance n'est qu'un <i>paramètre</i>.</figcaption>
+      </figure>
+      <!-- /jfig:s2-relations-code -->
     </section>
 
     <section>
@@ -949,6 +1068,48 @@ clavier.<span class="fn">close</span>();                              <span clas
         </table>
       </div>
 
+      <!-- jfig:s2-cycle-vie -->
+      <figure class="jfig" id="jfig-s2-cycle-vie">
+<svg viewBox="0 0 360 168" role="img" aria-labelledby="jfig-s2-cycle-vie-t jfig-s2-cycle-vie-d" focusable="false"><title id="jfig-s2-cycle-vie-t">Agrégation ou composition : la question de la suppression</title><desc id="jfig-s2-cycle-vie-d">Si on supprime la Commande, le Plat (agrégation) reste alors que la Livraison (composition) disparaît.</desc>
+<text class="jf-t jf-b" x="90" y="16" text-anchor="middle">Agrégation (◇)</text>
+<text class="jf-s c-m" x="90" y="38" text-anchor="middle">avant</text>
+<rect class="jf-box f-sf" x="10" y="46" width="66" height="26" rx="4"/>
+<text class="jf-s" x="43" y="63.3" text-anchor="middle">Commande</text>
+<rect class="jf-box f-sf" x="108" y="46" width="66" height="26" rx="4"/>
+<text class="jf-s" x="141" y="63.3" text-anchor="middle">Plat</text>
+<path class="jf-ln" d="M90 59 L108 59"/>
+<path class="jf-ho " d="M76.0 59.0 L83.0 54.0 L90.0 59.0 L83.0 64.0 Z"/>
+<text class="jf-s c-m" x="90" y="96" text-anchor="middle">on supprime la Commande</text>
+<rect class="jf-box f-sf c-m jf-d" x="10" y="106" width="66" height="26" rx="4"/>
+<text class="jf-s" x="43" y="123.3" text-anchor="middle">Commande</text>
+<path class="jf-ln  c-r" d="M14 110 L72 128"/>
+<path class="jf-ln  c-r" d="M14 128 L72 110"/>
+<rect class="jf-box f-g c-g" x="108" y="106" width="66" height="26" rx="4"/>
+<text class="jf-s" x="141" y="123.3" text-anchor="middle">Plat</text>
+<text class="jf-s c-g" x="90" y="152" text-anchor="middle">Plat reste (menu)</text>
+<text class="jf-t jf-b" x="270" y="16" text-anchor="middle">Composition (◆)</text>
+<text class="jf-s c-m" x="270" y="38" text-anchor="middle">avant</text>
+<rect class="jf-box f-sf" x="190" y="46" width="66" height="26" rx="4"/>
+<text class="jf-s" x="223" y="63.3" text-anchor="middle">Commande</text>
+<rect class="jf-box f-sf" x="288" y="46" width="66" height="26" rx="4"/>
+<text class="jf-s" x="321" y="63.3" text-anchor="middle">Livraison</text>
+<path class="jf-ln" d="M270 59 L288 59"/>
+<path class="jf-hf " d="M256.0 59.0 L263.0 54.0 L270.0 59.0 L263.0 64.0 Z"/>
+<text class="jf-s c-m" x="270" y="96" text-anchor="middle">on supprime la Commande</text>
+<rect class="jf-box f-sf c-m jf-d" x="190" y="106" width="66" height="26" rx="4"/>
+<text class="jf-s" x="223" y="123.3" text-anchor="middle">Commande</text>
+<path class="jf-ln  c-r" d="M194 110 L252 128"/>
+<path class="jf-ln  c-r" d="M194 128 L252 110"/>
+<rect class="jf-box f-sf c-m jf-d" x="288" y="106" width="66" height="26" rx="4"/>
+<text class="jf-s" x="321" y="123.3" text-anchor="middle">Livraison</text>
+<path class="jf-ln  c-r" d="M292 110 L350 128"/>
+<path class="jf-ln  c-r" d="M292 128 L350 110"/>
+<text class="jf-s c-r" x="270" y="152" text-anchor="middle">disparaît aussi</text>
+<path class="jf-ln  c-l" d="M180 8 L180 160"/>
+</svg>
+      <figcaption><b>La question qui tranche :</b> « si je supprime le contenant, le contenu disparaît-il ? » Non = agrégation (losange creux). Oui = composition (losange plein).</figcaption>
+      </figure>
+      <!-- /jfig:s2-cycle-vie -->
       <div class="tip" style="margin-top:16px"><b>Mnémotechnique</b>
         <code>Triangle creux</code> = "EST UNE SORTE DE" (héritage) · <code>Losange creux</code> = "A, mais indépendant" (agrégation) · <code>Losange plein</code> = "A, et en dépend" (composition)
       </div>
@@ -1156,6 +1317,36 @@ clavier.<span class="fn">close</span>();                              <span clas
     }
 }</pre>
 
+      <!-- jfig:s2-cast -->
+      <figure class="jfig" id="jfig-s2-cast">
+<svg viewBox="0 0 360 255" role="img" aria-labelledby="jfig-s2-cast-t jfig-s2-cast-d" focusable="false"><title id="jfig-s2-cast-t">Upcasting et downcasting</title><desc id="jfig-s2-cast-d">La variable p de type Personne désigne un objet Homme. Le cast vers Homme réussit ; vers un vrai Personne il plante ; sans cast il ne compile pas.</desc>
+<text class="jf-s c-m" x="10" y="14">variable (type statique)</text>
+<text class="jf-s c-m" x="188" y="14">objet (type réel)</text>
+<rect class="jf-box f-a c-a" x="10" y="24" width="104" height="30" rx="4"/>
+<text class="jf-m" x="62" y="43.3" text-anchor="middle">p : Personne</text>
+<rect class="jf-box f-2 c-2" x="188" y="22" width="168" height="58" rx="3"/>
+<text class="jf-t jf-u" x="272" y="37" text-anchor="middle">: Homme</text>
+<text class="jf-m" x="196" y="55">attributs de Personne</text>
+<text class="jf-m" x="196" y="70">+ ceux de Homme</text>
+<path class="jf-ln  c-a" d="M114 39 L180 39"/>
+<path class="jf-hf c-a" d="M188.0 39.0 L180.0 43.5 L180.0 34.5 Z"/>
+<text class="jf-s c-m" x="10" y="100">p ne « voit » que ce que Personne déclare.</text>
+<text class="jf-m" x="10" y="130"><tspan class="jf-m">Homme h = (Homme) p;</tspan></text>
+<rect class="jf-box f-g c-g" x="228" y="116" width="122" height="22" rx="11"/>
+<text class="jf-s c-g" x="289" y="131" text-anchor="middle">OK</text>
+<text class="jf-s c-m" x="10" y="150">l'objet est bien un Homme</text>
+<text class="jf-m" x="10" y="176"><tspan class="jf-m">Homme h2 = (Homme) p2;</tspan></text>
+<rect class="jf-box f-r c-r" x="228" y="162" width="122" height="22" rx="11"/>
+<text class="jf-s c-r" x="289" y="177" text-anchor="middle">plante à l'exécution</text>
+<text class="jf-s c-m" x="10" y="196">p2 désigne un vrai Personne : ClassCastException</text>
+<text class="jf-m" x="10" y="222"><tspan class="jf-m">Homme h3 = p;</tspan></text>
+<rect class="jf-box f-r c-r" x="228" y="208" width="122" height="22" rx="11"/>
+<text class="jf-s c-r" x="289" y="223" text-anchor="middle">ne compile pas</text>
+<text class="jf-s c-m" x="10" y="242">descendre exige un cast explicite</text>
+</svg>
+      <figcaption><b>Deux types :</b> celui de la <i>variable</i> (ce que le compilateur autorise) et celui de l'<i>objet</i> (ce qu'il est vraiment). Vers le haut, c'est automatique ; vers le bas, il faut un cast, vérifié à l'exécution.</figcaption>
+      </figure>
+      <!-- /jfig:s2-cast -->
       <h3 style="font-size:17px;margin:24px 0 8px">Transtypage (upcasting / downcasting)</h3>
 <pre class="code"><span class="kw">class</span> <span class="cls">Personne</span> { }
 <span class="kw">class</span> <span class="cls">Homme</span> <span class="kw">extends</span> <span class="cls">Personne</span> { }
@@ -1173,6 +1364,58 @@ clavier.<span class="fn">close</span>();                              <span clas
         <h2>Les 5 mécanismes de l'héritage — un par un</h2>
         <p>Pas juste "comment les repérer" — ce que chacun <b>fait vraiment</b> quand le programme s'exécute.</p>
       </div>
+      <!-- jfig:s2-heritage-5 -->
+      <figure class="jfig" id="jfig-s2-heritage-5">
+<svg viewBox="0 0 360 335" role="img" aria-labelledby="jfig-s2-heritage-5-t jfig-s2-heritage-5-d" focusable="false"><title id="jfig-s2-heritage-5-t">Les 5 mécanismes de l'héritage</title><desc id="jfig-s2-heritage-5-d">Vertebres et Mammifere en UML avec les cinq mécanismes numérotés : extends, super(30), super.afficher(), protected, @Override.</desc>
+<rect class="jf-box f-a c-a" x="70" y="10" width="220" height="85" rx="3"/>
+<path class="jf-ln c-a" d="M70 34 H290"/>
+<path class="jf-ln c-a" d="M70 57 H290"/>
+<text class="jf-t jf-b" x="180" y="26" text-anchor="middle">Vertebres</text>
+<text class="jf-m" x="77" y="47"># i : int</text>
+<text class="jf-m" x="77" y="70">+ Vertebres(nb : int)</text>
+<text class="jf-m" x="77" y="85">+ afficher()</text>
+<rect class="jf-box f-2 c-2" x="70" y="150" width="220" height="70" rx="3"/>
+<path class="jf-ln c-2" d="M70 174 H290"/>
+<path class="jf-ln c-2" d="M70 182 H290"/>
+<text class="jf-t jf-b" x="180" y="166" text-anchor="middle">Mammifere</text>
+<text class="jf-m" x="77" y="195">+ Mammifere()</text>
+<text class="jf-m" x="77" y="210">+ afficher()</text>
+<path class="jf-ln" d="M180 150 L180 106"/>
+<path class="jf-ho " d="M180.0 95.0 L186.5 106.0 L173.5 106.0 Z"/>
+<circle class="jf-badge" cx="198" cy="126" r="8.5"/>
+<text class="jf-bn" x="198" y="130" text-anchor="middle">1</text>
+<text class="jf-m" x="212" y="130">extends</text>
+<path class="jf-ln  c-a" d="M70 191 L44 191 L44 66 L70 66"/>
+<path class="jf-ln c-a" d="M61.0 71.0 L70.0 66.0 L61.0 61.0"/>
+<circle class="jf-badge" cx="44" cy="118" r="8.5"/>
+<text class="jf-bn" x="44" y="122" text-anchor="middle">2</text>
+<path class="jf-ln  c-a" d="M290 206 L324 206 L324 81 L290 81"/>
+<path class="jf-ln c-a" d="M299.0 76.0 L290.0 81.0 L299.0 86.0"/>
+<circle class="jf-badge" cx="324" cy="118" r="8.5"/>
+<text class="jf-bn" x="324" y="122" text-anchor="middle">3</text>
+<circle class="jf-badge" cx="276" cy="43" r="8.5"/>
+<text class="jf-bn" x="276" y="47" text-anchor="middle">4</text>
+<circle class="jf-badge" cx="276" cy="206" r="8.5"/>
+<text class="jf-bn" x="276" y="210" text-anchor="middle">5</text>
+<circle class="jf-badge" cx="16" cy="242" r="8.5"/>
+<text class="jf-bn" x="16" y="246" text-anchor="middle">1</text>
+<text class="jf-s" x="32" y="246"><tspan class="jf-m">extends</tspan> : la fille reçoit i et afficher()</text>
+<circle class="jf-badge" cx="16" cy="261" r="8.5"/>
+<text class="jf-bn" x="16" y="265" text-anchor="middle">2</text>
+<text class="jf-s" x="32" y="265"><tspan class="jf-m">super(30);</tspan> : 1re ligne du constructeur fille</text>
+<circle class="jf-badge" cx="16" cy="280" r="8.5"/>
+<text class="jf-bn" x="16" y="284" text-anchor="middle">3</text>
+<text class="jf-s" x="32" y="284"><tspan class="jf-m">super.afficher();</tspan> : réutilise le code du parent</text>
+<circle class="jf-badge" cx="16" cy="299" r="8.5"/>
+<text class="jf-bn" x="16" y="303" text-anchor="middle">4</text>
+<text class="jf-s" x="32" y="303"><tspan class="jf-m">protected</tspan> (# en UML) : visible dans les filles</text>
+<circle class="jf-badge" cx="16" cy="318" r="8.5"/>
+<text class="jf-bn" x="16" y="322" text-anchor="middle">5</text>
+<text class="jf-s" x="32" y="322"><tspan class="jf-m">@Override</tspan> : le compilateur vérifie la signature</text>
+</svg>
+      <figcaption><b>À associer à chaque ligne de code :</b> ① <code>extends</code> crée la relation, ② <code>super(...)</code> appelle le constructeur du parent, ③ <code>super.m()</code> réutilise une méthode du parent, ④ <code>protected</code> ouvre aux filles, ⑤ <code>@Override</code> fait vérifier la signature.</figcaption>
+      </figure>
+      <!-- /jfig:s2-heritage-5 -->
       <div class="qa-list">
 
         <div class="qa-item">
@@ -1259,6 +1502,42 @@ System.out.println(i);   <span class="cmt">// ❌ ERREUR DE COMPILATION</span></
 
       </div>
 
+      <!-- jfig:s2-ordre-construction -->
+      <figure class="jfig" id="jfig-s2-ordre-construction">
+<svg viewBox="0 0 360 241" role="img" aria-labelledby="jfig-s2-ordre-construction-t jfig-s2-ordre-construction-d" focusable="false"><title id="jfig-s2-ordre-construction-t">Ordre de construction d'un objet d'une classe fille</title><desc id="jfig-s2-ordre-construction-d">new Mammifere() : les appels super() montent jusqu'à Object, puis les corps des constructeurs s'exécutent en redescendant.</desc>
+<rect class="jf-box f-s2 c-m" x="40" y="14" width="100" height="32" rx="4"/>
+<text class="jf-t jf-b" x="90" y="34.3" text-anchor="middle">Object</text>
+<rect class="jf-box f-a c-a" x="40" y="78" width="100" height="32" rx="4"/>
+<text class="jf-t jf-b" x="90" y="98.3" text-anchor="middle">Vertebres</text>
+<rect class="jf-box f-2 c-2" x="40" y="142" width="100" height="32" rx="4"/>
+<text class="jf-t jf-b" x="90" y="162.3" text-anchor="middle">Mammifere</text>
+<path class="jf-ln" d="M90 142 L90 121"/>
+<path class="jf-ho " d="M90.0 110.0 L96.5 121.0 L83.5 121.0 Z"/>
+<path class="jf-ln" d="M90 78 L90 57"/>
+<path class="jf-ho " d="M90.0 46.0 L96.5 57.0 L83.5 57.0 Z"/>
+<path class="jf-ln  c-a jf-d" d="M24 196 L24 38"/>
+<path class="jf-hf c-a" d="M24.0 30.0 L28.5 38.0 L19.5 38.0 Z"/>
+<text class="jf-s c-a" x="24" y="214" text-anchor="middle">appels</text>
+<text class="jf-m c-a" x="24" y="228" text-anchor="middle">super()</text>
+<path class="jf-ln" d="M90 196 L90 174"/>
+<path class="jf-ln " d="M95.0 183.0 L90.0 174.0 L85.0 183.0"/>
+<text class="jf-m" x="104" y="203">new Mammifere()</text>
+<circle class="jf-badge" cx="166" cy="30" r="8.5"/>
+<text class="jf-bn" x="166" y="34" text-anchor="middle">1</text>
+<text class="jf-s" x="182" y="27">corps de <tspan class="jf-m">Object()</tspan></text>
+<text class="jf-s c-m" x="182" y="42">la racine d'abord</text>
+<circle class="jf-badge" cx="166" cy="94" r="8.5"/>
+<text class="jf-bn" x="166" y="98" text-anchor="middle">2</text>
+<text class="jf-s" x="182" y="91">attributs, puis corps</text>
+<text class="jf-s c-m" x="182" y="106">affiche « nombre=30 »</text>
+<circle class="jf-badge" cx="166" cy="158" r="8.5"/>
+<text class="jf-bn" x="166" y="162" text-anchor="middle">3</text>
+<text class="jf-s" x="182" y="155">attributs, puis corps</text>
+<text class="jf-s c-m" x="182" y="170">la fille en dernier</text>
+</svg>
+      <figcaption><b>On monte pour appeler, on descend pour exécuter.</b> <code>new Mammifere()</code> appelle d'abord le constructeur de <code>Vertebres</code>, qui appelle celui d'<code>Object</code> ; ce sont les corps qui s'exécutent dans l'ordre racine → fille.</figcaption>
+      </figure>
+      <!-- /jfig:s2-ordre-construction -->
       <h3 style="font-size:18px;margin:32px 0 14px">🖥️ Les 5 mécanismes ensemble — code + sortie + trace</h3>
 <pre class="code"><span class="kw">public class</span> <span class="cls">Villain</span> {
     <span class="kw">protected int</span> force;                          <span class="cmt">// ④ protected</span>
@@ -1681,12 +1960,294 @@ System.out.println(i);   <span class="cmt">// ❌ ERREUR DE COMPILATION</span></
       </div>
     </section>
 
+    <!-- jadd:s3-memoire -->
+    <section id="s3-memoire">
+      <div class="section-head">
+        <div class="eyebrow">Complément · modèle mémoire</div>
+        <h2>Pile, tas, références : comprendre <code>a = b</code>, <code>==</code>, <code>null</code> et les paramètres</h2>
+        <p>Le cours parle d'affectation d'objets et de ramasse-miettes sans jamais dessiner la mémoire. Or presque tous les « qu'affiche ce programme ? » des annales reviennent à cette image : <b>deux zones, la pile et le tas</b>.</p>
+      </div>
+      <div class="notions">
+        <div class="notion" style="border-left:3px solid var(--accent)">
+          <h3>La pile</h3>
+          <p>Les <b>variables locales</b> et les paramètres des méthodes en cours. Un type primitif (<code>int</code>, <code>double</code>, <code>boolean</code>, <code>char</code>) y garde sa <b>valeur</b> ; une variable d'objet n'y garde qu'une <b>référence</b>.</p>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--accent2)">
+          <h3>Le tas</h3>
+          <p>Les <b>objets</b> et les <b>tableaux</b> créés par <code>new</code>. Un objet vit tant qu'une référence y mène ; sans référence, le ramasse-miettes peut le détruire.</p>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--bad)">
+          <h3>null</h3>
+          <p>Une référence qui ne désigne <b>aucun objet</b>. Valeur par défaut des attributs et des cases de tableau d'objets. Appeler une méthode ou lire un attribut dessus : <code>NullPointerException</code>.</p>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--good)">
+          <h3>Paramètres</h3>
+          <p>Java passe <b>toujours une copie</b> : de la valeur (primitif) ou de la référence (objet, tableau). On peut donc modifier l'objet de l'appelant, pas le remplacer.</p>
+        </div>
+      </div>
+      <!-- jfig:s3-pile-tas -->
+      <figure class="jfig" id="jfig-s3-pile-tas">
+<svg viewBox="0 0 360 254" role="img" aria-labelledby="jfig-s3-pile-tas-t jfig-s3-pile-tas-d" focusable="false"><title id="jfig-s3-pile-tas-t">Pile et tas</title><desc id="jfig-s3-pile-tas-d">La pile contient les valeurs des types primitifs et les références ; le tas contient les objets et tableaux. Une référence null ne désigne rien.</desc>
+<rect class="jf-box f-s2 c-m jf-d" x="6" y="8" width="156" height="196" rx="6"/>
+<rect class="jf-box f-s2 c-m jf-d" x="196" y="8" width="158" height="196" rx="6"/>
+<text class="jf-s jf-b c-m" x="84" y="25" text-anchor="middle">PILE : variables</text>
+<text class="jf-s jf-b c-m" x="275" y="25" text-anchor="middle">TAS : objets, tableaux</text>
+<text class="jf-m jf-b" x="14" y="60">n</text>
+<text class="jf-ms c-m" x="30" y="60">int</text>
+<rect class="jf-box f-sf" x="86" y="43" width="66" height="26" rx="3"/>
+<text class="jf-m jf-b" x="14" y="100">a</text>
+<text class="jf-ms c-m" x="30" y="100">Point</text>
+<rect class="jf-box f-sf" x="86" y="83" width="66" height="26" rx="3"/>
+<text class="jf-m jf-b" x="14" y="140">t</text>
+<text class="jf-ms c-m" x="30" y="140">int[]</text>
+<rect class="jf-box f-sf" x="86" y="123" width="66" height="26" rx="3"/>
+<text class="jf-m jf-b" x="14" y="180">c</text>
+<text class="jf-ms c-m" x="30" y="180">Point</text>
+<rect class="jf-box f-sf" x="86" y="163" width="66" height="26" rx="3"/>
+<text class="jf-m jf-b" x="119" y="61" text-anchor="middle">5</text>
+<circle class="jf-dot c-a" cx="119" cy="96" r="3.4"/>
+<circle class="jf-dot c-a" cx="119" cy="136" r="3.4"/>
+<text class="jf-m c-r" x="119" y="181" text-anchor="middle">null</text>
+<rect class="jf-box f-2 c-2" x="212" y="52" width="128" height="58" rx="3"/>
+<text class="jf-t jf-u" x="276" y="67" text-anchor="middle">: Point</text>
+<text class="jf-m" x="220" y="85">x = 1</text>
+<text class="jf-m" x="220" y="100">y = 2</text>
+<rect class="jf-box f-2 c-2" x="212" y="124" width="128" height="44" rx="3"/>
+<text class="jf-t jf-u" x="276" y="139" text-anchor="middle">: int[]</text>
+<rect class="jf-box f-sf" x="222" y="146" width="32" height="16" rx="2"/>
+<text class="jf-m" x="238" y="158" text-anchor="middle">0</text>
+<rect class="jf-box f-sf" x="258" y="146" width="32" height="16" rx="2"/>
+<text class="jf-m" x="274" y="158" text-anchor="middle">0</text>
+<rect class="jf-box f-sf" x="294" y="146" width="32" height="16" rx="2"/>
+<text class="jf-m" x="310" y="158" text-anchor="middle">0</text>
+<path class="jf-ln  c-a" d="M119 96 L204 96"/>
+<path class="jf-hf c-a" d="M212.0 96.0 L204.0 100.5 L204.0 91.5 Z"/>
+<path class="jf-ln  c-a" d="M119 136 L204 136"/>
+<path class="jf-hf c-a" d="M212.0 136.0 L204.0 140.5 L204.0 131.5 Z"/>
+<text class="jf-s c-r" x="14" y="224"><tspan class="jf-m">c.x</tspan> ou <tspan class="jf-m">c.y = 3</tspan> : NullPointerException</text>
+<text class="jf-s c-m" x="14" y="241"><tspan class="jf-m">new String[3]</tspan> : 3 références null, aucun String créé</text>
+</svg>
+      <figcaption><b>Primitif : la valeur est dans la variable. Objet : la variable ne contient qu'une flèche</b> (référence) vers le tas. <code>null</code> = flèche vers rien : y accéder lève <code>NullPointerException</code>.</figcaption>
+      </figure>
+      <!-- /jfig:s3-pile-tas -->
+      <!-- jfig:s3-affectation -->
+      <figure class="jfig" id="jfig-s3-affectation">
+<svg viewBox="0 0 360 350" role="img" aria-labelledby="jfig-s3-affectation-t jfig-s3-affectation-d" focusable="false"><title id="jfig-s3-affectation-t">Affectation et égalité d'objets</title><desc id="jfig-s3-affectation-d">Après a = b, les deux variables désignent le même objet et l'ancien objet de a n'est plus référencé. == compare les références, equals compare le contenu.</desc>
+<text class="jf-t jf-b" x="8" y="14">① <tspan class="jf-m">a = b;</tspan> copie la référence, pas l'objet</text>
+<text class="jf-s c-m" x="86" y="36" text-anchor="middle">avant</text>
+<rect class="jf-box f-sf" x="4" y="44" width="34" height="24" rx="4"/>
+<text class="jf-m" x="21" y="60.3" text-anchor="middle">a</text>
+<rect class="jf-box f-sf" x="4" y="92" width="34" height="24" rx="4"/>
+<text class="jf-m" x="21" y="108.3" text-anchor="middle">b</text>
+<rect class="jf-box f-2 c-2" x="106" y="40" width="64" height="34" rx="4"/>
+<text class="jf-ms" x="138" y="61.3" text-anchor="middle">x=1 y=2</text>
+<rect class="jf-box f-2 c-2" x="106" y="88" width="64" height="34" rx="4"/>
+<text class="jf-ms" x="138" y="109.3" text-anchor="middle">x=3 y=4</text>
+<path class="jf-ln  c-a" d="M38 56 L98.0009 56.8824"/>
+<path class="jf-hf c-a" d="M106.0 57.0 L97.9 61.4 L98.1 52.4 Z"/>
+<path class="jf-ln  c-a" d="M38 104 L98.0009 104.882"/>
+<path class="jf-hf c-a" d="M106.0 105.0 L97.9 109.4 L98.1 100.4 Z"/>
+<text class="jf-s c-m" x="270" y="36" text-anchor="middle">après</text>
+<rect class="jf-box f-sf" x="188" y="44" width="34" height="24" rx="4"/>
+<text class="jf-m" x="205" y="60.3" text-anchor="middle">a</text>
+<rect class="jf-box f-sf" x="188" y="92" width="34" height="24" rx="4"/>
+<text class="jf-m" x="205" y="108.3" text-anchor="middle">b</text>
+<rect class="jf-box f-sf c-m jf-d" x="290" y="40" width="64" height="34" rx="4"/>
+<text class="jf-ms" x="322" y="61.3" text-anchor="middle">x=1 y=2</text>
+<rect class="jf-box f-2 c-2" x="290" y="88" width="64" height="34" rx="4"/>
+<text class="jf-ms" x="322" y="109.3" text-anchor="middle">x=3 y=4</text>
+<path class="jf-ln  c-a" d="M222 56 L283.283 95.654"/>
+<path class="jf-hf c-a" d="M290.0 100.0 L280.8 99.4 L285.7 91.9 Z"/>
+<path class="jf-ln  c-a" d="M222 104 L282.003 105.765"/>
+<path class="jf-hf c-a" d="M290.0 106.0 L281.9 110.3 L282.1 101.3 Z"/>
+<text class="jf-s c-r" x="188" y="142">l'objet (1,2) n'a plus de</text>
+<text class="jf-s c-r" x="188" y="156">référence : ramasse-miettes</text>
+<path class="jf-ln  c-l" d="M8 176 L352 176"/>
+<text class="jf-t jf-b" x="8" y="196">② <tspan class="jf-m">==</tspan> compare les références, <tspan class="jf-m">equals</tspan> le contenu</text>
+<rect class="jf-box f-sf" x="8" y="212" width="34" height="24" rx="4"/>
+<text class="jf-m" x="25" y="228.3" text-anchor="middle">a</text>
+<rect class="jf-box f-sf" x="8" y="244" width="34" height="24" rx="4"/>
+<text class="jf-m" x="25" y="260.3" text-anchor="middle">c</text>
+<rect class="jf-box f-sf" x="8" y="276" width="34" height="24" rx="4"/>
+<text class="jf-m" x="25" y="292.3" text-anchor="middle">b</text>
+<rect class="jf-box f-2 c-2" x="102" y="214" width="64" height="34" rx="4"/>
+<text class="jf-ms" x="134" y="235.3" text-anchor="middle">x=1 y=2</text>
+<rect class="jf-box f-2 c-2" x="102" y="268" width="64" height="34" rx="4"/>
+<text class="jf-ms" x="134" y="289.3" text-anchor="middle">x=1 y=2</text>
+<path class="jf-ln  c-a" d="M42 224 L94.0177 227.468"/>
+<path class="jf-hf c-a" d="M102.0 228.0 L93.7 232.0 L94.3 223.0 Z"/>
+<path class="jf-ln  c-a" d="M42 256 L94.4105 238.53"/>
+<path class="jf-hf c-a" d="M102.0 236.0 L95.8 242.8 L93.0 234.3 Z"/>
+<path class="jf-ln  c-a" d="M42 288 L94.01 285.4"/>
+<path class="jf-hf c-a" d="M102.0 285.0 L94.2 289.9 L93.8 280.9 Z"/>
+<text class="jf-m" x="176" y="224"><tspan class="jf-m">a == c</tspan></text>
+<text class="jf-m jf-b c-g" x="270" y="224">true</text>
+<text class="jf-s c-m" x="176" y="237">même objet</text>
+<text class="jf-m" x="176" y="254"><tspan class="jf-m">a == b</tspan></text>
+<text class="jf-m jf-b c-r" x="270" y="254">false</text>
+<text class="jf-s c-m" x="176" y="267">2 objets</text>
+<text class="jf-m" x="176" y="284"><tspan class="jf-m">a.equals(b)</tspan></text>
+<text class="jf-m jf-b c-g" x="270" y="284">true*</text>
+<text class="jf-s c-m" x="176" y="297">même contenu</text>
+<text class="jf-s c-m" x="176" y="322">* si equals() est redéfinie</text>
+<text class="jf-s c-m" x="176" y="337">(sinon : identique à ==)</text>
+</svg>
+      <figcaption><b>a = b ne copie pas l'objet, seulement la flèche.</b> <code>==</code> demande « même objet ? », <code>equals()</code> demande « même contenu ? » (à condition de la redéfinir, sinon elle se comporte comme <code>==</code>).</figcaption>
+      </figure>
+      <!-- /jfig:s3-affectation -->
+      <!-- jfig:s3-passage -->
+      <figure class="jfig" id="jfig-s3-passage">
+<svg viewBox="0 0 360 296" role="img" aria-labelledby="jfig-s3-passage-t jfig-s3-passage-d" focusable="false"><title id="jfig-s3-passage-t">Passage de paramètres : toujours une copie</title><desc id="jfig-s3-passage-d">Dans la méthode, q est une copie de la référence p : modifier l'objet est visible, réaffecter q ne l'est pas ; m est une copie de n et sa modification est invisible.</desc>
+<rect class="jf-box f-sf" x="6" y="10" width="160" height="90" rx="5"/>
+<text class="jf-t jf-b" x="86" y="27" text-anchor="middle">main</text>
+<rect class="jf-box f-sf" x="194" y="10" width="160" height="90" rx="5"/>
+<text class="jf-m jf-b" x="274" y="27" text-anchor="middle">modifier(q, m)</text>
+<text class="jf-m jf-b" x="18" y="52">n</text>
+<rect class="jf-box f-sf" x="46" y="39" width="50" height="24" rx="3"/>
+<text class="jf-m jf-b" x="71" y="56" text-anchor="middle">5</text>
+<text class="jf-m jf-b" x="18" y="82">p</text>
+<rect class="jf-box f-sf" x="46" y="69" width="50" height="24" rx="3"/>
+<circle class="jf-dot c-a" cx="71" cy="81" r="3.4"/>
+<text class="jf-m jf-b" x="206" y="52">m</text>
+<rect class="jf-box f-sf" x="234" y="39" width="50" height="24" rx="3"/>
+<text class="jf-m jf-b" x="259" y="56" text-anchor="middle">5</text>
+<text class="jf-m jf-b" x="206" y="82">q</text>
+<rect class="jf-box f-sf" x="234" y="69" width="50" height="24" rx="3"/>
+<circle class="jf-dot c-a" cx="259" cy="81" r="3.4"/>
+<rect class="jf-box f-2 c-2" x="130" y="124" width="100" height="43" rx="3"/>
+<text class="jf-t jf-u" x="180" y="139" text-anchor="middle">: Point</text>
+<text class="jf-m" x="138" y="157">x = 1</text>
+<path class="jf-ln  c-a" d="M71 81 L71 140 L122 140"/>
+<path class="jf-hf c-a" d="M130.0 140.0 L122.0 144.5 L122.0 135.5 Z"/>
+<path class="jf-ln  c-a" d="M259 81 L259 140 L238 140"/>
+<path class="jf-hf c-a" d="M230.0 140.0 L238.0 135.5 L238.0 144.5 Z"/>
+<text class="jf-s c-a" x="180" y="112" text-anchor="middle">même objet</text>
+<text class="jf-m" x="8" y="194"><tspan class="jf-m">q.x = 9;</tspan></text>
+<text class="jf-s c-g" x="140" y="194">l'objet partagé change : p le voit</text>
+<text class="jf-m" x="8" y="216"><tspan class="jf-m">q = new Point();</tspan></text>
+<text class="jf-s c-r" x="140" y="216">q pointe ailleurs, p inchangé</text>
+<text class="jf-m" x="8" y="238"><tspan class="jf-m">m = 0;</tspan></text>
+<text class="jf-s c-r" x="140" y="238">copie locale : n reste à 5</text>
+<text class="jf-s c-m" x="8" y="268">Un tableau est un objet : <tspan class="jf-m">echanger(t, i, j)</tspan> agit sur</text>
+<text class="jf-s c-m" x="8" y="283">celui de l'appelant, <tspan class="jf-m">echanger(int a, int b)</tspan> non.</text>
+</svg>
+      <figcaption><b>Java passe toujours une copie.</b> Copie de la valeur pour un primitif (l'original ne bouge jamais), copie de la <i>référence</i> pour un objet ou un tableau : on peut modifier l'objet partagé, pas faire pointer l'appelant ailleurs.</figcaption>
+      </figure>
+      <!-- /jfig:s3-passage -->
+      <h3 style="font-size:17px;margin:24px 0 8px">Tout en un exemple (compile tel quel : <code>code/complements/Memoire.java</code>)</h3>
+<pre class="code"><span class="kw">public</span> <span class="kw">class</span> <span class="cls">Memoire</span> {
+    <span class="kw">static</span> <span class="kw">class</span> <span class="cls">Point</span> {
+        <span class="kw">int</span> x, y;
+        <span class="cls">Point</span>(<span class="kw">int</span> x, <span class="kw">int</span> y) { <span class="kw">this</span>.x = x; <span class="kw">this</span>.y = y; }
+
+        <span class="kw">@Override</span> <span class="kw">public</span> <span class="kw">boolean</span> <span class="fn">equals</span>(<span class="cls">Object</span> o) {
+            <span class="kw">if</span> (<span class="kw">this</span> == o) <span class="kw">return</span> <span class="kw">true</span>;
+            <span class="kw">if</span> (!(o <span class="kw">instanceof</span> <span class="cls">Point</span>)) <span class="kw">return</span> <span class="kw">false</span>;
+            <span class="cls">Point</span> p = (<span class="cls">Point</span>) o;
+            <span class="kw">return</span> x == p.x &amp;&amp; y == p.y;
+        }
+        <span class="kw">@Override</span> <span class="kw">public</span> <span class="kw">int</span> <span class="fn">hashCode</span>() { <span class="kw">return</span> <span class="num">31</span> * x + y; }
+        <span class="kw">@Override</span> <span class="kw">public</span> <span class="cls">String</span> <span class="fn">toString</span>() { <span class="kw">return</span> <span class="str">"("</span> + x + <span class="str">","</span> + y + <span class="str">")"</span>; }
+    }
+
+    <span class="kw">static</span> <span class="kw">void</span> <span class="fn">modifier</span>(<span class="cls">Point</span> q, <span class="kw">int</span> m) {
+        q.x = <span class="num">9</span>;                  <span class="cmt">// agit sur l'OBJET partagé : visible par l'appelant</span>
+        q = <span class="kw">new</span> <span class="cls">Point</span>(<span class="num">7</span>, <span class="num">7</span>);      <span class="cmt">// q désigne un autre objet : l'appelant n'est pas touché</span>
+        m = <span class="num">0</span>;                    <span class="cmt">// modifie la COPIE locale de l'entier</span>
+    }
+
+    <span class="kw">static</span> <span class="kw">void</span> <span class="fn">echanger</span>(<span class="kw">char</span>[] t, <span class="kw">int</span> i, <span class="kw">int</span> j) {   <span class="cmt">// un tableau est un objet : ça marche</span>
+        <span class="kw">char</span> c = t[i]; t[i] = t[j]; t[j] = c;
+    }
+
+    <span class="kw">static</span> <span class="kw">void</span> <span class="fn">echangerRate</span>(<span class="kw">int</span> a, <span class="kw">int</span> b) {         <span class="cmt">// deux int copiés : l'appelant ne voit rien</span>
+        <span class="kw">int</span> c = a; a = b; b = c;
+    }
+
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">main</span>(<span class="cls">String</span>[] args) {
+        <span class="cls">Point</span> a = <span class="kw">new</span> <span class="cls">Point</span>(<span class="num">1</span>, <span class="num">2</span>);
+        <span class="cls">Point</span> b = <span class="kw">new</span> <span class="cls">Point</span>(<span class="num">3</span>, <span class="num">4</span>);
+        <span class="cls">Point</span> c = a;                          <span class="cmt">// copie de la référence, pas de l'objet</span>
+        <span class="cls">System</span>.out.<span class="fn">println</span>(a == c);           <span class="cmt">// true</span>
+        a = b;                                <span class="cmt">// a désigne maintenant l'objet de b</span>
+        <span class="cls">System</span>.out.<span class="fn">println</span>(a == b);           <span class="cmt">// true</span>
+        <span class="cls">System</span>.out.<span class="fn">println</span>(c);                <span class="cmt">// (1,2) : l'ancien objet survit grâce à c</span>
+
+        <span class="cls">Point</span> d = <span class="kw">new</span> <span class="cls">Point</span>(<span class="num">3</span>, <span class="num">4</span>);
+        <span class="cls">System</span>.out.<span class="fn">println</span>(a == d);           <span class="cmt">// false : deux objets distincts</span>
+        <span class="cls">System</span>.out.<span class="fn">println</span>(a.<span class="fn">equals</span>(d));      <span class="cmt">// true : même contenu</span>
+
+        <span class="kw">int</span> n = <span class="num">5</span>;
+        <span class="fn">modifier</span>(b, n);
+        <span class="cls">System</span>.out.<span class="fn">println</span>(b + <span class="str">" "</span> + n);      <span class="cmt">// (9,4) 5</span>
+
+        <span class="kw">char</span>[] t = {<span class="str">'a'</span>, <span class="str">'b'</span>};
+        <span class="fn">echanger</span>(t, <span class="num">0</span>, <span class="num">1</span>);
+        <span class="cls">System</span>.out.<span class="fn">println</span>(t[<span class="num">0</span>] + <span class="str">""</span> + t[<span class="num">1</span>]); <span class="cmt">// ba</span>
+        <span class="kw">int</span> u = <span class="num">1</span>, v = <span class="num">2</span>;
+        <span class="fn">echangerRate</span>(u, v);
+        <span class="cls">System</span>.out.<span class="fn">println</span>(u + <span class="str">" "</span> + v);      <span class="cmt">// 1 2</span>
+
+        <span class="cls">Point</span> e = <span class="kw">null</span>;
+        <span class="kw">try</span> { e.x = <span class="num">1</span>; } <span class="kw">catch</span> (<span class="cls">NullPointerException</span> ex) { <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"NPE"</span>); }
+
+        <span class="cls">String</span>[] noms = <span class="kw">new</span> <span class="cls">String</span>[<span class="num">3</span>];        <span class="cmt">// 3 références null, aucun String créé</span>
+        <span class="cls">System</span>.out.<span class="fn">println</span>(noms[<span class="num">0</span>]);          <span class="cmt">// null</span>
+    }
+}</pre>
+      <p class="diagram-caption">Sortie : <code>true</code>, <code>true</code>, <code>(1,2)</code>, <code>false</code>, <code>true</code>, <code>(9,4) 5</code>, <code>ba</code>, <code>1 2</code>, <code>NPE</code>, <code>null</code>.</p>
+      <div class="trap-list">
+        <div class="trap"><b>Compter les objets</b>On compte les <code>new</code>, pas les variables : <code>A x,u,v; x=new A(); A y=x; A z=new A();</code> crée <b>2</b> objets (QCM 2025). <code>A y = x</code> ne crée rien.</div>
+        <div class="trap"><b>Tableau d'objets</b><code>new String[10]</code> crée 10 <b>références</b> égales à <code>null</code> et <b>aucun</b> objet <code>String</code> : chaque case doit recevoir son propre <code>new</code>.</div>
+        <div class="trap"><b>swap sur deux int</b><code>echanger(int a, int b)</code> n'échange rien chez l'appelant (copies). Sur un <b>tableau</b>, <code>echanger(t, i, j)</code> fonctionne : l'objet est partagé (exercice 1 du DS 2023).</div>
+        <div class="trap"><b>== sur des objets</b><code>==</code> compare les flèches. Pour le contenu : <code>equals()</code>, à redéfinir dans <i>ta</i> classe (<code>String</code> le fait déjà).</div>
+      </div>
+    </section>
+
+    <!-- /jadd:s3-memoire -->
     <section>
       <div class="section-head">
         <div class="eyebrow">Exemples</div>
         <h2>Code annoté</h2>
       </div>
 
+      <!-- jfig:s3-this-chaine -->
+      <figure class="jfig" id="jfig-s3-this-chaine">
+<svg viewBox="0 0 360 271" role="img" aria-labelledby="jfig-s3-this-chaine-t jfig-s3-this-chaine-d" focusable="false"><title id="jfig-s3-this-chaine-t">Constructeurs chaînés avec this(...)</title><desc id="jfig-s3-this-chaine-d">new D(5, 6) appelle D(a,b) qui appelle this(b), D(a) qui appelle this(), D() : les corps s'exécutent du plus simple au plus complet.</desc>
+<text class="jf-m jf-b" x="10" y="16"><tspan class="jf-m">new D(5, 6)</tspan></text>
+<rect class="jf-box f-sf" x="14" y="24" width="186" height="50" rx="4"/>
+<text class="jf-t jf-b" x="24" y="43">D(a=5, b=6)</text>
+<text class="jf-s" x="24" y="62"><tspan class="jf-m">this(b);  x = x - a;</tspan></text>
+<rect class="jf-box f-sf" x="14" y="104" width="186" height="50" rx="4"/>
+<text class="jf-t jf-b" x="24" y="123">D(a=6)</text>
+<text class="jf-s" x="24" y="142"><tspan class="jf-m">this();  x = x + a;</tspan></text>
+<rect class="jf-box f-sf" x="14" y="184" width="186" height="50" rx="4"/>
+<text class="jf-t jf-b" x="24" y="203">D()</text>
+<text class="jf-s" x="24" y="222"><tspan class="jf-m">x = 3;</tspan></text>
+<path class="jf-ln  c-a jf-d" d="M107 74 L107 96"/>
+<path class="jf-hf c-a" d="M107.0 104.0 L102.5 96.0 L111.5 96.0 Z"/>
+<path class="jf-ln  c-a jf-d" d="M107 154 L107 176"/>
+<path class="jf-hf c-a" d="M107.0 184.0 L102.5 176.0 L111.5 176.0 Z"/>
+<text class="jf-s c-a" x="117" y="93">appelle</text>
+<text class="jf-s c-a" x="117" y="173">appelle</text>
+<circle class="jf-badge" cx="222" cy="209" r="8.5"/>
+<text class="jf-bn" x="222" y="213" text-anchor="middle">1</text>
+<text class="jf-m" x="238" y="213">x = 3</text>
+<circle class="jf-badge" cx="222" cy="129" r="8.5"/>
+<text class="jf-bn" x="222" y="133" text-anchor="middle">2</text>
+<text class="jf-m" x="238" y="133">x = 3 + 6 = 9</text>
+<circle class="jf-badge" cx="222" cy="49" r="8.5"/>
+<text class="jf-bn" x="222" y="53" text-anchor="middle">3</text>
+<text class="jf-m" x="238" y="53">x = 9 - 5 = 4</text>
+<path class="jf-ln  c-g" d="M214 200 L214 150"/>
+<path class="jf-hf c-g" d="M214.0 142.0 L218.5 150.0 L209.5 150.0 Z"/>
+<path class="jf-ln  c-g" d="M214 120 L214 70"/>
+<path class="jf-hf c-g" d="M214.0 62.0 L218.5 70.0 L209.5 70.0 Z"/>
+<text class="jf-t jf-b" x="10" y="258">Résultat : <tspan class="jf-m">a.x</tspan> vaut 4</text>
+</svg>
+      <figcaption><b>this(...) délègue et doit être la 1re ligne.</b> On descend dans la chaîne des appels, puis on remonte en exécutant ce qui reste dans chaque constructeur : ici <code>x</code> vaut 3, puis 9, puis <b>4</b> (QCM 2025).</figcaption>
+      </figure>
+      <!-- /jfig:s3-this-chaine -->
       <h3 style="font-size:17px;margin-bottom:8px">this — auto-référence et chaînage de constructeurs</h3>
 <pre class="code"><span class="kw">public class</span> <span class="cls">Point</span> {
     <span class="kw">int</span> x, y;
@@ -2013,6 +2574,64 @@ Arbre a2 = <span class="kw">new</span> Arbre(<span class="num">20</span>);   <sp
         </div>
       </div>
 
+      <!-- jfig:s4-abstract-interface -->
+      <figure class="jfig" id="jfig-s4-abstract-interface">
+<svg viewBox="0 0 360 442" role="img" aria-labelledby="jfig-s4-abstract-interface-t jfig-s4-abstract-interface-d" focusable="false"><title id="jfig-s4-abstract-interface-t">Classe abstraite contre interface</title><desc id="jfig-s4-abstract-interface-d">Deux colonnes : la classe abstraite Personnels (extends, une seule mère, attributs et constructeurs) et l'interface Sportif (implements, plusieurs, signatures seulement).</desc>
+<rect class="jf-box f-a c-a" x="4" y="6" width="172" height="24" rx="4"/>
+<text class="jf-t jf-b" x="90" y="23" text-anchor="middle">Classe abstraite</text>
+<rect class="jf-box f-2 c-2" x="184" y="6" width="172" height="24" rx="4"/>
+<text class="jf-t jf-b" x="270" y="23" text-anchor="middle">Interface</text>
+<rect class="jf-box f-a c-a" x="24" y="40" width="132" height="55" rx="3"/>
+<path class="jf-ln c-a" d="M24 64 H156"/>
+<path class="jf-ln c-a" d="M24 72 H156"/>
+<text class="jf-t jf-b jf-i" x="90" y="56" text-anchor="middle">Personnels</text>
+<text class="jf-m" x="31" y="85">+ travailler()</text>
+<rect class="jf-box f-sf" x="24" y="114" width="132" height="24" rx="3"/>
+<text class="jf-t" x="90" y="130" text-anchor="middle">Enseignant</text>
+<path class="jf-ln" d="M90 114 L90 99"/>
+<path class="jf-ho " d="M90.0 88.0 L96.5 99.0 L83.5 99.0 Z"/>
+<rect class="jf-box f-2 c-2" x="204" y="40" width="132" height="59" rx="3"/>
+<path class="jf-ln c-2" d="M204 76 H336"/>
+<text class="jf-s" x="270" y="53" text-anchor="middle">«interface»</text>
+<text class="jf-t jf-b" x="270" y="68" text-anchor="middle">Sportif</text>
+<text class="jf-m" x="211" y="89">+ jouer()</text>
+<rect class="jf-box f-sf" x="204" y="126" width="132" height="24" rx="3"/>
+<text class="jf-t" x="270" y="142" text-anchor="middle">Personne</text>
+<path class="jf-ln   jf-d" d="M270 126 L270 109"/>
+<path class="jf-ho " d="M270.0 98.0 L276.5 109.0 L263.5 109.0 Z"/>
+<text class="jf-m c-m" x="98" y="108">extends</text>
+<text class="jf-m c-m" x="282" y="118">implements</text>
+<path class="jf-ln  c-l" d="M4 166 L356 166"/>
+<text class="jf-s jf-b jf-halo c-m" x="180" y="180" text-anchor="middle">Instanciable (new) ?</text>
+<text class="jf-s" x="90" y="197" text-anchor="middle">non</text>
+<text class="jf-s" x="270" y="197" text-anchor="middle">non</text>
+<path class="jf-ln  c-l" d="M4 208 L356 208"/>
+<text class="jf-s jf-b jf-halo c-m" x="180" y="222" text-anchor="middle">Mot-clé</text>
+<text class="jf-s" x="90" y="239" text-anchor="middle">extends : une seule mère</text>
+<text class="jf-s" x="270" y="239" text-anchor="middle">implements : plusieurs</text>
+<path class="jf-ln  c-l" d="M4 250 L356 250"/>
+<text class="jf-s jf-b jf-halo c-m" x="180" y="264" text-anchor="middle">Attributs</text>
+<text class="jf-s" x="90" y="281" text-anchor="middle">oui, de tout type</text>
+<text class="jf-s" x="270" y="281" text-anchor="middle">constantes seulement</text>
+<text class="jf-s" x="270" y="295" text-anchor="middle">(static final)</text>
+<path class="jf-ln  c-l" d="M4 300 L356 300"/>
+<text class="jf-s jf-b jf-halo c-m" x="180" y="314" text-anchor="middle">Constructeur</text>
+<text class="jf-s" x="90" y="331" text-anchor="middle">oui (appelé par super)</text>
+<text class="jf-s" x="270" y="331" text-anchor="middle">non</text>
+<path class="jf-ln  c-l" d="M4 342 L356 342"/>
+<text class="jf-s jf-b jf-halo c-m" x="180" y="356" text-anchor="middle">Méthodes</text>
+<text class="jf-s" x="90" y="373" text-anchor="middle">abstraites + concrètes</text>
+<text class="jf-s" x="270" y="373" text-anchor="middle">signatures (public</text>
+<text class="jf-s" x="270" y="387" text-anchor="middle">abstract implicite)</text>
+<path class="jf-ln  c-l" d="M4 392 L356 392"/>
+<text class="jf-s jf-b jf-halo c-m" x="180" y="406" text-anchor="middle">Sert à</text>
+<text class="jf-s" x="90" y="423" text-anchor="middle">factoriser : « est un »</text>
+<text class="jf-s" x="270" y="423" text-anchor="middle">contrat : « sait faire »</text>
+<path class="jf-ln  c-l" d="M180 166 L180 434"/>
+</svg>
+      <figcaption><b>Classe abstraite = famille « est un »</b> (une seule mère, état et code partagés). <b>Interface = contrat « sait faire »</b> (plusieurs possibles, aucun état). Ni l'une ni l'autre ne s'instancie avec <code>new</code>.</figcaption>
+      </figure>
+      <!-- /jfig:s4-abstract-interface -->
       <div class="notions" style="margin-top:16px">
         <div class="notion" style="border-left:3px solid var(--bad)">
           <h3>Polymorphisme</h3>
@@ -2035,6 +2654,46 @@ Arbre a2 = <span class="kw">new</span> Arbre(<span class="num">20</span>);   <sp
           <div class="example">Collections.sort(l);  // natural / Collections.sort(l, cmp);</div>
         </div>
       </div>
+      <!-- jfig:s4-polymorphisme -->
+      <figure class="jfig" id="jfig-s4-polymorphisme">
+<svg viewBox="0 0 360 314" role="img" aria-labelledby="jfig-s4-polymorphisme-t jfig-s4-polymorphisme-d" focusable="false"><title id="jfig-s4-polymorphisme-t">Type statique et type dynamique</title><desc id="jfig-s4-polymorphisme-d">Forme f = new Cercle() : le compilateur vérifie avec le type de la variable (Forme), la JVM choisit la méthode avec le type de l'objet (Cercle).</desc>
+<rect class="jf-box f-a c-a" x="112" y="6" width="136" height="55" rx="3"/>
+<path class="jf-ln c-a" d="M112 30 H248"/>
+<path class="jf-ln c-a" d="M112 38 H248"/>
+<text class="jf-t jf-b jf-i" x="180" y="22" text-anchor="middle">Forme</text>
+<text class="jf-m" x="119" y="51">+ getSurface()</text>
+<rect class="jf-box f-sf" x="20" y="84" width="110" height="26" rx="3"/>
+<text class="jf-t" x="75" y="101" text-anchor="middle">Cercle</text>
+<rect class="jf-box f-sf" x="230" y="84" width="110" height="26" rx="3"/>
+<text class="jf-t" x="285" y="101" text-anchor="middle">Carre</text>
+<path class="jf-ln" d="M75 84 L139.523 63.3525"/>
+<path class="jf-ho " d="M150.0 60.0 L141.5 69.5 L137.5 57.2 Z"/>
+<path class="jf-ln" d="M285 84 L220.477 63.3525"/>
+<path class="jf-ho " d="M210.0 60.0 L222.5 57.2 L218.5 69.5 Z"/>
+<text class="jf-m jf-b" x="180" y="138" text-anchor="middle"><tspan class="jf-m">Forme f = new Cercle();</tspan></text>
+<rect class="jf-box f-a c-a" x="14" y="152" width="112" height="34" rx="4"/>
+<text class="jf-m" x="70" y="173.3" text-anchor="middle">f : Forme</text>
+<rect class="jf-box f-2 c-2" x="214" y="150" width="132" height="22" rx="3"/>
+<text class="jf-t jf-u" x="280" y="165" text-anchor="middle">: Cercle</text>
+<path class="jf-ln  c-a" d="M126 169 L206 169"/>
+<path class="jf-hf c-a" d="M214.0 169.0 L206.0 173.5 L206.0 164.5 Z"/>
+<text class="jf-s c-a" x="170" y="162" text-anchor="middle">référence</text>
+<rect class="jf-box f-a c-a" x="4" y="208" width="172" height="98" rx="5"/>
+<text class="jf-t jf-b" x="90" y="226" text-anchor="middle">Compilateur</text>
+<text class="jf-s" x="12" y="244">type statique : Forme</text>
+<text class="jf-s" x="12" y="259"><tspan class="jf-m">getSurface()</tspan> est-elle</text>
+<text class="jf-s" x="12" y="274">déclarée dans Forme ?</text>
+<text class="jf-s" x="12" y="289">sinon : erreur</text>
+<rect class="jf-box f-2 c-2" x="184" y="208" width="172" height="98" rx="5"/>
+<text class="jf-t jf-b" x="270" y="226" text-anchor="middle">JVM (exécution)</text>
+<text class="jf-s" x="192" y="244">type réel : Cercle</text>
+<text class="jf-s" x="192" y="259">appelle <tspan class="jf-m">Cercle.getSurface()</tspan></text>
+<text class="jf-s" x="192" y="274">(liaison dynamique)</text>
+<text class="jf-s" x="192" y="289">méthodes d'instance</text>
+</svg>
+      <figcaption><b>Le compilateur lit le type de la variable ; la JVM exécute la méthode de l'objet réel.</b> Une méthode absente de <code>Forme</code> ne compile pas, même si <code>Cercle</code> la possède.</figcaption>
+      </figure>
+      <!-- /jfig:s4-polymorphisme -->
     </section>
 
     <section>
@@ -2120,6 +2779,55 @@ prof.<span class="fn">travailler</span>(<span class="num">300</span>);          
 }</pre>
       <p style="color:var(--muted);font-size:13.5px;margin-top:10px">Une seule signature <code>tune(Instrument)</code>, mais deux comportements différents à l'exécution — l'appel <code>i.play(0)</code> est <b>résolu dynamiquement</b> selon le vrai type de l'objet passé.</p>
 
+      <!-- jfig:s4-tri -->
+      <figure class="jfig" id="jfig-s4-tri">
+<svg viewBox="0 0 360 278" role="img" aria-labelledby="jfig-s4-tri-t jfig-s4-tri-d" focusable="false"><title id="jfig-s4-tri-t">Comparable et Comparator</title><desc id="jfig-s4-tri-d">Comparable : compareTo dans la classe (ordre naturel). Comparator : compare dans une classe à part (ordre externe). Le signe du résultat décide de l'ordre.</desc>
+<rect class="jf-box f-a c-a" x="4" y="6" width="172" height="108" rx="5"/>
+<text class="jf-t jf-b" x="90" y="24" text-anchor="middle">Comparable&lt;Forme&gt;</text>
+<text class="jf-s" x="12" y="42"><tspan class="jf-m">Forme implements</tspan></text>
+<text class="jf-s" x="12" y="57"><tspan class="jf-m">  Comparable&lt;Forme&gt;</tspan></text>
+<text class="jf-s" x="12" y="72"><tspan class="jf-m">int compareTo(Forme o)</tspan></text>
+<text class="jf-s c-m" x="90" y="106" text-anchor="middle">ordre naturel, dans la classe</text>
+<rect class="jf-box f-2 c-2" x="184" y="6" width="172" height="108" rx="5"/>
+<text class="jf-t jf-b" x="270" y="24" text-anchor="middle">Comparator&lt;Forme&gt;</text>
+<text class="jf-s" x="192" y="42"><tspan class="jf-m">ParSurface implements</tspan></text>
+<text class="jf-s" x="192" y="57"><tspan class="jf-m">  Comparator&lt;Forme&gt;</tspan></text>
+<text class="jf-s" x="192" y="72"><tspan class="jf-m">int compare(Forme a,</tspan></text>
+<text class="jf-s" x="192" y="87"><tspan class="jf-m">            Forme b)</tspan></text>
+<text class="jf-s c-m" x="270" y="106" text-anchor="middle">ordre externe, ailleurs</text>
+<text class="jf-m" x="8" y="136"><tspan class="jf-m">Collections.sort(l);</tspan></text>
+<text class="jf-s c-a" x="180" y="136">appelle <tspan class="jf-m">compareTo</tspan></text>
+<text class="jf-m" x="8" y="156"><tspan class="jf-m">Collections.sort(l, cmp);</tspan></text>
+<text class="jf-s c-a" x="180" y="156">appelle <tspan class="jf-m">compare</tspan></text>
+<text class="jf-s c-m" x="8" y="188"><tspan class="jf-m">a.compareTo(b)</tspan> ou <tspan class="jf-m">compare(a, b)</tspan> renvoie :</text>
+<rect class="jf-box f-g c-g" x="4" y="198" width="112" height="40" rx="4"/>
+<text class="jf-m jf-b" x="60" y="215" text-anchor="middle">&lt; 0</text>
+<text class="jf-s" x="60" y="231" text-anchor="middle">a avant b</text>
+<rect class="jf-box f-s2 c-m" x="124" y="198" width="112" height="40" rx="4"/>
+<text class="jf-m jf-b" x="180" y="215" text-anchor="middle">= 0</text>
+<text class="jf-s" x="180" y="231" text-anchor="middle">équivalents</text>
+<rect class="jf-box f-2 c-2" x="244" y="198" width="112" height="40" rx="4"/>
+<text class="jf-m jf-b" x="300" y="215" text-anchor="middle">&gt; 0</text>
+<text class="jf-s" x="300" y="231" text-anchor="middle">a après b</text>
+<text class="jf-s c-m" x="8" y="262">tri par surface :</text>
+<rect class="jf-box f-sf" x="112" y="248" width="30" height="22" rx="4"/>
+<text class="jf-m" x="127" y="263.3" text-anchor="middle">9</text>
+<rect class="jf-box f-sf" x="148" y="248" width="30" height="22" rx="4"/>
+<text class="jf-m" x="163" y="263.3" text-anchor="middle">3</text>
+<rect class="jf-box f-sf" x="184" y="248" width="30" height="22" rx="4"/>
+<text class="jf-m" x="199" y="263.3" text-anchor="middle">5</text>
+<path class="jf-ln" d="M224 259 L238 259"/>
+<path class="jf-hf " d="M246.0 259.0 L238.0 263.5 L238.0 254.5 Z"/>
+<rect class="jf-box f-g c-g" x="254" y="248" width="30" height="22" rx="4"/>
+<text class="jf-m" x="269" y="263.3" text-anchor="middle">3</text>
+<rect class="jf-box f-g c-g" x="290" y="248" width="30" height="22" rx="4"/>
+<text class="jf-m" x="305" y="263.3" text-anchor="middle">5</text>
+<rect class="jf-box f-g c-g" x="326" y="248" width="30" height="22" rx="4"/>
+<text class="jf-m" x="341" y="263.3" text-anchor="middle">9</text>
+</svg>
+      <figcaption><b>Comparable</b> : un seul ordre « naturel », écrit dans la classe. <b>Comparator</b> : autant d'ordres que l'on veut, écrits ailleurs. Dans les deux cas : négatif = « avant », 0 = égaux, positif = « après ».</figcaption>
+      </figure>
+      <!-- /jfig:s4-tri -->
       <h3 style="font-size:17px;margin:24px 0 8px">Collections + Comparable + Comparator — <code>comparatorForme</code></h3>
 <pre class="code"><span class="kw">abstract class</span> <span class="cls">Forme</span> <span class="kw">implements</span> <span class="cls">Comparable</span>&lt;Forme&gt; {
     <span class="kw">protected double</span> x, y, distance;
@@ -2156,6 +2864,83 @@ Collections.<span class="fn">sort</span>(l, FormeComparator.SURFACE_ORDER);  <sp
       <p style="color:var(--muted);font-size:13.5px;margin-top:10px"><b>4 concepts en 1 exemple</b> : classe abstraite (<code>Forme</code>) + polymorphisme (<code>getSurface()</code>, <code>toString()</code>) + interface (<code>Comparable</code>) + collection triable (<code>Vector</code>, <code>Collections.sort</code>). Le tri fonctionne parce que <code>Forme</code> implémente <code>Comparable</code>.</p>
     </section>
 
+    <!-- jadd:s4-pieges -->
+    <section id="s4-pieges">
+      <div class="section-head">
+        <div class="eyebrow">Complément · pièges d'évaluation</div>
+        <h2>Héritage, static, constructeurs, surcharge : ce qui piège en QCM</h2>
+        <p>Six situations qui reviennent dans les annales (QCM 2025 surtout) et que les pages du cours n'énonçaient pas explicitement. Le code complet est dans <code>code/complements/Pieges.java</code>.</p>
+      </div>
+      <div class="notions">
+        <div class="notion" style="border-left:3px solid var(--bad)">
+          <h3>static n'est pas polymorphe</h3>
+          <p>Une méthode <code>static</code> est résolue d'après la <b>classe écrite</b> dans l'appel : une « redéfinition » static ne fait que <b>masquer</b>. <code>A.f(2) * a.g(3)</code> avec <code>f</code> static et <code>g</code> redéfinie vaut <b>7 × 11 = 77</b>, pas 6 × 11.</p>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--bad)">
+          <h3>Le constructeur du parent appelle une méthode redéfinie</h3>
+          <p>C'est la version de la <b>fille</b> qui s'exécute, <b>avant</b> que les attributs de la fille soient initialisés (<code>null</code> pour un objet, 0 pour un nombre). QCM 2025 : <code>new Fifille()</code> affiche « Fifille ».</p>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--bad)">
+          <h3>Les attributs ne sont pas polymorphes</h3>
+          <p><code>a.nom</code> est lu selon le type de la <b>variable</b> (<code>A</code>), même si l'objet est un <code>B</code> qui a son propre <code>nom</code>. Seules les <b>méthodes</b> d'instance redéfinies sont dynamiques.</p>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--bad)">
+          <h3>Surcharge : choix à la compilation</h3>
+          <p>Entre <code>t(Object)</code> et <code>t(String)</code>, Java choisit d'après le type <b>déclaré</b> de l'argument : <code>Object o = "x"; t(o)</code> appelle <code>t(Object)</code>. La redéfinition, elle, se décide à l'exécution.</p>
+        </div>
+      </div>
+      <div class="tbl-wrap" style="margin-top:18px">
+        <table class="tbl">
+          <thead><tr><th></th><th>Surcharge (overload)</th><th>Redéfinition (override)</th></tr></thead>
+          <tbody>
+            <tr><td><b>Où ?</b></td><td>même classe (ou héritée)</td><td>classe fille</td></tr>
+            <tr><td><b>Signature</b></td><td>même nom, paramètres <b>différents</b></td><td>même nom et <b>mêmes</b> paramètres</td></tr>
+            <tr><td><b>Choix</b></td><td>compilation, type <b>déclaré</b> des arguments</td><td>exécution, type <b>réel</b> de l'objet</td></tr>
+            <tr><td><b>@Override</b></td><td>non</td><td>oui : erreur de compilation si la signature ne correspond pas</td></tr>
+            <tr><td><b>Impossible pour</b></td><td>—</td><td><code>static</code> (masquée), <code>private</code>, <code>final</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="qa-intro" style="margin-top:12px">Le PDF du cours 3 écrit « surcharge (redéfinition) » : à l'examen, <b>surcharge = overload</b> (signatures différentes) et <b>redéfinition = override</b> (même signature dans la fille).</p>
+<pre class="code"><span class="kw">class</span> <span class="cls">A</span> {
+    <span class="kw">static</span> <span class="kw">int</span> <span class="fn">f</span>(<span class="kw">int</span> x) { <span class="kw">return</span> x + <span class="num">5</span>; }
+    <span class="kw">int</span> <span class="fn">g</span>(<span class="kw">int</span> x) { <span class="kw">return</span> <span class="num">3</span>; }
+    <span class="cls">String</span> nom = <span class="str">"A"</span>;
+    <span class="cls">String</span> <span class="fn">qui</span>() { <span class="kw">return</span> <span class="str">"A"</span>; }
+    <span class="cls">A</span>() { <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"A() voit : "</span> + <span class="fn">qui</span>()); }
+}
+
+<span class="kw">class</span> <span class="cls">B</span> <span class="kw">extends</span> <span class="cls">A</span> {
+    <span class="kw">static</span> <span class="kw">int</span> <span class="fn">f</span>(<span class="kw">int</span> x) { <span class="kw">return</span> x + <span class="num">4</span>; }        <span class="cmt">// MASQUE A.f : ce n'est pas une redéfinition</span>
+    <span class="kw">@Override</span> <span class="kw">int</span> <span class="fn">g</span>(<span class="kw">int</span> x) { <span class="kw">return</span> x + <span class="num">8</span>; }     <span class="cmt">// redéfinition : choisie à l'exécution</span>
+    <span class="cls">String</span> nom = <span class="str">"B"</span>;                            <span class="cmt">// nouvel attribut, qui masque celui d'A</span>
+    <span class="kw">private</span> <span class="cls">String</span> suffixe = <span class="str">"!"</span>;
+    <span class="kw">@Override</span> <span class="cls">String</span> <span class="fn">qui</span>() { <span class="kw">return</span> <span class="str">"B"</span> + suffixe; }
+}
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Pieges</span> {
+    <span class="kw">static</span> <span class="cls">String</span> <span class="fn">t</span>(<span class="cls">Object</span> o) { <span class="kw">return</span> <span class="str">"Object"</span>; }
+    <span class="kw">static</span> <span class="cls">String</span> <span class="fn">t</span>(<span class="cls">String</span> s) { <span class="kw">return</span> <span class="str">"String"</span>; }
+
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">main</span>(<span class="cls">String</span>[] args) {
+        <span class="cls">B</span> b = <span class="kw">new</span> <span class="cls">B</span>();                            <span class="cmt">// A() voit : Bnull (suffixe pas encore initialisé)</span>
+        <span class="cls">A</span> a = b;
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="cls">A</span>.<span class="fn">f</span>(<span class="num">2</span>) * a.<span class="fn">g</span>(<span class="num">3</span>));      <span class="cmt">// 77 = 7 * 11</span>
+        <span class="cls">System</span>.out.<span class="fn">println</span>(a.nom);                <span class="cmt">// A : un attribut suit le type de la variable</span>
+        <span class="cls">System</span>.out.<span class="fn">println</span>(((<span class="cls">B</span>) a).nom);          <span class="cmt">// B</span>
+        <span class="cls">Object</span> o = <span class="str">"texte"</span>;
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="fn">t</span>(o));                 <span class="cmt">// Object : surcharge choisie à la compilation</span>
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="fn">t</span>(<span class="str">"x"</span>));               <span class="cmt">// String</span>
+    }
+}</pre>
+      <p class="diagram-caption">Sortie : <code>A() voit : Bnull</code>, <code>77</code>, <code>A</code>, <code>B</code>, <code>Object</code>, <code>String</code>.</p>
+      <div class="trap-list">
+        <div class="trap"><b>Constructeur absent chez le parent</b>Si la mère n'a <b>que</b> <code>Base(int i)</code>, la fille doit écrire <code>super(10);</code> en 1re ligne de <i>chacun</i> de ses constructeurs, sinon : erreur de compilation. Un constructeur ne contient pas à la fois <code>this(...)</code> et <code>super(...)</code>.</div>
+        <div class="trap"><b>Un cast qui compile n'est pas un cast qui marche</b><code>Triangle t = (Triangle) uneFigure;</code> compile si <code>Triangle</code> hérite de <code>Figure</code>, mais plante (<code>ClassCastException</code>) si l'objet réel est une autre <code>Figure</code>. Utiliser <code>instanceof</code> avant.</div>
+      </div>
+    </section>
+
+    <!-- /jadd:s4-pieges -->
     <section id="s4-map">
       <div class="section-head">
         <div class="eyebrow">Complément du cours 4 (partie 2)</div>
@@ -2184,6 +2969,69 @@ Collections.<span class="fn">sort</span>(l, FormeComparator.SURFACE_ORDER);  <sp
           <div class="example">String, Integer… le font déjà : clés sûres</div>
         </div>
       </div>
+      <!-- jfig:s4-collections -->
+      <figure class="jfig" id="jfig-s4-collections">
+<svg viewBox="0 0 360 262" role="img" aria-labelledby="jfig-s4-collections-t jfig-s4-collections-d" focusable="false"><title id="jfig-s4-collections-t">Les collections Java</title><desc id="jfig-s4-collections-d">Collection se spécialise en List et Set ; Map est à part. Implémentations : ArrayList, LinkedList, Vector ; HashSet, TreeSet ; HashMap, TreeMap, Hashtable.</desc>
+<rect class="jf-box f-a c-a" x="46" y="8" width="120" height="44" rx="3"/>
+<path class="jf-ln c-a" d="M46 44 H166"/>
+<text class="jf-s" x="106" y="21" text-anchor="middle">«interface»</text>
+<text class="jf-t jf-b" x="106" y="36" text-anchor="middle">Collection</text>
+<rect class="jf-box f-a c-a" x="6" y="84" width="100" height="28" rx="4"/>
+<text class="jf-t jf-b" x="56" y="102.3" text-anchor="middle">List</text>
+<rect class="jf-box f-a c-a" x="124" y="84" width="100" height="28" rx="4"/>
+<text class="jf-t jf-b" x="174" y="102.3" text-anchor="middle">Set</text>
+<rect class="jf-box f-2 c-2" x="250" y="84" width="104" height="28" rx="4"/>
+<text class="jf-t jf-b" x="302" y="102.3" text-anchor="middle">Map</text>
+<path class="jf-ln" d="M56 84 L76.7564 60.2783"/>
+<path class="jf-ho " d="M84.0 52.0 L81.6 64.6 L71.9 56.0 Z"/>
+<path class="jf-ln" d="M174 84 L138.896 58.4699"/>
+<path class="jf-ho " d="M130.0 52.0 L142.7 53.2 L135.1 63.7 Z"/>
+<text class="jf-s c-2" x="302" y="70" text-anchor="middle">pas une Collection</text>
+<rect class="jf-box f-sf" x="16" y="136" width="90" height="34" rx="3"/>
+<text class="jf-m jf-b" x="61" y="151" text-anchor="middle">ArrayList</text>
+<text class="jf-s c-m" x="61" y="164" text-anchor="middle">tableau</text>
+<path class="jf-ln   jf-d" d="M16 153 L9 153"/>
+<rect class="jf-box f-sf" x="16" y="178" width="90" height="34" rx="3"/>
+<text class="jf-m jf-b" x="61" y="193" text-anchor="middle">LinkedList</text>
+<text class="jf-s c-m" x="61" y="206" text-anchor="middle">chaînée</text>
+<path class="jf-ln   jf-d" d="M16 195 L9 195"/>
+<rect class="jf-box f-sf" x="16" y="220" width="90" height="34" rx="3"/>
+<text class="jf-m jf-b" x="61" y="235" text-anchor="middle">Vector</text>
+<text class="jf-s c-m" x="61" y="248" text-anchor="middle">synchronisé</text>
+<path class="jf-ln   jf-d" d="M16 237 L9 237"/>
+<path class="jf-ln   jf-d" d="M9 132 L9 237"/>
+<rect class="jf-box f-sf" x="134" y="136" width="90" height="34" rx="3"/>
+<text class="jf-m jf-b" x="179" y="151" text-anchor="middle">HashSet</text>
+<text class="jf-s c-m" x="179" y="164" text-anchor="middle">non ordonné</text>
+<path class="jf-ln   jf-d" d="M134 153 L127 153"/>
+<rect class="jf-box f-sf" x="134" y="178" width="90" height="34" rx="3"/>
+<text class="jf-m jf-b" x="179" y="193" text-anchor="middle">TreeSet</text>
+<text class="jf-s c-m" x="179" y="206" text-anchor="middle">trié</text>
+<path class="jf-ln   jf-d" d="M134 195 L127 195"/>
+<path class="jf-ln   jf-d" d="M127 132 L127 195"/>
+<rect class="jf-box f-sf" x="260" y="136" width="94" height="34" rx="3"/>
+<text class="jf-m jf-b" x="307" y="151" text-anchor="middle">HashMap</text>
+<text class="jf-s c-m" x="307" y="164" text-anchor="middle">non ordonnée</text>
+<path class="jf-ln   jf-d" d="M260 153 L253 153"/>
+<rect class="jf-box f-sf" x="260" y="178" width="94" height="34" rx="3"/>
+<text class="jf-m jf-b" x="307" y="193" text-anchor="middle">TreeMap</text>
+<text class="jf-s c-m" x="307" y="206" text-anchor="middle">clés triées</text>
+<path class="jf-ln   jf-d" d="M260 195 L253 195"/>
+<rect class="jf-box f-sf" x="260" y="220" width="94" height="34" rx="3"/>
+<text class="jf-m jf-b" x="307" y="235" text-anchor="middle">Hashtable</text>
+<text class="jf-s c-m" x="307" y="248" text-anchor="middle">synchronisée</text>
+<path class="jf-ln   jf-d" d="M260 237 L253 237"/>
+<path class="jf-ln   jf-d" d="M253 132 L253 237"/>
+<path class="jf-ln   jf-d" d="M9 136 L9 123"/>
+<path class="jf-ho " d="M9.0 112.0 L15.5 123.0 L2.5 123.0 Z"/>
+<path class="jf-ln   jf-d" d="M127 136 L127 123"/>
+<path class="jf-ho " d="M127.0 112.0 L133.5 123.0 L120.5 123.0 Z"/>
+<path class="jf-ln   jf-d" d="M253 136 L253 123"/>
+<path class="jf-ho " d="M253.0 112.0 L259.5 123.0 L246.5 123.0 Z"/>
+</svg>
+      <figcaption><b>List</b> : ordonnée, doublons permis. <b>Set</b> : pas de doublon. <b>Map</b> : clé → valeur, et <b>n'hérite pas de Collection</b>. On déclare le type d'interface : <code>List&lt;Forme&gt; l = new ArrayList&lt;&gt;();</code></figcaption>
+      </figure>
+      <!-- /jfig:s4-collections -->
       <div class="tbl-wrap" style="margin-top:18px">
         <table class="tbl">
           <thead><tr><th>Besoin</th><th>Interface</th><th>Implémentation courante</th><th>À savoir</th></tr></thead>
@@ -2205,6 +3053,126 @@ stock.<span class="fn">put</span>(<span class="str">"pizza"</span>, <span class=
 <span class="cls">Map</span>&lt;<span class="cls">String</span>, <span class="cls">Integer</span>&gt; trie = <span class="kw">new</span> <span class="cls">TreeMap</span>&lt;&gt;(stock);   <span class="cmt">// même contenu, clés dans l'ordre alphabétique</span></pre>
     </section>
 
+    <!-- jadd:s4-ensembles -->
+    <section id="s4-ensembles">
+      <div class="section-head">
+        <div class="eyebrow">Complément · Set et table de hachage</div>
+        <h2>Set, hashCode et equals : pourquoi une clé « égale » n'est pas retrouvée</h2>
+        <p>La partie Map du cours précise que les clés doivent redéfinir <code>hashCode()</code>. Voici comment cela se passe réellement, avec le <code>Set</code> qui repose sur le même mécanisme.</p>
+      </div>
+      <!-- jfig:s4-hachage -->
+      <figure class="jfig" id="jfig-s4-hachage">
+<svg viewBox="0 0 360 275" role="img" aria-labelledby="jfig-s4-hachage-t jfig-s4-hachage-d" focusable="false"><title id="jfig-s4-hachage-t">Table de hachage d'une HashMap</title><desc id="jfig-s4-hachage-d">Trois clés avec leur hashCode d'exemple, le tableau de seaux 0 à 3, et la liste chaînée du seau 2 où pizza et wrap sont en collision.</desc>
+<text class="jf-m jf-b" x="8" y="14"><tspan class="jf-m">HashMap&lt;String, Integer&gt;</tspan></text>
+<text class="jf-s c-m" x="8" y="34">clés</text>
+<text class="jf-s c-m" x="166" y="34" text-anchor="middle">seaux</text>
+<text class="jf-s c-m" x="260" y="34" text-anchor="middle">chaîne (collision)</text>
+<rect class="jf-box f-s2 c-m" x="148" y="37" width="36" height="30" rx="3"/>
+<text class="jf-m jf-b" x="166" y="57" text-anchor="middle">0</text>
+<rect class="jf-box f-sf" x="148" y="81" width="36" height="30" rx="3"/>
+<text class="jf-m jf-b" x="166" y="101" text-anchor="middle">1</text>
+<rect class="jf-box f-sf" x="148" y="125" width="36" height="30" rx="3"/>
+<text class="jf-m jf-b" x="166" y="145" text-anchor="middle">2</text>
+<rect class="jf-box f-s2 c-m" x="148" y="169" width="36" height="30" rx="3"/>
+<text class="jf-m jf-b" x="166" y="189" text-anchor="middle">3</text>
+<text class="jf-m jf-b" x="6" y="93">"sushi"</text>
+<text class="jf-ms c-m" x="6" y="108">h=9 : 9 mod 4 = 1</text>
+<text class="jf-m jf-b" x="6" y="137">"pizza"</text>
+<text class="jf-ms c-m" x="6" y="152">h=14 : 14 mod 4 = 2</text>
+<text class="jf-m jf-b" x="6" y="181">"wrap"</text>
+<text class="jf-ms c-m" x="6" y="196">h=6 : 6 mod 4 = 2</text>
+<path class="jf-ln  c-a" d="M128 93 L140.089 94.8133"/>
+<path class="jf-hf c-a" d="M148.0 96.0 L139.4 99.3 L140.8 90.4 Z"/>
+<path class="jf-ln  c-a" d="M128 137 L140.089 138.813"/>
+<path class="jf-hf c-a" d="M148.0 140.0 L139.4 143.3 L140.8 134.4 Z"/>
+<path class="jf-ln  c-a" d="M134 187 L140 187 L140 150 L140.845 149.578"/>
+<path class="jf-hf c-a" d="M148.0 146.0 L142.9 153.6 L138.8 145.6 Z"/>
+<rect class="jf-box f-2 c-2" x="204" y="83" width="76" height="26" rx="4"/>
+<text class="jf-m" x="242" y="100.3" text-anchor="middle">sushi=9</text>
+<rect class="jf-box f-2 c-2" x="204" y="127" width="76" height="26" rx="4"/>
+<text class="jf-m" x="242" y="144.3" text-anchor="middle">pizza=12</text>
+<rect class="jf-box f-2 c-2" x="298" y="127" width="54" height="26" rx="4"/>
+<text class="jf-m" x="325" y="144.3" text-anchor="middle">wrap=7</text>
+<path class="jf-ln" d="M184 96 L196 96"/>
+<path class="jf-hf " d="M204.0 96.0 L196.0 100.5 L196.0 91.5 Z"/>
+<path class="jf-ln" d="M184 140 L196 140"/>
+<path class="jf-hf " d="M204.0 140.0 L196.0 144.5 L196.0 135.5 Z"/>
+<path class="jf-ln" d="M280 140 L290 140"/>
+<path class="jf-hf " d="M298.0 140.0 L290.0 144.5 L290.0 135.5 Z"/>
+<text class="jf-s" x="8" y="222"><tspan class="jf-m">get("wrap")</tspan> : seau 2, puis equals() sur chaque clé :</text>
+<text class="jf-s" x="8" y="238">pizza ? non. wrap ? oui, on renvoie 7.</text>
+<text class="jf-s c-r" x="8" y="262">sans hashCode cohérent, la clé n'est pas retrouvée.</text>
+</svg>
+      <figcaption><b>Une HashMap range par seau.</b> ① <code>hashCode()</code> de la clé, ② seau = valeur mod taille, ③ dans le seau on compare avec <code>equals()</code>. Deux clés égales doivent avoir le même <code>hashCode()</code>. (Valeurs simplifiées.)</figcaption>
+      </figure>
+      <!-- /jfig:s4-hachage -->
+      <div class="notions">
+        <div class="notion" style="border-left:3px solid var(--accent)">
+          <h3>Set : pas de doublon</h3>
+          <p><code>add(x)</code> renvoie <code>false</code> et ne change rien si un élément <b>égal</b> (au sens de <code>equals</code>) est déjà là. <code>HashSet</code> : sans ordre. <code>TreeSet</code> : trié, il exige que les éléments soient <code>Comparable</code> (ou un <code>Comparator</code>), sinon <code>ClassCastException</code>.</p>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--bad)">
+          <h3>La règle d'or</h3>
+          <p>Si <code>a.equals(b)</code> est vrai, alors <code>a.hashCode() == b.hashCode()</code>. On redéfinit <b>toujours les deux ensemble</b>, avec les mêmes attributs.</p>
+        </div>
+        <div class="notion" style="border-left:3px solid var(--warn)">
+          <h3>Signature exacte de equals</h3>
+          <p>C'est <code>equals(Object o)</code>. Écrire <code>equals(Plat p)</code> est une <b>surcharge</b> : <code>contains</code>, <code>HashSet</code> et <code>HashMap</code> continuent d'appeler celle d'<code>Object</code>. Avec <code>@Override</code>, le compilateur refuse.</p>
+        </div>
+      </div>
+<pre class="code"><span class="kw">import</span> java.util.*;
+
+<span class="kw">public</span> <span class="kw">class</span> <span class="cls">Ensembles</span> {
+    <span class="kw">static</span> <span class="kw">class</span> <span class="cls">Plat</span> {
+        <span class="kw">final</span> <span class="cls">String</span> nom;
+        <span class="cls">Plat</span>(<span class="cls">String</span> nom) { <span class="kw">this</span>.nom = nom; }
+        <span class="kw">@Override</span> <span class="kw">public</span> <span class="kw">boolean</span> <span class="fn">equals</span>(<span class="cls">Object</span> o) {
+            <span class="kw">if</span> (!(o <span class="kw">instanceof</span> <span class="cls">Plat</span>)) <span class="kw">return</span> <span class="kw">false</span>;
+            <span class="kw">return</span> nom.<span class="fn">equals</span>(((<span class="cls">Plat</span>) o).nom);
+        }
+        <span class="kw">@Override</span> <span class="kw">public</span> <span class="kw">int</span> <span class="fn">hashCode</span>() { <span class="kw">return</span> nom.<span class="fn">hashCode</span>(); }   <span class="cmt">// cohérent avec equals</span>
+        <span class="kw">@Override</span> <span class="kw">public</span> <span class="cls">String</span> <span class="fn">toString</span>() { <span class="kw">return</span> nom; }
+    }
+
+    <span class="kw">static</span> <span class="kw">class</span> <span class="cls">Mauvais</span> {
+        <span class="kw">final</span> <span class="cls">String</span> nom;
+        <span class="cls">Mauvais</span>(<span class="cls">String</span> nom) { <span class="kw">this</span>.nom = nom; }
+        <span class="kw">public</span> <span class="kw">boolean</span> <span class="fn">equals</span>(<span class="cls">Mauvais</span> m) { <span class="kw">return</span> nom.<span class="fn">equals</span>(m.nom); }   <span class="cmt">// SURCHARGE, pas redéfinition !</span>
+    }
+
+    <span class="kw">public</span> <span class="kw">static</span> <span class="kw">void</span> <span class="fn">main</span>(<span class="cls">String</span>[] args) {
+        <span class="cls">Set</span>&lt;<span class="cls">String</span>&gt; s = <span class="kw">new</span> <span class="cls">HashSet</span>&lt;&gt;();
+        <span class="cls">System</span>.out.<span class="fn">println</span>(s.<span class="fn">add</span>(<span class="str">"a"</span>));                 <span class="cmt">// true</span>
+        <span class="cls">System</span>.out.<span class="fn">println</span>(s.<span class="fn">add</span>(<span class="str">"a"</span>));                 <span class="cmt">// false : déjà présent</span>
+
+        <span class="cls">Set</span>&lt;<span class="cls">Plat</span>&gt; menu = <span class="kw">new</span> <span class="cls">HashSet</span>&lt;&gt;();
+        menu.<span class="fn">add</span>(<span class="kw">new</span> <span class="cls">Plat</span>(<span class="str">"pizza"</span>));
+        menu.<span class="fn">add</span>(<span class="kw">new</span> <span class="cls">Plat</span>(<span class="str">"pizza"</span>));
+        <span class="cls">System</span>.out.<span class="fn">println</span>(menu.<span class="fn">size</span>());                <span class="cmt">// 1</span>
+
+        <span class="cls">Map</span>&lt;<span class="cls">Plat</span>, <span class="cls">Integer</span>&gt; prix = <span class="kw">new</span> <span class="cls">HashMap</span>&lt;&gt;();
+        prix.<span class="fn">put</span>(<span class="kw">new</span> <span class="cls">Plat</span>(<span class="str">"pizza"</span>), <span class="num">12</span>);
+        <span class="cls">System</span>.out.<span class="fn">println</span>(prix.<span class="fn">get</span>(<span class="kw">new</span> <span class="cls">Plat</span>(<span class="str">"pizza"</span>)));   <span class="cmt">// 12 : même clé au sens de equals/hashCode</span>
+
+        <span class="cls">TreeSet</span>&lt;<span class="cls">String</span>&gt; tries = <span class="kw">new</span> <span class="cls">TreeSet</span>&lt;&gt;(<span class="cls">Arrays</span>.<span class="fn">asList</span>(<span class="str">"wrap"</span>, <span class="str">"pizza"</span>, <span class="str">"sushi"</span>, <span class="str">"pizza"</span>));
+        <span class="cls">System</span>.out.<span class="fn">println</span>(tries);                      <span class="cmt">// [pizza, sushi, wrap]</span>
+
+        <span class="cls">List</span>&lt;<span class="cls">Mauvais</span>&gt; l = <span class="kw">new</span> <span class="cls">ArrayList</span>&lt;&gt;();
+        l.<span class="fn">add</span>(<span class="kw">new</span> <span class="cls">Mauvais</span>(<span class="str">"x"</span>));
+        <span class="cls">System</span>.out.<span class="fn">println</span>(l.<span class="fn">contains</span>(<span class="kw">new</span> <span class="cls">Mauvais</span>(<span class="str">"x"</span>)));              <span class="cmt">// false : contains appelle equals(Object)</span>
+        <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="kw">new</span> <span class="cls">Mauvais</span>(<span class="str">"x"</span>).<span class="fn">equals</span>(<span class="kw">new</span> <span class="cls">Mauvais</span>(<span class="str">"x"</span>))); <span class="cmt">// true : ici c'est la surcharge qui est choisie</span>
+
+        <span class="kw">try</span> {
+            <span class="kw">new</span> <span class="cls">TreeSet</span>&lt;<span class="cls">Plat</span>&gt;().<span class="fn">add</span>(<span class="kw">new</span> <span class="cls">Plat</span>(<span class="str">"a"</span>));     <span class="cmt">// Plat n'est pas Comparable</span>
+        } <span class="kw">catch</span> (<span class="cls">ClassCastException</span> e) {
+            <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"ClassCastException"</span>);
+        }
+    }
+}</pre>
+      <p class="diagram-caption">Sortie : <code>true</code>, <code>false</code>, <code>1</code>, <code>12</code>, <code>[pizza, sushi, wrap]</code>, <code>false</code>, <code>true</code>, <code>ClassCastException</code>.</p>
+    </section>
+
+    <!-- /jadd:s4-ensembles -->
     <section id="s4-ecueils">
       <div class="section-head">
         <div class="eyebrow">Conception</div>
@@ -2606,6 +3574,104 @@ arraylist.<span class="fn">toString</span>()                            <span cl
           <div class="example">oos.writeObject(obj); … Obj o = (Obj) ois.readObject();</div>
         </div>
       </div>
+      <!-- jfig:s5-try-catch -->
+      <figure class="jfig" id="jfig-s5-try-catch">
+<svg viewBox="0 0 360 358" role="img" aria-labelledby="jfig-s5-try-catch-t jfig-s5-try-catch-d" focusable="false"><title id="jfig-s5-try-catch-t">Déroulement de try / catch / finally</title><desc id="jfig-s5-try-catch-d">Organigramme : une exception dans le try saute au premier catch compatible, finally s'exécute dans tous les cas, puis le programme continue ou l'exception remonte.</desc>
+<rect class="jf-box f-a c-a" x="110" y="6" width="140" height="28" rx="4"/>
+<text class="jf-m jf-b" x="180" y="24.3" text-anchor="middle">try { … }</text>
+<path class="jf-ln" d="M180 34 L180 42"/>
+<path class="jf-hf " d="M180.0 50.0 L175.5 42.0 L184.5 42.0 Z"/>
+<path class="jf-box f-sf" d="M180 50 L262 76 L180 102 L98 76 Z"/>
+<text class="jf-s" x="180" y="80" text-anchor="middle">exception lancée ?</text>
+<text class="jf-s jf-b c-r" x="92" y="100">oui</text>
+<text class="jf-s jf-b c-g" x="304" y="100">non</text>
+<path class="jf-ln  c-r" d="M98 76 L86 76 L86 116"/>
+<path class="jf-hf c-r" d="M86.0 124.0 L81.5 116.0 L90.5 116.0 Z"/>
+<path class="jf-ln  c-g" d="M262 76 L298 76 L298 116"/>
+<path class="jf-hf c-g" d="M298.0 124.0 L293.5 116.0 L302.5 116.0 Z"/>
+<rect class="jf-box f-sf" x="6" y="124" width="190" height="46" rx="4"/>
+<text class="jf-s jf-b" x="101" y="142" text-anchor="middle">catch compatible ?</text>
+<text class="jf-s c-m" x="101" y="159" text-anchor="middle">(du plus précis au plus général)</text>
+<rect class="jf-box f-g c-g" x="224" y="124" width="130" height="40" rx="4"/>
+<text class="jf-s" x="289" y="148.3" text-anchor="middle">le try se termine</text>
+<path class="jf-ln" d="M48 170 L48 190"/>
+<path class="jf-hf " d="M48.0 198.0 L43.5 190.0 L52.5 190.0 Z"/>
+<path class="jf-ln" d="M150 170 L150 190"/>
+<path class="jf-hf " d="M150.0 198.0 L145.5 190.0 L154.5 190.0 Z"/>
+<text class="jf-s jf-b c-g" x="56" y="187">oui</text>
+<text class="jf-s jf-b c-r" x="158" y="187">non</text>
+<rect class="jf-box f-2 c-2" x="4" y="198" width="90" height="38" rx="4"/>
+<text class="jf-s" x="49" y="221.3" text-anchor="middle">corps du catch</text>
+<rect class="jf-box f-r c-r" x="102" y="198" width="96" height="38" rx="4"/>
+<text class="jf-s" x="150" y="221.3" text-anchor="middle">rien ne convient</text>
+<rect class="jf-box f-a c-a" x="40" y="258" width="280" height="30" rx="4"/>
+<text class="jf-m jf-b" x="180" y="277.3" text-anchor="middle">finally { … } : TOUJOURS exécuté</text>
+<path class="jf-ln" d="M48 236 L48 250"/>
+<path class="jf-hf " d="M48.0 258.0 L43.5 250.0 L52.5 250.0 Z"/>
+<path class="jf-ln" d="M150 236 L150 250"/>
+<path class="jf-hf " d="M150.0 258.0 L145.5 250.0 L154.5 250.0 Z"/>
+<path class="jf-ln  c-g" d="M289 164 L289 250"/>
+<path class="jf-hf c-g" d="M289.0 258.0 L284.5 250.0 L293.5 250.0 Z"/>
+<rect class="jf-box f-g c-g" x="4" y="316" width="160" height="34" rx="4"/>
+<text class="jf-s" x="84" y="337.3" text-anchor="middle">la suite du programme</text>
+<rect class="jf-box f-r c-r" x="196" y="316" width="160" height="34" rx="4"/>
+<text class="jf-s" x="276" y="337.3" text-anchor="middle">l'exception remonte</text>
+<path class="jf-ln  c-g" d="M90 288 L90 308"/>
+<path class="jf-hf c-g" d="M90.0 316.0 L85.5 308.0 L94.5 308.0 Z"/>
+<path class="jf-ln  c-r" d="M270 288 L270 308"/>
+<path class="jf-hf c-r" d="M270.0 316.0 L265.5 308.0 L274.5 308.0 Z"/>
+<text class="jf-s c-g" x="100" y="306">catch ou try normal</text>
+<text class="jf-s c-r" x="280" y="306">aucun catch</text>
+</svg>
+      <figcaption><b>finally s'exécute toujours</b>, même après un <code>return</code> ou une exception non attrapée (dans ce cas l'exception remonte <i>après</i> le finally). Un seul <code>catch</code> s'exécute : le premier compatible, du plus précis au plus général.</figcaption>
+      </figure>
+      <!-- /jfig:s5-try-catch -->
+      <!-- jfig:s5-hierarchie -->
+      <figure class="jfig" id="jfig-s5-hierarchie">
+<svg viewBox="0 0 360 449" role="img" aria-labelledby="jfig-s5-hierarchie-t jfig-s5-hierarchie-d" focusable="false"><title id="jfig-s5-hierarchie-t">Hiérarchie des exceptions Java</title><desc id="jfig-s5-hierarchie-d">Throwable se divise en Error et Exception ; RuntimeException et ses filles sont non contrôlées, les autres Exception sont contrôlées.</desc>
+<rect class="jf-box f-sf c-m" x="8" y="8" width="78" height="24" rx="3"/>
+<text class="jf-m" x="16" y="24">Throwable</text>
+<rect class="jf-box f-s2 c-m" x="30" y="38" width="312" height="24" rx="3"/>
+<text class="jf-m" x="38" y="54">Error (on ne traite pas) : OutOfMemoryError</text>
+<path class="jf-ln" d="M18 32 L18 50 L30 50"/>
+<rect class="jf-box f-a c-a" x="30" y="68" width="78" height="24" rx="3"/>
+<text class="jf-m" x="38" y="84">Exception</text>
+<path class="jf-ln" d="M18 32 L18 80 L30 80"/>
+<rect class="jf-box f-a c-a" x="52" y="98" width="91" height="24" rx="3"/>
+<text class="jf-m" x="60" y="114">IOException</text>
+<path class="jf-ln" d="M40 92 L40 110 L52 110"/>
+<rect class="jf-box f-a c-a" x="74" y="128" width="160" height="24" rx="3"/>
+<text class="jf-m" x="82" y="144">FileNotFoundException</text>
+<path class="jf-ln" d="M62 122 L62 140 L74 140"/>
+<rect class="jf-box f-2 c-2" x="52" y="158" width="126" height="24" rx="3"/>
+<text class="jf-m" x="60" y="174">RuntimeException</text>
+<path class="jf-ln" d="M40 92 L40 170 L52 170"/>
+<rect class="jf-box f-2 c-2" x="74" y="188" width="154" height="24" rx="3"/>
+<text class="jf-m" x="82" y="204">NullPointerException</text>
+<path class="jf-ln" d="M62 182 L62 200 L74 200"/>
+<rect class="jf-box f-2 c-2" x="74" y="218" width="236" height="24" rx="3"/>
+<text class="jf-m" x="82" y="234">ArithmeticException (/ 0 entier)</text>
+<path class="jf-ln" d="M62 182 L62 230 L74 230"/>
+<rect class="jf-box f-2 c-2" x="74" y="248" width="223" height="24" rx="3"/>
+<text class="jf-m" x="82" y="264">ArrayIndexOutOfBoundsException</text>
+<path class="jf-ln" d="M62 182 L62 260 L74 260"/>
+<rect class="jf-box f-2 c-2" x="74" y="278" width="140" height="24" rx="3"/>
+<text class="jf-m" x="82" y="294">ClassCastException</text>
+<path class="jf-ln" d="M62 182 L62 290 L74 290"/>
+<rect class="jf-box f-2 c-2" x="74" y="308" width="181" height="24" rx="3"/>
+<text class="jf-m" x="82" y="324">IllegalArgumentException</text>
+<path class="jf-ln" d="M62 182 L62 320 L74 320"/>
+<rect class="jf-box f-2 c-2" x="96" y="338" width="160" height="24" rx="3"/>
+<text class="jf-m" x="104" y="354">NumberFormatException</text>
+<path class="jf-ln" d="M84 332 L84 350 L96 350"/>
+<text class="jf-s c-a" x="8" y="382">orange : contrôlée (traiter ou déclarer)</text>
+<text class="jf-s c-2" x="8" y="398">bleu : non contrôlée (aucune obligation)</text>
+<text class="jf-s c-a" x="8" y="420"><tspan class="jf-m">class MonErreur extends Exception</tspan>  contrôlée</text>
+<text class="jf-s c-2" x="8" y="436"><tspan class="jf-m">class MonErreur extends RuntimeException</tspan>  non</text>
+</svg>
+      <figcaption><b>Contrôlée</b> (orange) : hérite d'<code>Exception</code> sans passer par <code>RuntimeException</code> ; <code>try/catch</code> ou <code>throws</code> obligatoire. <b>Non contrôlée</b> (bleu) : le compilateur n'exige rien. Ta propre exception : <code>extends Exception</code> (contrôlée) ou <code>extends RuntimeException</code>.</figcaption>
+      </figure>
+      <!-- /jfig:s5-hierarchie -->
     </section>
 
     <section>
@@ -2664,6 +3730,62 @@ arraylist.<span class="fn">toString</span>()                            <span cl
 } <span class="kw">finally</span> {
     <span class="cls">System</span>.out.<span class="fn">println</span>(<span class="str">"Opération terminée"</span>);                    <span class="cmt">// toujours affiché</span>
 }</pre>
+      <!-- jfig:s5-flux -->
+      <figure class="jfig" id="jfig-s5-flux">
+<svg viewBox="0 0 360 313" role="img" aria-labelledby="jfig-s5-flux-t jfig-s5-flux-d" focusable="false"><title id="jfig-s5-flux-t">Flux : fichier texte et sérialisation</title><desc id="jfig-s5-flux-d">Quatre chaînes : écrire et lire un fichier texte avec PrintWriter et Scanner ; écrire et lire des objets avec ObjectOutputStream et ObjectInputStream.</desc>
+<text class="jf-t jf-b" x="8" y="14">Fichier texte (caractères)</text>
+<rect class="jf-box f-sf" x="2" y="26" width="68" height="40" rx="4"/>
+<text class="jf-s" x="36" y="50.3" text-anchor="middle">Programme</text>
+<rect class="jf-box f-a c-a" x="94" y="26" width="166" height="40" rx="4"/>
+<text class="jf-m jf-b" x="177" y="43" text-anchor="middle">PrintWriter(FileWriter)</text>
+<text class="jf-s" x="177" y="59" text-anchor="middle">println(ligne)</text>
+<rect class="jf-box f-2 c-2" x="288" y="26" width="68" height="40" rx="4"/>
+<text class="jf-m" x="322" y="50.3" text-anchor="middle">menu.txt</text>
+<path class="jf-ln" d="M70 46 L86 46"/>
+<path class="jf-hf " d="M94.0 46.0 L86.0 50.5 L86.0 41.5 Z"/>
+<path class="jf-ln" d="M260 46 L280 46"/>
+<path class="jf-hf " d="M288.0 46.0 L280.0 50.5 L280.0 41.5 Z"/>
+<rect class="jf-box f-sf" x="2" y="78" width="68" height="40" rx="4"/>
+<text class="jf-s" x="36" y="102.3" text-anchor="middle">Programme</text>
+<rect class="jf-box f-a c-a" x="94" y="78" width="166" height="40" rx="4"/>
+<text class="jf-m jf-b" x="177" y="95" text-anchor="middle">Scanner(new File(..))</text>
+<text class="jf-s" x="177" y="111" text-anchor="middle">nextLine() + split</text>
+<rect class="jf-box f-2 c-2" x="288" y="78" width="68" height="40" rx="4"/>
+<text class="jf-m" x="322" y="102.3" text-anchor="middle">menu.txt</text>
+<path class="jf-ln" d="M94 98 L78 98"/>
+<path class="jf-hf " d="M70.0 98.0 L78.0 93.5 L78.0 102.5 Z"/>
+<path class="jf-ln" d="M288 98 L268 98"/>
+<path class="jf-hf " d="M260.0 98.0 L268.0 93.5 L268.0 102.5 Z"/>
+<path class="jf-ln  c-l" d="M4 134 L356 134"/>
+<text class="jf-t jf-b" x="8" y="156">Sérialisation (octets)</text>
+<rect class="jf-box f-sf" x="2" y="168" width="68" height="40" rx="4"/>
+<text class="jf-s" x="36" y="192.3" text-anchor="middle">Programme</text>
+<rect class="jf-box f-a c-a" x="94" y="168" width="166" height="40" rx="4"/>
+<text class="jf-m jf-b" x="177" y="185" text-anchor="middle">ObjectOutputStream</text>
+<text class="jf-s" x="177" y="201" text-anchor="middle">writeObject(obj)</text>
+<rect class="jf-box f-2 c-2" x="288" y="168" width="68" height="40" rx="4"/>
+<text class="jf-m" x="322" y="192.3" text-anchor="middle">plats.ser</text>
+<path class="jf-ln" d="M70 188 L86 188"/>
+<path class="jf-hf " d="M94.0 188.0 L86.0 192.5 L86.0 183.5 Z"/>
+<path class="jf-ln" d="M260 188 L280 188"/>
+<path class="jf-hf " d="M288.0 188.0 L280.0 192.5 L280.0 183.5 Z"/>
+<rect class="jf-box f-sf" x="2" y="220" width="68" height="40" rx="4"/>
+<text class="jf-s" x="36" y="244.3" text-anchor="middle">Programme</text>
+<rect class="jf-box f-a c-a" x="94" y="220" width="166" height="40" rx="4"/>
+<text class="jf-m jf-b" x="177" y="237" text-anchor="middle">ObjectInputStream</text>
+<text class="jf-s" x="177" y="253" text-anchor="middle">(Type) readObject()</text>
+<rect class="jf-box f-2 c-2" x="288" y="220" width="68" height="40" rx="4"/>
+<text class="jf-m" x="322" y="244.3" text-anchor="middle">plats.ser</text>
+<path class="jf-ln" d="M94 240 L78 240"/>
+<path class="jf-hf " d="M70.0 240.0 L78.0 235.5 L78.0 244.5 Z"/>
+<path class="jf-ln" d="M288 240 L268 240"/>
+<path class="jf-hf " d="M260.0 240.0 L268.0 235.5 L268.0 244.5 Z"/>
+<text class="jf-s c-m" x="8" y="284"><tspan class="jf-m">try (…)</tspan> ferme le flux ; <tspan class="jf-m">IOException</tspan> à traiter ;</text>
+<text class="jf-s c-m" x="8" y="300"><tspan class="jf-m">ClassNotFoundException</tspan> en plus pour <tspan class="jf-m">readObject()</tspan>.</text>
+</svg>
+      <figcaption><b>Texte</b> : une ligne par objet, <code>split(";")</code> pour relire, chaque champ reconverti à la main. <b>Sérialisation</b> : l'objet entier (et ce qu'il référence) en octets ; la classe <code>implements Serializable</code>, <code>readObject()</code> demande un cast, <code>transient</code> exclut un attribut.</figcaption>
+      </figure>
+      <!-- /jfig:s5-flux -->
       <h3 style="font-size:17px;margin:24px 0 8px">Écrire puis relire un fichier texte (séparateur « ; »)</h3>
 <pre class="code"><span class="kw">try</span> (<span class="cls">PrintWriter</span> out = <span class="kw">new</span> <span class="fn">PrintWriter</span>(<span class="kw">new</span> <span class="fn">FileWriter</span>(<span class="str">"notes.txt"</span>))) {   <span class="cmt">// fermé tout seul</span>
     out.<span class="fn">println</span>(<span class="str">"Alice;20;15.5"</span>);
@@ -2990,6 +4112,113 @@ arraylist.<span class="fn">toString</span>()                            <span cl
           <div class="example">ok.addActionListener(e -&gt; valider());</div>
         </div>
       </div>
+      <!-- jfig:s6-arbre -->
+      <figure class="jfig" id="jfig-s6-arbre">
+<svg viewBox="0 0 360 435" role="img" aria-labelledby="jfig-s6-arbre-t jfig-s6-arbre-d" focusable="false"><title id="jfig-s6-arbre-t">Arbre des composants Swing</title><desc id="jfig-s6-arbre-d">Une fenêtre JFrame contient un contentPane en BorderLayout : un JPanel au nord avec un JLabel, un JTextField et un JButton, un JScrollPane au centre avec un JTextArea, un JLabel au sud.</desc>
+<rect class="jf-box f-sf" x="30" y="8" width="300" height="134" rx="6"/>
+<rect class="jf-box f-s2" x="30" y="8" width="300" height="22" rx="6"/>
+<text class="jf-s jf-b c-m" x="42" y="24">JFrame</text>
+<rect class="jf-box f-a c-a" x="38" y="36" width="284" height="30" rx="3"/>
+<text class="jf-ms" x="46" y="55">JLabel</text>
+<rect class="jf-box f-sf" x="100" y="41" width="112" height="20" rx="2"/>
+<text class="jf-ms c-m" x="106" y="55">JTextField</text>
+<rect class="jf-box f-sf" x="226" y="41" width="86" height="20" rx="10"/>
+<text class="jf-ms" x="269" y="55" text-anchor="middle">JButton</text>
+<rect class="jf-box f-2 c-2" x="38" y="72" width="284" height="44" rx="3"/>
+<text class="jf-ms" x="46" y="88">JTextArea (dans un JScrollPane)</text>
+<rect class="jf-box f-sf" x="38" y="120" width="284" height="18" rx="3"/>
+<text class="jf-ms c-m" x="46" y="133">JLabel (barre d'état)</text>
+<text class="jf-s jf-b c-a" x="340" y="52">N</text>
+<text class="jf-s jf-b c-2" x="340" y="98">C</text>
+<text class="jf-s jf-b c-m" x="340" y="134">S</text>
+<rect class="jf-box f-sf" x="8" y="160" width="57" height="22" rx="3"/>
+<text class="jf-m" x="16" y="175">JFrame</text>
+<rect class="jf-box f-sf" x="32" y="188" width="202" height="22" rx="3"/>
+<text class="jf-m" x="40" y="203">contentPane  (BorderLayout)</text>
+<path class="jf-ln" d="M18 182 L18 199 L32 199"/>
+<rect class="jf-box f-a c-a" x="56" y="216" width="209" height="22" rx="3"/>
+<text class="jf-m" x="64" y="231">NORTH : JPanel  (FlowLayout)</text>
+<path class="jf-ln" d="M42 210 L42 227 L56 227"/>
+<rect class="jf-box f-sf" x="80" y="244" width="57" height="22" rx="3"/>
+<text class="jf-m" x="88" y="259">JLabel</text>
+<path class="jf-ln" d="M66 238 L66 255 L80 255"/>
+<rect class="jf-box f-sf" x="80" y="272" width="85" height="22" rx="3"/>
+<text class="jf-m" x="88" y="287">JTextField</text>
+<path class="jf-ln" d="M66 238 L66 283 L80 283"/>
+<rect class="jf-box f-sf" x="80" y="300" width="64" height="22" rx="3"/>
+<text class="jf-m" x="88" y="315">JButton</text>
+<path class="jf-ln" d="M66 238 L66 311 L80 311"/>
+<rect class="jf-box f-2 c-2" x="56" y="328" width="154" height="22" rx="3"/>
+<text class="jf-m" x="64" y="343">CENTER : JScrollPane</text>
+<path class="jf-ln" d="M42 210 L42 339 L56 339"/>
+<rect class="jf-box f-sf" x="80" y="356" width="78" height="22" rx="3"/>
+<text class="jf-m" x="88" y="371">JTextArea</text>
+<path class="jf-ln" d="M66 350 L66 367 L80 367"/>
+<rect class="jf-box f-sf" x="56" y="384" width="112" height="22" rx="3"/>
+<text class="jf-m" x="64" y="399">SOUTH : JLabel</text>
+<path class="jf-ln" d="M42 210 L42 395 L56 395"/>
+<text class="jf-s c-m" x="8" y="422"><tspan class="jf-m">add(panel, BorderLayout.NORTH)</tspan> ajoute une branche.</text>
+</svg>
+      <figcaption><b>Une fenêtre est un arbre.</b> Le <code>JFrame</code> est la racine, les <code>JPanel</code> sont des conteneurs intermédiaires, les composants (<code>JButton</code>, <code>JLabel</code>…) sont les feuilles. Chaque conteneur a <i>son</i> layout.</figcaption>
+      </figure>
+      <!-- /jfig:s6-arbre -->
+      <!-- jfig:s6-layouts -->
+      <figure class="jfig" id="jfig-s6-layouts">
+<svg viewBox="0 0 360 316" role="img" aria-labelledby="jfig-s6-layouts-t jfig-s6-layouts-d" focusable="false"><title id="jfig-s6-layouts-t">Les trois layouts à connaître</title><desc id="jfig-s6-layouts-d">BorderLayout : cinq zones nord, sud, est, ouest et centre ; FlowLayout : composants à la suite ; GridLayout : grille de cases égales.</desc>
+<rect class="jf-box f-sf" x="6" y="8" width="168" height="104" rx="4"/>
+<rect class="jf-box f-a c-a" x="10" y="12" width="160" height="20" rx="2"/>
+<text class="jf-ms" x="90" y="26" text-anchor="middle">NORTH</text>
+<rect class="jf-box f-a c-a" x="10" y="88" width="160" height="20" rx="2"/>
+<text class="jf-ms" x="90" y="102" text-anchor="middle">SOUTH</text>
+<rect class="jf-box f-a c-a" x="10" y="36" width="40" height="48" rx="2"/>
+<text class="jf-ms" x="30" y="64" text-anchor="middle">WEST</text>
+<rect class="jf-box f-a c-a" x="130" y="36" width="40" height="48" rx="2"/>
+<text class="jf-ms" x="150" y="64" text-anchor="middle">EAST</text>
+<rect class="jf-box f-2 c-2" x="54" y="36" width="72" height="48" rx="2"/>
+<text class="jf-ms" x="90" y="64" text-anchor="middle">CENTER</text>
+<text class="jf-t jf-b" x="188" y="24">BorderLayout</text>
+<text class="jf-s" x="188" y="42">défaut de JFrame</text>
+<text class="jf-s" x="188" y="57"><tspan class="jf-m">add(c, NORTH)</tspan> (zone)</text>
+<text class="jf-s" x="188" y="72"><tspan class="jf-m">add(c)</tspan> seul : CENTER</text>
+<text class="jf-s" x="188" y="87">le centre prend la place</text>
+<path class="jf-ln  c-l" d="M4 124 L356 124"/>
+<rect class="jf-box f-sf" x="6" y="134" width="168" height="76" rx="4"/>
+<rect class="jf-box f-2 c-2" x="12" y="142" width="40" height="20" rx="10"/>
+<text class="jf-ms" x="32" y="156" text-anchor="middle">B1</text>
+<rect class="jf-box f-2 c-2" x="56" y="142" width="40" height="20" rx="10"/>
+<text class="jf-ms" x="76" y="156" text-anchor="middle">B2</text>
+<rect class="jf-box f-2 c-2" x="100" y="142" width="40" height="20" rx="10"/>
+<text class="jf-ms" x="120" y="156" text-anchor="middle">B3</text>
+<rect class="jf-box f-2 c-2" x="12" y="170" width="40" height="20" rx="10"/>
+<text class="jf-ms" x="32" y="184" text-anchor="middle">B4</text>
+<rect class="jf-box f-2 c-2" x="56" y="170" width="40" height="20" rx="10"/>
+<text class="jf-ms" x="76" y="184" text-anchor="middle">B5</text>
+<text class="jf-t jf-b" x="188" y="150">FlowLayout</text>
+<text class="jf-s" x="188" y="168">défaut de JPanel</text>
+<text class="jf-s" x="188" y="183">à la suite, taille naturelle</text>
+<text class="jf-s" x="188" y="198">à la ligne si trop étroit</text>
+<path class="jf-ln  c-l" d="M4 222 L356 222"/>
+<rect class="jf-box f-sf" x="6" y="232" width="168" height="76" rx="4"/>
+<rect class="jf-box f-a c-a" x="10" y="236" width="50" height="31" rx="2"/>
+<text class="jf-ms" x="35" y="256" text-anchor="middle">1</text>
+<rect class="jf-box f-a c-a" x="64" y="236" width="50" height="31" rx="2"/>
+<text class="jf-ms" x="89" y="256" text-anchor="middle">2</text>
+<rect class="jf-box f-a c-a" x="118" y="236" width="50" height="31" rx="2"/>
+<text class="jf-ms" x="143" y="256" text-anchor="middle">3</text>
+<rect class="jf-box f-a c-a" x="10" y="271" width="50" height="31" rx="2"/>
+<text class="jf-ms" x="35" y="291" text-anchor="middle">4</text>
+<rect class="jf-box f-a c-a" x="64" y="271" width="50" height="31" rx="2"/>
+<text class="jf-ms" x="89" y="291" text-anchor="middle">5</text>
+<rect class="jf-box f-a c-a" x="118" y="271" width="50" height="31" rx="2"/>
+<text class="jf-ms" x="143" y="291" text-anchor="middle">6</text>
+<text class="jf-t jf-b" x="188" y="248">GridLayout(2, 3)</text>
+<text class="jf-s" x="188" y="266">2 lignes, 3 colonnes</text>
+<text class="jf-s" x="188" y="281">cases de même taille</text>
+<text class="jf-s" x="188" y="296">remplies ligne par ligne</text>
+</svg>
+      <figcaption><b>BorderLayout</b> : défaut de <code>JFrame</code> ; <code>add(c)</code> sans zone = CENTER. <b>FlowLayout</b> : défaut de <code>JPanel</code>. <b>GridLayout(l, c)</b> : cases de même taille, remplies ligne par ligne.</figcaption>
+      </figure>
+      <!-- /jfig:s6-layouts -->
     </section>
 
     <section>
@@ -3021,6 +4250,48 @@ arraylist.<span class="fn">toString</span>()                            <span cl
         <div class="eyebrow">Exemple</div>
         <h2>Le squelette à savoir écrire les yeux fermés</h2>
       </div>
+      <!-- jfig:s6-ecouteur -->
+      <figure class="jfig" id="jfig-s6-ecouteur">
+<svg viewBox="0 0 360 311" role="img" aria-labelledby="jfig-s6-ecouteur-t jfig-s6-ecouteur-d" focusable="false"><title id="jfig-s6-ecouteur-t">Les 3 étapes d'un écouteur d'événements</title><desc id="jfig-s6-ecouteur-d">Le bouton plus mémorise son écouteur grâce à addActionListener(this) ; au clic il crée un ActionEvent et appelle actionPerformed de la fenêtre.</desc>
+<rect class="jf-box f-a c-a" x="4" y="8" width="352" height="80" rx="5"/>
+<text class="jf-t jf-b" x="180" y="26" text-anchor="middle">class Compteur</text>
+<circle class="jf-badge" cx="18" cy="46" r="8.5"/>
+<text class="jf-bn" x="18" y="50" text-anchor="middle">1</text>
+<text class="jf-m" x="34" y="50"><tspan class="jf-m">implements ActionListener</tspan></text>
+<circle class="jf-badge" cx="18" cy="70" r="8.5"/>
+<text class="jf-bn" x="18" y="74" text-anchor="middle">2</text>
+<text class="jf-m" x="34" y="74"><tspan class="jf-m">void actionPerformed(ActionEvent e) { … }</tspan></text>
+<rect class="jf-box f-sf" x="4" y="120" width="170" height="76" rx="5"/>
+<text class="jf-t jf-b" x="12" y="138">JButton plus</text>
+<rect class="jf-box f-s2 c-m" x="14" y="148" width="150" height="38" rx="3"/>
+<text class="jf-s c-m" x="22" y="163">écouteurs :</text>
+<rect class="jf-box f-a c-a" x="30" y="166" width="100" height="16" rx="4"/>
+<text class="jf-ms" x="80" y="178.3" text-anchor="middle">Compteur</text>
+<path class="jf-ln  c-a jf-d" d="M130 174 L150 174 L150 96"/>
+<path class="jf-hf c-a" d="M150.0 88.0 L154.5 96.0 L145.5 96.0 Z"/>
+<circle class="jf-badge" cx="150" cy="130" r="8.5"/>
+<text class="jf-bn" x="150" y="134" text-anchor="middle">3</text>
+<text class="jf-ms c-a" x="184" y="126"><tspan class="jf-m">plus.addActionListener(</tspan></text>
+<text class="jf-ms c-a" x="184" y="141"><tspan class="jf-m">    this);</tspan></text>
+<text class="jf-s c-m" x="184" y="163">abonnement : une seule fois,</text>
+<text class="jf-s c-m" x="184" y="178">à la construction de la fenêtre</text>
+<path class="jf-ln  c-l" d="M4 212 L356 212"/>
+<text class="jf-t jf-b" x="8" y="232">Au clic :</text>
+<rect class="jf-box f-sf" x="4" y="244" width="90" height="34" rx="4"/>
+<text class="jf-s" x="49" y="265.3" text-anchor="middle">clic utilisateur</text>
+<rect class="jf-box f-2 c-2" x="116" y="244" width="110" height="34" rx="4"/>
+<text class="jf-m" x="171" y="265.3" text-anchor="middle">ActionEvent e</text>
+<rect class="jf-box f-a c-a" x="248" y="244" width="108" height="34" rx="4"/>
+<text class="jf-s" x="302" y="265.3" text-anchor="middle">actionPerformed</text>
+<path class="jf-ln" d="M94 261 L108 261"/>
+<path class="jf-hf " d="M116.0 261.0 L108.0 265.5 L108.0 256.5 Z"/>
+<path class="jf-ln" d="M226 261 L240 261"/>
+<path class="jf-hf " d="M248.0 261.0 L240.0 265.5 L240.0 256.5 Z"/>
+<text class="jf-s c-m" x="180" y="298" text-anchor="middle"><tspan class="jf-m">e.getSource()</tspan> : le bouton qui a été cliqué</text>
+</svg>
+      <figcaption><b>3 étapes, dans cet ordre :</b> ① la classe <code>implements ActionListener</code> ; ② elle écrit <code>actionPerformed</code> ; ③ on <b>abonne</b> chaque source avec <code>addActionListener</code>. Oublier le ③ : le clic ne fait rien.</figcaption>
+      </figure>
+      <!-- /jfig:s6-ecouteur -->
 <pre class="code"><span class="kw">import</span> javax.swing.*;
 <span class="kw">import</span> java.awt.*;
 <span class="kw">import</span> java.awt.event.*;
@@ -3386,6 +4657,46 @@ arraylist.<span class="fn">toString</span>()                            <span cl
           <p>Le <b>contrôleur</b> connaît la vue et le modèle. La <b>vue</b> connaît le modèle (en lecture) ou seulement l'interface d'observation. Le <b>modèle</b> ne connaît personne (juste une liste d'abonnés).</p>
         </div>
       </div>
+      <!-- jfig:s7-mvc -->
+      <figure class="jfig" id="jfig-s7-mvc">
+<svg viewBox="0 0 360 347" role="img" aria-labelledby="jfig-s7-mvc-t jfig-s7-mvc-d" focusable="false"><title id="jfig-s7-mvc-t">Le pattern Modèle – Vue – Contrôleur</title><desc id="jfig-s7-mvc-d">L'utilisateur agit sur la Vue ; la Vue prévient le Contrôleur ; le Contrôleur appelle le Modèle ; le Modèle notifie la Vue qui se met à jour.</desc>
+<rect class="jf-box f-sf" x="130" y="6" width="100" height="28" rx="4"/>
+<text class="jf-s" x="180" y="24.3" text-anchor="middle">Utilisateur</text>
+<rect class="jf-box f-2 c-2" x="10" y="100" width="110" height="36" rx="4"/>
+<text class="jf-t jf-b" x="65" y="122.3" text-anchor="middle">Vue</text>
+<rect class="jf-box f-a c-a" x="240" y="100" width="110" height="36" rx="4"/>
+<text class="jf-t jf-b" x="295" y="122.3" text-anchor="middle">Contrôleur</text>
+<rect class="jf-box f-g c-g" x="125" y="230" width="110" height="36" rx="4"/>
+<text class="jf-t jf-b" x="180" y="252.3" text-anchor="middle">Modèle</text>
+<text class="jf-s c-m" x="8" y="152">affichage</text>
+<text class="jf-s c-m" x="180" y="284" text-anchor="middle">données + règles</text>
+<path class="jf-ln" d="M150 34 L81.0057 94.715"/>
+<path class="jf-hf " d="M75.0 100.0 L78.0 91.3 L84.0 98.1 Z"/>
+<circle class="jf-badge" cx="104" cy="62" r="8.5"/>
+<text class="jf-bn" x="104" y="66" text-anchor="middle">1</text>
+<text class="jf-s" x="124" y="66">clic</text>
+<path class="jf-ln" d="M120 118 L232 118"/>
+<path class="jf-hf " d="M240.0 118.0 L232.0 122.5 L232.0 113.5 Z"/>
+<circle class="jf-badge" cx="180" cy="118" r="8.5"/>
+<text class="jf-bn" x="180" y="122" text-anchor="middle">2</text>
+<text class="jf-s" x="180" y="142" text-anchor="middle">événement</text>
+<path class="jf-ln  c-a" d="M270 136 L270 196 L231.383 225.177"/>
+<path class="jf-hf c-a" d="M225.0 230.0 L228.7 221.6 L234.1 228.8 Z"/>
+<circle class="jf-badge" cx="270" cy="170" r="8.5"/>
+<text class="jf-bn" x="270" y="174" text-anchor="middle">3</text>
+<text class="jf-s c-a" x="284" y="168">appelle</text>
+<text class="jf-s c-a" x="284" y="183">le modèle</text>
+<path class="jf-ln  c-2 jf-d" d="M150 230 L84.8442 144.367"/>
+<path class="jf-hf c-2" d="M80.0 138.0 L88.4 141.6 L81.3 147.1 Z"/>
+<circle class="jf-badge" cx="124" cy="196" r="8.5"/>
+<text class="jf-bn" x="124" y="200" text-anchor="middle">4</text>
+<text class="jf-s c-2" x="46" y="200">notifie</text>
+<text class="jf-s c-m" x="8" y="318">La Vue lit le Modèle pour se redessiner (<tspan class="jf-m">getValeur()</tspan>),</text>
+<text class="jf-s c-m" x="8" y="334">mais ne le modifie jamais : c'est le travail du Contrôleur.</text>
+</svg>
+      <figcaption><b>Le cycle :</b> clic → Vue → Contrôleur → Modèle → notification → Vue. Le Modèle ne connaît ni la Vue ni le Contrôleur (il prévient seulement des <i>abonnés</i>). Flèche pleine = « appelle » ; pointillé = « notifie ».</figcaption>
+      </figure>
+      <!-- /jfig:s7-mvc -->
     </section>
 
     <section>
@@ -3393,6 +4704,48 @@ arraylist.<span class="fn">toString</span>()                            <span cl
         <div class="eyebrow">Exemple complet</div>
         <h2>Un compteur en MVC (4 classes, compile tel quel)</h2>
       </div>
+      <!-- jfig:s7-observateur -->
+      <figure class="jfig" id="jfig-s7-observateur">
+<svg viewBox="0 0 360 313" role="img" aria-labelledby="jfig-s7-observateur-t jfig-s7-observateur-d" focusable="false"><title id="jfig-s7-observateur-t">Le patron Observateur dans le MVC</title><desc id="jfig-s7-observateur-d">CompteurModele garde une liste de CompteurListener ; CompteurVue implémente cette interface ; CompteurControleur connaît le modèle et la vue.</desc>
+<rect class="jf-box f-sf" x="100" y="8" width="160" height="59" rx="3"/>
+<path class="jf-ln " d="M100 44 H260"/>
+<text class="jf-s" x="180" y="21" text-anchor="middle">«interface»</text>
+<text class="jf-t jf-b" x="180" y="36" text-anchor="middle">CompteurListener</text>
+<text class="jf-m" x="107" y="57">+ compteurModifie(m)</text>
+<rect class="jf-box f-g c-g" x="4" y="110" width="168" height="100" rx="3"/>
+<path class="jf-ln c-g" d="M4 134 H172"/>
+<path class="jf-ln c-g" d="M4 157 H172"/>
+<text class="jf-t jf-b" x="88" y="126" text-anchor="middle">CompteurModele</text>
+<text class="jf-m" x="11" y="147">- abonnes : List</text>
+<text class="jf-m" x="11" y="170">+ ajouterAbonne(l)</text>
+<text class="jf-m" x="11" y="185">+ incrementer()</text>
+<text class="jf-m" x="11" y="200">- prevenir()</text>
+<rect class="jf-box f-2 c-2" x="196" y="110" width="160" height="55" rx="3"/>
+<path class="jf-ln c-2" d="M196 134 H356"/>
+<path class="jf-ln c-2" d="M196 142 H356"/>
+<text class="jf-t jf-b" x="276" y="126" text-anchor="middle">CompteurVue</text>
+<text class="jf-m" x="203" y="155">+ compteurModifie(m)</text>
+<rect class="jf-box f-a c-a" x="100" y="250" width="160" height="55" rx="3"/>
+<path class="jf-ln c-a" d="M100 274 H260"/>
+<path class="jf-ln c-a" d="M100 282 H260"/>
+<text class="jf-t jf-b" x="180" y="266" text-anchor="middle">CompteurControleur</text>
+<text class="jf-m" x="107" y="295">+ actionPerformed(e)</text>
+<path class="jf-ln  c-g" d="M88 110 L120 67"/>
+<path class="jf-ln c-g" d="M118.6 77.2 L120.0 67.0 L110.6 71.2"/>
+<text class="jf-s c-g" x="52" y="100" text-anchor="middle">0..* abonnés</text>
+<path class="jf-ln   jf-d" d="M276 110 L247.061 75.4343"/>
+<path class="jf-ho " d="M240.0 67.0 L252.0 71.3 L242.1 79.6 Z"/>
+<text class="jf-m c-m" x="352" y="96" text-anchor="end">implements</text>
+<path class="jf-ln  c-a" d="M130 250 L88 210"/>
+<path class="jf-ln c-a" d="M98.0 212.6 L88.0 210.0 L91.1 219.8"/>
+<path class="jf-ln  c-a" d="M230 250 L276 165"/>
+<path class="jf-ln c-a" d="M276.1 175.3 L276.0 165.0 L267.3 170.5"/>
+<text class="jf-s c-a" x="50" y="232" text-anchor="middle">appelle</text>
+<text class="jf-s c-a" x="312" y="232" text-anchor="middle">écoute</text>
+</svg>
+      <figcaption><b>Le modèle ne connaît que l'interface</b> <code>CompteurListener</code>, jamais <code>CompteurVue</code> : on peut brancher plusieurs vues sans le modifier. Chaque changement se termine par <code>prevenir()</code> ; oublier de notifier = écran figé.</figcaption>
+      </figure>
+      <!-- /jfig:s7-observateur -->
 <pre class="code"><span class="cmt">// Imports : java.util.* pour le modèle ; javax.swing.*, java.awt.*, java.awt.event.* pour la vue,</span>
 <span class="cmt">// le contrôleur et le main. Ne pas mettre java.awt.* ET java.util.* dans le même fichier si l'on</span>
 <span class="cmt">// écrit List : « reference to List is ambiguous » (java.awt.List existe aussi).</span>
@@ -3859,6 +5212,46 @@ Garagiste - - -&gt; Voiture        (dépendance : paramètre de reparer)</div></
         <div class="eyebrow">Comment on cherche</div>
         <h2>Débloquer seul : erreurs, plantages, documentation</h2>
       </div>
+      <!-- jfig:meth-compil-exec -->
+      <figure class="jfig" id="jfig-meth-compil-exec">
+<svg viewBox="0 0 360 424" role="img" aria-labelledby="jfig-meth-compil-exec-t jfig-meth-compil-exec-d" focusable="false"><title id="jfig-meth-compil-exec-t">Compilation, exécution, résultat faux</title><desc id="jfig-meth-compil-exec-d">De Monde.java à l'exécution : javac produit Monde.class, la JVM l'exécute. Trois familles de problèmes selon l'étape.</desc>
+<rect class="jf-box f-sf" x="4" y="8" width="84" height="34" rx="4"/>
+<text class="jf-m" x="46" y="29.3" text-anchor="middle">Monde.java</text>
+<rect class="jf-box f-sf" x="138" y="8" width="84" height="34" rx="4"/>
+<text class="jf-m" x="180" y="29.3" text-anchor="middle">Monde.class</text>
+<rect class="jf-box f-sf" x="272" y="8" width="84" height="34" rx="4"/>
+<text class="jf-s" x="314" y="29.3" text-anchor="middle">exécution</text>
+<path class="jf-ln" d="M88 25 L130 25"/>
+<path class="jf-hf " d="M138.0 25.0 L130.0 29.5 L130.0 20.5 Z"/>
+<path class="jf-ln" d="M222 25 L264 25"/>
+<path class="jf-hf " d="M272.0 25.0 L264.0 29.5 L264.0 20.5 Z"/>
+<text class="jf-m jf-b c-a" x="113" y="18" text-anchor="middle">javac</text>
+<text class="jf-m jf-b c-a" x="247" y="18" text-anchor="middle">java</text>
+<rect class="jf-box f-r c-r" x="4" y="60" width="352" height="112" rx="5"/>
+<text class="jf-t jf-b" x="12" y="77">1 · Erreur de COMPILATION : rien ne s'exécute</text>
+<text class="jf-s" x="12" y="96">type incompatible : <tspan class="jf-m">int x = "a";</tspan></text>
+<text class="jf-s" x="12" y="111">symbole ou méthode inconnus pour le type de la variable</text>
+<text class="jf-s" x="12" y="126">exception contrôlée ni attrapée ni déclarée</text>
+<text class="jf-s" x="12" y="141"><tspan class="jf-m">new</tspan> sur une classe abstraite ou une interface</text>
+<text class="jf-s" x="12" y="156"><tspan class="jf-m">final</tspan> réaffecté, <tspan class="jf-m">private</tspan> inaccessible, <tspan class="jf-m">;</tspan> oublié</text>
+<rect class="jf-box f-a c-a" x="4" y="182" width="352" height="112" rx="5"/>
+<text class="jf-t jf-b" x="12" y="199">2 · EXCEPTION à l'exécution : ça plante en route</text>
+<text class="jf-s" x="12" y="218"><tspan class="jf-m">NullPointerException</tspan> : référence null utilisée</text>
+<text class="jf-s" x="12" y="233"><tspan class="jf-m">ArrayIndexOutOfBoundsException</tspan> : indice hors tableau</text>
+<text class="jf-s" x="12" y="248"><tspan class="jf-m">ClassCastException</tspan> : mauvais downcast</text>
+<text class="jf-s" x="12" y="263"><tspan class="jf-m">ArithmeticException</tspan> : division entière par 0</text>
+<text class="jf-s" x="12" y="278"><tspan class="jf-m">NumberFormatException</tspan> : <tspan class="jf-m">Integer.parseInt("a")</tspan></text>
+<rect class="jf-box f-s2 c-m" x="4" y="304" width="352" height="112" rx="5"/>
+<text class="jf-t jf-b" x="12" y="321">3 · RÉSULTAT FAUX : ni erreur ni plantage</text>
+<text class="jf-s" x="12" y="340"><tspan class="jf-m">==</tspan> au lieu de <tspan class="jf-m">equals</tspan> sur des objets</text>
+<text class="jf-s" x="12" y="355">division entière : <tspan class="jf-m">7 / 2</tspan> vaut 3</text>
+<text class="jf-s" x="12" y="370">méthode appelée sur la mauvaise variable (alias)</text>
+<text class="jf-s" x="12" y="385">modèle modifié sans prévenir la vue</text>
+<text class="jf-s" x="12" y="400">boucle qui commence à 1 au lieu de 0</text>
+</svg>
+      <figcaption><b>Avant d'analyser un code, dire à quelle étape il échoue.</b> Une erreur de compilation empêche tout affichage ; une exception plante en cours de route ; un résultat faux ne produit aucune erreur : on trace à la main.</figcaption>
+      </figure>
+      <!-- /jfig:meth-compil-exec -->
       <div class="kit">
         <div class="kcard"><h3>🧱 Ça ne compile pas</h3>
           <ul>
@@ -4000,6 +5393,52 @@ liste.<span class="fn">remove</span>(0);  liste.<span class="fn">contains</span>
       </div>
     </section>
 
+    <!-- jadd:meth-cours -->
+    <section id="meth-cours">
+      <div class="section-head">
+        <div class="eyebrow">Évaluation finale</div>
+        <h2>Définitions à ressortir et réflexes de lecture</h2>
+        <p>Les questions de cours se notent sur un mot-clé juste et l'effet qu'il a. Les QCM (25 questions, +0,8 / −0,4, <b>une case vide coûte autant qu'une erreur</b> dans le sujet 2025) se gagnent en vérifiant dans le même ordre.</p>
+      </div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>Notion</th><th>La phrase qui rapporte le point</th></tr></thead>
+          <tbody>
+            <tr><td><b>Encapsulation</b></td><td>Attributs <code>private</code>, accès contrôlé par des méthodes publiques (getters, setters) : l'objet protège son état.</td></tr>
+            <tr><td><b>Constructeur</b></td><td>Méthode sans type de retour, de même nom que la classe, appelée par <code>new</code> pour initialiser l'objet.</td></tr>
+            <tr><td><b>static</b></td><td>Appartient à la classe, pas à un objet : une seule copie partagée, pas de <code>this</code>, pas redéfinissable.</td></tr>
+            <tr><td><b>this / super</b></td><td><code>this</code> : l'objet courant (lever l'ambiguïté, <code>this(...)</code>). <code>super</code> : la partie parent (<code>super(...)</code> en 1re ligne, <code>super.m()</code>).</td></tr>
+            <tr><td><b>Surcharge / redéfinition</b></td><td>Surcharge : même nom, paramètres différents, choix à la compilation. Redéfinition : même signature dans la fille, choix à l'exécution.</td></tr>
+            <tr><td><b>Classe abstraite</b></td><td>Non instanciable ; peut avoir attributs, constructeurs et méthodes concrètes ; ses filles concrètes implémentent ses méthodes <code>abstract</code>.</td></tr>
+            <tr><td><b>Interface</b></td><td>Contrat de signatures (<code>public abstract</code> implicite) ; <code>implements</code>, plusieurs possibles ; ni état ni constructeur ; réduit le couplage.</td></tr>
+            <tr><td><b>Polymorphisme</b></td><td>Une variable de type parent ou interface désigne un objet de n'importe quelle fille ; c'est la méthode du <b>type réel</b> qui s'exécute.</td></tr>
+            <tr><td><b>Upcasting / downcasting</b></td><td>Vers le parent : implicite et sûr. Vers la fille : cast explicite, vérifié à l'exécution (<code>ClassCastException</code>), précédé d'<code>instanceof</code>.</td></tr>
+            <tr><td><b>Exception contrôlée</b></td><td>Sous-classe d'<code>Exception</code> hors <code>RuntimeException</code> : à attraper (<code>catch</code>) ou à déclarer (<code>throws</code>), sinon erreur de compilation.</td></tr>
+            <tr><td><b>throw / throws</b></td><td><code>throw</code> lance une exception dans le corps ; <code>throws</code> annonce, dans la signature, celles que la méthode laisse sortir.</td></tr>
+            <tr><td><b>Sérialisation</b></td><td>Convertir un objet (et ce qu'il référence) en octets ; classe <code>Serializable</code>, attributs <code>transient</code> exclus.</td></tr>
+            <tr><td><b>Layout manager</b></td><td>Objet qui calcule position et taille des composants d'un conteneur (<code>BorderLayout</code>, <code>FlowLayout</code>, <code>GridLayout</code>).</td></tr>
+            <tr><td><b>Écouteur</b></td><td>Objet abonné à une source d'événements : <code>implements ActionListener</code> + <code>actionPerformed</code> + <code>addActionListener</code>.</td></tr>
+            <tr><td><b>MVC</b></td><td>Modèle : données et règles. Vue : affichage. Contrôleur : écoute la vue et appelle le modèle. Le modèle ignore l'affichage.</td></tr>
+            <tr><td><b>Comparable / Comparator</b></td><td><code>compareTo</code> dans la classe (un ordre naturel) / <code>compare</code> dans une classe à part (autant d'ordres que voulu).</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 style="font-size:17px;margin:28px 0 12px">Les 10 réflexes devant un code d'examen</h3>
+      <ul class="checklist">
+        <li><b>Ça compile ?</b> Types incompatibles, méthode absente du type déclaré, exception contrôlée oubliée, <code>new</code> d'une classe abstraite, <code>final</code>, <code>private</code>. Si non : c'est la réponse.</li>
+        <li><b>Dessiner pile et tas</b> pour toute affectation d'objets : combien de <code>new</code> ? qui désigne quoi ?</li>
+        <li><b>Type déclaré ou type réel ?</b> Le compilateur lit le premier, la JVM exécute avec le second (méthodes d'instance seulement).</li>
+        <li><b>Constructeurs</b> : monter jusqu'à la racine, puis exécuter en redescendant ; <code>this(...)</code> et <code>super(...)</code> en 1re ligne.</li>
+        <li><b>static</b> : une seule copie, pas de <code>this</code>, pas de polymorphisme.</li>
+        <li><b>== ou equals ?</b> Références contre contenu ; et <code>equals(Object)</code> avec cette signature exacte.</li>
+        <li><b>Arithmétique</b> : <code>7 / 2</code> vaut 3, <code>'a' + 1</code> est un <code>int</code>, <code>"a" + 1 + 2</code> vaut <code>"a12"</code>.</li>
+        <li><b>Exceptions</b> : où est-elle lancée ? quel est le 1er <code>catch</code> compatible ? <code>finally</code> s'exécute toujours, même après <code>return</code>.</li>
+        <li><b>Collections</b> : indices depuis 0 ; <code>length</code> (tableau), <code>length()</code> (String), <code>size()</code> (collection) ; doublons et ordre selon <code>List</code>, <code>Set</code>, <code>Map</code>.</li>
+        <li><b>Swing</b> : layout par défaut (JFrame : Border, JPanel : Flow), 3 étapes de l'écouteur, <code>setVisible(true)</code> en dernier.</li>
+      </ul>
+    </section>
+
+    <!-- /jadd:meth-cours -->
     <section>
       <div class="section-head">
         <div class="eyebrow">Rédaction</div>
