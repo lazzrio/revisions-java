@@ -9,14 +9,6 @@
   --f-body:'IBM Plex Sans',system-ui,sans-serif;
   --f-mono:'IBM Plex Mono',ui-monospace,monospace;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#161211; --surface:#1e1815; --surface2:#181311; --ink:#efe6d8; --muted:#a1917d;
-  --accent:#e0864a; --accent-soft:#3d2416; --accent2:#5aa2b8; --teal-soft:#1a2e35;
-  --line:#302620; --line2:#241d18;
-  --good:#5cbf82; --good-soft:#152a1e; --bad:#e77d70; --bad-soft:#301813; --warn:#e0a566;
-  --ring:#e0864a;
-  --shadow:0 1px 2px rgba(0,0,0,.35),0 8px 24px rgba(0,0,0,.4);
-}}
 :root[data-theme="dark"]{
   --bg:#161211; --surface:#1e1815; --surface2:#181311; --ink:#efe6d8; --muted:#a1917d;
   --accent:#e0864a; --accent-soft:#3d2416; --accent2:#5aa2b8; --teal-soft:#1a2e35;

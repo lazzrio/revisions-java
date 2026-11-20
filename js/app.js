@@ -7,7 +7,7 @@
   try { var saved = localStorage.getItem("theme"); if (saved) root.setAttribute("data-theme", saved); } catch (e) {}
   window.toggleTheme = function () {
     var cur = root.getAttribute("data-theme");
-    var dark = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches;
+    var dark = false;
     var next = cur === "dark" ? "light" : cur === "light" ? "dark" : (dark ? "light" : "dark");
     root.setAttribute("data-theme", next);
     try { localStorage.setItem("theme", next); } catch (e) {}
